@@ -11,12 +11,12 @@
 angular
   .module('dashexampleApp', [
     'ngAnimate',
-    'ngStorage',
     'ngResource',
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngMaterial'
+    'ngMaterial',
+    'LocalStorageModule'
   ])
 
   .constant('urls', {
@@ -24,7 +24,9 @@ angular
        BASE_API: 'http://api.jwt.dev:8000/v1'
   })
 
-  .config(function ($routeProvider, $httpProvider) {
+  .config(function ($routeProvider, $httpProvider, localStorageServiceProvider) {
+
+    localStorageServiceProvider.setPrefix('actualDashboard');
 
     $routeProvider
       .when('/', {
@@ -46,12 +48,12 @@ angular
         redirectTo: '/'
       });
 
-    $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
+    $httpProvider.interceptors.push(['$q', '$location', 'localStorageService', function ($q, $location, localStorageService) {
       return {
         request: function (config) {
           config.headers = config.headers || {};
-          if ($localStorage.token) {
-            config.headers.Authorization = 'JWT ' + $localStorage.token;
+          if ( localStorageService.get('token') ) {
+            config.headers.Authorization = 'JWT ' + localStorageService.get('token');
           }
           return config;
         },

@@ -9,28 +9,30 @@
    * # MainCtrl
    * Controller of the dashexampleApp
    */
-  function MainCtrl($rootScope, $scope, $location, $localStorage, AuthService){
-
-    console.log($localStorage);
+  function MainCtrl($rootScope, $scope, $location, localStorageService, AuthService){
 
     function successAuth(res){
       console.log(res);
-      $localStorage.token = res.token;
-      $localStorage.user = res.user;
+      //$scope.$storage.token = res.token;
+      //$scope.$storage.user = res.user;
+      localStorageService.set('token', res.token);
+      localStorageService.set('user', res.user);
 
-      $scope.token = $localStorage.token;
-      $scope.user = $localStorage.user;
+      $scope.token = res.token;
+      $scope.user = res.user;
+
+      console.log($scope.user);
 
       $location.path('/home');
     }
 
     function successRegister(res){
       console.log(res);
-      $localStorage.token = res.data.token;
-      $localStorage.user = res.data.user;
+      localStorageService.set('token', res.data.token);
+      localStorageService.set('user', res.data.user);
 
-      $scope.token = $localStorage.token;
-      $scope.user = $localStorage.user;
+      $scope.token = res.data.token;
+      $scope.user = res.data.user;
       $location.path('/home');
 
     }
@@ -66,8 +68,8 @@
       });
     };
 
-    $scope.token = $localStorage.token;
-    $scope.user = $localStorage.user;
+    $scope.token = localStorageService.get('token');
+    $scope.user = localStorageService.get('user');
     console.log($scope.user);
     //$scope.tokenClaims = AuthService.getTokenClaims();
 
@@ -75,6 +77,6 @@
   }
 
   angular.module('dashexampleApp').controller('MainCtrl', MainCtrl);
-  MainCtrl.$inject = ['$rootScope', '$scope', '$location', '$localStorage', 'AuthService'];
+  MainCtrl.$inject = ['$rootScope', '$scope', '$location', 'localStorageService', 'AuthService'];
 
 })();
