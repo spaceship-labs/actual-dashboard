@@ -12,22 +12,16 @@
   function MainCtrl($rootScope, $scope, $location, localStorageService, AuthService){
 
     function successAuth(res){
-      console.log(res);
-      //$scope.$storage.token = res.token;
-      //$scope.$storage.user = res.user;
       localStorageService.set('token', res.token);
       localStorageService.set('user', res.user);
 
       $scope.token = res.token;
       $scope.user = res.user;
 
-      console.log($scope.user);
-
       $location.path('/home');
     }
 
     function successRegister(res){
-      console.log(res);
       localStorageService.set('token', res.data.token);
       localStorageService.set('user', res.data.user);
 
@@ -70,8 +64,6 @@
 
     $scope.token = localStorageService.get('token');
     $scope.user = localStorageService.get('user');
-    console.log($scope.user);
-    //$scope.tokenClaims = AuthService.getTokenClaims();
 
 
   }

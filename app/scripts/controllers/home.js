@@ -4,9 +4,9 @@
 
   /**
    * @ngdoc function
-   * @name dashexampleApp.controller:MainCtrl
+   * @name dashexampleApp.controller:HomeCtrl
    * @description
-   * # MainCtrl
+   * # HomeCtrl
    * Controller of the dashexampleApp
    */
   function HomeCtrl($scope, localStorageService){
@@ -17,6 +17,6 @@
   }
 
   angular.module('dashexampleApp').controller('HomeCtrl', HomeCtrl);
-  MainCtrl.$inject = ['$scope','localStorageService'];
+  HomeCtrl.$inject = ['$scope','localStorageService'];
 
 })();
