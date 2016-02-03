@@ -20,8 +20,8 @@ angular
   ])
 
   .constant('urls', {
-       BASE: 'http://localhost:1337',
-       BASE_API: 'http://api.jwt.dev:8000/v1'
+    //BASE: 'http://localhost:1337',
+    BASE: 'http://actual-api.herokuapp.com'
   })
 
   .config(function ($routeProvider, $httpProvider, localStorageServiceProvider) {
