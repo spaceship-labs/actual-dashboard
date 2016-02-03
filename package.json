@@ -1,5 +1,5 @@
 {
-  "name":"actualdashboard",
+  "name": "actualdashboard",
   "private": true,
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
