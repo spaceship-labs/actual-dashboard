@@ -7,7 +7,7 @@
         .controller('ToolbarController', ToolbarController);
 
     /** @ngInject */
-    function ToolbarController($rootScope, $mdSidenav, $translate, $mdToast)
+    function ToolbarController($rootScope, $scope, $mdSidenav, $translate, $mdToast)
     {
         var vm = this;
 
@@ -113,7 +113,7 @@
          */
         function logout()
         {
-            // Do logout here..
+          $scope.logout();
         }
 
         /**
