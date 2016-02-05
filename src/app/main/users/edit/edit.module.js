@@ -19,7 +19,7 @@
             },
             resolve  : {
               User: function (apiResolver, $stateParams){
-                return apiResolver.resolve('user.getById@getById',{'id': $stateParams.id});
+                return apiResolver.resolve('user.getById@get',{'id': $stateParams.id});
               }
             },
             bodyClass: 'edit'

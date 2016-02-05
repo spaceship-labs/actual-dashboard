@@ -16,7 +16,13 @@
         msNavigationServiceProvider.saveItem('users', {
             title : 'Users',
             group : false,
-            weight: 2
+            weight: 2,
+            state: 'app.users'
+        });
+
+        msNavigationServiceProvider.saveItem('users.list', {
+            title: 'Lista de usuarios',
+            state: 'app.users_list'
         });
     }
 })();

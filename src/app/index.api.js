@@ -174,8 +174,8 @@
 
         // Base Url
         //api.baseUrl = 'app/data/';
-        api.baseUrl = 'http://actual-api.herokuapp.com';
-        //api.baseUrl = 'http://localhost:1337';
+        //api.baseUrl = 'http://actual-api.herokuapp.com';
+        api.baseUrl = 'http://localhost:1337';
 
         api.sample = $resource(api.baseUrl + 'sample/sample.json');
 
@@ -188,8 +188,12 @@
 
         api.user = {
           find: $resource(api.baseUrl + '/user/find' ,{},{'get':{method: 'get', isArray:true}}),
-          getById: $resource(api.baseUrl + '/user/find/:id' ,{id: '@id'},{'getById':{method: 'get'}}),
-          update: $resource(api.baseUrl + '/user/update' ,{},{'get':{method: 'get', isArray:true}})
+          getById: $resource(api.baseUrl + '/user/find/:id' ,{id: '@id'},{'get':{method: 'get'}}),
+          update: $resource(
+            api.baseUrl + '/user/update/:id',{id: '@id',params: '@params'},
+            {
+              'update':{method: 'post',format:'json',data:':params'}
+            })
         };
 
         return api;
