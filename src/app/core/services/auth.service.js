@@ -6,7 +6,7 @@
         .factory('authService', authService);
 
     /** @ngInject */
-    function authService($http,localStorageService, urls){
+    function authService($http,localStorageService, api){
 
       var service = {
         signUp: signUp,
@@ -18,11 +18,11 @@
 
 
       function signUp(data, success, error) {
-         $http.post(urls.BASE + '/auth/signup', data).success(success).error(error);
+         $http.post(api.baseUrl + '/auth/signup', data).success(success).error(error);
       }
 
       function signIn(data, success, error) {
-         $http.post(urls.BASE + '/auth/signin', data).success(success).error(error);
+         $http.post(api.baseUrl + '/auth/signin', data).success(success).error(error);
       }
 
       function logout(success) {
