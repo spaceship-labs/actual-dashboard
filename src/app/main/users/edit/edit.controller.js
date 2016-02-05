@@ -32,7 +32,7 @@
          * Send form
          */
         function sendForm(ev){
-            api.user.update.update({'id':vm.user.id},vm.user,
+            api.user.updateById.update({'id':vm.user.id},vm.user,
               function(res){
                 console.log(res);
               },

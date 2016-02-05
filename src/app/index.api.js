@@ -189,7 +189,7 @@
         api.user = {
           find: $resource(api.baseUrl + '/user/find' ,{},{'get':{method: 'get', isArray:true}}),
           getById: $resource(api.baseUrl + '/user/find/:id' ,{id: '@id'},{'get':{method: 'get'}}),
-          update: $resource(
+          updateById: $resource(
             api.baseUrl + '/user/update/:id',{id: '@id',params: '@params'},
             {
               'update':{method: 'post',format:'json',data:':params'}

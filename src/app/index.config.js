@@ -7,7 +7,11 @@
         .config(config);
 
     /** @ngInject */
-    function config($httpProvider, localStorageServiceProvider){
+    function config($httpProvider, localStorageServiceProvider, $urlRouterProvider){
+
+      $urlRouterProvider.when('/', ['$state','$match', '$location', function ($state, $match, $location) {
+        $location.path('/users');
+      }]);
 
       localStorageServiceProvider.setPrefix('actualDashboard');
 

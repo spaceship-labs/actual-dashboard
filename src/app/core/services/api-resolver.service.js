@@ -52,7 +52,6 @@
                     // Success
                     function (response)
                     {
-                        console.log(response);
                         deferred.resolve(response);
                     },
 

@@ -12,10 +12,7 @@
         var vm = this;
 
         // Data
-        console.log(Users);
-        console.log(Users.query);
         vm.employees = Users;
-        console.log(vm.employees);
 
         vm.dtOptions = {
             dom       : '<"top"f>rt<"bottom"<"left"<"length"l>><"right"<"info"i><"pagination"p>>>',
