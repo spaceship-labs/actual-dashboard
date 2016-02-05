@@ -3,8 +3,8 @@
     'use strict';
 
     angular
-        .module('app.products', [
-            'app.products.list',
+        .module('app.users', [
+            'app.users.list',
         ])
         .config(config);
 
@@ -12,8 +12,8 @@
     function config(msNavigationServiceProvider)
     {
         // Navigation
-        msNavigationServiceProvider.saveItem('products', {
-            title : 'Products',
+        msNavigationServiceProvider.saveItem('users', {
+            title : 'Users',
             group : false,
             weight: 2
         });

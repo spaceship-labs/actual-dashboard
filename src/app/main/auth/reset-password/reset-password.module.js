@@ -10,14 +10,14 @@
     function config($stateProvider, $translatePartialLoaderProvider, msNavigationServiceProvider)
     {
         // State
-        $stateProvider.state('app.pages_auth_reset-password', {
-            url      : '/auth/reset-password',
+        $stateProvider.state('app.auth_reset-password', {
+            url      : '/auth/reset-password?token&email',
             views    : {
                 'main@'                                : {
                     templateUrl: 'app/core/layouts/content-only.html',
                     controller : 'MainController as vm'
                 },
-                'content@app.pages_auth_reset-password': {
+                'content@app.auth_reset-password': {
                     templateUrl: 'app/main/auth/reset-password/reset-password.html',
                     controller : 'ResetPasswordController as vm'
                 }
@@ -32,7 +32,7 @@
         // Navigation
         msNavigationServiceProvider.saveItem('auth.reset-password', {
             title : 'Reset Password',
-            state : 'app.pages_auth_reset-password',
+            state : 'app.auth_reset-password',
             weight: 6
         });
     }

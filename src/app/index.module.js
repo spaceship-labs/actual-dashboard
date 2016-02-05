@@ -29,8 +29,11 @@
             // Auth
             'app.auth',
 
-            // Auth
+            // Products
             'app.products',
+
+            // Users
+            'app.users',
 
 
             //CUSTOM EXTERNAL MODULES

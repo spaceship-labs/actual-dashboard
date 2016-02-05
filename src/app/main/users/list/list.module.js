@@ -3,17 +3,17 @@
     'use strict';
 
     angular
-        .module('app.products.list', [])
+        .module('app.users.list', [])
         .config(config);
 
     /** @ngInject */
     function config($stateProvider)
     {
-        $stateProvider.state('app.products_list', {
-            url  : '/products',
+        $stateProvider.state('app.users_list', {
+            url  : '/users',
             views: {
                 'content@app': {
-                    templateUrl: 'app/main/products/list/list.html',
+                    templateUrl: 'app/main/users/list/list.html',
                     controller : 'ProductsListController as vm'
                 }
             },

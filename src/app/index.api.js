@@ -173,7 +173,8 @@
         var api = {};
 
         // Base Url
-        api.baseUrl = 'app/data/';
+        //api.baseUrl = 'app/data/';
+        api.baseUrl = 'http://actual-api.herokuapp.com';
 
         api.sample = $resource(api.baseUrl + 'sample/sample.json');
 
@@ -182,6 +183,10 @@
             contacts  : $resource(api.baseUrl + 'quick-panel/contacts.json'),
             events    : $resource(api.baseUrl + 'quick-panel/events.json'),
             notes     : $resource(api.baseUrl + 'quick-panel/notes.json')
+        };
+
+        api.user = {
+          find: $resource(api.baseUrl + '/user/find' ,{},{'get':{method: 'get', isArray:true}})
         };
 
         return api;

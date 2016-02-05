@@ -29,7 +29,7 @@
         localStorageService.remove('token');
         localStorageService.remove('user');
 
-         success();
+        success();
       }
 
     }

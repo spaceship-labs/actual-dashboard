@@ -3,11 +3,11 @@
     'use strict';
 
     angular
-        .module('app.products.list')
-        .controller('ProductsListController', ProductsListController);
+        .module('app.users.list')
+        .controller('UsersListController', UsersListController);
 
     /** @ngInject */
-    function ProductsListController(Users)
+    function UsersListController(Users)
     {
         var vm = this;
 
