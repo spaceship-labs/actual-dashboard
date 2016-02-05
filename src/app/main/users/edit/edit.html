@@ -1,0 +1,32 @@
+<div id="forms" class="page-layout simple fullwidth doc-page" layout="column">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="space-between">
+            <div class="breadcrumb" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
+                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
+                <span class="parent">USER INTERFACE</span>
+            </div>
+
+            <div class="title">User edit: {{vm.user.email}}</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content" layout="column">
+
+        <div class="md-title mt-32">Basic form with validation</div>
+        <div class="pb-16">With this form example, Submit button will only be activated if all the required fields are
+            filled and if there is no error on the form.
+        </div>
+        <div layout="row">
+          <div form-helper flex="80"></div>
+        </div>
+
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

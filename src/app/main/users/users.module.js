@@ -5,6 +5,7 @@
     angular
         .module('app.users', [
             'app.users.list',
+            'app.users.edit'
         ])
         .config(config);
 

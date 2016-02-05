@@ -1,0 +1,73 @@
+<div class="form-wrapper md-whiteframe-1dp">
+
+  <form name="basicForm" ng-submit="updateUser()" class="md-inline-form" novalidate>
+
+      <div class="form-title">Optional form title</div>
+
+      <div layout="column" layout-gt-sm="row">
+          <md-input-container flex>
+              <input type="text" name="firstname" ng-model="vm.basicForm.firstname"
+                     placeholder="Firstname"
+                     required>
+              <div ng-messages="basicForm.firstname.$error" ng-show="basicForm.firstname.$touched"
+                   role="alert">
+                  <div ng-message="required">
+                      <span>Firstname field is required.</span>
+                  </div>
+              </div>
+          </md-input-container>
+
+          <md-input-container flex>
+              <input type="text" name="lastname" ng-model="vm.basicForm.lastname" placeholder="Lastname"
+                     required>
+              <div ng-messages="basicForm.lastname.$error" ng-show="basicForm.lastname.$touched"
+                   role="alert">
+                  <div ng-message="required">
+                      <span>Lastname field is required.</span>
+                  </div>
+              </div>
+          </md-input-container>
+      </div>
+
+      <div layout="column" layout-gt-xs="row">
+          <md-input-container flex>
+              <label>City</label>
+              <input type="text" name="city" ng-model="vm.basicForm.city">
+          </md-input-container>
+
+          <md-input-container flex>
+              <label>State</label>
+              <md-select ng-model="vm.basicForm.state">
+                  <md-option ng-repeat="state in vm.states" value="{{state.abbrev}}">
+                      {{state.abbrev}}
+                  </md-option>
+              </md-select>
+          </md-input-container>
+
+          <md-input-container flex>
+              <label>Postal Code</label>
+              <input name="postalcode" ng-model="vm.basicForm.postalCode" placeholder="12345"
+                     required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+              <div ng-messages="basicForm.postalcode.$error" ng-show="basicForm.postalcode.$touched"
+                   role="alert" multiple>
+                  <div ng-message="required"><span>You must supply a postal code.</span></div>
+                  <div ng-message="pattern"><span>That doesn't look like a valid postal code.</span></div>
+                  <div ng-message="md-maxlength">
+                      <span>Postal code can't be longer than 5 characters.</span>
+                  </div>
+              </div>
+          </md-input-container>
+      </div>
+
+      <md-input-container class="md-block">
+          <label>Biography</label>
+          <textarea ng-model="vm.basicForm.biography" columns="1" md-maxlength="150" rows="5"></textarea>
+      </md-input-container>
+
+      <md-button type="submit" class="md-raised md-accent" aria-label="Submit"
+                 ng-disabled="basicForm.$invalid || basicForm.$pristine">
+          Submit
+      </md-button>
+  </form>
+
+</div>

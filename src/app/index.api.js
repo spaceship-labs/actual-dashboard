@@ -187,7 +187,9 @@
         };
 
         api.user = {
-          find: $resource(api.baseUrl + '/user/find' ,{},{'get':{method: 'get', isArray:true}})
+          find: $resource(api.baseUrl + '/user/find' ,{},{'get':{method: 'get', isArray:true}}),
+          getById: $resource(api.baseUrl + '/user/find/:id' ,{id: '@id'},{'getById':{method: 'get'}}),
+          update: $resource(api.baseUrl + '/user/update' ,{},{'get':{method: 'get', isArray:true}})
         };
 
         return api;

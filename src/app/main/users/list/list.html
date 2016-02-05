@@ -65,9 +65,9 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="employee in ::vm.employees">
+                        <td><a href="/users/edit/{{employee.id}}">{{ employee.email }}</a></td>
                         <td>{{ employee.firstName }}</td>
                         <td>{{ employee.lastName }}</td>
-                        <td>{{ employee.email }}</td>
                         <td>{{ employee.age }}</td>
                         <td>{{ employee.startDate }}</td>
                         <td>{{ employee.salary }}</td>

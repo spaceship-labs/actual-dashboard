@@ -20,6 +20,9 @@
             // Quick panel
             'app.quick-panel',
 
+            //DIRECTIVES
+            'app.directives',
+
             // Sample
             'app.sample',
 
