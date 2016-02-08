@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.core')
+        .module('app.services')
         .factory('authService', authService);
 
     /** @ngInject */
@@ -18,11 +18,13 @@
 
 
       function signUp(data, success, error) {
-         $http.post(api.baseUrl + '/auth/signup', data).success(success).error(error);
+         $http.post(api.baseUrl + '/user/create', data).success(success).error(error);
       }
 
       function signIn(data, success, error) {
-         $http.post(api.baseUrl + '/auth/signin', data).success(success).error(error);
+        localStorageService.remove('token');
+        localStorageService.remove('user');
+        $http.post(api.baseUrl + '/auth/signin', data).success(success).error(error);
       }
 
       function logout(success) {

@@ -23,7 +23,7 @@
                 }
             },
             bodyClass: 'register',
-            isPublic: true
+            isPublic: false
         });
 
         // Translation

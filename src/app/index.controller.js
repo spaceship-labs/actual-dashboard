@@ -11,6 +11,7 @@
         var vm = this;
 
         $scope.successAuth = function(res){
+          console.log(res);
           localStorageService.set('token', res.token);
           localStorageService.set('user', res.user);
 
@@ -21,6 +22,8 @@
         }
 
         $scope.successRegister = function(res){
+          console.log(res);
+
           localStorageService.set('token', res.data.token);
           localStorageService.set('user', res.data.user);
 

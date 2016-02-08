@@ -193,7 +193,14 @@
             api.baseUrl + '/user/update/:id',{id: '@id',params: '@params'},
             {
               'update':{method: 'post',format:'json',data:':params'}
-            })
+            }
+          ),
+          create: $resource(
+            api.baseUrl + '/user/create',{params: '@params'},
+            {
+              'create':{method: 'post',format:'json',data:':params'}
+            }
+          )
         };
 
         return api;

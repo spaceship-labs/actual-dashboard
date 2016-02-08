@@ -23,6 +23,9 @@
             //DIRECTIVES
             'app.directives',
 
+            //Services
+            'app.services',
+
             // Sample
             'app.sample',
 

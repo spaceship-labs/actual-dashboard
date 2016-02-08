@@ -1,0 +1,85 @@
+<div id="forms" class="page-layout simple fullwidth doc-page" layout="column">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="space-between">
+            <div class="breadcrumb" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
+                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
+                <span class="parent">USER INTERFACE</span>
+            </div>
+
+            <div class="title">Registrar usuario</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content" layout="column">
+
+        <div layout="row">
+
+          <div class="form-wrapper md-whiteframe-1dp">
+
+            <form name="basicForm" flex="80" ng-submit="vm.sendForm($event)" class="md-inline-form" novalidate>
+
+                <div class="form-title">Datos personales</div>
+
+                <div layout="column" layout-gt-sm="row">
+                    <md-input-container flex>
+                        <input type="text" name="firstname" ng-model="vm.user.firstName"
+                               placeholder="Firstname"
+                               required>
+                        <div ng-messages="basicForm.firstname.$error" ng-show="basicForm.firstname.$touched"
+                             role="alert">
+                            <div ng-message="required">
+                                <span>Firstname field is required.</span>
+                            </div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <input type="text" name="lastname" ng-model="vm.user.lastName" placeholder="Lastname"
+                               required>
+                        <div ng-messages="basicForm.lastname.$error" ng-show="basicForm.lastname.$touched"
+                             role="alert">
+                            <div ng-message="required">
+                                <span>Lastname field is required.</span>
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+
+                <div layout="column" layout-gt-xs="row">
+                    <md-input-container flex>
+                      <input type="email" name="email" ng-model="vm.user.email" placeholder="Email"
+                             translate translate-attr-placeholder="LOGIN.EMAIL"
+                             ng-pattern="/^.+@.+\..+$/" required>
+                      <div ng-messages="basicForm.email.$error" ng-show="basicForm.email.$touched" role="alert" multiple>
+                          <div ng-message="required">
+                              <span translate="LOGIN.ERRORS.EMAIL_REQUIRED">Email field is required</span>
+                          </div>
+                          <div ng-message="pattern">
+                              <span translate="LOGIN.ERRORS.EMAIL_MUST_VALID">Email must be a valid e-mail address</span>
+                          </div>
+                      </div>
+                    </md-input-container>
+
+                </div>
+
+                <md-button type="submit" class="md-raised md-accent" aria-label="Submit"
+                           ng-disabled="basicForm.$invalid || basicForm.$pristine || vm.isLoading">
+                    Submit
+                </md-button>
+            </form>
+
+          </div>
+
+          <!--<div form-helper flex="80"></div>-->
+        </div>
+
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
