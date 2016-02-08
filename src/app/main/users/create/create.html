@@ -67,6 +67,38 @@
 
                 </div>
 
+                <div layout="column" layout-gt-xs="row">
+
+                    <md-input-container flex>
+                        <input type="password" name="password" ng-model="vm.user.password" placeholder="Password"
+                               required>
+                        <div ng-messages="basicForm.password.$error" ng-show="basicForm.password.$touched"
+                             role="alert">
+                            <div ng-message="required">
+                                <span>Passwrod field is required.</span>
+                            </div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <input type="password" name="confirmPassword" ng-model="vm.user.confirmPassword" placeholder="Confirm password"
+                               required>
+                        <div ng-messages="basicForm.confirmPassword.$error" ng-show="basicForm.confirmPassword.$touched"
+                             role="alert">
+                            <div ng-message="required">
+                                <span>Passwrod field is required.</span>
+                            </div>
+                        </div>
+                        <div ng-show="vm.user.confirmPassword != vm.user.password && basicForm.confirmPassword.$touched"
+                             role="alert">
+                            <div>
+                                <span>El campo de contraseña y confirmar contraseña deben coincidir</span>
+                            </div>
+                        </div>
+                    </md-input-container>
+
+                </div>
+
                 <md-button type="submit" class="md-raised md-accent" aria-label="Submit"
                            ng-disabled="basicForm.$invalid || basicForm.$pristine || vm.isLoading">
                     Submit

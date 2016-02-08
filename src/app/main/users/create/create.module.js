@@ -17,6 +17,7 @@
                     controller : 'UsersCreateController as vm'
                 }
             },
+            accessList: ['admin'],
             bodyClass: 'create'
         });
     }

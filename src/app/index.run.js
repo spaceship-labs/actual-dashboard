@@ -14,8 +14,27 @@
         {
             //TODO verificar una forma mas segura de hacer esto
             var _token = localStorageService.get('token') || false;
+            var _user = localStorageService.get('user') || false;
+            console.log(_user);
             if(!_token && !toState.isPublic){
               $location.path('/auth/login')
+            }
+            else if(_token && toState.accessList){
+              if(toState.accessList.length > 0){
+                for(var i= 0; i<toState.accessList.length;i++){
+                  if(_user.userType == toState.accessList[i] || _user.isAdmin){
+                    return true;
+                  }
+                }
+                //'Handling redirect loop'
+                if(fromState.name != 'app.users_list'){
+                  event.preventDefault();
+                  $state.go('app.users_list');
+                }else{
+                  event.preventDefault();
+                  return;
+                }
+              }
             }
 
             $rootScope.loadingProgress = true;

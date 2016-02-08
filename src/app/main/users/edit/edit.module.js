@@ -22,7 +22,8 @@
                 return apiResolver.resolve('user.getById@get',{'id': $stateParams.id});
               }
             },
-            bodyClass: 'edit'
+            bodyClass: 'edit',
+            accessList:['admin']
         });
     }
 
