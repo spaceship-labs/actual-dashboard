@@ -14,7 +14,7 @@
             views: {
                 'content@app': {
                     templateUrl: 'app/main/users/list/list.html',
-                    controller : 'ProductsListController as vm'
+                    controller : 'UsersListController as vm'
                 }
             },
             resolve: {

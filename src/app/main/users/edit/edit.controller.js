@@ -12,7 +12,7 @@
         var vm = this;
 
         // Data
-        vm.user = User;
+        vm.user = User.data;
         vm.basicForm = {};
         vm.formWizard = {};
 
