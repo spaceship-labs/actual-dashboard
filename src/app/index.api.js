@@ -188,24 +188,24 @@
 
 
         api.user = {
-          find: $resource(api.baseUrl + '/user/find' ,{},{'get':{method: 'get'}}),
+          find: $resource(api.baseUrl+'/user/find/:page',{page:'@page',params: '@params'},
+              {'get':{method:'post',format:'json',data:'params'}}
+          ),
           getById: $resource(api.baseUrl + '/user/findbyid/:id' ,{id: '@id'},{'get':{method: 'get'}}),
           updateById: $resource(
             api.baseUrl + '/user/update/:id',{id: '@id',params: '@params'},
-            {
-              'update':{method: 'post',format:'json',data:':params'}
-            }
+            {'update':{method: 'post',format:'json',data:':params'}}
           ),
           create: $resource(
             api.baseUrl + '/user/create',{params: '@params'},
-            {
-              'create':{method: 'post',format:'json',data:':params'}
-            }
+            {'create':{method: 'post',format:'json',data:':params'}}
           )
         };
 
         api.product = {
-            find: $resource(api.baseUrl+'/product/find/:page',{page:'@page'},{'get':{method:'get'}})
+            find: $resource(api.baseUrl+'/product/find/:page',{page:'@page',params: '@params'},
+                {'get':{method:'post',format:'json',data:'params'}}
+            )
         };
 
         return api;

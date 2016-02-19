@@ -26,53 +26,7 @@
     <div class="content">
 
         <div class="white-bg md-whiteframe-4dp">
-            <table class="dataTable" datatable="" dt-options="vm.dtOptions" dt-columns="vm.dtColumns"></table>
-            <!--<table class="dataTable row-border hover" datatable="ng" dt-options="vm.dtOptions">
-                <thead>
-                    <tr>
-                        <th class="secondary-text">
-                            <div class="table-header">
-                                <span class="column-title">Name</span>
-                            </div>
-                        </th>
-                        <th class="secondary-text">
-                            <div class="table-header">
-                                <span class="column-title">Code</span>
-                            </div>
-                        </th>
-                        <th class="secondary-text">
-                            <div class="table-header">
-                                <span class="column-title">U_COLOR</span>
-                            </div>
-                        </th>
-                        <th class="secondary-text">
-                            <div class="table-header">
-                                <span class="column-title">U_LINEA</span>
-                            </div>
-                        </th>
-                        <th class="secondary-text">
-                            <div class="table-header">
-                                <span class="column-title">U_garantia</span>
-                            </div>
-                        </th>
-                        <th class="secondary-text">
-                            <div class="table-header">
-                                <span class="column-title">OnHand</span>
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="product in ::vm.products">
-                        <td>{{ product.ItemName }}</td>
-                        <td>{{ product.ItemCode }}</td>
-                        <td>{{ product.U_COLOR }}</td>
-                        <td>{{ product.U_LINEA }}</td>
-                        <td>{{ product.U_garantia }}</td>
-                        <td>{{ product.OnHand }}</td>
-                    </tr>
-                </tbody>
-            </table>-->
+            <div table-list columns="vm.columns" api-resource="vm.apiResource"></div>
         </div>
 
     </div>

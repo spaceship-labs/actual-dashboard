@@ -7,19 +7,20 @@
         .controller('UsersListController', UsersListController);
 
     /** @ngInject */
-    function UsersListController(Users)
+    function UsersListController(Users, api)
     {
         var vm = this;
 
         // Data
-        vm.employees = Users.data;
+        vm.columns = [
+            {key:'email', label:'Email', link:'/user/edit/'},
+            {key:'firstName', label:'First Name'},
+            {key:'lastName', label:'Last name'},
+        ];
 
-        vm.dtOptions = {
-            dom       : '<"top"f>rt<"bottom"<"left"<"length"l>><"right"<"info"i><"pagination"p>>>',
-            pagingType: 'simple',
-            autoWidth : false,
-            responsive: true
-        };
+        vm.actionUrl = {value:'/users/edit/',col:0}
+
+        vm.apiResource = api.user.find.get;
         // Methods
 
         //////////

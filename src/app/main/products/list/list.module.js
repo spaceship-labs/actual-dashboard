@@ -18,11 +18,11 @@
                 }
             },
             resolve: {
-                Products: function (apiResolver)
+                /*Products: function (apiResolver)
                 {
                     //return [];
                     return apiResolver.resolve('product.find@get');
-                }
+                }*/
             },
         });
     }
