@@ -7,8 +7,6 @@
         .directive('tableList', tableList);
 
     var controller = function($scope, DTOptionsBuilder, DTColumnBuilder){
-      console.log(DTOptionsBuilder);
-
       $scope.dtInstance = {};
       $scope.dtOptions = DTOptionsBuilder
         .newOptions()
@@ -79,11 +77,6 @@
 
 
       function renderCell(data, type, full, pos){
-        console.log(pos);
-        console.log(data);
-        console.log(type);
-        console.log(full);
-        console.log(column);
         var html = data;
         if($scope.actionUrl && pos.col === $scope.actionUrl.col){
           html = '<a href="'+($scope.actionUrl.value + full.id)+'">' + data + '</a>';

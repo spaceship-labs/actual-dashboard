@@ -43,6 +43,7 @@
 
 
             //CUSTOM EXTERNAL MODULES
-            'LocalStorageModule'
+            'LocalStorageModule',
+            'angular-jwt'
         ]);
 })();

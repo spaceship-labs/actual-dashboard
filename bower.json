@@ -35,7 +35,8 @@
     "Sortable": "1.4.2",
     "jqueryui-touch-punch": "*",
     "angular-moment-picker": "moment-picker#5e5b007",
-    "angular-local-storage": "~0.2.3"
+    "angular-local-storage": "~0.2.3",
+    "angular-jwt": "~0.0.9"
   },
   "devDependencies": {
     "angular-mocks": "1.4.8"

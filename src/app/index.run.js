@@ -7,7 +7,7 @@
         .run(runBlock);
 
     /** @ngInject */
-    function runBlock($rootScope, $location, localStorageService, $timeout, $state)
+    function runBlock($rootScope, $location, localStorageService, $timeout, $state, jwtHelper)
     {
         // Activate loading indicator
         var stateChangeStartEvent = $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams)
@@ -15,7 +15,15 @@
             //TODO verificar una forma mas segura de hacer esto
             var _token = localStorageService.get('token') || false;
             var _user = localStorageService.get('user') || false;
-            console.log(_user);
+
+            //Check if token is expired
+            if(_token){
+                var expiration = jwtHelper.getTokenExpirationDate(_token);
+                if(expiration <= new Date()){
+                  $location.path('/auth/login')
+                }
+            }
+
             if(!_token && !toState.isPublic){
               $location.path('/auth/login')
             }
