@@ -208,6 +208,12 @@
             )
         };
 
+        api.lead = {
+            find: $resource(api.baseUrl+'/saleopportunity/find/:page',{page:'@page',params: '@params'},
+                {'get':{method:'post',format:'json',data:'params'}}
+            )
+        };
+
         return api;
     }
 

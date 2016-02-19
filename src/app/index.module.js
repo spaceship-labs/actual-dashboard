@@ -41,6 +41,8 @@
             // Users
             'app.users',
 
+            // leads
+            'app.leads',
 
             //CUSTOM EXTERNAL MODULES
             'LocalStorageModule',

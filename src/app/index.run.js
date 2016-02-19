@@ -19,6 +19,7 @@
             //Check if token is expired
             if(_token){
                 var expiration = jwtHelper.getTokenExpirationDate(_token);
+                console.log(expiration);
                 if(expiration <= new Date()){
                   $location.path('/auth/login')
                 }
