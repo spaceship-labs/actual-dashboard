@@ -22,6 +22,8 @@
 
         ];
 
+        vm.actionUrl = {value:'/products/view/',col:1}
+
         vm.apiResource = api.product.find.get;
 
         // Methods

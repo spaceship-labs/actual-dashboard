@@ -205,7 +205,8 @@
         api.product = {
             find: $resource(api.baseUrl+'/product/find/:page',{page:'@page',params: '@params'},
                 {'get':{method:'post',format:'json',data:'params'}}
-            )
+            ),
+            getById: $resource(api.baseUrl + '/product/findbyid/:id' ,{id: '@id'},{'get':{method: 'get'}})
         };
 
         api.lead = {

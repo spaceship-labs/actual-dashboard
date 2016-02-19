@@ -5,6 +5,7 @@
     angular
         .module('app.products', [
             'app.products.list',
+            'app.products.view',
         ])
         .config(config);
 

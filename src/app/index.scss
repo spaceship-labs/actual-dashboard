@@ -24,3 +24,9 @@
   margin-left: 4px;
 }
 div.dataTables_filter label{float: left;}
+.page-layout.simple.fullwidth > .header {
+    height: 100px;
+    min-height: 100px;
+    max-height: 100px;
+    padding: 24px;
+}
