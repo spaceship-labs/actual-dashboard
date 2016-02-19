@@ -174,8 +174,8 @@
 
         // Base Url
         //api.baseUrl = 'app/data/';
-        api.baseUrl = 'http://actual-api.herokuapp.com';
-        //api.baseUrl = 'http://localhost:1337';
+        //api.baseUrl = 'http://actual-api.herokuapp.com';
+        api.baseUrl = 'http://localhost:1337';
 
         api.sample = $resource(api.baseUrl + 'sample/sample.json');
 
@@ -185,6 +185,7 @@
             events    : $resource(api.baseUrl + 'quick-panel/events.json'),
             notes     : $resource(api.baseUrl + 'quick-panel/notes.json')
         };
+
 
         api.user = {
           find: $resource(api.baseUrl + '/user/find' ,{},{'get':{method: 'get'}}),
@@ -201,6 +202,10 @@
               'create':{method: 'post',format:'json',data:':params'}
             }
           )
+        };
+
+        api.product = {
+            find: $resource(api.baseUrl+'/product/find/:page',{page:'@page'},{'get':{method:'get'}})
         };
 
         return api;

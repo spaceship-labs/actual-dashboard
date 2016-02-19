@@ -18,10 +18,10 @@
                 }
             },
             resolve: {
-                Users: function (apiResolver)
+                Products: function (apiResolver)
                 {
                     //return [];
-                    return apiResolver.resolve('user.find@get');
+                    return apiResolver.resolve('product.find@get');
                 }
             },
         });

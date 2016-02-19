@@ -17,5 +17,10 @@
             group : false,
             weight: 2
         });
+
+        msNavigationServiceProvider.saveItem('products.list', {
+            title: 'Lista de productos',
+            state: 'app.products_list'
+        });
     }
 })();

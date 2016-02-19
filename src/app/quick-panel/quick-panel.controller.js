@@ -19,6 +19,7 @@
             retro : true
         };
 
+        /*
         api.quickPanel.activities.get({}, function (response)
         {
             vm.activities = response.data;
@@ -33,6 +34,7 @@
         {
             vm.notes = response.data;
         });
+        */
 
         // Methods
 

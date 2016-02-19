@@ -1,0 +1,57 @@
+(function ()
+{
+    'use strict';
+
+    angular
+        .module('app.products.list')
+        .controller('ProductsListController', ProductsListController);
+
+    /** @ngInject */
+    function ProductsListController(Products, DTOptionsBuilder, DTColumnBuilder, api){
+        var vm = this;
+
+        // Data
+        vm.products = Products.data;
+
+        vm.dtOptions = DTOptionsBuilder.newOptions()
+            .withOption('ajax', {
+                 url: api.baseUrl + '/product/find',
+                 type: 'POST',
+                 data: function(d, settings){
+                     var _api = new $.fn.dataTable.Api(settings);
+                     // Update URL
+                     _api.ajax.url(
+                        api.baseUrl + '/product/find/' + (d.start+1) + '&pageSize=' + d.length
+                     );
+
+                     console.log(api.baseUrl + '/product/find/' + (d.start+1) + '&pageSize=' + d.length);
+
+                     // Store "draw" parameter
+                     vm.dtDraw = d.draw;
+
+                     return JSON.stringify(d);
+                 }
+             })
+             .withDataProp('data') // This is the name of the value in the returned recordset which contains the actual data... make sure you set it server side
+             .withOption('serverSide', true)
+
+        .withPaginationType('simple')
+        .withOption('responsive', true)
+        .withOption('autoWidth',false)
+        .withOption('dom','<"top"f>rt<"bottom"<"left"<"length"l>><"right"<"info"i><"pagination"p>>>')
+
+        vm.dtColumns = [
+            DTColumnBuilder.newColumn('id').withTitle('ID'),
+            DTColumnBuilder.newColumn('ItemCode').withTitle('Code'),
+            DTColumnBuilder.newColumn('U_COLOR').withTitle('U_COLOR'),
+            DTColumnBuilder.newColumn('U_LINEA').withTitle('U_LINEA'),
+            DTColumnBuilder.newColumn('U_garantia').withTitle('U_garantia'),
+            DTColumnBuilder.newColumn('OnHand').withTitle('OnHand')
+
+        ];
+        // Methods
+
+        //////////
+    }
+
+})();
