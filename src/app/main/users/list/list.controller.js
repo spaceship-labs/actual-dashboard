@@ -13,12 +13,10 @@
 
         // Data
         vm.columns = [
-            {key:'email', label:'Email', link:'/user/edit/'},
+            {key:'email', label:'Email', actionUrl:'/user/edit/'},
             {key:'firstName', label:'First Name'},
             {key:'lastName', label:'Last name'},
         ];
-
-        vm.actionUrl = {value:'/users/edit/',col:0}
 
         vm.apiResource = api.user.find.get;
         // Methods

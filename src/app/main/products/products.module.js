@@ -6,6 +6,7 @@
         .module('app.products', [
             'app.products.list',
             'app.products.view',
+            'app.products.search'
         ])
         .config(config);
 
@@ -17,6 +18,12 @@
             title : 'Products',
             group : false,
             weight: 2
+        });
+
+
+        msNavigationServiceProvider.saveItem('products.search', {
+            title: 'Busqueda de productos',
+            state: 'app.products_search'
         });
 
         msNavigationServiceProvider.saveItem('products.list', {

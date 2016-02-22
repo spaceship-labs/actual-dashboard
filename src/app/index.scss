@@ -30,3 +30,26 @@ div.dataTables_filter label{float: left;}
     max-height: 100px;
     padding: 24px;
 }
+.price-tables .price-table{
+  width:250px;
+  margin:24px 18px 0 0;
+}
+
+.products-filter md-input-container .md-errors-spacer{display: none;}
+.products-filter md-input-container + md-input-container{margin-left: 4px;}
+.product-name a{color: #fff!important}
+
+.custom-pagination ul{
+  padding: 0;
+  float: right;}
+.clear{clear: both}
+.custom-pagination ul li{
+  display: inline-block;
+  margin: 0 4px;
+}
+.custom-pagination ul li a{
+  background: rgb(45,50,62);
+  color: #fff;
+  padding: 4px;
+  border-radius: 2px;
+}

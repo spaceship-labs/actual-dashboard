@@ -1,0 +1,115 @@
+<div id="price-tables" class="page-layout simple fullwidth doc-page">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="breadcrumb" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
+                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
+                <span class="parent">Products search</span>
+            </div>
+            <div class="title">Search</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- STYLE 1 -->
+        <!--<div class="md-title">Style 1</div>-->
+        <section class="products-filter"  layout="row" layout-align="start center" layout-wrap>
+          <md-input-container>
+            <label>Search by name</label>
+            <input type="text" ng-model="vm.search.term">
+          </md-input-container>
+          <md-input-container>
+            <label>Linea</label>
+            <md-select ng-model="vm.search.line">
+              <md-option ng-repeat="line in vm.lines track by $index" value="{{line.Code}}">
+                {{line.Name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container>
+            <label>Color</label>
+            <md-select ng-model="vm.search.color">
+              <md-option ng-repeat="color in vm.colors track by $index" value="{{color.Code}}">
+                {{color.Name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </section>
+        <section>
+          <md-button class="md-raised md-primary" ng-click="vm.doSearch()">Buscar</md-button>
+        </section>
+
+        <div ng-if="vm.products.length <= 0 && !vm.isLoading" class="md-title">No hay resultados que cumplan con los parametros de busqueda</div>
+
+        <!--<div ng-show="!vm.isLoading" layout-row layout-align="end center">
+          <div paging
+            class="custom-pagination"
+            page="vm.page"
+            page-size="vm.length"
+            total="vm.total"
+            paging-action="vm.doSearch()">
+          </div>
+          {{vm.page}}
+          <div class="clear"></div>
+        </div>-->
+
+        <div ng-show="!vm.isLoading" class="price-tables" flex layout="row" layout-wrap>
+            <div class="price-table style-1 md-whiteframe-1dp" ng-repeat="product in vm.products" layout="column">
+                <div class="package-type product-name md-primary-bg">
+                    <span><a ng-href="/products/view/{{product.ItemCode}}">{{product.ItemName}}</a></span>
+                </div>
+
+                <div class="price" layout="row" layout-align="center start">
+                  <img src="assets/images/product.png" alt="">
+                </div>
+
+                <md-divider></md-divider>
+
+                <div class="terms" layout="column">
+                    <div class="term"><span class="text-bold">Código</span> {{product.ItemCode}}</div>
+                    <div class="term"><span class="text-bold">Linea</span> {{product.U_LINEA}}</div>
+                    <div class="term"><span class="text-bold">Color</span> {{product.U_COLOR}}</div>
+                    <div class="term"><span class="text-bold">On hand</span> {{product.OnHand}}</div>
+                    <div class="term"><span class="text-bold">Garantia</span> {{product.U_garantia}}</div>
+                </div>
+                <md-button ng-click="vm.goTo(product.ItemCode)" class="cta-button md-raised md-accent">Cotizar</md-button>
+            </div>
+        </div>
+
+        <div ng-show="!vm.isLoading" class="dataTables_wrapper">
+          <div class="bottom">
+            <div class="left"><div class="length"></div></div>
+            <div class="right">
+              <div class="info">
+                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 1,726 entries</div>
+              </div>
+              <div class="pagination">
+                <div class="dataTables_paginate paging_numbers" id="DataTables_Table_0_paginate">
+                  <span>
+                    <a class="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">1</a>
+                    <a class="paginate_button " aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">2</a>
+                    <a class="paginate_button " aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">3</a>
+                    <a class="paginate_button " aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0">4</a>
+                    <a class="paginate_button " aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">5</a><span class="ellipsis">…</span>
+                    <a class="paginate_button " aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0">173</a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+          <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <!-- / STYLE 1 -->
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

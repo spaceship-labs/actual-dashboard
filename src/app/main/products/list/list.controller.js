@@ -12,8 +12,8 @@
         var vm = this;
         // Data
         vm.columns = [
-            {key:'id', label:'ID'},
-            {key:'ItemCode', label:'Code'},
+            //{key:'id', label:'ID'},
+            {key:'ItemCode', label:'Code', actionUrl:'/products/view/', propId: 'ItemCode'},
             {key:'ItemName', label:'Name'},
             {key:'U_COLOR', label:'U_COLOR'},
             {key:'U_LINEA', label:'U_LINEA'},
@@ -21,8 +21,6 @@
             {key:'OnHand', label:'OnHand'},
 
         ];
-
-        vm.actionUrl = {value:'/products/view/',col:1}
 
         vm.apiResource = api.product.find.get;
 

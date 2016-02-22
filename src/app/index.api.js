@@ -206,12 +206,27 @@
             find: $resource(api.baseUrl+'/product/find/:page',{page:'@page',params: '@params'},
                 {'get':{method:'post',format:'json',data:'params'}}
             ),
-            getById: $resource(api.baseUrl + '/product/findbyid/:id' ,{id: '@id'},{'get':{method: 'get'}})
+            getById: $resource(api.baseUrl + '/product/findbyid/:id' ,{id: '@id'},{'get':{method: 'get'}}),
+            search: $resource(api.baseUrl+'/product/search',{params: '@params'},
+                {'get':{method:'post',format:'json',data:'params'}}
+            ),
         };
 
         api.lead = {
             find: $resource(api.baseUrl+'/saleopportunity/find/:page',{page:'@page',params: '@params'},
                 {'get':{method:'post',format:'json',data:'params'}}
+            )
+        };
+
+        api.line = {
+            find: $resource(api.baseUrl+'/line/get',
+                {'get':{method:'post',format:'json'}}
+            )
+        };
+
+        api.color = {
+            find: $resource(api.baseUrl+'/color/get',
+                {'get':{method:'post',format:'json'}}
             )
         };
 

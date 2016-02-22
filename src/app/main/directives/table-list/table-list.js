@@ -51,6 +51,7 @@
                   }
                   $scope.apiResource(query,
                     function(res){
+                      console.log(res);
                       var records = {
                           'draw': draw,
                           'recordsTotal': res.total,
@@ -66,23 +67,36 @@
               }
 
       $scope.dtColumns = [];
+      /*
       for(var i=0;i<$scope.columns.length;i++){
         var column = $scope.columns[i];
         $scope.dtColumns.push(
           DTColumnBuilder
             .newColumn(column.key).withTitle(column.label)
-            .renderWith(renderCell)
+            //.renderWith(renderCell)
+            .renderWith(function(data, type, full, pos){
+              return renderCell(data, type, full, pos);
+              //renderCell(data, type, full, pos);
+            })
         );
       }
-
-
-      function renderCell(data, type, full, pos){
-        var html = data;
-        if($scope.actionUrl && pos.col === $scope.actionUrl.col){
-          html = '<a href="'+($scope.actionUrl.value + full.id)+'">' + data + '</a>';
-        }
-        return html;
-      }
+      */
+      $scope.columns.forEach(function(column){
+        $scope.dtColumns.push(
+          DTColumnBuilder
+            .newColumn(column.key).withTitle(column.label)
+            .renderWith(
+              function renderCell(data, type, full, pos){
+                var html = data;
+                if(column.actionUrl){
+                  var id = (column.propId) ? column.propId : 'id';
+                  html = '<a href="'+(column.actionUrl + full[id])+'">' + data + '</a>';
+                }
+                return html;
+              }
+            )
+        );
+      });
 
     };
     controller.$inject = ['$scope','DTOptionsBuilder','DTColumnBuilder'];
@@ -95,7 +109,8 @@
           apiResource : '=',
           columns: '=',
           actionUrl: '=',
-          searchText: '@'
+          searchText: '@',
+          dtColumns: '='
         },
         templateUrl : 'app/main/directives/table-list/table-list.html'
       };
