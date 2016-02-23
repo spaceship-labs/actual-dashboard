@@ -53,3 +53,7 @@ div.dataTables_filter label{float: left;}
   padding: 4px;
   border-radius: 2px;
 }
+
+.custom-pagination li.active a {
+  background: rgb(3,155,229);
+}

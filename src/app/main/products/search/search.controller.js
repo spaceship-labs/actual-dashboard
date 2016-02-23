@@ -41,11 +41,15 @@
           vm.search.line = vm.lines[0].code;
         }
 
-        function doSearch(page){
+        function doSearch(_page){
           var length = vm.length;
-          var page = vm.page;
-          //var page = angular.copy(vm.page) + 1;
           var query = {};
+          var page = _page || 1;
+          vm.page = page;
+
+          console.log('_PAge: ' + _page);
+          console.log('Page: ' + page);
+
           vm.isLoading = true;
 
           //var vm.search = '';

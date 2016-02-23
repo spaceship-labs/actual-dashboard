@@ -46,17 +46,17 @@
 
         <div ng-if="vm.products.length <= 0 && !vm.isLoading" class="md-title">No hay resultados que cumplan con los parametros de busqueda</div>
 
-        <!--<div ng-show="!vm.isLoading" layout-row layout-align="end center">
+        <div ng-show="!vm.isLoading" layout-row layout-align="end center">
           <div paging
             class="custom-pagination"
             page="vm.page"
             page-size="vm.length"
             total="vm.total"
-            paging-action="vm.doSearch()">
+            paging-action="vm.doSearch(page)">
           </div>
-          {{vm.page}}
+          <p>{{vm.total}} resultados</p>
           <div class="clear"></div>
-        </div>-->
+        </div>
 
         <div ng-show="!vm.isLoading" class="price-tables" flex layout="row" layout-wrap>
             <div class="price-table style-1 md-whiteframe-1dp" ng-repeat="product in vm.products" layout="column">
@@ -81,28 +81,6 @@
             </div>
         </div>
 
-        <div ng-show="!vm.isLoading" class="dataTables_wrapper">
-          <div class="bottom">
-            <div class="left"><div class="length"></div></div>
-            <div class="right">
-              <div class="info">
-                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 1,726 entries</div>
-              </div>
-              <div class="pagination">
-                <div class="dataTables_paginate paging_numbers" id="DataTables_Table_0_paginate">
-                  <span>
-                    <a class="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">1</a>
-                    <a class="paginate_button " aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">2</a>
-                    <a class="paginate_button " aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">3</a>
-                    <a class="paginate_button " aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0">4</a>
-                    <a class="paginate_button " aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">5</a><span class="ellipsis">…</span>
-                    <a class="paginate_button " aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0">173</a>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
           <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
