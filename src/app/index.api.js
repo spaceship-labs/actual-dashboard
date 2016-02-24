@@ -186,7 +186,6 @@
             notes     : $resource(api.baseUrl + 'quick-panel/notes.json')
         };
 
-
         api.user = {
           find: $resource(api.baseUrl+'/user/find/:page',{page:'@page',params: '@params'},
               {'get':{method:'post',format:'json',data:'params'}}

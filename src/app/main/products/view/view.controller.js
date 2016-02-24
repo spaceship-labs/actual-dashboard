@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.users.edit')
+        .module('app.products.view')
         .controller('ProductViewController', ProductViewController);
 
     /** @ngInject */

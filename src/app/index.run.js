@@ -36,9 +36,9 @@
                   }
                 }
                 //'Handling redirect loop'
-                if(fromState.name != 'app.users_list'){
+                if(fromState.name != 'app.products_search'){
                   event.preventDefault();
-                  $state.go('app.users_list');
+                  $state.go('app.products_search');
                 }else{
                   event.preventDefault();
                   return;

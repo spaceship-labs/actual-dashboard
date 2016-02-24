@@ -6,7 +6,8 @@
         .module('app.products', [
             'app.products.list',
             'app.products.view',
-            'app.products.search'
+            'app.products.search',
+            'app.products.edit'
         ])
         .config(config);
 

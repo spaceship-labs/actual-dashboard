@@ -1,0 +1,56 @@
+<div class="page-layout simple fullwidth">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg">
+        <span class="h2">{{vm.product.ItemName}}</span>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content" md-background-bg>
+
+        <!-- DEMO CONTENT -->
+        <ul>
+          <li><strong>Nombre:</strong> {{vm.product.ItemName}}</li>
+          <li><strong>Código:</strong> {{vm.product.ItemCode}}</li>
+          <li><strong>Linea:</strong> {{vm.product.U_LINEA}}</li>
+          <li><strong>Color:</strong> {{vm.product.U_COLOR}}</li>
+          <li><strong>Garantia:</strong> {{vm.product.U_garantia}}</li>
+          <li><strong>On Hand:</strong> {{vm.product.OnHand}}</li>
+
+        </ul>
+
+        <section class="file-manager md-whiteframe-z1">
+          <md-toolbar class="demo-toolbar md-primary">
+            <div class="md-toolbar-tools">
+              <h3>Gallery manager</h3>
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+            <form name="form">
+              <div class="file-manager-thumbs">
+                <span ng-repeat="file in vm.files">
+                  <img ngf-thumbnail="file || 'assets/images/product.png'">
+                </span>
+
+                <span ng-repeat='file in loading track by $index' class='loader' >
+                  <img src='/images/loaders/images-cm.gif' />
+                  <span>Cargando <span ng-bind='file'></span>%</span>
+                </span>
+
+              </div>
+
+              <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.uploadFiles($files)" multiple="multiple">Select files</md-button>
+               <!--<div class="file-manager-btn md-raised md-primary" ngf-select="vm.uploadFiles($files)" multiple="multiple">Select files</div>-->
+            </form>
+
+
+          </md-content>
+        </section>
+
+        <!-- / DEMO CONTENT -->
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
