@@ -18,7 +18,7 @@
           $scope.token = res.token;
           $scope.user = res.user;
 
-          $location.path('/users');
+          $location.path('/products/search');
         }
 
         $scope.successRegister = function(res){
@@ -29,7 +29,7 @@
 
           $scope.token = res.data.token;
           $scope.user = res.data.user;
-          $location.path('/users');
+          $location.path('/products/search');
 
         }
 

@@ -57,6 +57,26 @@ div.dataTables_filter label{float: left;}
 .custom-pagination li.active a {
   background: rgb(3,155,229);
 }
-
 .file-manager-thumbs img{max-width: 102px;}
 .file-manager-btn{margin: 10px 0;}
+.file-manager-thumb{position:relative;cursor: pointer;display: inline-block;margin: 4px}
+.file-manager-thumb.selected:after{
+  content: '';
+  background: rgba(25,164,239,0.5);
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 1;
+}
+.file-manager-thumb.deleting:after{
+  content: '';
+  background: rgba(244,67,54,0.5);
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 1;
+}

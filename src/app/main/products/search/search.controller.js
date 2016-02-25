@@ -20,7 +20,6 @@
         vm.apiResource = api.product.search.get;
         vm.lines = Lines.data;
         vm.colors = Color.data;
-        console.log(vm.colors);
         vm.search = {};
 
         vm.page = 1;
@@ -30,12 +29,9 @@
 
         vm.init();
 
-        console.log(Lines);
-
         // Methods
 
         function init(){
-          console.log('hey');
           vm.doSearch();
           vm.lines.unshift({Code:false,Name:'Todos'});
           vm.search.line = vm.lines[0].code;
@@ -46,9 +42,6 @@
           var query = {};
           var page = _page || 1;
           vm.page = page;
-
-          console.log('_PAge: ' + _page);
-          console.log('Page: ' + page);
 
           vm.isLoading = true;
 
@@ -67,7 +60,6 @@
 
           vm.apiResource(query,
             function(res){
-              console.log(res);
               var records = {
                   'recordsTotal': res.total,
                   'recordsFiltered': res.total,
@@ -80,7 +72,6 @@
               vm.isLoading = false;
             },
             function(err){
-              console.log(err);
               vm.isLoading = false;
             }
           );

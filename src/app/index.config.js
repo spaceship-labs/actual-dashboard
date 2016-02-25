@@ -10,7 +10,7 @@
     function config($httpProvider, localStorageServiceProvider, $urlRouterProvider){
 
       $urlRouterProvider.when('/', ['$state','$match', '$location', function ($state, $match, $location) {
-        $location.path('/users');
+        $location.path('/products/search');
       }]);
 
       localStorageServiceProvider.setPrefix('actualDashboard');
