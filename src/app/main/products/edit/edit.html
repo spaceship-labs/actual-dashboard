@@ -10,15 +10,60 @@
     <div class="content" md-background-bg>
 
         <!-- DEMO CONTENT -->
-        <ul>
-          <li><strong>Nombre:</strong> {{vm.product.ItemName}}</li>
-          <li><strong>Código:</strong> {{vm.product.ItemCode}}</li>
-          <li><strong>Linea:</strong> {{vm.product.U_LINEA}}</li>
-          <li><strong>Color:</strong> {{vm.product.U_COLOR}}</li>
-          <li><strong>Garantia:</strong> {{vm.product.U_garantia}}</li>
-          <li><strong>On Hand:</strong> {{vm.product.OnHand}}</li>
+        <div class="row-info" layout="row" layout-align="space-between start" layout-wrap>
+          <section class="md-whiteframe-z1" flex="50">
+            <md-toolbar class="demo-toolbar md-primary">
+              <div class="md-toolbar-tools">
+                <h3>Data</h3>
+              </div>
+            </md-toolbar>
+            <md-content class="md-padding">
+              <ul>
+                <li><strong>Nombre:</strong> {{vm.product.ItemName}}</li>
+                <li><strong>Código:</strong> {{vm.product.ItemCode}}</li>
+                <li><strong>Linea:</strong> {{vm.product.U_LINEA}}</li>
+                <li><strong>Color:</strong> {{vm.product.U_COLOR}}</li>
+                <li><strong>Garantia:</strong> {{vm.product.U_garantia}}</li>
+                <li><strong>On Hand:</strong> {{vm.product.OnHand}}</li>
+              </ul>
+            </md-content>
+          </section>
 
-        </ul>
+          <section flex="35" class="file-manager md-whiteframe-z1">
+            <md-toolbar class="demo-toolbar md-primary">
+              <div class="md-toolbar-tools">
+                <h3>Product primary image</h3>
+              </div>
+            </md-toolbar>
+            <md-content class="md-padding">
+              <form name="form">
+                <div class="file-manager-thumbs" layout="row"   layout-align="space-between start" layout-wrap>
+                  <span
+                    ng-if="vm.product.icon_filename && !vm.loadingAvatar"
+                    class="file-manager-thumb"
+                    >
+                    <img ngf-thumbnail="vm.api.baseUrl+'/uploads/products/201x201'+vm.product.icon_filename || 'assets/images/product.png'">
+                  </span>
+
+                  <span ng-if='vm.loadingAvatar' class='loader' >
+                    <div layout="row" layout-sm="column" layout-align="space-around">
+                      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                    </div>
+                    <span>Cargando</span>
+                  </span>
+
+                </div>
+
+                <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Upload files</md-button>
+              </form>
+
+
+            </md-content>
+          </section>
+
+        </div>
+
+
 
         <section class="file-manager md-whiteframe-z1">
           <md-toolbar class="demo-toolbar md-primary">

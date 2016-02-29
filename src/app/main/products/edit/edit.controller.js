@@ -12,16 +12,47 @@
         vm.uploadFiles = uploadFiles;
         vm.removeFiles = removeFiles;
         vm.fileClass = fileClass;
+        vm.updateIcon = updateIcon;
 
         // Data
         vm.loading = [];
         vm.product = Product.data;
+        vm.updateIconMethod = '/product/updateicon';
         vm.addMethod = '/product/addfiles';
         vm.removeMethod = '/product/removefiles';
         vm.dir = 'products/gallery';
         vm.api = api;
 
         //Methods
+
+        function updateIcon($file) {
+          console.log($file);
+          vm.loadingAvatar = true;
+          vm.uploadAvatar = Upload.upload({
+            url: api.baseUrl + vm.updateIconMethod,
+            data: {
+              id: vm.product.ItemCode,
+              file: $file
+            }
+          }).then(function (resp) {
+              console.log(resp);
+              if(resp.data.icon_filename){
+                vm.product.icon_filename = resp.data.icon_filename;
+                vm.product.icon_name = resp.data.icon_name;
+                vm.product.icon_size = resp.data.icon_size;
+                vm.product.icon_type = resp.data.icon_type;
+                vm.product.icon_typebase = resp.data.icon_typebase;
+              }
+              vm.loadingAvatar = false;
+            }, function (err) {
+              console.log(err);
+              vm.loadingAvatar = false;
+            }, function (evt) {
+              var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+              console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+          });
+        };
+
         function uploadFiles($files){
           //console.log($files);
           vm.loading = [];
@@ -53,7 +84,6 @@
             }
           }
         }
-
 
         function fileClass(file){
           var c = '';
