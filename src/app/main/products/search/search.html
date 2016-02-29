@@ -65,7 +65,8 @@
                 </div>
 
                 <div class="price" layout="row" layout-align="center start">
-                  <img src="assets/images/product.png" alt="">
+                  <img ng-if="product.icon_filename" ng-src="{{vm.api.baseUrl}}/uploads/products/593x331{{product.icon_filename}}" alt="">
+                  <img ng-if="!product.icon_filename" src="assets/images/product.png" alt="">
                 </div>
 
                 <md-divider></md-divider>

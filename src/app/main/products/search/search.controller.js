@@ -21,6 +21,7 @@
         vm.lines = Lines.data;
         vm.colors = Color.data;
         vm.search = {};
+        vm.api = api;
 
         vm.page = 1;
         vm.start = 0;
