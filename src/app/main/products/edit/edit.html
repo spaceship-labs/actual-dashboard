@@ -28,7 +28,7 @@
           </md-toolbar>
           <md-content class="md-padding">
             <form name="form">
-              <div class="file-manager-thumbs">
+              <div class="file-manager-thumbs" layout="row" layout-wrap>
                 <span
                   ng-repeat="file in vm.product.files"
                   ng-click='file.selected = !file.selected'

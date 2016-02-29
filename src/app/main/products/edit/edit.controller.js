@@ -12,21 +12,18 @@
         vm.uploadFiles = uploadFiles;
         vm.removeFiles = removeFiles;
         vm.fileClass = fileClass;
-        vm.logerr = logerr;
 
         // Data
         vm.loading = [];
         vm.product = Product.data;
         vm.addMethod = '/product/addfiles';
         vm.removeMethod = '/product/removefiles';
-        vm.dir = '/products/gallery';
+        vm.dir = 'products/gallery';
         vm.api = api;
-
-        function logerr(){console.log('logerr');}
 
         //Methods
         function uploadFiles($files){
-          console.log($files);
+          //console.log($files);
           vm.loading = [];
           var uid = Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 
@@ -48,9 +45,8 @@
                     vm.loading = [];
                     vm.product.files = resp.data.files;
                   }, function (err) {
-                    console.log(resp);
+                    console.log(err);
                   }, function (evt) {
-                    console.log(evt);
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
                 });
@@ -67,8 +63,6 @@
         }
 
         function removeFiles(){
-          console.log('removefiles');
-          console.log(vm.product.files);
 
           var files = [];
           vm.product.files.forEach(function(file){

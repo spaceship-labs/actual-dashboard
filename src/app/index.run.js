@@ -20,13 +20,17 @@
             if(_token){
                 var expiration = jwtHelper.getTokenExpirationDate(_token);
                 console.log(expiration);
-                if(expiration <= new Date()){
-                  $location.path('/auth/login')
+                if(expiration <= new Date() && !toState.isPublic){
+                  event.preventDefault();
+                  $state.go('app.auth_login');
+                  //$location.path('/auth/login')
                 }
             }
 
             if(!_token && !toState.isPublic){
-              $location.path('/auth/login')
+              event.preventDefault();
+              $state.go('app.auth_login');
+              //$location.path('/auth/login')
             }
             else if(_token && toState.accessList){
               if(toState.accessList.length > 0){
