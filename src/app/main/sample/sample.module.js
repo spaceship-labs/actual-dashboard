@@ -31,6 +31,7 @@
         $translatePartialLoaderProvider.addPart('app/main/sample');
 
         // Navigation
+        /*
         msNavigationServiceProvider.saveItem('fuse', {
             title : 'SAMPLE',
             group : true,
@@ -44,8 +45,10 @@
             /*stateParams: {
                 'param1': 'page'
              },*/
+            /*
             translate: 'SAMPLE.SAMPLE_NAV',
             weight   : 1
         });
+        */
     }
 })();

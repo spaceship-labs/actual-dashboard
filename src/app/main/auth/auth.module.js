@@ -15,10 +15,12 @@
     function config(msNavigationServiceProvider)
     {
         // Navigation
+        /*
         msNavigationServiceProvider.saveItem('auth', {
             title : 'Auth',
             group : false,
             weight: 2
         });
+*/
     }
 })();

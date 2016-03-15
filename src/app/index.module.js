@@ -44,6 +44,18 @@
             // leads
             'app.leads',
 
+            //Commissions
+            'app.commissions',
+
+            //Invoices
+            'app.invoices',
+
+            //Promos
+            'app.promos',
+
+            //Ventas
+            'app.sales',
+
             //CUSTOM EXTERNAL MODULES
             'LocalStorageModule',
             'angular-jwt',

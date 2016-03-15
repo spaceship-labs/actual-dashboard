@@ -16,7 +16,7 @@
     {
         // Navigation
         msNavigationServiceProvider.saveItem('products', {
-            title : 'Products',
+            title : 'Productos',
             group : false,
             weight: 2
         });

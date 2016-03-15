@@ -30,11 +30,15 @@
         $translatePartialLoaderProvider.addPart('app/main/auth/forgot-password');
 
         // Navigation
+        /*
         msNavigationServiceProvider.saveItem('auth.forgot-password', {
             title : 'Forgot Password',
             state : 'app.auth_forgot-password',
             weight: 5
         });
+        */
     }
 
 })();
+
+

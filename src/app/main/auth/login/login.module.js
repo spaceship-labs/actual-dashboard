@@ -30,6 +30,7 @@
         $translatePartialLoaderProvider.addPart('app/main/auth/login');
 
         // Navigation
+        /*
         msNavigationServiceProvider.saveItem('auth', {
             title : 'Authentication',
             icon  : 'icon-lock',
@@ -41,6 +42,7 @@
             state : 'app.auth_login',
             weight: 1
         });
+*/
     }
 
 })();

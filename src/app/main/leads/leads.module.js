@@ -13,13 +13,13 @@
     {
         // Navigation
         msNavigationServiceProvider.saveItem('leads', {
-            title : 'Leads',
+            title : 'Oportunidades',
             group : false,
             weight: 2
         });
 
         msNavigationServiceProvider.saveItem('leads.list', {
-            title: 'Leads list',
+            title: 'Lista de Oportunidades',
             state: 'app.leads_list'
         });
     }

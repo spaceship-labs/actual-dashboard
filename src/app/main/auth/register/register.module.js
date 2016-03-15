@@ -10,6 +10,7 @@
     function config($stateProvider, $translatePartialLoaderProvider, msNavigationServiceProvider)
     {
         // State
+        /*
         $stateProvider.state('app.auth_register', {
             url      : '/auth/register',
             views    : {
@@ -25,16 +26,19 @@
             bodyClass: 'register',
             isPublic: false
         });
+        */
 
         // Translation
         $translatePartialLoaderProvider.addPart('app/main/auth/register');
 
         // Navigation
+        /*
         msNavigationServiceProvider.saveItem('auth.register', {
             title : 'Register',
             state : 'app.auth_register',
             weight: 3
         });
+*/
     }
 
 })();

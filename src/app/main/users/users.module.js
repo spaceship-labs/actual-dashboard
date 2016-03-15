@@ -15,7 +15,7 @@
     {
         // Navigation
         msNavigationServiceProvider.saveItem('users', {
-            title : 'Users',
+            title : 'Usarios',
             group : false,
             weight: 2,
             state: 'app.users'

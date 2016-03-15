@@ -29,6 +29,7 @@
         $translatePartialLoaderProvider.addPart('app/main/pages/errors/404');
 
         // Navigation
+        /*
         msNavigationServiceProvider.saveItem('pages.errors', {
             title : 'Errors',
             icon  : 'icon-alert',
@@ -40,6 +41,7 @@
             state : 'app.pages_errors_error-404',
             weight: 1
         });
+        */
     }
 
 })();

@@ -29,12 +29,14 @@
         $translatePartialLoaderProvider.addPart('app/main/pages/coming-soon');
 
         // Navigation
+        /*
         msNavigationServiceProvider.saveItem('pages.coming-soon', {
             title : 'Coming Soon',
             icon  : 'icon-alarm-check',
             state : 'app.pages_coming-soon',
             weight: 2
         });
+        */
     }
 
 })();
