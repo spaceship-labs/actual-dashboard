@@ -49,21 +49,24 @@
                   }else{
                       query.page = page;
                   }
-                  $scope.apiResource(query,
-                    function(res){
-                      console.log(res);
-                      var records = {
-                          'draw': draw,
-                          'recordsTotal': res.total,
-                          'recordsFiltered': res.total,
-                          'data': res.data
-                      };
-                      fnCallback(records);
-                    },
-                    function(err){
-                      console.log(err);
-                    }
-                  );
+
+                  $scope.apiResource(page,query)
+                    .then(
+                      function(res){
+                        console.log(res);
+                        var res = res.data;
+                        var records = {
+                            'draw': draw,
+                            'recordsTotal': res.total,
+                            'recordsFiltered': res.total,
+                            'data': res.data
+                        };
+                        fnCallback(records);
+                      },
+                      function(err){
+                        console.log(err);
+                      }
+                    );
               }
 
       $scope.dtColumns = [];

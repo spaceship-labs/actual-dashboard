@@ -18,11 +18,6 @@
                 }
             },
             resolve: {
-                Users: function (apiResolver)
-                {
-                    //return [];
-                    return apiResolver.resolve('user.find@get');
-                }
             },
         });
     }

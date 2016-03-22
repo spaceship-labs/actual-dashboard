@@ -1,0 +1,28 @@
+(function (){
+    'use strict';
+
+    angular
+        .module('app.services')
+        .factory('userService', userService);
+
+    /** @ngInject */
+    function userService($http, $q, api){
+
+      var service = {
+        getList: getList
+      };
+
+      return service;
+
+      function getList(page, params){
+        var p = page || 1;
+        var url = api.baseUrl + '/user/find/' + p;
+        return $http.post(url,{
+          params: params
+        });
+      }
+
+    }
+
+
+})();

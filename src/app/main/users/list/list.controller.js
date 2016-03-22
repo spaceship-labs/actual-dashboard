@@ -7,18 +7,19 @@
         .controller('UsersListController', UsersListController);
 
     /** @ngInject */
-    function UsersListController(Users, api)
+    function UsersListController(api, userService)
     {
         var vm = this;
 
         // Data
         vm.columns = [
-            {key:'email', label:'Email', actionUrl:'/user/edit/'},
+            {key:'email', label:'Email', actionUrl:'/users/edit/'},
             {key:'firstName', label:'First Name'},
             {key:'lastName', label:'Last name'},
         ];
 
-        vm.apiResource = api.user.find.get;
+        //vm.apiResource = api.user.find.get;
+        vm.apiResource = userService.getList;
         // Methods
 
         //////////
