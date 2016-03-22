@@ -7,7 +7,7 @@
         .controller('UsersCreateController', UsersCreateController);
 
     /** @ngInject */
-    function UsersCreateController(dialogService, api){
+    function UsersCreateController(dialogService, userService){
         var vm = this;
 
         // Data
@@ -34,18 +34,19 @@
           console.log(vm.basicForm);
           if(vm.basicForm.password === vm.basicForm.confirmPassword){
               vm.isLoading = true;
-              api.user.create.create(vm.user,
-                function(res){
-                  console.log(res);
-                  vm.isLoading = true;
-                  dialogService.showDialog('Datos guardados',ev);
-                },
-                function(err){
-                  console.log(err);
-                  vm.isLoading = false;
-                  dialogService.showDialog('Error, intenta de nuevo',ev);
-                }
-              );
+              userService.create(vm.user)
+                .then(
+                  function(res){
+                    console.log(res);
+                    vm.isLoading = true;
+                    dialogService.showDialog('Datos guardados',ev);
+                  },
+                  function(err){
+                    console.log(err);
+                    vm.isLoading = false;
+                    dialogService.showDialog('Error, intenta de nuevo',ev);
+                  }
+                );
           }
 
             // Clear the form data

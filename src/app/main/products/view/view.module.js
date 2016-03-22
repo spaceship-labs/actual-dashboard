@@ -18,9 +18,6 @@
                 }
             },
             resolve  : {
-              Product: function (apiResolver, $stateParams){
-                return apiResolver.resolve('product.getById@get',{'id': $stateParams.id});
-              }
             },
             bodyClass: 'view',
             accessList:['admin']

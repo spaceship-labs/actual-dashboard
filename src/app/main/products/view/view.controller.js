@@ -7,11 +7,19 @@
         .controller('ProductViewController', ProductViewController);
 
     /** @ngInject */
-    function ProductViewController($mdDialog, Product){
+    function ProductViewController(productService, $stateParams){
         var vm = this;
 
         // Data
-        console.log(Product);
-        vm.product = Product.data;
+
+        vm.init = init;
+
+        function init(){
+          productService.getById($stateParams.id).then(function(res){
+            vm.product = res.data.data;
+          });
+        }
+
+        vm.init();
     }
 })();

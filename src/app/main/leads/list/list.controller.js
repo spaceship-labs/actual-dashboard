@@ -7,7 +7,7 @@
         .controller('LeadsListController', LeadsListController);
 
     /** @ngInject */
-    function LeadsListController(DTOptionsBuilder, DTColumnBuilder, api, $q)
+    function LeadsListController(leadService)
     {
         var vm = this;
         // Data
@@ -21,7 +21,7 @@
 
         ];
 
-        vm.apiResource = api.lead.find.get;
+        vm.apiResource = leadService.getList;
 
         // Methods
 

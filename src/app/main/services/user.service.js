@@ -9,17 +9,35 @@
     function userService($http, $q, api){
 
       var service = {
-        getList: getList
+        getList: getList,
+        getUser: getUser,
+        update: update,
+        create: create
       };
 
       return service;
 
       function getList(page, params){
         var p = page || 1;
-        var url = api.baseUrl + '/user/find/' + p;
-        return $http.post(url,{
-          params: params
-        });
+        var url = '/user/find/' + p;
+        return api.$http.post(url,params);
+      }
+
+      function getUser(id){
+        var url = '/user/findbyid/' + id;
+        return api.$http.post(url);
+      }
+
+      function update(id, params){
+        var url = '/user/update/' + id;
+        console.log(url);
+        return api.$http.post(url,params);
+      }
+
+      function create(params){
+        var url = '/user/create/';
+        console.log(url);
+        return api.$http.post(url,params);
       }
 
     }

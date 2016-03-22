@@ -7,7 +7,7 @@
         .controller('ProductsSearchController', ProductsSearchController);
 
     /** @ngInject */
-    function ProductsSearchController(DTOptionsBuilder, DTColumnBuilder, api, $q, Lines,Color, $location)
+    function ProductsSearchController(Lines,Color, $location, productService)
     {
         var vm = this;
         vm.doSearch = doSearch;
@@ -17,11 +17,10 @@
         // Data
         vm.products = [];
         vm.isLoading = false;
-        vm.apiResource = api.product.search.get;
+        vm.apiResource = productService.search;
         vm.lines = Lines.data;
         vm.colors = Color.data;
         vm.search = {};
-        vm.api = api;
 
         vm.page = 1;
         vm.start = 0;
@@ -100,23 +99,26 @@
           }
 
 
-          vm.apiResource(query,
-            function(res){
-              var records = {
-                  'recordsTotal': res.total,
-                  'recordsFiltered': res.total,
-                  'data': res.data
-              };
-              //fnCallback(records);
-              vm.products = res.data;
-              vm.total = res.total;
-              vm.pages = res.total / res.length;
-              vm.isLoading = false;
-            },
-            function(err){
-              vm.isLoading = false;
-            }
-          );
+          vm.apiResource(query)
+            .then(
+              function(res){
+                console.log(res);
+                var res = res.data;
+                var records = {
+                    'recordsTotal': res.total,
+                    'recordsFiltered': res.total,
+                    'data': res.data
+                };
+                //fnCallback(records);
+                vm.products = res.data;
+                vm.total = res.total;
+                vm.pages = res.total / res.length;
+                vm.isLoading = false;
+              },
+              function(err){
+                vm.isLoading = false;
+              }
+            );
 
         }
 

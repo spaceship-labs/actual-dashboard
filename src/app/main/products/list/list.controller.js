@@ -7,7 +7,7 @@
         .controller('ProductsListController', ProductsListController);
 
     /** @ngInject */
-    function ProductsListController(DTOptionsBuilder, DTColumnBuilder, api, $q)
+    function ProductsListController(productService)
     {
         var vm = this;
         // Data
@@ -22,10 +22,9 @@
 
         ];
 
-        vm.apiResource = api.product.find.get;
+        vm.apiResource = productService.getList;
 
         // Methods
-
         //////////
     }
 

@@ -7,12 +7,11 @@
         .controller('UsersEditController', UsersEditController);
 
     /** @ngInject */
-    function UsersEditController($mdDialog, User, api){
-        console.log(User);
+    function UsersEditController($mdDialog, $stateParams, userService){
         var vm = this;
 
         // Data
-        vm.user = User.data;
+        //vm.user = User.data;
         vm.basicForm = {};
         vm.formWizard = {};
 
@@ -25,25 +24,36 @@
 
         // Methods
         vm.sendForm = sendForm;
+        vm.init = init;
+
+        vm.init();
 
         //////////
+
+        function init(){
+          userService.getUser($stateParams.id).then(function(res){
+            vm.user = res.data.data;
+          });
+        }
 
         /**
          * Send form
          */
         function sendForm(ev){
-            api.user.updateById.update({'id':vm.user.id},vm.user,
-              function(res){
-                console.log(res);
-              },
-              function(err){
-              console.log(err);
-              }
-            );
+            userService.update(vm.user.id,vm.user)
+              .then(
+                function(res){
+                  console.log(res);
+                  showDialog('Datos guardados',ev);
+                  // Clear the form data
+                  vm.formWizard = {};
 
-            showDialog('Datos guardados',ev);
-            // Clear the form data
-            vm.formWizard = {};
+                },
+                function(err){
+                console.log(err);
+                }
+              );
+
         }
 
         function showDialog(message,ev){
