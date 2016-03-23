@@ -22,6 +22,12 @@
             return {abbrev: state};
         });
 
+        vm.roles = [
+          {'name':'Admin', id:1},
+          {'name':'Seller', id:1},
+          {'name':'Broker', id:1}
+        ];
+
         // Methods
         vm.sendForm = sendForm;
 

@@ -99,6 +99,17 @@
 
                 </div>
 
+                <div layout="row">
+                  <md-input-container>
+                    <label>Role</label>
+                    <md-select ng-model="vm.user.role">
+                      <md-option ng-repeat="role in vm.roles" value="{{role.id}}">
+                        {{role.name}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>                  
+                </div>
+
                 <md-button type="submit" class="md-raised md-accent" aria-label="Submit"
                            ng-disabled="basicForm.$invalid || basicForm.$pristine || vm.isLoading">
                     Submit
