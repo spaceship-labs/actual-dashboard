@@ -18,9 +18,6 @@
                 }
             },
             resolve  : {
-              User: function (apiResolver, $stateParams){
-                return apiResolver.resolve('user.getById@get',{'id': $stateParams.id});
-              }
             },
             bodyClass: 'edit',
             accessList:['admin']

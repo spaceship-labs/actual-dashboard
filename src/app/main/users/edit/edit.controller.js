@@ -22,9 +22,17 @@
             return {abbrev: state};
         });
 
+        vm.roles = [
+          {'name':'Admin', id:1, handle:'admin'},
+          {'name':'Seller', id:2, handle:'seller'},
+          {'name':'Broker', id:3, handle:'broker'}
+        ];
+
+
         // Methods
         vm.sendForm = sendForm;
         vm.init = init;
+        vm.getUsersSap = getUsersSap;
 
         vm.init();
 
@@ -32,8 +40,12 @@
 
         function init(){
           userService.getUser($stateParams.id).then(function(res){
+            vm.getUsersSap();
             vm.user = res.data.data;
+
           });
+
+
         }
 
         /**
@@ -43,7 +55,6 @@
             userService.update(vm.user.id,vm.user)
               .then(
                 function(res){
-                  console.log(res);
                   showDialog('Datos guardados',ev);
                   // Clear the form data
                   vm.formWizard = {};
@@ -54,6 +65,12 @@
                 }
               );
 
+        }
+
+        function getUsersSap(){
+          userService.getUsersSap().then(function(res){
+            vm.usersSap = res.data.data;
+          })
         }
 
         function showDialog(message,ev){

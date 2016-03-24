@@ -23,15 +23,18 @@
         });
 
         vm.roles = [
-          {'name':'Admin', id:1},
-          {'name':'Seller', id:1},
-          {'name':'Broker', id:1}
+          {'name':'Admin', id:1, handle:'admin'},
+          {'name':'Seller', id:2, handle:'seller'},
+          {'name':'Broker', id:3, handle:'broker'}
         ];
 
         // Methods
         vm.sendForm = sendForm;
+        vm.getUsersSap = getUsersSap;
 
         //////////
+
+        vm.getUsersSap();
 
         /**
          * Send form
@@ -56,6 +59,12 @@
           }
 
             // Clear the form data
+        }
+
+        function getUsersSap(){
+          userService.getUsersSap().then(function(res){
+            vm.usersSap = res.data.data;
+          })
         }
 
     }

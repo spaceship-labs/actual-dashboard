@@ -100,14 +100,25 @@
                 </div>
 
                 <div layout="row">
-                  <md-input-container>
+
+                  <md-input-container flex>
                     <label>Role</label>
-                    <md-select ng-model="vm.user.role">
-                      <md-option ng-repeat="role in vm.roles" value="{{role.id}}">
+                    <md-select ng-model="vm.user.userType">
+                      <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
                         {{role.name}}
                       </md-option>
                     </md-select>
-                  </md-input-container>                  
+                  </md-input-container>
+
+                  <md-input-container flex>
+                    <label>Usuario SAP</label>
+                    <md-select ng-model="vm.user.userSap">
+                      <md-option ng-repeat="userSap in vm.usersSap track by $index" value="{{userSap.id}}">
+                        {{userSap.U_NAME}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+
                 </div>
 
                 <md-button type="submit" class="md-raised md-accent" aria-label="Submit"

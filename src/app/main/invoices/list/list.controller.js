@@ -7,21 +7,23 @@
         .controller('InvoicesListController', InvoicesListController);
 
     /** @ngInject */
-    function InvoicesListController(DTOptionsBuilder, DTColumnBuilder, api, $q)
+    function InvoicesListController(invoiceService)
     {
         var vm = this;
         // Data
         vm.columns = [
             {key:'id', label:'ID'},
-            {key:'OpprId', label:'OpprId'},
-            {key:'CardCode', label:'CardCode'},
-            {key:'OpenDate', label:'OpenDate'},
-            {key:'Status', label:'Status'},
-            {key:'CardName', label:'CardName'},
+            {key:'ItemCode', label:'ItemCode'},
+            {key:'Quantity', label:'Quantity'},
+            {key:'Price', label:'Price'},
+            {key:'DocDate', label:'DocDate'},
+            {key:'ShipToCode', label:'ShipToCode'},
+            {key:'DocEntry', label:'DocEntry'},
+            {key:'LineNum', label:'LineNum'}
 
         ];
 
-        vm.apiResource = api.lead.find.get;
+        vm.apiResource = invoiceService.getList;
 
         // Methods
 

@@ -12,7 +12,8 @@
         getList: getList,
         getUser: getUser,
         update: update,
-        create: create
+        create: create,
+        getUsersSap: getUsersSap
       };
 
       return service;
@@ -38,6 +39,11 @@
         var url = '/user/create/';
         console.log(url);
         return api.$http.post(url,params);
+      }
+
+      function getUsersSap(){
+        var url = '/usersap/get';
+        return api.$http.get(url);
       }
 
     }
