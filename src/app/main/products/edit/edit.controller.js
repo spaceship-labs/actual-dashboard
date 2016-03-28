@@ -7,23 +7,34 @@
         .controller('ProductEditController', ProductEditController);
 
     /** @ngInject */
-    function ProductEditController($mdDialog, Product,Upload, api, $http){
+    function ProductEditController($mdDialog, $stateParams, productService,Upload, api, $http){
         var vm = this;
         vm.uploadFiles = uploadFiles;
         vm.removeFiles = removeFiles;
         vm.fileClass = fileClass;
         vm.updateIcon = updateIcon;
+        vm.init = init;
 
         // Data
         vm.loading = [];
-        vm.product = Product.data;
+        //vm.product = Product.data;
         vm.updateIconMethod = '/product/updateicon';
         vm.addMethod = '/product/addfiles';
         vm.removeMethod = '/product/removefiles';
         vm.dir = 'products/gallery';
         vm.api = api;
 
+        vm.init();
+
         //Methods
+
+        function init(){
+          productService.getById($stateParams.id).then(function(res){
+            vm.product = res.data.data;
+          });
+        }
+
+
 
         function updateIcon($file) {
           console.log($file);

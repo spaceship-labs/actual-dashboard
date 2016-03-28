@@ -7,7 +7,7 @@
         .controller('ProductsSearchController', ProductsSearchController);
 
     /** @ngInject */
-    function ProductsSearchController(Lines,Color, $location, productService)
+    function ProductsSearchController(Lines,Color, $location, productService, api)
     {
         var vm = this;
         vm.doSearch = doSearch;
@@ -21,6 +21,7 @@
         vm.lines = Lines.data;
         vm.colors = Color.data;
         vm.search = {};
+        vm.api = api;
 
         vm.page = 1;
         vm.start = 0;
