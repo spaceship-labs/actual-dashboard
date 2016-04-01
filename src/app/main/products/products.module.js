@@ -7,7 +7,15 @@
             'app.products.list',
             'app.products.view',
             'app.products.search',
-            'app.products.edit'
+            'app.products.edit',
+
+            'app.products.categories.list',
+            'app.products.categories.create',
+
+            'app.products.filters.list',
+            'app.products.filters.create',
+
+
         ])
         .config(config);
 
@@ -22,14 +30,36 @@
         });
 
 
-        msNavigationServiceProvider.saveItem('products.search', {
-            title: 'Busqueda de productos',
-            state: 'app.products_search'
+        msNavigationServiceProvider.saveItem('products.filters', {
+            title: 'Filtros',
+            group: false
         });
+
+        msNavigationServiceProvider.saveItem('products.categories', {
+            title: 'Categorias',
+            group: false
+        });
+
 
         msNavigationServiceProvider.saveItem('products.list', {
             title: 'Lista de productos',
             state: 'app.products_list'
         });
+
+        msNavigationServiceProvider.saveItem('products.filters.list', {
+            title: 'Filtros de productos',
+            state: 'app.products_filters_list'
+        });
+
+        msNavigationServiceProvider.saveItem('products.categories.list', {
+            title: 'Categorias de productos',
+            state: 'app.products_categories_list'
+        });
+        msNavigationServiceProvider.saveItem('products.categories.create', {
+            title: 'Crear categoria',
+            state: 'app.products_categories_create'
+        });
+
+
     }
 })();

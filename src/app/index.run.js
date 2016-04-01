@@ -40,9 +40,9 @@
                   }
                 }
                 //'Handling redirect loop'
-                if(fromState.name != 'app.products_search'){
+                if(fromState.name != 'app.products_list'){
                   event.preventDefault();
-                  $state.go('app.products_search');
+                  $state.go('app.products_list');
                 }else{
                   event.preventDefault();
                   return;

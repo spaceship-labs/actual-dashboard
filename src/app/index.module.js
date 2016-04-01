@@ -59,6 +59,7 @@
             //CUSTOM EXTERNAL MODULES
             'LocalStorageModule',
             'angular-jwt',
-            'bw.paging'
+            'bw.paging',
+            'textAngular'
         ]);
 })();

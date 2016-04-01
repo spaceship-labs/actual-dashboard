@@ -11,7 +11,9 @@
       var service = {
         getList: getList,
         getById: getById,
-        search: search
+        search: search,
+        getCategories: getCategories,
+        getFilters: getFilters
       };
 
       return service;
@@ -30,6 +32,18 @@
       function search(id){
         var url = '/product/search/';
         return api.$http.post(url);
+      }
+
+      function getCategories(page, params){
+        var p = page || 1;
+        var url = '/productcategory/find/' + p;
+        return api.$http.post(url, params);
+      }
+
+      function getFilters(page, params){
+        var p = page || 1;
+        var url = '/productfilter/find/' + p;
+        return api.$http.post(url, params);
       }
 
 

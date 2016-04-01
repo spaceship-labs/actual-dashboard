@@ -3,11 +3,11 @@
     'use strict';
 
     angular
-        .module('app.products.edit')
-        .controller('ProductEditController', ProductEditController);
+        .module('app.products.filters.create')
+        .controller('ProductFiltersCreateController', ProductFiltersCreateController);
 
     /** @ngInject */
-    function ProductEditController($mdDialog, $stateParams, productService,Upload, api, $http){
+    function ProductFiltersCreateController($mdDialog, $stateParams, productService,Upload, api, $http){
         var vm = this;
         vm.uploadFiles = uploadFiles;
         vm.removeFiles = removeFiles;

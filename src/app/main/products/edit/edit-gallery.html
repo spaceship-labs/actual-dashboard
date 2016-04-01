@@ -1,0 +1,71 @@
+<div layout="row" layout-align="space-between">
+  <section flex="35" class="file-manager">
+    <md-toolbar class="demo-toolbar md-primary">
+      <div class="md-toolbar-tools">
+        <h3>Product primary image</h3>
+      </div>
+    </md-toolbar>
+    <md-content class="md-padding md-whiteframe-z1">
+      <form name="form">
+        <div class="file-manager-thumbs" layout="row"   layout-align="space-between start" layout-wrap>
+          <span
+            ng-if="vm.product.icon_filename && !vm.loadingAvatar"
+            class="file-manager-thumb"
+            >
+            <img ngf-thumbnail="vm.api.baseUrl+'/uploads/products/201x201'+vm.product.icon_filename || 'assets/images/product.png'">
+          </span>
+
+          <span ng-if='vm.loadingAvatar' class='loader' >
+            <div layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+            <span>Cargando</span>
+          </span>
+
+        </div>
+
+        <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Upload files</md-button>
+      </form>
+
+
+    </md-content>
+  </section>
+
+
+  <section flex="60" class="file-manager ">
+    <md-toolbar class="demo-toolbar md-primary">
+      <div class="md-toolbar-tools">
+        <h3>Gallery manager</h3>
+      </div>
+    </md-toolbar>
+    <md-content class="md-padding md-whiteframe-z1">
+      <form name="form">
+        <div class="file-manager-thumbs" layout="row" layout-wrap>
+          <span
+            ng-repeat="file in vm.product.files"
+            ng-click='file.selected = !file.selected'
+            class="file-manager-thumb"
+            ng-class="vm.fileClass(file)">
+            <img ngf-thumbnail="vm.api.baseUrl+'/uploads/'+vm.dir+'/110x105'+file.filename || 'assets/images/product.png'">
+          </span>
+
+          <span ng-repeat='file in vm.loading track by $index' class='loader' >
+            <div layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+            <span>Cargando</span>
+          </span>
+
+        </div>
+
+        <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.uploadFiles($files)" multiple="multiple">Upload files</md-button>
+
+        <md-button class="md-raised md-warn" ng-click="vm.removeFiles()">Remove selected files</md-button>
+      </form>
+
+
+    </md-content>
+  </section>
+
+
+</div>

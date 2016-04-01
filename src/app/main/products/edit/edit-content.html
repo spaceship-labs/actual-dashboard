@@ -1,0 +1,74 @@
+<!-- SAP CONTENT -->
+<section class="md-whiteframe-z1">
+  <md-toolbar class="demo-toolbar md-primary">
+    <div class="md-toolbar-tools">
+      <h3>Contenido de SAP</h3>
+    </div>
+  </md-toolbar>
+  <md-content class="md-padding">
+    <ul>
+      <li><strong>Nombre:</strong> {{vm.product.ItemName}}</li>
+      <li><strong>Código:</strong> {{vm.product.ItemCode}}</li>
+      <li><strong>Linea:</strong> {{vm.product.U_LINEA}}</li>
+      <li><strong>Color:</strong> {{vm.product.U_COLOR}}</li>
+      <li><strong>Garantia:</strong> {{vm.product.U_garantia}}</li>
+      <li><strong>On Hand:</strong> {{vm.product.OnHand}}</li>
+    </ul>
+  </md-content>
+</section>
+<!-- / SAP CONTENT -->
+
+<section class="md-whiteframe-z1">
+  <md-toolbar class="demo-toolbar md-primary">
+    <div class="md-toolbar-tools">
+      <h3>Contenido</h3>
+    </div>
+  </md-toolbar>
+  <md-content class="md-padding">
+    <form class="md-inline-form" novalidate>
+      <md-input-container>
+        <input type="text" placeholder="Name">
+      </md-input-container>
+      <div class="wyswyg-block">
+        <label for="">Description</label>
+        <div text-angular ng-model="vm.product.Description" ta-toolbar="vm.wyswygOptions"></div>
+      </div>
+      <div class="wyswyg-block">
+        <label for="">Main features</label>
+        <div text-angular ng-model="vm.product.MainFeatures" ta-toolbar="vm.wyswygOptions"></div>
+      </div>
+      <div class="wyswyg-block">
+        <label for="">Restrictions</label>
+        <div text-angular ng-model="vm.product.Restrictions" ta-toolbar="vm.wyswygOptions"></div>
+      </div>
+      <div class="wyswyg-block">
+        <label for="">Guarantee text</label>
+        <div text-angular ng-model="vm.product.GuaranteeText" ta-toolbar="vm.wyswygOptions"></div>
+      </div>
+      <div class="wyswyg-block">
+        <md-input-container>
+          <input type="text" ng-model="vm.product.DetailedColor" placeholder="Detailed color">
+        </md-input-container>
+      </div>
+      <div>
+        <md-input-container>
+          <md-select placeholder="Ensemble" ng-model="vm.product.Ensemble">
+            <md-option ng-repeat="ensemble in vm.ensembles" value="{{ensemble.value}}">
+              {{ensemble.label}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+      <div class="wyswyg-block">
+        <label for="">Package content</label>
+        <div text-angular ta-toolbar="vm.wyswygOptions" ng-model="vm.product.PackageContent"></div>
+      </div>
+      <!--
+      <md-input-container>
+        <label></label>
+        <textarea rows="5"></textarea>
+      </md-input-container>
+      -->
+    </form>
+  </md-content>
+</section>
