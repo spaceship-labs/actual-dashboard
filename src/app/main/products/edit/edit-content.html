@@ -13,6 +13,20 @@
       <li><strong>Color:</strong> {{vm.product.U_COLOR}}</li>
       <li><strong>Garantia:</strong> {{vm.product.U_garantia}}</li>
       <li><strong>On Hand:</strong> {{vm.product.OnHand}}</li>
+      <li><strong>Is commited:</strong> {{vm.product.OnHand}}</li>
+      <li><strong>On Hand:</strong> {{vm.product.IsCommited}}</li>
+      <li><strong>On order:</strong> {{vm.product.OnOrder}}</li>
+      <li><strong>SalUnitMsr:</strong> {{vm.product.SalUnitMsr}}</li>
+
+      <li><strong>U_LINEA:</strong> {{vm.product.U_LINEA}}</li>
+      <li><strong>U_PRODUCTO:</strong> {{vm.product.U_PRODUCTO}}</li>
+      <li><strong>U_COLOR:</strong> {{vm.product.U_COLOR}}</li>
+      <li><strong>U_garantia:</strong> {{vm.product.U_garantia}}</li>
+      <li><strong>U_disenado_en:</strong> {{vm.product.U_disenado_en}}</li>
+      <li><strong>U_ensamblado_en:</strong> {{vm.product.U_ensamblado_en}}</li>
+
+
+
     </ul>
   </md-content>
 </section>
@@ -25,24 +39,35 @@
     </div>
   </md-toolbar>
   <md-content class="md-padding">
-    <form class="md-inline-form" novalidate>
+
+
+    <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+      <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+    </div>
+
+    <form ng-show="!vm.isLoading" ng-submit="vm.update($event)" class="md-inline-form" novalidate>
+
+      <div layout="row" layout-align="end center">
+        <md-button ng-click="vm.update($event)" class="md-raised md-primary">Guardar</md-button>
+      </div>
+
       <md-input-container>
-        <input type="text" placeholder="Name">
+        <input type="text" ng-model="vm.product.Name" placeholder="Name">
       </md-input-container>
       <div class="wyswyg-block">
-        <label for="">Description</label>
+        <label for=""><strong>Description</strong></label>
         <div text-angular ng-model="vm.product.Description" ta-toolbar="vm.wyswygOptions"></div>
       </div>
       <div class="wyswyg-block">
-        <label for="">Main features</label>
+        <label for=""><strong>Main features</strong></label>
         <div text-angular ng-model="vm.product.MainFeatures" ta-toolbar="vm.wyswygOptions"></div>
       </div>
       <div class="wyswyg-block">
-        <label for="">Restrictions</label>
+        <label for=""><strong>Restrictions</strong></label>
         <div text-angular ng-model="vm.product.Restrictions" ta-toolbar="vm.wyswygOptions"></div>
       </div>
       <div class="wyswyg-block">
-        <label for="">Guarantee text</label>
+        <label for=""><strong>Guarantee text</strong></label>
         <div text-angular ng-model="vm.product.GuaranteeText" ta-toolbar="vm.wyswygOptions"></div>
       </div>
       <div class="wyswyg-block">
@@ -60,7 +85,7 @@
         </md-input-container>
       </div>
       <div class="wyswyg-block">
-        <label for="">Package content</label>
+        <label for=""><strong>Package content</strong></label>
         <div text-angular ta-toolbar="vm.wyswygOptions" ng-model="vm.product.PackageContent"></div>
       </div>
       <!--
@@ -69,6 +94,10 @@
         <textarea rows="5"></textarea>
       </md-input-container>
       -->
+      <div layout="row" layout-align="end center">
+        <md-button ng-click="vm.update($event)" class="md-raised md-primary">Guardar</md-button>
+      </div>
+
     </form>
   </md-content>
 </section>

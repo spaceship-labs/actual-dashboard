@@ -7,13 +7,15 @@
         .controller('ProductEditController', ProductEditController);
 
     /** @ngInject */
-    function ProductEditController($mdDialog, $stateParams, productService,Upload, api, $http){
+    function ProductEditController(dialogService, $stateParams, productService,Upload, api, $http){
         var vm = this;
         vm.uploadFiles = uploadFiles;
         vm.removeFiles = removeFiles;
         vm.fileClass = fileClass;
         vm.updateIcon = updateIcon;
         vm.init = init;
+        vm.update = update;
+        vm.isLoading = false;
 
         // Data
         vm.loading = [];
@@ -50,6 +52,16 @@
           productService.getById($stateParams.id).then(function(res){
             vm.product = res.data.data;
           });
+        }
+
+        function update(){
+          vm.isLoading = true;
+          productService.update(vm.product.ItemCode, vm.product)
+            .then(function(res){
+              vm.isLoading = false;
+              dialogService.showDialog('Datos actualizados');
+              console.log(res);
+            });
         }
 
 

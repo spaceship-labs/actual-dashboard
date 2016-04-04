@@ -13,7 +13,8 @@
         getById: getById,
         search: search,
         getCategories: getCategories,
-        getFilters: getFilters
+        getFilters: getFilters,
+        update: update
       };
 
       return service;
@@ -43,6 +44,11 @@
       function getFilters(page, params){
         var p = page || 1;
         var url = '/productfilter/find/' + p;
+        return api.$http.post(url, params);
+      }
+
+      function update(id, params){
+        var url = '/product/update/' + id;
         return api.$http.post(url, params);
       }
 

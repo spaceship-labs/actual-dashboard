@@ -13,7 +13,7 @@
             url      : '/products/categories/create/:id',
             views    : {
                 'content@app': {
-                    templateUrl: 'app/main/products/categoriescreate/categoriescreate.html',
+                    templateUrl: 'app/main/products/categories/create/create.html',
                     controller : 'ProductCategoriesCreateController as vm'
                 }
             },

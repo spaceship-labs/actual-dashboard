@@ -50,6 +50,10 @@
                       query.page = page;
                   }
 
+                  if($scope.orderBy){
+                    query.orderby = $scope.orderBy;
+                  }
+
                   $scope.apiResource(page,query)
                     .then(
                       function(res){
@@ -113,6 +117,7 @@
           columns: '=',
           actionUrl: '=',
           searchText: '@',
+          orderBy: '@',
           dtColumns: '='
         },
         templateUrl : 'app/main/directives/table-list/table-list.html'
