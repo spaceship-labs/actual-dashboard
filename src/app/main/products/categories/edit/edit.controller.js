@@ -14,8 +14,10 @@
         vm.create = create;
         vm.toggleCategory = toggleCategory;
         vm.loadCategories = loadCategories;
+        vm.showDestroyDialog = showDestroyDialog;
 
         vm.isLoading = false;
+        vm.destroyFn = productService.destroyCategorybyId;
 
         //vm.category = {};
 
@@ -34,13 +36,16 @@
 
         }
 
+        function showDestroyDialog($ev){
+          dialogService.showDestroyDialog($ev, vm.destroyFn, vm.category.id, '/products/categories');
+        }
+
         function loadCategories(){
           productService.getAllCategories().then(function(res){
             vm.categories = res.data;
             for(var i=0;i<vm.categories.length; i++){
 
               for(var j=0;j<vm.category.Parents.length;j++){
-                console.log('comparando: parent: ' + vm.category.Parents[j].Name + ' con category : ' + vm.categories[i].Name);
                 if( vm.categories[i].id === vm.category.Parents[j].id ){
                   vm.categories[i].selected = true;
                 }
@@ -57,15 +62,17 @@
 
         function create(){
           vm.isLoading = true;
-          if(vm.category.IsMain){
-            vm.category.CategoryLevel = 1;
-          }
 
           vm.category.parents = [];
           for(var i=0; i<vm.categories.length;i++){
             if(vm.categories[i].selected){
               vm.category.parents.push(vm.categories[i].id);
             }
+          }
+
+          if(vm.category.IsMain){
+            vm.category.CategoryLevel = 1;
+            vm.category.Parents = [];
           }
 
           console.log(vm.category);

@@ -15,9 +15,10 @@
     dialogController.$inject = ['$scope','$mdDialog'];
 
     /** @ngInject */
-    function dialogService($q, $log, $mdDialog){
+    function dialogService($q, $log, $mdDialog, $window, $location){
         var service = {
-            showDialog: showDialog
+            showDialog: showDialog,
+            showDestroyDialog: showDestroyDialog
         };
 
         return service;
@@ -39,6 +40,34 @@
               targetEvent        : ev,
               clickOutsideToClose: true
           });
+        }
+
+        function showDestroyDialog(ev, destroyPromise,id, redirectUrl){
+          var redirect = redirectUrl || false;
+          var confirm = $mdDialog.confirm()
+                .title('Eliminar')
+                .textContent('¿Deseas eliminar este registro?')
+                .ariaLabel('Eliminar')
+                .targetEvent(ev)
+                .ok('Eliminar')
+                .cancel('Cancelar');
+          $mdDialog.show(confirm).then(function() {
+            destroyPromise(id).then(function(res){
+              console.log(res);
+              if(redirect){
+                console.log('redirecting');
+                $location.path(redirect);
+              }else{
+                console.log('reloading');
+                $window.location.reload();
+              }
+            }, function(err){
+              console.log(err);
+            });
+          }, function() {
+            $scope.status = 'You decided to keep your debt.';
+          });
+
         }
     }
 

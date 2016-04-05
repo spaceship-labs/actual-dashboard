@@ -14,7 +14,8 @@
             'app.products.categories.edit',
 
             'app.products.filters.list',
-            'app.products.filters.create'
+            'app.products.filters.create',
+            'app.products.filters.edit'
 
 
         ])
@@ -47,11 +48,6 @@
             state: 'app.products_list'
         });
 
-        msNavigationServiceProvider.saveItem('products.filters.list', {
-            title: 'Filtros de productos',
-            state: 'app.products_filters_list'
-        });
-
         msNavigationServiceProvider.saveItem('products.categories.list', {
             title: 'Categorias de productos',
             state: 'app.products_categories_list'
@@ -61,6 +57,15 @@
             state: 'app.products_categories_create'
         });
 
+        msNavigationServiceProvider.saveItem('products.filters.list', {
+            title: 'Filtros de productos',
+            state: 'app.products_filters_list'
+        });
+
+        msNavigationServiceProvider.saveItem('products.filters.create', {
+            title: 'Crear filtro',
+            state: 'app.products_filters_create'
+        });
 
     }
 })();

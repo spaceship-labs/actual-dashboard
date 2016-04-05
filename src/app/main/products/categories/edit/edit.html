@@ -31,7 +31,7 @@
         <section class="md-whiteframe-z1">
           <md-toolbar class="demo-toolbar md-primary">
             <div class="md-toolbar-tools">
-              <h3>Crear categoria</h3>
+              <h3>Editar categoria</h3>
             </div>
           </md-toolbar>
           <md-content class="md-padding">
@@ -43,10 +43,11 @@
             <form ng-if="!vm.isLoading" ng-submit="vm.create()" class="md-inline-form" novalidate>
               <div layout="row" layout-align="end center">
                 <md-button ng-click="vm.create($event)" class="md-raised md-primary">Guardar</md-button>
+                <md-button ng-click="vm.showDestroyDialog($event)" class="md-raised md-warn">Eliminar</md-button>
               </div>
               <p>
                 <md-input-container>
-                  <input type="text" ng-model="vm.category.Name" placeholder="Name">
+                  <input type="text" ng-model="vm.category.Name" placeholder="Nombre">
                 </md-input-container>
               </p>
               <p>
@@ -72,22 +73,24 @@
               </p>
               -->
 
-              <p><label><strong>Categorias padre</strong></label></p>
+              <div ng-if="!vm.category.IsMain">
+                <p><label><strong>Categorias padre</strong></label></p>
 
-              <md-list ng-if="!vm.category.IsMain">
-                <md-list-item ng-repeat="category in vm.categories | orderBy:'-Childs'">
-                  <md-checkbox ng-model="category.selected"></md-checkbox>
-                  <p>
-                    {{category.Name}}
-                    <span ng-if="category.IsMain"> (Categoria principal)</span>
-                  </p>
+                <md-list >
+                  <md-list-item ng-repeat="category in vm.categories | orderBy:'-Childs'">
+                    <md-checkbox ng-model="category.selected"></md-checkbox>
+                    <p>
+                      {{category.Name}}
+                      <span ng-if="category.IsMain"> (Categoria principal)</span>
+                    </p>
 
-                </md-list-item>
-              </md-list>
+                  </md-list-item>
+                </md-list>
+              </div>
 
               <md-input-container>
                 <label for=""><strong>Descripción</strong></label>
-                <textarea ng-model="vm.category.Description" md-maxlength="150" rows="5" md-select-on-focus>
+                <textarea ng-model="vm.category.Description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
               </md-input-container>
 
               <div layout="row" layout-align="end center">

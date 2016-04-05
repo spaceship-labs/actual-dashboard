@@ -1,0 +1,100 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="breadcrumb" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
+                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
+                <span class="parent">Tables</span>
+            </div>
+            <div class="title">Products Filters</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+
+      <div class="page-layout simple fullwidth">
+
+        <section class="md-whiteframe-z1">
+          <md-toolbar class="demo-toolbar md-primary">
+            <div class="md-toolbar-tools">
+              <h3>Editar filtro</h3>
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+
+            <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+            </div>
+
+            <form ng-if="!vm.isLoading" ng-submit="vm.update()" class="md-inline-form" novalidate>
+              <div layout="row" layout-align="end center">
+                <md-button ng-click="vm.update($event)" class="md-raised md-primary">Guardar</md-button>
+              </div>
+
+              <p>
+                <md-input-container>
+                  <input type="text" ng-model="vm.filter.Name" placeholder="Nombre">
+                </md-input-container>
+              </p>
+
+              <p>
+                <md-input-container>
+                  <input type="text" ng-model="vm.filter.Handle" placeholder="Handle">
+                </md-input-container>
+              </p>
+
+              <p>
+                <md-checkbox ng-model="vm.filter.IsMultiple" aria-label="¿Acepta valores multiples?">
+                  ¿Acepta valores multiples?
+                </md-checkbox>
+              </p>
+
+              <md-input-container>
+                <label for=""><strong>Descripción</strong></label>
+                <textarea ng-model="vm.filter.Description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+              </md-input-container>
+
+
+              <div layout="row" layout-wrap>
+                <p flex="100"><label><strong>Valores aceptados</strong></label></p>
+                <!--
+                <md-chips flex="60" ng-model="vm.filter.Values">
+                </md-chips>
+                -->
+
+                <md-chips ng-if="vm.filter.Values" ng-model="vm.filter.Values"
+                    md-transform-chip="vm.newFilterValue($chip)">
+                  <md-chip-template>
+                    <span>{{$chip.Name}}</span>
+                  </md-chip-template>
+                  <button md-chip-remove class="md-primary">
+                    <md-icon md-svg-icon="md-close"></md-icon>
+                  </button>
+                </md-chips>
+
+              </div>
+
+              <div layout="row" layout-align="end center">
+                <md-button ng-click="vm.update($event)" class="md-raised md-primary">Guardar</md-button>
+              </div>
+
+            </form>
+          </md-content>
+        </section>
+
+      </div>
+
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+
+
+
+

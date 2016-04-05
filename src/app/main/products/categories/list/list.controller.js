@@ -13,10 +13,12 @@
         // Data
         vm.columns = [
             {key:'Name', label:'Name',actionUrl:'/products/categories/edit/', propId: 'id'},
-            {key:'IsMain', label:'Principal', yesNo: true}
+            {key:'IsMain', label:'Principal', yesNo: true},
+            {key:'Delete',label:'Eliminar',destroy:true}
         ];
 
         vm.apiResource = productService.getCategories;
+        vm.destroyFn =  productService.destroyCategorybyId;
 
         // Methods
         //////////

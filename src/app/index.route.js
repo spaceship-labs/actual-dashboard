@@ -11,7 +11,8 @@
     {
         $locationProvider.html5Mode(true);
 
-        $urlRouterProvider.otherwise('/auth/login');
+        $urlRouterProvider.otherwise('/products');
+        //$urlRouterProvider.otherwise('/auth/login');
 
         /**
          * Layout Style Switcher

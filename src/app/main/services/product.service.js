@@ -18,7 +18,12 @@
         createCategory: createCategory,
         getMainCategories: getMainCategories,
         getAllCategories: getAllCategories,
-        getCategoryById: getCategoryById
+        getCategoryById: getCategoryById,
+        destroyCategorybyId: destroyCategorybyId,
+        createFilter:createFilter,
+        getFilterById: getFilterById,
+        destroyFilterById: destroyFilterById,
+        updateFilterById: updateFilterById
       };
 
       return service;
@@ -38,7 +43,6 @@
         var url = '/product/search/';
         return api.$http.post(url);
       }
-
 
       function update(id, params){
         var url = '/product/update/' + id;
@@ -71,12 +75,37 @@
         return api.$http.post(url);
       }
 
+      function destroyCategorybyId(id){
+        var url = '/productcategory/destroy/'+id;
+        return api.$http.post(url);
+      }
+
+
       function getFilters(page, params){
         var p = page || 1;
         var url = '/productfilter/find/' + p;
         return api.$http.post(url, params);
       }
 
+      function createFilter(params){
+        var url = '/productfilter/create/';
+        return api.$http.post(url, params);
+      }
+
+      function getFilterById(id){
+        var url = '/productfilter/findbyid/' + id;
+        return api.$http.post(url);
+      }
+
+      function destroyFilterById(id){
+        var url = '/productfilter/destroy/'+id;
+        return api.$http.post(url);
+      }
+
+      function updateFilterById(id, params){
+        var url = '/productfilter/update/' + id;
+        return api.$http.post(url, params);
+      }
 
     }
 

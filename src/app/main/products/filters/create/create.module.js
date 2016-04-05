@@ -13,7 +13,7 @@
             url      : '/products/filters/create',
             views    : {
                 'content@app': {
-                    templateUrl: 'app/main/products/filterscreate/filterscreate.html',
+                    templateUrl: 'app/main/products/filters/create/create.html',
                     controller : 'ProductFiltersCreateController as vm'
                 }
             },
