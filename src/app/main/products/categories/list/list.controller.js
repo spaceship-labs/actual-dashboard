@@ -12,7 +12,8 @@
         var vm = this;
         // Data
         vm.columns = [
-            {key:'Name', label:'Name'}
+            {key:'Name', label:'Name',actionUrl:'/products/categories/edit/', propId: 'id'},
+            {key:'IsMain', label:'Principal', yesNo: true}
         ];
 
         vm.apiResource = productService.getCategories;

@@ -3,18 +3,18 @@
     'use strict';
 
     angular
-        .module('app.products.categories.create', [])
+        .module('app.products.categories.edit',[])
         .config(config);
 
     /** @ngInject */
     function config($stateProvider)
     {
-        $stateProvider.state('app.products_categories_create', {
-            url      : '/products/categories/create',
+        $stateProvider.state('app.products_categories_edit', {
+            url      : '/products/categories/edit/:id',
             views    : {
                 'content@app': {
-                    templateUrl: 'app/main/products/categories/create/create.html',
-                    controller : 'ProductCategoriesCreateController as vm'
+                    templateUrl: 'app/main/products/categories/edit/edit.html',
+                    controller : 'ProductCategoriesEditController as vm'
                 }
             },
             resolve  : {

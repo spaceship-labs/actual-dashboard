@@ -14,7 +14,11 @@
         search: search,
         getCategories: getCategories,
         getFilters: getFilters,
-        update: update
+        update: update,
+        createCategory: createCategory,
+        getMainCategories: getMainCategories,
+        getAllCategories: getAllCategories,
+        getCategoryById: getCategoryById
       };
 
       return service;
@@ -35,20 +39,41 @@
         return api.$http.post(url);
       }
 
+
+      function update(id, params){
+        var url = '/product/update/' + id;
+        return api.$http.post(url, params);
+      }
+
+      function createCategory(params){
+        var url = '/productcategory/create';
+        return api.$http.post(url, params);
+      }
+
       function getCategories(page, params){
         var p = page || 1;
         var url = '/productcategory/find/' + p;
         return api.$http.post(url, params);
       }
 
+      function getMainCategories(){
+        var url = '/productcategory/getmaincategories';
+        return api.$http.post(url);
+      }
+
+      function getAllCategories(){
+        var url = '/productcategory/getallcategories';
+        return api.$http.post(url);
+      }
+
+      function getCategoryById(id){
+        var url = '/productcategory/findbyid/' + id;
+        return api.$http.post(url);
+      }
+
       function getFilters(page, params){
         var p = page || 1;
         var url = '/productfilter/find/' + p;
-        return api.$http.post(url, params);
-      }
-
-      function update(id, params){
-        var url = '/product/update/' + id;
         return api.$http.post(url, params);
       }
 

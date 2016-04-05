@@ -3,34 +3,55 @@
     'use strict';
 
     angular
-        .module('app.products.categories.create')
-        .controller('ProductCategoriesCreateController', ProductCategoriesCreateController);
+        .module('app.products.categories.edit')
+        .controller('ProductCategoriesEditController', ProductCategoriesEditController);
 
     /** @ngInject */
-    function ProductCategoriesCreateController($scope ,$stateParams, dialogService,productService){
+    function ProductCategoriesEditController($scope ,$stateParams, dialogService,productService){
         var vm = this;
 
         vm.init = init;
         vm.create = create;
         vm.toggleCategory = toggleCategory;
+        vm.loadCategories = loadCategories;
 
         vm.isLoading = false;
 
-        vm.category = {};
+        //vm.category = {};
 
         vm.init();
 
         //Methods
 
         function init(){
-          /*
-          productService.getById($stateParams.id).then(function(res){
-            vm.product = res.data.data;
-          });
-          */
-          productService.getAllCategories().then(function(res){
+
+          productService.getCategoryById($stateParams.id).then(function(res){
             console.log(res);
+            vm.category = res.data;
+            vm.loadCategories();
+          });
+
+
+        }
+
+        function loadCategories(){
+          productService.getAllCategories().then(function(res){
             vm.categories = res.data;
+            for(var i=0;i<vm.categories.length; i++){
+
+              for(var j=0;j<vm.category.Parents.length;j++){
+                console.log('comparando: parent: ' + vm.category.Parents[j].Name + ' con category : ' + vm.categories[i].Name);
+                if( vm.categories[i].id === vm.category.Parents[j].id ){
+                  vm.categories[i].selected = true;
+                }
+              }
+
+              //Removing from list if is the same category
+              if(vm.categories[i].id == vm.category.id){
+                vm.categories.splice(i,1);
+              }
+
+            }
           });
         }
 

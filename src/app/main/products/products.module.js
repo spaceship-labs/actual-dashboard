@@ -11,9 +11,10 @@
 
             'app.products.categories.list',
             'app.products.categories.create',
+            'app.products.categories.edit',
 
             'app.products.filters.list',
-            'app.products.filters.create',
+            'app.products.filters.create'
 
 
         ])

@@ -94,6 +94,11 @@
             .newColumn(column.key).withTitle(column.label)
             .renderWith(
               function renderCell(data, type, full, pos){
+
+                if(column.yesNo){
+                  data = data ? 'Si' : 'No';
+                }
+
                 var html = data;
                 if(column.actionUrl){
                   var id = (column.propId) ? column.propId : 'id';
