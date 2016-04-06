@@ -13,6 +13,7 @@
         // Data
         vm.columns = [
             {key:'Name', label:'Name',actionUrl:'/products/categories/edit/', propId: 'id'},
+            {key:'CategoryLevel', label:'Nivel'},
             {key:'IsMain', label:'Principal', yesNo: true},
             {key:'Delete',label:'Eliminar',destroy:true}
         ];

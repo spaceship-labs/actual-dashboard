@@ -12,11 +12,14 @@
 
         vm.init = init;
         vm.create = create;
-        vm.toggleCategory = toggleCategory;
+        vm.toggleCategoryMain = toggleCategoryMain;
 
         vm.isLoading = false;
 
-        vm.category = {};
+        vm.category = {
+          IsMain: true,
+        };
+        vm.categoriesGroups = [];
 
         vm.init();
 
@@ -28,6 +31,11 @@
             vm.product = res.data.data;
           });
           */
+          productService.getCategoriesGroups().then(function(res){
+            console.log(res);
+            vm.categoriesGroups = res.data;
+          });
+
           productService.getAllCategories().then(function(res){
             console.log(res);
             vm.categories = res.data;
@@ -57,19 +65,24 @@
 
         }
 
-        function toggleCategory(item, list){
-          var idx = list.indexOf(item);
-          if (idx > -1) {
-            list.splice(idx, 1);
-          }
-          else {
-            list.push(item);
+        function toggleCategoryMain(){
+          //If category was main
+          if(vm.category.IsMain){
+            vm.category.CategoryLevel = 2;
           }
         }
 
         $scope.$watch('vm.category.Name', function(newVal, oldVal){
           if(newVal != oldVal){
             vm.category.Handle = newVal.replace(/\s+/g, '-').toLowerCase();
+          }
+        });
+
+        $scope.$watch('vm.category.IsMain', function(newVal, oldVal){
+          if(newVal != oldVal){
+            if(newVal === true){
+              vm.category.CategoryLevel = 1;
+            }
           }
         });
 

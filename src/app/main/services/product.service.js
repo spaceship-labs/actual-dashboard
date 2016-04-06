@@ -23,7 +23,8 @@
         createFilter:createFilter,
         getFilterById: getFilterById,
         destroyFilterById: destroyFilterById,
-        updateFilterById: updateFilterById
+        updateFilterById: updateFilterById,
+        getCategoriesGroups: getCategoriesGroups
       };
 
       return service;
@@ -67,6 +68,11 @@
 
       function getAllCategories(){
         var url = '/productcategory/getallcategories';
+        return api.$http.post(url);
+      }
+
+      function getCategoriesGroups(){
+        var url = '/productcategory/getcategoriesgroups';
         return api.$http.post(url);
       }
 

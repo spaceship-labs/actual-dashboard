@@ -31,7 +31,7 @@
         <section class="md-whiteframe-z1">
           <md-toolbar class="demo-toolbar md-primary">
             <div class="md-toolbar-tools">
-              <h3>Editar categoria</h3>
+              <h3>Crear categoria</h3>
             </div>
           </md-toolbar>
           <md-content class="md-padding">
@@ -60,31 +60,52 @@
                 </md-input-container>
               </p>
               <p>
-                <md-checkbox ng-model="vm.category.IsMain" aria-label="Categoria principal">
+                <md-checkbox ng-model="vm.category.IsMain" ng-click="vm.toggleCategoryMain()" aria-label="Categoria principal">
                   Categoria principal
                 </md-checkbox>
               </p>
 
-              <!---
+
               <p ng-if="!vm.category.IsMain">
                 <md-input-container>
-                  <input type="number" min="2" ng-model="vm.category.CategoryLevel" placeholder="Category Level">
+                  <input type="number" required  min="2" max="3" ng-model="vm.category.CategoryLevel"  placeholder="Category Level">
                 </md-input-container>
               </p>
-            -->
 
-              <p><label><strong>Categorias padre</strong></label></p>
 
-              <md-list ng-if="!vm.category.IsMain">
-                <md-list-item ng-repeat="category in vm.categories | orderBy:'-Childs'">
-                  <md-checkbox ng-model="category.selected"></md-checkbox>
-                  <p>
-                    {{category.Name}}
-                    <span ng-if="category.IsMain"> (Categoria principal)</span>
-                  </p>
+              <p ng-if="!vm.category.IsMain"><label><strong>Categorias padre</strong></label></p>
 
-                </md-list-item>
-              </md-list>
+              <div ng-if="!vm.category.IsMain">
+                <p>
+                  <label><strong>Categorias Nivel 1</strong></label>
+                </p>
+                <md-list ng-if="!vm.category.IsMain && vm.category.CategoryLevel > 1">
+                  <md-list-item ng-repeat="category in vm.categoriesGroups[0]">
+                    <md-checkbox ng-model="category.selected"></md-checkbox>
+                    <p>
+                      {{category.Name}}
+                      <span ng-if="category.IsMain"></span>
+                    </p>
+
+                  </md-list-item>
+                </md-list>
+              </div>
+
+              <div ng-if="!vm.category.IsMain && vm.category.CategoryLevel > 2 ">
+                <p>
+                  <label><strong>Categorias Nivel 2</strong></label>
+                </p>
+                <md-list ng-if="!vm.category.IsMain">
+                  <md-list-item ng-repeat="category in vm.categoriesGroups[1]">
+                    <md-checkbox ng-model="category.selected"></md-checkbox>
+                    <p>
+                      {{category.Name}}
+                      <span ng-if="category.IsMain"></span>
+                    </p>
+
+                  </md-list-item>
+                </md-list>
+              </div>
 
 
               <md-input-container>

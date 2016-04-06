@@ -65,13 +65,13 @@
                   Categoria principal
                 </md-checkbox>
               </p>
-              <!--
+
               <p ng-if="!vm.category.IsMain">
                 <md-input-container>
-                  <input type="number" min="2" ng-model="vm.category.CategoryLevel" placeholder="Category Level">
+                  <input type="number" min="2" max="3" ng-model="vm.category.CategoryLevel" placeholder="Category Level">
                 </md-input-container>
               </p>
-              -->
+
 
               <div ng-if="!vm.category.IsMain">
                 <p><label><strong>Categorias padre</strong></label></p>
