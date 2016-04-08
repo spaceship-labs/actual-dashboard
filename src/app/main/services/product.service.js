@@ -14,7 +14,6 @@
         getById: getById,
         search: search,
         getCategories: getCategories,
-        getFilters: getFilters,
         update: update,
 
         //Categories
@@ -28,10 +27,12 @@
 
 
         //Filters
+        getFilters: getFilters,
         createFilter:createFilter,
         getFilterById: getFilterById,
         destroyFilterById: destroyFilterById,
         updateFilterById: updateFilterById,
+        getAllFilters: getAllFilters
       };
 
       return service;
@@ -109,6 +110,11 @@
         var p = page || 1;
         var url = '/productfilter/find/' + p;
         return api.$http.post(url, params);
+      }
+
+      function getAllFilters(){
+        var url = '/productfilter/list/';
+        return api.$http.post(url);
       }
 
       function createFilter(params){

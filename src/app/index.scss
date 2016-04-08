@@ -120,3 +120,14 @@ div.dataTables_filter label{float: left;}
 .colorpicker-sp-checked.checked-on{
   display: block;
 }
+
+.editor-block{
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.54);
+  border-top: 1px solid rgba(0,0,0,0.54);
+  margin: 10px 0;
+}
+
+.editor-block + .editor-block{
+  border-top:0;
+}

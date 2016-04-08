@@ -111,7 +111,7 @@
 
 
       <!--CATEGORY CHOOSER-->
-      <div>
+      <div class="editor-block">
         <h2><strong>Categorias</strong></h2>
 
         <div ng-repeat="group in vm.categoriesGroups track by $index">
@@ -125,6 +125,31 @@
 
       </div>
       <!--END CATEGORY CHOOSER-->
+
+      <!--FILTERS-->
+      <div class="editor-block">
+        <h2><strong>Caracteristicas</strong></h2>
+        <div ng-repeat="filter in vm.filters">
+          <p><label><strong>{{filter.Name}}</strong></label></p>
+
+          <div ng-if="filter.IsMultiple">
+            <md-checkbox class="spaced-checkbox" ng-repeat="value in filter.Values" ng-model="edede">{{value.Name}}</md-checkbox>
+          </div>
+
+          <div ng-if="!filter.IsMultiple">
+            <md-input-container>
+              <md-select placeholder="{{filter.Name}}" ng-model="vdededed">
+                <md-option>Ninguno</md-option>
+                <md-option ng-repeat="value in filter.Values" value="{{value.id}}">
+                  {{value.Name}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+
+        </div>
+      </div>
+      <!--END FILTERS-->
 
       <div layout="row" layout-align="end center">
         <md-button ng-click="vm.update($event)" class="md-raised md-primary">Guardar</md-button>

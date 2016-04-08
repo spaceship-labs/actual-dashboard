@@ -19,6 +19,7 @@
         vm.formatCategoryGroups = formatCategoryGroups;
         vm.groupSelectedCategories = groupSelectedCategories;
         vm.selectColor = selectColor;
+        vm.loadFilters = loadFilters;
         vm.isLoading = false;
 
         // Data
@@ -72,6 +73,7 @@
           productService.getById($stateParams.id).then(function(res){
             vm.product = res.data.data;
             vm.loadCategories();
+            vm.loadFilters();
           });
         }
 
@@ -127,7 +129,12 @@
           });
         }
 
-
+        function loadFilters(){
+          productService.getAllFilters().then(function(res){
+            console.log(res);
+            vm.filters = res.data;
+          });
+        }
 
         function updateIcon($file) {
           console.log($file);
