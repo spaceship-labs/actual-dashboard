@@ -13,10 +13,10 @@
 
         <div layout="row" layout-align="start center">
             <md-button class="md-raised reference-button"
-                       href="https://l-lin.github.io/angular-datatables"
-                       target="_blank">
-                <md-icon md-font-icon="icon-link"></md-icon>
-                <span>Reference</span>
+                       href="/products/filters/create"
+                       >
+                <md-icon md-font-icon="icon-plus"></md-icon>
+                <span>Crear</span>
             </md-button>
         </div>
     </div>
@@ -25,7 +25,11 @@
     <!-- CONTENT -->
     <div class="content">
 
-        <div class="white-bg md-whiteframe-4dp">
+        <div ng-show="vm.isLoadingDelete" layout="row" layout-sm="column" layout-align="space-around">
+          <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+        </div>
+
+        <div ng-show="!vm.isLoadingDelete" class="white-bg md-whiteframe-4dp">
             <div table-list columns="vm.columns" destroy-fn="vm.destroyFn" api-resource="vm.apiResource"></div>
         </div>
 

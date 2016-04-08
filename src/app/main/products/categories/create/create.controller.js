@@ -36,10 +36,6 @@
             vm.categoriesGroups = res.data;
           });
 
-          productService.getAllCategories().then(function(res){
-            console.log(res);
-            vm.categories = res.data;
-          });
         }
 
         function create(){
@@ -49,11 +45,15 @@
           }
 
           vm.category.parents = [];
-          for(var i=0; i<vm.categories.length;i++){
-            if(vm.categories[i].selected){
-              vm.category.parents.push(vm.categories[i].id);
+          for(var i=0;i<vm.categoriesGroups.length;i++){
+            for(var j=0;j<vm.categoriesGroups[i].length;j++){
+              if(vm.categoriesGroups[i][j].selected){
+                //delete vm.categoriesGroups[i][j].selected;
+                vm.category.parents.push(vm.categoriesGroups[i][j].id);
+              }
             }
           }
+
 
           console.log(vm.category);
 

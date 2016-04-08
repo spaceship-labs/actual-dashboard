@@ -22,7 +22,7 @@
 
         ];
 
-        vm.apiResource = productService.getList;
+        vm.apiResource = productService.getListNoImages;
 
         // Methods
         //////////

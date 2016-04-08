@@ -64,6 +64,24 @@
                 <md-chips flex="60" ng-model="vm.filter.Values"></md-chips>
               </div>
 
+
+              <!--CATEGORY CHOOSER-->
+              <div>
+                <h2><strong>Categorias con este filtro</strong></h2>
+
+                <div ng-repeat="group in vm.categoriesGroups track by $index">
+                  <p ng-if="group.length > 0">
+                    <label><strong>Categorias Nivel {{$index+1}}</strong></label>
+                  </p>
+                  <div >
+                    <md-checkbox class="spaced-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+                  </div>
+                </div>
+
+              </div>
+              <!--END CATEGORY CHOOSER-->
+
+
               <div layout="row" layout-align="end center">
                 <md-button ng-click="vm.create($event)" class="md-raised md-primary">Guardar</md-button>
               </div>

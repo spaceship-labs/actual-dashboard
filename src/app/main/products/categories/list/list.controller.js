@@ -7,7 +7,7 @@
         .controller('ProductsCategoriesListController', ProductsCategoriesListController);
 
     /** @ngInject */
-    function ProductsCategoriesListController(productService)
+    function ProductsCategoriesListController(productService, $rootScope)
     {
         var vm = this;
         // Data
@@ -20,6 +20,18 @@
 
         vm.apiResource = productService.getCategories;
         vm.destroyFn =  productService.destroyCategorybyId;
+
+        $rootScope.$on('destroyingItemStart', function(ev, start){
+          if(start){
+            vm.isLoadingDelete = true;
+          }
+        });
+
+        $rootScope.$on('destroyingItemEnd', function(ev, end){
+          if(end){
+            vm.isLoadingDelete = false;
+          }
+        });
 
         // Methods
         //////////

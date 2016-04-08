@@ -55,29 +55,49 @@
         <input type="text" ng-model="vm.product.Name" placeholder="Name">
       </md-input-container>
       <div class="wyswyg-block">
-        <label for=""><strong>Description</strong></label>
+        <label for=""><strong>Descripción</strong></label>
         <div text-angular ng-model="vm.product.Description" ta-toolbar="vm.wyswygOptions"></div>
       </div>
       <div class="wyswyg-block">
-        <label for=""><strong>Main features</strong></label>
+        <label for=""><strong>Caracteristicas principales</strong></label>
         <div text-angular ng-model="vm.product.MainFeatures" ta-toolbar="vm.wyswygOptions"></div>
       </div>
       <div class="wyswyg-block">
-        <label for=""><strong>Restrictions</strong></label>
+        <label for=""><strong>Restricciones</strong></label>
         <div text-angular ng-model="vm.product.Restrictions" ta-toolbar="vm.wyswygOptions"></div>
       </div>
       <div class="wyswyg-block">
-        <label for=""><strong>Guarantee text</strong></label>
+        <label for=""><strong>Texto garantia</strong></label>
         <div text-angular ng-model="vm.product.GuaranteeText" ta-toolbar="vm.wyswygOptions"></div>
+      </div>
+      <div>
+        <p><label><strong>Color: {{vm.product.Color}}</strong> </label></p>
+        <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
+          <a
+            ng-repeat="color in vm.colors"
+            ng-click="vm.selectColor(color.value)"
+            ng-class="{'wrap-on': color.value == vm.product.Color}"
+            class="colorpicker-sp-color-wrap"
+            flex="33"
+            title="{{color.label}}"
+            >
+            <md-icon
+              ng-class="{'checked-on': color.value == vm.product.Color}"
+              md-font-icon="icon-check"
+              class="s16 colorpicker-sp-checked">
+            </md-icon>
+            <span class="colorpicker-sp-color"  ng-style="{'background-color': color.code}"></span>
+          </a>
+        </div>
       </div>
       <div class="wyswyg-block">
         <md-input-container>
-          <input type="text" ng-model="vm.product.DetailedColor" placeholder="Detailed color">
+          <input type="text" ng-model="vm.product.DetailedColor" placeholder="Color detallado">
         </md-input-container>
       </div>
       <div>
         <md-input-container>
-          <md-select placeholder="Ensemble" ng-model="vm.product.Ensemble">
+          <md-select placeholder="Ensamble" ng-model="vm.product.Ensemble">
             <md-option ng-repeat="ensemble in vm.ensembles" value="{{ensemble.value}}">
               {{ensemble.label}}
             </md-option>
@@ -85,15 +105,27 @@
         </md-input-container>
       </div>
       <div class="wyswyg-block">
-        <label for=""><strong>Package content</strong></label>
+        <label for=""><strong>Contenido del paquete</strong></label>
         <div text-angular ta-toolbar="vm.wyswygOptions" ng-model="vm.product.PackageContent"></div>
       </div>
-      <!--
-      <md-input-container>
-        <label></label>
-        <textarea rows="5"></textarea>
-      </md-input-container>
-      -->
+
+
+      <!--CATEGORY CHOOSER-->
+      <div>
+        <h2><strong>Categorias</strong></h2>
+
+        <div ng-repeat="group in vm.categoriesGroups track by $index">
+          <p ng-if="group.length > 0">
+            <label><strong>Categorias Nivel {{$index+1}}</strong></label>
+          </p>
+          <div >
+            <md-checkbox class="spaced-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+          </div>
+        </div>
+
+      </div>
+      <!--END CATEGORY CHOOSER-->
+
       <div layout="row" layout-align="end center">
         <md-button ng-click="vm.update($event)" class="md-raised md-primary">Guardar</md-button>
       </div>

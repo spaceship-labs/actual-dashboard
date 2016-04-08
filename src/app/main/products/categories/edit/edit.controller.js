@@ -11,10 +11,11 @@
         var vm = this;
 
         vm.init = init;
-        vm.create = create;
+        vm.update = update;
         vm.toggleCategory = toggleCategory;
         vm.loadCategories = loadCategories;
         vm.showDestroyDialog = showDestroyDialog;
+        vm.formatCategoryGroups = formatCategoryGroups;
 
         vm.isLoading = false;
         vm.destroyFn = productService.destroyCategorybyId;
@@ -41,46 +42,55 @@
         }
 
         function loadCategories(){
-          productService.getAllCategories().then(function(res){
-            vm.categories = res.data;
-            for(var i=0;i<vm.categories.length; i++){
-
-              for(var j=0;j<vm.category.Parents.length;j++){
-                if( vm.categories[i].id === vm.category.Parents[j].id ){
-                  vm.categories[i].selected = true;
-                }
-              }
-
-              //Removing from list if is the same category
-              if(vm.categories[i].id == vm.category.id){
-                vm.categories.splice(i,1);
-              }
-
-            }
+          productService.getCategoriesGroups().then(function(res){
+            console.log(res);
+            vm.categoriesGroups = res.data;
+            vm.formatCategoryGroups();
           });
         }
 
-        function create(){
-          vm.isLoading = true;
+        function formatCategoryGroups(){
+          for(var i=0;i<vm.categoriesGroups.length;i++){
+            vm.categoriesGroups[i] = vm.categoriesGroups[i].filter(function(category){
+              return category.id != vm.category.id;
+            });
 
-          vm.category.parents = [];
-          for(var i=0; i<vm.categories.length;i++){
-            if(vm.categories[i].selected){
-              vm.category.parents.push(vm.categories[i].id);
-            }
+            vm.categoriesGroups[i] = vm.categoriesGroups[i].map(function(category){
+              for(var j=0;j<vm.category.Parents.length;j++){
+                if(vm.category.Parents[j].id === category.id){
+                  category.selected = true;
+                }else{
+                  category.selected = false;
+                }
+              }
+              return category;
+            });
+
           }
+        }
+
+        function update(){
+          vm.category.Parents = [];
+          vm.isLoading = true;
 
           if(vm.category.IsMain){
             vm.category.CategoryLevel = 1;
             vm.category.Parents = [];
           }
 
-          console.log(vm.category);
+          for(var i=0;i<vm.categoriesGroups.length;i++){
+            for(var j=0;j<vm.categoriesGroups[i].length;j++){
+              if(vm.categoriesGroups[i][j].selected){
+                //delete vm.categoriesGroups[i][j].selected;
+                vm.category.Parents.push(vm.categoriesGroups[i][j].id);
+              }
+            }
+          }
 
-          productService.createCategory(vm.category).then(function(res){
+          productService.updateCategory(vm.category.id,vm.category).then(function(res){
             console.log(res);
             vm.isLoading = false;
-            dialogService.showDialog('Categoria creada');
+            dialogService.showDialog('Categoria actualizada');
           });
 
         }

@@ -10,21 +10,28 @@
 
       var service = {
         getList: getList,
+        getListNoImages: getListNoImages,
         getById: getById,
         search: search,
         getCategories: getCategories,
         getFilters: getFilters,
         update: update,
+
+        //Categories
         createCategory: createCategory,
+        updateCategory: updateCategory,
+        destroyCategorybyId: destroyCategorybyId,
         getMainCategories: getMainCategories,
         getAllCategories: getAllCategories,
         getCategoryById: getCategoryById,
-        destroyCategorybyId: destroyCategorybyId,
+        getCategoriesGroups: getCategoriesGroups,
+
+
+        //Filters
         createFilter:createFilter,
         getFilterById: getFilterById,
         destroyFilterById: destroyFilterById,
         updateFilterById: updateFilterById,
-        getCategoriesGroups: getCategoriesGroups
       };
 
       return service;
@@ -32,6 +39,13 @@
       function getList(page, params){
         var p = page || 1;
         var url = '/product/find/' + p;
+        return api.$http.post(url,params);
+      }
+
+      function getListNoImages(page, params){
+        var p = page || 1;
+        var url = '/product/find/' + p;
+        params.noimages = true
         return api.$http.post(url,params);
       }
 
@@ -86,6 +100,10 @@
         return api.$http.post(url);
       }
 
+      function updateCategory(id, params){
+        var url = '/productcategory/update/' + id;
+        return api.$http.post(url, params);
+      }
 
       function getFilters(page, params){
         var p = page || 1;

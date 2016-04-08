@@ -25,8 +25,12 @@
     <!-- CONTENT -->
     <div class="content">
 
-        <div class="white-bg md-whiteframe-4dp">
-            <div table-list columns="vm.columns" destroy-fn="vm.destroyFn"  api-resource="vm.apiResource"></div>
+        <div ng-show="vm.isLoadingDelete" layout="row" layout-sm="column" layout-align="space-around">
+          <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+        </div>
+
+        <div ng-show="!vm.isLoadingDelete" class="white-bg md-whiteframe-4dp">
+            <div table-list columns="vm.columns" destroy-fn="vm.destroyFn" api-resource="vm.apiResource"></div>
         </div>
 
     </div>

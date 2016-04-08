@@ -12,6 +12,7 @@
     function config(msNavigationServiceProvider)
     {
         // Navigation
+        /*
         msNavigationServiceProvider.saveItem('commissions', {
             title : 'Comisiones',
             group : false,
@@ -22,5 +23,6 @@
             title: 'Lista de Comisiones',
             state: 'app.commissions_list'
         });
+        */
     }
 })();

@@ -15,7 +15,7 @@
     dialogController.$inject = ['$scope','$mdDialog'];
 
     /** @ngInject */
-    function dialogService($q, $log, $mdDialog, $window, $location){
+    function dialogService($q, $log, $mdDialog, $window, $location, $rootScope){
         var service = {
             showDialog: showDialog,
             showDestroyDialog: showDestroyDialog
@@ -52,8 +52,11 @@
                 .ok('Eliminar')
                 .cancel('Cancelar');
           $mdDialog.show(confirm).then(function() {
+            $rootScope.$emit('destroyingItemStart', true);
             destroyPromise(id).then(function(res){
               console.log(res);
+              $rootScope.$emit('destroyingItemEnd', true);
+
               if(redirect){
                 console.log('redirecting');
                 $location.path(redirect);
@@ -62,6 +65,7 @@
                 $window.location.reload();
               }
             }, function(err){
+              $rootScope.$emit('destroyingItemEnd', true);
               console.log(err);
             });
           }, function() {

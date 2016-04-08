@@ -12,6 +12,7 @@
     function config(msNavigationServiceProvider)
     {
         // Navigation
+        /*
         msNavigationServiceProvider.saveItem('promos', {
             title : 'Promociones',
             group : false,
@@ -22,5 +23,6 @@
             title: 'Lista de Promociones',
             state: 'app.promos_list'
         });
+        */
     }
 })();

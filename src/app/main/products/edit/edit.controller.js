@@ -15,6 +15,10 @@
         vm.updateIcon = updateIcon;
         vm.init = init;
         vm.update = update;
+        vm.loadCategories = loadCategories;
+        vm.formatCategoryGroups = formatCategoryGroups;
+        vm.groupSelectedCategories = groupSelectedCategories;
+        vm.selectColor = selectColor;
         vm.isLoading = false;
 
         // Data
@@ -44,6 +48,22 @@
           {value:'Requiere mucho ensamble', label:'Requiere mucho ensamble'},
         ];
 
+        vm.colors = [
+          {label:'Rojo',value:'rojo',code:'#CC0000'},
+          {label:'Naranja',value:'naraja',code:'#FB940B'},
+          {label:'Amarillo',value:'amarillo',code:'#FFFF00'},
+          {label:'Verde',value:'verde',code:'#00CC00'},
+          {label:'Turquesa',value:'turquesa',code:'#03C0C6'},
+          {label:'Azul',value:'azul',code:'#0000FF'},
+          {label:'Morado',value:'morado',code:'#762CA7'},
+          {label:'Rosa',value:'rosa',code:'#FF98BF'},
+          {label:'Blanco',value:'blanco',code:'#FFFFFF'},
+          {label:'Negro',value:'negro',code:'#000000'},
+          {label:'Gris',value:'gris',code:'#999999'},
+          {label:'Cafe',value:'cafe',code:'#885418'},
+        ];
+
+
         vm.init();
 
         //Methods
@@ -51,17 +71,60 @@
         function init(){
           productService.getById($stateParams.id).then(function(res){
             vm.product = res.data.data;
+            vm.loadCategories();
+          });
+        }
+
+        function selectColor(colorValue){
+          vm.colors.forEach(function(color){
+            if(color.value === colorValue){
+              vm.product.Color = colorValue;
+            }
           });
         }
 
         function update(){
           vm.isLoading = true;
+          vm.groupSelectedCategories();
           productService.update(vm.product.ItemCode, vm.product)
             .then(function(res){
               vm.isLoading = false;
               dialogService.showDialog('Datos actualizados');
               console.log(res);
             });
+        }
+
+        function groupSelectedCategories(){
+          vm.product.Categories = [];
+          for(var i=0;i<vm.categoriesGroups.length;i++){
+            for(var j=0;j<vm.categoriesGroups[i].length;j++){
+              if(vm.categoriesGroups[i][j].selected){
+                vm.product.Categories.push(vm.categoriesGroups[i][j]);
+              }
+            }
+          }
+        }
+
+        function formatCategoryGroups(){
+          for(var i=0;i<vm.categoriesGroups.length;i++){
+            for(var j=0;j<vm.product.Categories.length;j++){
+              vm.categoriesGroups[i] = vm.categoriesGroups[i].map(function(category){
+                if(vm.product.Categories[j].id == category.id){
+                  category.selected = true;
+                }
+                return category;
+              });
+            }
+          }
+        }
+
+
+        function loadCategories(){
+          productService.getCategoriesGroups().then(function(res){
+            console.log(res);
+            vm.categoriesGroups = res.data;
+            vm.formatCategoryGroups();
+          });
         }
 
 
