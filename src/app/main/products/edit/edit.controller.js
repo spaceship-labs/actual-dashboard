@@ -20,6 +20,12 @@
         vm.groupSelectedCategories = groupSelectedCategories;
         vm.selectColor = selectColor;
         vm.loadFilters = loadFilters;
+        vm.loadMaterials = loadMaterials;
+        vm.formatMaterials = formatMaterials;
+        vm.formatFiltersValues = formatFiltersValues;
+        vm.mergeMaterialsGroups = mergeMaterialsGroups;
+        vm.formatSelectedMaterials = formatSelectedMaterials;
+        vm.formatSelectedFilterValues = formatSelectedFilterValues;
         vm.isLoading = false;
 
         // Data
@@ -30,6 +36,13 @@
         vm.removeMethod = '/product/removefiles';
         vm.dir = 'products/gallery';
         vm.api = api;
+
+        vm.woodMaterials = [];
+        vm.metalMaterials = [];
+        vm.syntethicMaterials = [];
+        vm.organicMaterials = [];
+        vm.glassMaterials = [];
+        vm.materialsGroups = [];
 
         /*vm.wyswygOptions = [
           ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'quote'],
@@ -65,6 +78,15 @@
         ];
 
 
+        vm.displays = [
+          {label:'Ventas Offline', handle:'OnOffline'},
+          {label:'Actual Studio (actualstudio.com) ', handle:'OnStudio'},
+          {label:'Actual Home (actualhome.com)', handle:'OnHome'},
+          {label:'Actual Kids (actualkids.com)', handle:'OnKids'},
+          {label:'Amueble.com', handle:'OnAmueble'},
+        ];
+
+
         vm.init();
 
         //Methods
@@ -74,6 +96,7 @@
             vm.product = res.data.data;
             vm.loadCategories();
             vm.loadFilters();
+            vm.loadMaterials();
           });
         }
 
@@ -85,15 +108,23 @@
           });
         }
 
-        function update(){
-          vm.isLoading = true;
-          vm.groupSelectedCategories();
-          productService.update(vm.product.ItemCode, vm.product)
-            .then(function(res){
-              vm.isLoading = false;
-              dialogService.showDialog('Datos actualizados');
-              console.log(res);
-            });
+        function update(form){
+          if(form.$valid){
+            vm.isLoading = true;
+            vm.groupSelectedCategories();
+            vm.formatSelectedMaterials();
+            vm.formatSelectedFilterValues();
+            console.log(vm.product);
+            productService.update(vm.product.ItemCode, vm.product)
+              .then(function(res){
+                vm.isLoading = false;
+                dialogService.showDialog('Datos actualizados');
+                console.log(res);
+              });
+          }
+          else{
+            dialogService.showDialog('Campos incompletos');
+          }
         }
 
         function groupSelectedCategories(){
@@ -133,6 +164,7 @@
           productService.getAllFilters().then(function(res){
             console.log(res);
             vm.filters = res.data;
+            vm.formatFiltersValues();
           });
         }
 
@@ -227,6 +259,100 @@
             }
           );
 
+        }
+
+        function loadMaterials(){
+          productService.getMaterials().then(function(res){
+            vm.materials = res.data;
+            vm.formatMaterials();
+          });
+        }
+
+        function formatMaterials(){
+          vm.materials.forEach(function(material){
+            vm.product.Materials.forEach(function(productMaterial){
+              if(productMaterial.id === material.id){
+                material.selected;
+              }
+            });
+
+            if(material.IsWood){
+              vm.woodMaterials.push(material);
+            }
+            else if(material.IsMetal){
+              vm.metalMaterials.push(material);
+            }
+            else if(material.IsSynthetic){
+              vm.syntethicMaterials.push(material);
+            }
+            else if(material.IsOrganic){
+              vm.organicMaterials.push(material);
+            }
+            else if(material.IsGlass){
+              vm.glassMaterials.push(material);
+            }
+          });
+
+          vm.materialsGroups = [
+            {label: 'Madera', materials: vm.woodMaterials, type:'IsWood'},
+            {label: 'Metal', materials: vm.metalMaterials, type:'IsMetal'},
+            {label: 'Sintetico', materials: vm.syntethicMaterials, type:'IsSynthetic'},
+            {label: 'Organico', materials: vm.organicMaterials, type:'IsOrganic'},
+            {label: 'Vidrio', materials: vm.glassMaterials, type:'IsGlass'},
+          ];
+
+        }
+
+        function mergeMaterialsGroups(){
+          vm.product.Materials = [];
+          vm.materialsGroups.forEach(function(group){
+            console.log(group);
+            vm.product.Materials = vm.product.Materials.concat(group.materials);
+          });
+        }
+
+        function formatSelectedMaterials(){
+          vm.mergeMaterialsGroups();
+          vm.product.Materials = vm.product.Materials.filter(function(material){
+            return material.selected === true;
+          });
+        }
+
+        function formatFiltersValues(){
+          vm.filters.forEach(function(filter){
+            filter.Values.forEach(function(value){
+              vm.product.FilterValues.forEach(function(productVal, index){
+
+                if(productVal.id == value.id){
+                  if(filter.IsMultiple){
+                      value.selected = true;
+                  }
+                  else{
+                    filter.selectedValue = index;
+                  }
+                }
+              });
+            });
+          });
+        }
+
+        function formatSelectedFilterValues(){
+          vm.product.FilterValues = [];
+          vm.filters.forEach(function(filter){
+            if(filter.IsMultiple){
+              filter.Values.forEach(function(value){
+                if(value.selected){
+                  vm.product.FilterValues.push(value);
+                }
+              });
+            }
+            else{
+              if(filter.selectedValue){
+                var val = filter.Values[filter.selectedValue];
+                vm.product.FilterValues.push( val );
+              }
+            }
+          });
         }
 
     }

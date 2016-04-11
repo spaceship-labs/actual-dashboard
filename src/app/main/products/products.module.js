@@ -15,7 +15,9 @@
 
             'app.products.filters.list',
             'app.products.filters.create',
-            'app.products.filters.edit'
+            'app.products.filters.edit',
+
+            'app.products.materials.list'
 
 
         ])
@@ -65,6 +67,12 @@
         msNavigationServiceProvider.saveItem('products.filters.create', {
             title: 'Crear filtro',
             state: 'app.products_filters_create'
+        });
+
+
+        msNavigationServiceProvider.saveItem('products.materials', {
+            title: 'Ver materiales',
+            state: 'app.products_materials_list'
         });
 
     }

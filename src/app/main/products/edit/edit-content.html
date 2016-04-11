@@ -12,20 +12,17 @@
       <li><strong>Linea:</strong> {{vm.product.U_LINEA}}</li>
       <li><strong>Color:</strong> {{vm.product.U_COLOR}}</li>
       <li><strong>Garantia:</strong> {{vm.product.U_garantia}}</li>
-      <li><strong>On Hand:</strong> {{vm.product.OnHand}}</li>
-      <li><strong>Is commited:</strong> {{vm.product.OnHand}}</li>
-      <li><strong>On Hand:</strong> {{vm.product.IsCommited}}</li>
-      <li><strong>On order:</strong> {{vm.product.OnOrder}}</li>
-      <li><strong>SalUnitMsr:</strong> {{vm.product.SalUnitMsr}}</li>
+      <li><strong>Inventario | On Hand:</strong> {{vm.product.OnHand}}</li>
+      <li><strong>Inventario | Is commited:</strong> {{vm.product.IsCommited}}</li>
+      <li><strong>Inventario | On order:</strong> {{vm.product.OnOrder}}</li>
+      <li><strong>Unidad de medida:</strong> {{vm.product.SalUnitMsr}}</li>
 
-      <li><strong>U_LINEA:</strong> {{vm.product.U_LINEA}}</li>
+      <li><strong>Linea:</strong> {{vm.product.U_LINEA}}</li>
       <li><strong>U_PRODUCTO:</strong> {{vm.product.U_PRODUCTO}}</li>
-      <li><strong>U_COLOR:</strong> {{vm.product.U_COLOR}}</li>
-      <li><strong>U_garantia:</strong> {{vm.product.U_garantia}}</li>
-      <li><strong>U_disenado_en:</strong> {{vm.product.U_disenado_en}}</li>
-      <li><strong>U_ensamblado_en:</strong> {{vm.product.U_ensamblado_en}}</li>
-
-
+      <li><strong>Color:</strong> {{vm.product.U_COLOR}}</li>
+      <li><strong>Garantia:</strong> {{vm.product.U_garantia}}</li>
+      <li><strong>Diseñado en:</strong> {{vm.product.U_disenado_en}}</li>
+      <li><strong>Ensamblado en:</strong> {{vm.product.U_ensamblado_en}}</li>
 
     </ul>
   </md-content>
@@ -45,18 +42,21 @@
       <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
     </div>
 
-    <form ng-show="!vm.isLoading" ng-submit="vm.update($event)" class="md-inline-form" novalidate>
+    <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
 
       <div layout="row" layout-align="end center">
-        <md-button ng-click="vm.update($event)" class="md-raised md-primary">Guardar</md-button>
+        <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
       </div>
 
-      <md-input-container>
-        <input type="text" ng-model="vm.product.Name" placeholder="Name">
-      </md-input-container>
+      <div>
+        <md-input-container>
+          <input type="text" ng-model="vm.product.Name" required placeholder="Nombre*">
+        </md-input-container>
+      </div>
+
       <div class="wyswyg-block">
-        <label for=""><strong>Descripción</strong></label>
-        <div text-angular ng-model="vm.product.Description" ta-toolbar="vm.wyswygOptions"></div>
+        <label for=""><strong>Descripción*</strong></label>
+        <div text-angular required ng-model="vm.product.Description" ta-toolbar="vm.wyswygOptions"></div>
       </div>
       <div class="wyswyg-block">
         <label for=""><strong>Caracteristicas principales</strong></label>
@@ -66,10 +66,20 @@
         <label for=""><strong>Restricciones</strong></label>
         <div text-angular ng-model="vm.product.Restrictions" ta-toolbar="vm.wyswygOptions"></div>
       </div>
-      <div class="wyswyg-block">
-        <label for=""><strong>Texto garantia</strong></label>
-        <div text-angular ng-model="vm.product.GuaranteeText" ta-toolbar="vm.wyswygOptions"></div>
+
+
+      <!--Materials-->
+      <div>
+        <h2><strong>Materiales</strong></h2>
+        <div ng-repeat="group in vm.materialsGroups">
+          <p><strong>{{group.label}}</strong></p>
+          <div>
+            <md-checkbox class="spaced-checkbox" ng-repeat="material in group.materials" ng-model="material.selected">{{material.Name}}</md-checkbox>
+          </div>
+        </div>
       </div>
+      <!--END Materials-->
+
       <div>
         <p><label><strong>Color: {{vm.product.Color}}</strong> </label></p>
         <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
@@ -92,23 +102,9 @@
       </div>
       <div class="wyswyg-block">
         <md-input-container>
-          <input type="text" ng-model="vm.product.DetailedColor" placeholder="Color detallado">
+          <input type="text" ng-model="vm.product.DetailedColor" required placeholder="Color detallado *">
         </md-input-container>
       </div>
-      <div>
-        <md-input-container>
-          <md-select placeholder="Ensamble" ng-model="vm.product.Ensemble">
-            <md-option ng-repeat="ensemble in vm.ensembles" value="{{ensemble.value}}">
-              {{ensemble.label}}
-            </md-option>
-          </md-select>
-        </md-input-container>
-      </div>
-      <div class="wyswyg-block">
-        <label for=""><strong>Contenido del paquete</strong></label>
-        <div text-angular ta-toolbar="vm.wyswygOptions" ng-model="vm.product.PackageContent"></div>
-      </div>
-
 
       <!--CATEGORY CHOOSER-->
       <div class="editor-block">
@@ -133,14 +129,14 @@
           <p><label><strong>{{filter.Name}}</strong></label></p>
 
           <div ng-if="filter.IsMultiple">
-            <md-checkbox class="spaced-checkbox" ng-repeat="value in filter.Values" ng-model="edede">{{value.Name}}</md-checkbox>
+            <md-checkbox class="spaced-checkbox" ng-repeat="value in filter.Values" ng-model="value.selected">{{value.Name}}</md-checkbox>
           </div>
 
           <div ng-if="!filter.IsMultiple">
             <md-input-container>
-              <md-select placeholder="{{filter.Name}}" ng-model="vdededed">
-                <md-option>Ninguno</md-option>
-                <md-option ng-repeat="value in filter.Values" value="{{value.id}}">
+              <md-select placeholder="{{filter.Name}}" ng-model="filter.selectedValue">
+                <md-option value="false">Ninguno</md-option>
+                <md-option ng-repeat="value in filter.Values track by $index" value="{{$index}}">
                   {{value.Name}}
                 </md-option>
               </md-select>
@@ -148,11 +144,50 @@
           </div>
 
         </div>
+
+        <div>
+          <p><label><strong>Asientos</strong></label></p>
+          <md-input-container>
+            <input type="number" min="0" max="10" ng-model="vm.product.Seats">
+          </md-input-container>
+        </div>
+
       </div>
       <!--END FILTERS-->
 
+
+      <div class="wyswyg-block">
+        <label for=""><strong>Texto garantia</strong></label>
+        <div text-angular ng-model="vm.product.GuaranteeText" ta-toolbar="vm.wyswygOptions"></div>
+      </div>
+
+      <div>
+        <p><label><strong>Ensamble</strong></label></p>
+        <md-input-container>
+          <md-select placeholder="Ensamble" ng-model="vm.product.Ensemble">
+            <md-option ng-repeat="ensemble in vm.ensembles" value="{{ensemble.value}}">
+              {{ensemble.label}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+
+      <div class="wyswyg-block">
+        <label for=""><strong>Contenido del paquete</strong></label>
+        <div text-angular ta-toolbar="vm.wyswygOptions" ng-model="vm.product.PackageContent"></div>
+      </div>
+
+      <!--DISPLAYS-->
+      <div>
+        <h2><strong>Displays</strong></h2>
+        <div>
+          <md-checkbox class="spaced-checkbox" ng-repeat="display in vm.displays" ng-model="vm.product[display.handle]">{{display.label}}</md-checkbox>
+        </div>
+      </div>
+      <!--END DISPLAYS-->
+
       <div layout="row" layout-align="end center">
-        <md-button ng-click="vm.update($event)" class="md-raised md-primary">Guardar</md-button>
+        <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
       </div>
 
     </form>

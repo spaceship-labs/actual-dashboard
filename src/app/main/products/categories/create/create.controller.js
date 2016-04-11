@@ -7,7 +7,7 @@
         .controller('ProductCategoriesCreateController', ProductCategoriesCreateController);
 
     /** @ngInject */
-    function ProductCategoriesCreateController($scope ,$stateParams, dialogService,productService){
+    function ProductCategoriesCreateController($scope ,$stateParams, dialogService,productService, commonService){
         var vm = this;
 
         vm.init = init;
@@ -26,43 +26,36 @@
         //Methods
 
         function init(){
-          /*
-          productService.getById($stateParams.id).then(function(res){
-            vm.product = res.data.data;
-          });
-          */
           productService.getCategoriesGroups().then(function(res){
-            console.log(res);
             vm.categoriesGroups = res.data;
           });
-
         }
 
-        function create(){
-          vm.isLoading = true;
-          if(vm.category.IsMain){
-            vm.category.CategoryLevel = 1;
-          }
+        function create(form){
+          if(form.$valid){
+            vm.isLoading = true;
+            if(vm.category.IsMain){
+              vm.category.CategoryLevel = 1;
+            }
 
-          vm.category.parents = [];
-          for(var i=0;i<vm.categoriesGroups.length;i++){
-            for(var j=0;j<vm.categoriesGroups[i].length;j++){
-              if(vm.categoriesGroups[i][j].selected){
-                //delete vm.categoriesGroups[i][j].selected;
-                vm.category.parents.push(vm.categoriesGroups[i][j].id);
+            vm.category.parents = [];
+            for(var i=0;i<vm.categoriesGroups.length;i++){
+              for(var j=0;j<vm.categoriesGroups[i].length;j++){
+                if(vm.categoriesGroups[i][j].selected){
+                  vm.category.parents.push(vm.categoriesGroups[i][j].id);
+                }
               }
             }
+
+            productService.createCategory(vm.category).then(function(res){
+              console.log(res);
+              vm.isLoading = false;
+              dialogService.showDialog('Categoria creada');
+            });
           }
-
-
-          console.log(vm.category);
-
-          productService.createCategory(vm.category).then(function(res){
-            console.log(res);
-            vm.isLoading = false;
-            dialogService.showDialog('Categoria creada');
-          });
-
+          else{
+            dialogService.showDialog('Campos incompletos');
+          }
         }
 
         function toggleCategoryMain(){
@@ -73,8 +66,9 @@
         }
 
         $scope.$watch('vm.category.Name', function(newVal, oldVal){
-          if(newVal != oldVal){
+          if(newVal != oldVal && newVal != ''){
             vm.category.Handle = newVal.replace(/\s+/g, '-').toLowerCase();
+            vm.category.Handle = commonService.formatHandle(vm.category.Handle);
           }
         });
 

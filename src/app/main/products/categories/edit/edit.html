@@ -3,12 +3,7 @@
     <!-- HEADER -->
     <div class="header md-accent-bg" layout="row" layout-align="space-between">
         <div layout="column" layout-align="center start">
-            <div class="breadcrumb" layout="row" layout-align="start center">
-                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
-                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
-                <span class="parent">Tables</span>
-            </div>
-            <div class="title">Products Categories</div>
+            <div class="title">Categorias de productos</div>
         </div>
 
     </div>
@@ -32,44 +27,29 @@
               <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
             </div>
 
-            <form ng-if="!vm.isLoading" ng-submit="vm.update()" class="md-inline-form" novalidate>
+            <form name="updateForm" ng-if="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
               <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.update($event)" class="md-raised md-primary">Guardar</md-button>
+                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
                 <md-button ng-click="vm.showDestroyDialog($event)" class="md-raised md-warn">Eliminar</md-button>
               </div>
               <p>
                 <md-input-container>
-                  <input type="text" ng-model="vm.category.Name" placeholder="Nombre">
+                  <input type="text" ng-model="vm.category.Name" required placeholder="Nombre*">
                 </md-input-container>
               </p>
               <p>
                 <md-input-container>
-                  <input type="text" ng-model="vm.category.Keywords" placeholder="Keywords">
+                  <input type="text" ng-model="vm.category.Keywords" required placeholder="Keywords*">
                 </md-input-container>
               </p>
               <p>
                 <md-input-container>
-                  <input type="text" ng-model="vm.category.Handle" placeholder="Handle">
+                  <input type="text" ng-model="vm.category.Handle" required placeholder="Handle*">
                 </md-input-container>
               </p>
 
               <!--CATEGORY PARENTS EDITOR-->
               <div class="category-form-editor">
-                <!--
-                <p>
-                  <md-checkbox ng-model="vm.category.IsMain" ng-click="vm.toggleCategoryMain()" aria-label="Categoria principal">
-                    Categoria principal
-                  </md-checkbox>
-                </p>
-
-
-                <p ng-if="!vm.category.IsMain">
-                  <md-input-container>
-                    <input type="number" required  min="2" max="3" ng-model="vm.category.CategoryLevel"  placeholder="Category Level">
-                  </md-input-container>
-                </p>
-
-                -->
                 <p>Nivel de categoria: <strong>{{vm.category.CategoryLevel}}</strong></p>
                 <p ng-if="!vm.category.IsMain"><label><strong>Categorias padre</strong></label></p>
 
@@ -92,7 +72,6 @@
                   </div>
 
                 </div>
-
               </div>
               <!--END CATEGORY PARENTS EDITOR-->
 
@@ -102,7 +81,7 @@
               </md-input-container>
 
               <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.update($event)" class="md-raised md-primary">Guardar</md-button>
+                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
               </div>
 
             </form>

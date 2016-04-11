@@ -3,12 +3,7 @@
     <!-- HEADER -->
     <div class="header md-accent-bg" layout="row" layout-align="space-between">
         <div layout="column" layout-align="center start">
-            <div class="breadcrumb" layout="row" layout-align="start center">
-                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
-                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
-                <span class="parent">Tables</span>
-            </div>
-            <div class="title">Products Filters</div>
+            <div class="title">Filtros de productos</div>
         </div>
     </div>
     <!-- / HEADER -->
@@ -31,20 +26,20 @@
               <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
             </div>
 
-            <form ng-if="!vm.isLoading" ng-submit="vm.update()" class="md-inline-form" novalidate>
+            <form name="updateForm" ng-if="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
               <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.update($event)" class="md-raised md-primary">Guardar</md-button>
+                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
               </div>
 
               <p>
                 <md-input-container>
-                  <input type="text" ng-model="vm.filter.Name" placeholder="Nombre">
+                  <input type="text" ng-model="vm.filter.Name" placeholder="Nombre*" required>
                 </md-input-container>
               </p>
 
               <p>
                 <md-input-container>
-                  <input type="text" ng-model="vm.filter.Handle" placeholder="Handle">
+                  <input type="text" ng-model="vm.filter.Handle" placeholder="Handle*" required>
                 </md-input-container>
               </p>
 
@@ -61,11 +56,7 @@
 
 
               <div layout="row" layout-wrap>
-                <p flex="100"><label><strong>Valores aceptados</strong></label></p>
-                <!--
-                <md-chips flex="60" ng-model="vm.filter.Values">
-                </md-chips>
-                -->
+                <p flex="100"><label><strong>Valores aceptados*</strong></label></p>
 
                 <md-chips ng-if="vm.filter.Values" ng-model="vm.filter.Values"
                     md-transform-chip="vm.newFilterValue($chip)">
@@ -97,7 +88,7 @@
               <!--END CATEGORY CHOOSER-->
 
               <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.update($event)" class="md-raised md-primary">Guardar</md-button>
+                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
               </div>
 
             </form>

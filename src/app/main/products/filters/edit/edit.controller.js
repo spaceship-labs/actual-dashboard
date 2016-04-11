@@ -29,19 +29,25 @@
           });
         }
 
-        function update(){
-          vm.isLoading = true;
-          vm.groupSelectedCategories();
-          productService.updateFilterById(vm.filter.id, vm.filter).then(function(res){
-            console.log(res);
-            vm.isLoading = false;
-            dialogService.showDialog('Filtro actualizado');
-          });
+        function update(form){
+          if(form.$valid && vm.filter.Values.length > 0){
+            vm.isLoading = true;
+            vm.groupSelectedCategories();
+            productService.updateFilterById(vm.filter.id, vm.filter).then(function(res){
+              console.log(res);
+              vm.isLoading = false;
+              dialogService.showDialog('Filtro actualizado');
+            });
+          }
+          else{
+            dialogService.showDialog('Campos incompletos');
+          }
         }
 
         function newFilterValue(chip) {
           return {
-            Name: chip
+            Name: chip,
+            Handle: commonService.formatHandle(chip)
           };
         }
 
@@ -60,7 +66,6 @@
           productService.getCategoriesGroups().then(function(res){
             vm.categoriesGroups = res.data;
             vm.formatCategoryGroups();
-            console.log(vm.categoriesGroups);
           });
         }
 
@@ -69,7 +74,6 @@
             for(var j=0;j<vm.filter.Categories.length;j++){
               vm.categoriesGroups[i] = vm.categoriesGroups[i].map(function(category){
                 if(vm.filter.Categories[j].id == category.id){
-                  //console.log('comparando ' + vm.filter.Categories[j].id + ' con : ' + category.id);
                   category.selected = true;
                 }
                 return category;
@@ -80,8 +84,7 @@
 
 
         $scope.$watch('vm.filter.Name', function(newVal, oldVal){
-          if(newVal != oldVal){
-
+          if(newVal != oldVal && newVal != ''){
             vm.filter.Handle = newVal.replace(/\s+/g, '-').toLowerCase();
             vm.filter.Handle = commonService.formatHandle(vm.filter.Handle);
           }

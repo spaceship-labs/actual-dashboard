@@ -7,7 +7,7 @@
         .controller('ProductCategoriesEditController', ProductCategoriesEditController);
 
     /** @ngInject */
-    function ProductCategoriesEditController($scope ,$stateParams, dialogService,productService){
+    function ProductCategoriesEditController($scope ,$stateParams, dialogService,productService, commonService){
         var vm = this;
 
         vm.init = init;
@@ -69,29 +69,33 @@
           }
         }
 
-        function update(){
-          vm.category.Parents = [];
-          vm.isLoading = true;
-
-          if(vm.category.IsMain){
-            vm.category.CategoryLevel = 1;
+        function update(form){
+          if(form.$valid){
             vm.category.Parents = [];
-          }
+            vm.isLoading = true;
 
-          for(var i=0;i<vm.categoriesGroups.length;i++){
-            for(var j=0;j<vm.categoriesGroups[i].length;j++){
-              if(vm.categoriesGroups[i][j].selected){
-                //delete vm.categoriesGroups[i][j].selected;
-                vm.category.Parents.push(vm.categoriesGroups[i][j].id);
+            if(vm.category.IsMain){
+              vm.category.CategoryLevel = 1;
+              vm.category.Parents = [];
+            }
+
+            for(var i=0;i<vm.categoriesGroups.length;i++){
+              for(var j=0;j<vm.categoriesGroups[i].length;j++){
+                if(vm.categoriesGroups[i][j].selected){
+                  vm.category.Parents.push(vm.categoriesGroups[i][j].id);
+                }
               }
             }
-          }
 
-          productService.updateCategory(vm.category.id,vm.category).then(function(res){
-            console.log(res);
-            vm.isLoading = false;
-            dialogService.showDialog('Categoria actualizada');
-          });
+            productService.updateCategory(vm.category.id,vm.category).then(function(res){
+              console.log(res);
+              vm.isLoading = false;
+              dialogService.showDialog('Categoria actualizada');
+            });
+          }
+          else{
+            dialogService.showDialog('Campos incompletos');
+          }
 
         }
 
@@ -106,8 +110,9 @@
         }
 
         $scope.$watch('vm.category.Name', function(newVal, oldVal){
-          if(newVal != oldVal){
+          if(newVal != oldVal && newVal!= ''){
             vm.category.Handle = newVal.replace(/\s+/g, '-').toLowerCase();
+            vm.category.Handle = commonService.formatHandle(vm.category.Handle);
           }
         });
 

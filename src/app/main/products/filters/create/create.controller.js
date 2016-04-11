@@ -27,14 +27,19 @@
           vm.loadCategories();
         }
 
-        function create(){
-          vm.isLoading = true;
-          vm.groupSelectedCategories();
-          productService.createFilter(vm.filter).then(function(res){
-            console.log(res);
-            vm.isLoading = false;
-            dialogService.showDialog('Filtro creado');
-          });
+        function create(form){
+          if(form.$valid && vm.filter.Values.length > 0){
+            vm.isLoading = true;
+            vm.groupSelectedCategories();
+            productService.createFilter(vm.filter).then(function(res){
+              console.log(res);
+              vm.isLoading = false;
+              dialogService.showDialog('Filtro creado');
+            });
+          }
+          else{
+            dialogService.showDialog('Campos incompletos');
+          }
         }
 
         function groupSelectedCategories(){

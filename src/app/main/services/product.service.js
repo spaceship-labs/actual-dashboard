@@ -32,7 +32,12 @@
         getFilterById: getFilterById,
         destroyFilterById: destroyFilterById,
         updateFilterById: updateFilterById,
-        getAllFilters: getAllFilters
+        getAllFilters: getAllFilters,
+
+        //Materials
+        updateMaterials: updateMaterials,
+        getMaterials: getMaterials
+
       };
 
       return service;
@@ -134,6 +139,16 @@
 
       function updateFilterById(id, params){
         var url = '/productfilter/update/' + id;
+        return api.$http.post(url, params);
+      }
+
+      function getMaterials(){
+        var url = '/productmaterial/getall';
+        return api.$http.post(url);
+      }
+
+      function updateMaterials(params){
+        var url = '/productmaterial/updateall';
         return api.$http.post(url, params);
       }
 

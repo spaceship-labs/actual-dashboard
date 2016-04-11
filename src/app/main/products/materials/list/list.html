@@ -1,0 +1,74 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="title">Materiales de productos</div>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+
+      <div class="page-layout simple fullwidth">
+
+        <section class="md-whiteframe-z1">
+          <md-toolbar class="demo-toolbar md-primary">
+            <div class="md-toolbar-tools">
+              <h3>Lista de materiales</h3>
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+
+            <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+            </div>
+
+            <form name="updateForm" ng-if="!vm.isLoading" ng-submit="vm.updateAll(updateForm)" class="md-inline-form" novalidate>
+
+              <div layout="row" layout-align="end center">
+                <md-button ng-click="vm.updateAll(updateForm)" class="md-raised md-primary">Guardar</md-button>
+              </div>
+
+              <div ng-repeat="group in vm.materialsGroups track by $index">
+                <h2><strong>{{group.label}}</strong></h2>
+                <md-chips
+                  readonly="false"
+                  ng-model="group.materials"
+                  md-transform-chip="vm.newMaterial($chip, group.type)"
+                  md-enable-chip-edit="true">
+
+                  <md-chip-template>
+                    <span>
+                      {{$chip.Name}}
+                    </span>
+                  </md-chip-template>
+                  <button md-chip-remove class="md-primary vegetablechip">
+                    <md-icon md-svg-icon="md-close"></md-icon>
+                  </button>
+
+                </md-chips>
+              </div>
+
+              <div layout="row" layout-align="end center">
+                <md-button ng-click="vm.updateAll(updateForm)" class="md-raised md-primary">Guardar</md-button>
+              </div>
+
+            </form>
+          </md-content>
+        </section>
+
+      </div>
+
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+
+
+
+
