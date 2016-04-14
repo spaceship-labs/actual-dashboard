@@ -2,14 +2,7 @@
 
     <!-- HEADER -->
     <div class="header md-accent-bg" layout="row" layout-align="space-between">
-        <div layout="column" layout-align="center start">
-            <div class="breadcrumb" layout="row" layout-align="start center">
-                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
-                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
-                <span class="parent">Tables</span>
-            </div>
-            <div class="title">Usuarios</div>
-        </div>
+
 
         <div layout="row" layout-align="start center">
             <md-button class="md-raised reference-button"
@@ -25,55 +18,7 @@
     <div class="content">
 
         <div class="white-bg md-whiteframe-4dp">
-            <div table-list columns="vm.columns" api-resource="vm.apiResource"></div>
-          <!--
-            <table class="dataTable row-border hover" datatable="ng" dt-options="vm.dtOptions">
-                <thead>
-                    <tr>
-                        <th class="secondary-text">
-                            <div class="table-header">
-                                <span class="column-title">Email</span>
-                            </div>
-                        </th>
-                        <th class="secondary-text">
-                            <div class="table-header">
-                                <span class="column-title">First name</span>
-                            </div>
-                        </th>
-                        <th class="secondary-text">
-                            <div class="table-header">
-                                <span class="column-title">Last name</span>
-                            </div>
-                        </th>
-                        <th class="secondary-text">
-                            <div class="table-header">
-                                <span class="column-title">Age</span>
-                            </div>
-                        </th>
-                        <th class="secondary-text">
-                            <div class="table-header">
-                                <span class="column-title">Start Date</span>
-                            </div>
-                        </th>
-                        <th class="secondary-text">
-                            <div class="table-header">
-                                <span class="column-title">Salary</span>
-                            </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="employee in ::vm.employees">
-                        <td><a href="/users/edit/{{employee.id}}">{{ employee.email }}</a></td>
-                        <td>{{ employee.firstName }}</td>
-                        <td>{{ employee.lastName }}</td>
-                        <td>{{ employee.age }}</td>
-                        <td>{{ employee.startDate }}</td>
-                        <td>{{ employee.salary }}</td>
-                    </tr>
-                </tbody>
-            </table>
-          -->
+            <div table-list columns="vm.columns" api-resource="vm.apiResource"></div>s
         </div>
 
     </div>

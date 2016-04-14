@@ -28,23 +28,23 @@
                 <div layout="column" layout-gt-sm="row">
                     <md-input-container flex>
                         <input type="text" name="firstname" ng-model="vm.user.firstName"
-                               placeholder="Firstname"
+                               placeholder="Nombre"
                                required>
                         <div ng-messages="basicForm.firstname.$error" ng-show="basicForm.firstname.$touched"
                              role="alert">
                             <div ng-message="required">
-                                <span>Firstname field is required.</span>
+                                <span>Este campo es requerido.</span>
                             </div>
                         </div>
                     </md-input-container>
 
                     <md-input-container flex>
-                        <input type="text" name="lastname" ng-model="vm.user.lastName" placeholder="Lastname"
+                        <input type="text" name="lastname" ng-model="vm.user.lastName" placeholder="Apellidos"
                                required>
                         <div ng-messages="basicForm.lastname.$error" ng-show="basicForm.lastname.$touched"
                              role="alert">
                             <div ng-message="required">
-                                <span>Lastname field is required.</span>
+                                <span>Este campo es requerido.</span>
                             </div>
                         </div>
                     </md-input-container>
@@ -57,10 +57,10 @@
                              ng-pattern="/^.+@.+\..+$/" required>
                       <div ng-messages="basicForm.email.$error" ng-show="basicForm.email.$touched" role="alert" multiple>
                           <div ng-message="required">
-                              <span translate="LOGIN.ERRORS.EMAIL_REQUIRED">Email field is required</span>
+                              <span translate="LOGIN.ERRORS.EMAIL_REQUIRED">Este campo es requerido</span>
                           </div>
                           <div ng-message="pattern">
-                              <span translate="LOGIN.ERRORS.EMAIL_MUST_VALID">Email must be a valid e-mail address</span>
+                              <span translate="LOGIN.ERRORS.EMAIL_MUST_VALID">E-mail invalido</span>
                           </div>
                       </div>
                     </md-input-container>
@@ -70,7 +70,7 @@
                 <div layout="row">
 
                   <md-input-container flex>
-                    <label>Role</label>
+                    <label>Rol</label>
                     <md-select ng-model="vm.user.userType">
                       <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
                         {{role.name}}
@@ -89,9 +89,9 @@
 
                 </div>
 
-                <md-button type="submit" class="md-raised md-accent" aria-label="Submit"
+                <md-button type="submit" class="md-raised md-accent" aria-label="Guardar"
                            ng-disabled="basicForm.$invalid">
-                    Submit
+                    Guardar
                 </md-button>
             </form>
 

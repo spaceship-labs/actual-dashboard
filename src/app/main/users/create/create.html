@@ -3,12 +3,6 @@
     <!-- HEADER -->
     <div class="header md-accent-bg" layout="row" layout-align="space-between">
         <div layout="column" layout-align="space-between">
-            <div class="breadcrumb" layout="row" layout-align="start center">
-                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
-                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
-                <span class="parent">USER INTERFACE</span>
-            </div>
-
             <div class="title">Registrar usuario</div>
         </div>
     </div>
@@ -28,23 +22,23 @@
                 <div layout="column" layout-gt-sm="row">
                     <md-input-container flex>
                         <input type="text" name="firstname" ng-model="vm.user.firstName"
-                               placeholder="Firstname"
+                               placeholder="Nombre"
                                required>
                         <div ng-messages="basicForm.firstname.$error" ng-show="basicForm.firstname.$touched"
                              role="alert">
                             <div ng-message="required">
-                                <span>Firstname field is required.</span>
+                                <span>Este campo es requerido.</span>
                             </div>
                         </div>
                     </md-input-container>
 
                     <md-input-container flex>
-                        <input type="text" name="lastname" ng-model="vm.user.lastName" placeholder="Lastname"
+                        <input type="text" name="lastname" ng-model="vm.user.lastName" placeholder="Apellidos"
                                required>
                         <div ng-messages="basicForm.lastname.$error" ng-show="basicForm.lastname.$touched"
                              role="alert">
                             <div ng-message="required">
-                                <span>Lastname field is required.</span>
+                                <span>Este campo es requerido.</span>
                             </div>
                         </div>
                     </md-input-container>
@@ -57,10 +51,10 @@
                              ng-pattern="/^.+@.+\..+$/" required>
                       <div ng-messages="basicForm.email.$error" ng-show="basicForm.email.$touched" role="alert" multiple>
                           <div ng-message="required">
-                              <span translate="LOGIN.ERRORS.EMAIL_REQUIRED">Email field is required</span>
+                              <span translate="LOGIN.ERRORS.EMAIL_REQUIRED">Este campo es requerido</span>
                           </div>
                           <div ng-message="pattern">
-                              <span translate="LOGIN.ERRORS.EMAIL_MUST_VALID">Email must be a valid e-mail address</span>
+                              <span translate="LOGIN.ERRORS.EMAIL_MUST_VALID">E-mail invalido</span>
                           </div>
                       </div>
                     </md-input-container>
@@ -70,23 +64,23 @@
                 <div layout="column" layout-gt-xs="row">
 
                     <md-input-container flex>
-                        <input type="password" name="password" ng-model="vm.user.password" placeholder="Password"
+                        <input type="password" name="password" ng-model="vm.user.password" placeholder="Contraseña"
                                required>
                         <div ng-messages="basicForm.password.$error" ng-show="basicForm.password.$touched"
                              role="alert">
                             <div ng-message="required">
-                                <span>Passwrod field is required.</span>
+                                <span>Este campo es requerido.</span>
                             </div>
                         </div>
                     </md-input-container>
 
                     <md-input-container flex>
-                        <input type="password" name="confirmPassword" ng-model="vm.user.confirmPassword" placeholder="Confirm password"
+                        <input type="password" name="confirmPassword" ng-model="vm.user.confirmPassword" placeholder="Confirmar contraseña"
                                required>
                         <div ng-messages="basicForm.confirmPassword.$error" ng-show="basicForm.confirmPassword.$touched"
                              role="alert">
                             <div ng-message="required">
-                                <span>Passwrod field is required.</span>
+                                <span>Este campo es requerido.</span>
                             </div>
                         </div>
                         <div ng-show="vm.user.confirmPassword != vm.user.password && basicForm.confirmPassword.$touched"
@@ -102,7 +96,7 @@
                 <div layout="row">
 
                   <md-input-container flex>
-                    <label>Role</label>
+                    <label>Rol</label>
                     <md-select ng-model="vm.user.userType">
                       <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
                         {{role.name}}
@@ -121,9 +115,9 @@
 
                 </div>
 
-                <md-button type="submit" class="md-raised md-accent" aria-label="Submit"
+                <md-button type="submit" class="md-raised md-accent" aria-label="Guardar"
                            ng-disabled="basicForm.$invalid || basicForm.$pristine || vm.isLoading">
-                    Submit
+                    Guardar
                 </md-button>
             </form>
 
