@@ -13,6 +13,7 @@
         vm.init = init;
         vm.create = create;
         vm.toggleCategoryMain = toggleCategoryMain;
+        vm.setSelectedCategories = setSelectedCategories;
 
         vm.isLoading = false;
 
@@ -38,15 +39,7 @@
               vm.category.CategoryLevel = 1;
             }
 
-            vm.category.parents = [];
-            for(var i=0;i<vm.categoriesGroups.length;i++){
-              for(var j=0;j<vm.categoriesGroups[i].length;j++){
-                if(vm.categoriesGroups[i][j].selected){
-                  vm.category.parents.push(vm.categoriesGroups[i][j].id);
-                }
-              }
-            }
-
+            vm.setSelectedCategories();
             productService.createCategory(vm.category).then(function(res){
               console.log(res);
               vm.isLoading = false;
@@ -55,6 +48,19 @@
           }
           else{
             dialogService.showDialog('Campos incompletos');
+          }
+        }
+
+        function setSelectedCategories(){
+          vm.category.Parents = [];
+          if(!vm.category.IsMain){
+            for(var i=0;i<vm.categoriesGroups.length;i++){
+              for(var j=0;j<vm.categoriesGroups[i].length;j++){
+                if(vm.categoriesGroups[i][j].selected){
+                  vm.category.Parents.push(vm.categoriesGroups[i][j].id);
+                }
+              }
+            }
           }
         }
 

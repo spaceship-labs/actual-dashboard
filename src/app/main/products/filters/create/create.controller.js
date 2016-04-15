@@ -7,13 +7,17 @@
         .controller('ProductFiltersCreateController', ProductFiltersCreateController);
 
     /** @ngInject */
-    function ProductFiltersCreateController($scope ,productService, dialogService, commonService){
+    function ProductFiltersCreateController($scope, $mdDialog, $mdMedia ,productService, dialogService, commonService){
         var vm = this;
         vm.init = init;
         vm.create = create;
         vm.isLoading = false;
         vm.loadCategories = loadCategories;
         vm.groupSelectedCategories = groupSelectedCategories;
+        vm.openValueForm = openValueForm;
+        vm.addValue = addValue;
+        vm.removeValue = removeValue;
+        vm.editValue = editValue;
 
         vm.filter = {
           Values:[]
@@ -62,11 +66,69 @@
 
         $scope.$watch('vm.filter.Name', function(newVal, oldVal){
           if(newVal != oldVal){
-
-            vm.filter.Handle = newVal.replace(/\s+/g, '-').toLowerCase();
-            vm.filter.Handle = commonService.formatHandle(vm.filter.Handle);
+            vm.filter.Handle = commonService.formatHandle(newVal);
           }
         });
+
+        function addValue(value){
+          vm.filter.Values.push(value);
+          console.log(vm.filter.Values);
+        }
+
+        function editValue(newData, value){
+          value = newData;
+        }
+
+        function removeValue(valueIndex){
+          vm.filter.Values.splice(valueIndex, 1);
+        }
+
+        function openValueForm(ev, action, value) {
+          console.log('createValue');
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          var params = {
+            value: value,
+            action: action
+          };
+          $mdDialog.show({
+            controller: ValueFormController,
+            templateUrl: 'app/main/products/filters/value-form.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen,
+            locals: params
+          })
+          .then(function(newData) {
+            if(action === 'add'){
+              vm.addValue(newData);
+            }
+            else if(action === 'edit'){
+              vm.editValue(newData, value);
+            }
+          }, function() {
+            console.log('You cancelled the dialog.');
+          });
+        };
+
+
+
+        function ValueFormController($scope, commonService, value, action){
+          $scope.value = value || {};
+          $scope.action = action || 'add';
+          $scope.actionLabel = 'Crear';
+          if($scope.action === 'edit'){
+            $scope.actionLabel = 'Editar';
+          }
+          $scope.cancel = function(){ $mdDialog.cancel(); };
+          $scope.submit = function(value){ $mdDialog.hide(value); };
+
+          $scope.$watch('value.Name', function(newVal, oldVal){
+            if(newVal != oldVal){
+              $scope.value.Handle = commonService.formatHandle(newVal);
+            }
+          });
+        }
 
     }
 })();

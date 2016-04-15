@@ -54,11 +54,30 @@
                 <textarea ng-model="vm.filter.Description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
               </md-input-container>
 
-              <div layout="row" layout-wrap>
+              <!--FILTER VALUES-->
+              <div>
                 <p flex="100"><label><strong>Valores aceptados*</strong></label></p>
-                <md-chips flex="60" ng-model="vm.filter.Values"></md-chips>
-              </div>
+                <md-list>
+                  <md-list-item ng-repeat="value in vm.filter.Values track by $index" class="noright">
+                    <p>{{ value.Name }}</p>
+                    <div class="md-secondary" layout="row">
+                      <md-button ng-click="vm.openValueForm($event, 'edit', value)" class="md-raised md-primary">
+                        Editar
+                      </md-button>
+                      <md-button ng-click="vm.removeValue($index)" class="md-raised md-warn">
+                        Eliminar
+                      </md-button>
+                    </div>
+                  </md-list-item>
+                </md-list>
 
+                <div>
+                  <md-button ng-click="vm.openValueForm($event, 'add')" class="md-raised md-primary">
+                    Agregar valor
+                  </md-button>
+                </div>
+              </div>
+              <!--END FILTER VALUES-->
 
               <!--CATEGORY CHOOSER-->
               <div>

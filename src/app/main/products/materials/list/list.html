@@ -33,24 +33,29 @@
                 <md-button ng-click="vm.updateAll(updateForm)" class="md-raised md-primary">Guardar</md-button>
               </div>
 
-              <div ng-repeat="group in vm.materialsGroups track by $index">
+              <div class="editor-block" ng-repeat="group in vm.materialsGroups track by $index">
                 <h2><strong>{{group.label}}</strong></h2>
-                <md-chips
-                  readonly="false"
-                  ng-model="group.materials"
-                  md-transform-chip="vm.newMaterial($chip, group.type)"
-                  md-enable-chip-edit="true">
 
-                  <md-chip-template>
-                    <span>
-                      {{$chip.Name}}
-                    </span>
-                  </md-chip-template>
-                  <button md-chip-remove class="md-primary vegetablechip">
-                    <md-icon md-svg-icon="md-close"></md-icon>
-                  </button>
+                  <md-list>
+                    <md-list-item ng-repeat="material in group.materials track by $index" class="noright">
+                      <p>{{ material.Name }}</p>
+                      <div class="md-secondary" layout="row">
+                        <md-button ng-click="vm.openMaterialForm($event, 'edit', material, group)" class="md-raised md-primary">
+                          Editar
+                        </md-button>
+                        <md-button ng-click="vm.removeMaterial($index)" class="md-raised md-warn">
+                          Eliminar
+                        </md-button>
+                      </div>
+                    </md-list-item>
+                  </md-list>
 
-                </md-chips>
+                  <div>
+                    <md-button ng-click="vm.openMaterialForm($event, 'add', false, group)" class="md-raised md-primary">
+                      Agregar valor
+                    </md-button>
+                  </div>
+
               </div>
 
               <div layout="row" layout-align="end center">

@@ -7,7 +7,7 @@
         .controller('ProductMaterialsListController', ProductMaterialsListController);
 
     /** @ngInject */
-    function ProductMaterialsListController(productService, dialogService){
+    function ProductMaterialsListController( $mdDialog, $mdMedia, productService, dialogService){
         var vm = this;
 
         vm.init = init;
@@ -22,8 +22,12 @@
         vm.syntethicMaterials = [];
         vm.organicMaterials = [];
         vm.glassMaterials = [];
-
         vm.materialsGroups = [];
+
+        vm.addMaterial = addMaterial;
+        vm.editMaterial = editMaterial;
+        vm.removeMaterial = removeMaterial;
+        vm.openMaterialForm = openMaterialForm;
 
         vm.init();
 
@@ -91,6 +95,67 @@
           var material = {Name:chip};
           material[materialType] = true;
           return material;
+        }
+
+        function addMaterial(material, group){
+          material[group.type] = true;
+          group.materials.push(material);
+          console.log(group);
+        }
+
+        function editMaterial(newData, material){
+          material = newData;
+        }
+
+        function removeMaterial(materialIndex, group){
+          group.materials.splice(materialIndex, 1);
+        }
+
+        function openMaterialForm(ev, action, material, group) {
+          console.log('creatematerial');
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          var params = {
+            material: material,
+            action: action
+          };
+          $mdDialog.show({
+            controller: MaterialFormController,
+            templateUrl: 'app/main/products/materials/material-form.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen,
+            locals: params
+          })
+          .then(function(newData) {
+            if(action === 'add'){
+              vm.addMaterial(newData, group);
+            }
+            else if(action === 'edit'){
+              vm.editMaterial(newData, material);
+            }
+          }, function() {
+            console.log('You cancelled the dialog.');
+          });
+        };
+
+
+
+        function MaterialFormController($scope, commonService, material, action){
+          $scope.material = material || {};
+          $scope.action = action || 'add';
+          $scope.actionLabel = 'Crear';
+          if($scope.action === 'edit'){
+            $scope.actionLabel = 'Editar';
+          }
+          $scope.cancel = function(){ $mdDialog.cancel(); };
+          $scope.submit = function(material){ $mdDialog.hide(material); };
+
+          $scope.$watch('material.Name', function(newVal, oldVal){
+            if(newVal != oldVal){
+              $scope.material.Handle = commonService.formatHandle(newVal);
+            }
+          });
         }
 
 
