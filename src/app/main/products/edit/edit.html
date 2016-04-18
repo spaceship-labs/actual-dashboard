@@ -9,17 +9,36 @@
     <!-- CONTENT -->
     <div class="content" md-background-bg>
 
+      <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+        <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+      </div>
+
+      <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
+
         <md-tabs md-dynamic-height>
+          <md-tab label="Configuración">
+            <ng-include src="'app/main/products/edit/edit-configuration.html'"></ng-include>
+          </md-tab>
           <md-tab label="Contenido">
             <ng-include src="'app/main/products/edit/edit-content.html'"></ng-include>
           </md-tab>
-          <md-tab label="Galeria">
+          <md-tab label="Caracteristicas">
+            <ng-include src="'app/main/products/edit/edit-features.html'"></ng-include>
+          </md-tab>
+          <md-tab label="Empaque y envio">
+            <ng-include src="'app/main/products/edit/edit-package.html'"></ng-include>
+          </md-tab>
+          <md-tab label="Multimedia">
             <ng-include src="'app/main/products/edit/edit-gallery.html'"></ng-include>
           </md-tab>
+          <!---
           <md-tab label="Ofertas">
             <ng-include src="'app/main/products/edit/edit-offers.html'"></ng-include>
           </md-tab>
+          -->
         </md-tabs>
+
+      </form>
 
     </div>
     <!-- / CONTENT -->

@@ -50,6 +50,13 @@
         }
 
         function groupMaterials(){
+          vm.woodMaterials = [];
+          vm.metalMaterials = [];
+          vm.syntethicMaterials = [];
+          vm.organicMaterials = [];
+          vm.glassMaterials = [];
+
+
           vm.materials.forEach(function(material){
             if(material.IsWood){
               vm.woodMaterials.push(material);
@@ -91,7 +98,7 @@
           productService.createMaterial(material).then(function(res){
             console.log(res);
             vm.isLoading = false;
-            vm.materials.push(material);
+            vm.materials.push(res.data);
             vm.groupMaterials();
           });
         }

@@ -1,0 +1,95 @@
+<section class="md-whiteframe-z1">
+  <md-toolbar class="demo-toolbar md-primary">
+    <div class="md-toolbar-tools">
+      <h3>Empaque y envio</h3>
+    </div>
+  </md-toolbar>
+  <md-content class="md-padding">
+
+    <div layout="row" layout-align="end center">
+      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
+    </div>
+
+    <div>
+      <p><label><strong>Ensamble</strong></label></p>
+      <md-input-container>
+        <md-select placeholder="Ensamble" ng-model="vm.product.Ensemble">
+          <md-option ng-repeat="ensemble in vm.ensembles" value="{{ensemble.value}}">
+            {{ensemble.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+
+    <div>
+      <p><label><strong>Tiempo de ensamble</strong></label></p>
+      <md-input-container>
+        <md-select placeholder="Tiempo de ensamble" ng-model="vm.product.EnsembleTime">
+          <md-option ng-repeat="ensembleTime in vm.ensembleTimes" value="{{ensembleTime.value}}">
+            {{ensembleTime.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+
+    <div class="wyswyg-block">
+      <label for=""><strong>Contenido del paquete</strong></label>
+      <wysiwyg-edit content="vm.product.PackageContent"></wysiwyg-edit>
+    </div>
+
+    <div>
+      <p><label><strong>Piezas comerciales</strong></label></p>
+      <md-input-container>
+        <input type="number" placeholder="Ancho" ng-model="vm.product.CommercialPieces">
+      </md-input-container>
+    </div>
+
+    <div>
+      <p><label><strong>Piezas de envío</strong></label></p>
+      <md-input-container>
+        <input type="number" placeholder="Ancho" ng-model="vm.product.DeliveryPieces">
+      </md-input-container>
+    </div>
+
+    <!--PACKAGE SIZE-->
+    <div>
+      <p><label><strong>Medidas y peso articulo</strong></label></p>
+      <div>
+        <p><label><strong>Longitud</strong></label></p>
+        <md-input-container>
+          <input type="text" placeholder="Longitud" ng-model="vm.product.Length">
+        </md-input-container>
+      </div>
+      <div>
+        <p><label><strong>Ancho</strong></label></p>
+        <md-input-container>
+          <input type="text" placeholder="Ancho" ng-model="vm.product.Width">
+        </md-input-container>
+      </div>
+      <div>
+        <p><label><strong>Altura</strong></label></p>
+        <md-input-container>
+          <input type="text" placeholder="Altura" ng-model="vm.product.Height">
+        </md-input-container>
+      </div>
+      <div>
+        <p><label><strong>Volumen</strong></label></p>
+        <md-input-container>
+          <input type="text" placeholder="Volumen" ng-model="vm.product.Volume">
+        </md-input-container>
+      </div>
+      <div>
+        <p><label><strong>Peso (kg)</strong></label></p>
+        <md-input-container>
+          <input type="text" placeholder="Peso (kg)" ng-model="vm.product.Weight">
+        </md-input-container>
+      </div>
+    </div>
+    <!--END PACKAGE SIZE-->
+
+    <div layout="row" layout-align="end center">
+      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
+    </div>
+
+  </md-content>
+</section>

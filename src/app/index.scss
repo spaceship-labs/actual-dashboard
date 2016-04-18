@@ -131,3 +131,46 @@ div.dataTables_filter label{float: left;}
 .editor-block + .editor-block{
   border-top:0;
 }
+
+.editor-row{
+  margin: 10px 0;
+}
+
+/*-------------/
+  #FORM ELEMENTS
+/*------------*/
+.input-element{
+  max-width: 100%;
+  border-radius: 2px;
+  display: block;
+  margin: 10px 0;
+  position: relative;
+  overflow: visible;
+}
+.input-element > label{
+  font-weight: 700;
+}
+.input-element .input-element-inner{
+  background: rgb(254,254,254);
+  margin: 4px 0 0;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: visible;
+  height: 36px;
+}
+.input-element .input-element-inner input[type="text"],
+.input-element .input-element-inner input[type="password"]{
+  font-size: 14px;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  padding: 0 15px;
+  line-height: 36px;
+  height: 36px;
+}
+wysiwyg-edit .tinyeditor .sizer{
+  height: 200px;
+}

@@ -1,11 +1,18 @@
-<div layout="row" layout-align="space-between">
-  <section flex="35" class="file-manager">
+<div>
+  <section class="file-manager ">
     <md-toolbar class="demo-toolbar md-primary">
       <div class="md-toolbar-tools">
-        <h3>Product primary image</h3>
+        <h3>MULTIMEDIA</h3>
       </div>
     </md-toolbar>
     <md-content class="md-padding md-whiteframe-z1">
+
+      <div layout="row" layout-align="end center">
+        <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
+      </div>
+
+      <!--IMAGEN PRINCIPAL-->
+      <h2><strong>Imagen principal</strong></h2>
       <form name="form">
         <div class="file-manager-thumbs" layout="row"   layout-align="space-between start" layout-wrap>
           <span
@@ -24,21 +31,20 @@
 
         </div>
 
-        <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Upload files</md-button>
+        <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Subir</md-button>
+
+        <div class="input-element">
+          <label>Titulo imagen principal</label>
+          <div class="input-element-inner">
+            <input type="text" ng-model="vm.product.icon_description" required placeholder="Titulo imagen principal">
+          </div>
+        </div>
+
       </form>
+      <!--END IMAGEN PRINCIPAL-->
 
-
-    </md-content>
-  </section>
-
-
-  <section flex="60" class="file-manager ">
-    <md-toolbar class="demo-toolbar md-primary">
-      <div class="md-toolbar-tools">
-        <h3>Gallery manager</h3>
-      </div>
-    </md-toolbar>
-    <md-content class="md-padding md-whiteframe-z1">
+      <!--IMAGENES EXTRA-->
+      <h2><strong>Imagenes extra</strong></h2>
       <form name="form">
         <div class="file-manager-thumbs" layout="row" layout-wrap>
           <span
@@ -58,14 +64,27 @@
 
         </div>
 
-        <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.uploadFiles($files)" multiple="multiple">Upload files</md-button>
+        <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.uploadFiles($files)" multiple="multiple">Subir imagenes</md-button>
 
-        <md-button class="md-raised md-warn" ng-click="vm.removeFiles()">Remove selected files</md-button>
+        <md-button class="md-raised md-warn" ng-click="vm.removeFiles()">Eliminar archivos seleccionados</md-button>
       </form>
+      <!--END IMAGENES EXTRA-->
 
+      <!--VIDEO-->
+      <h2><strong>Video</strong></h2>
+      <form name="form">
+        <div>
+          <md-input-container>
+            <textarea ng-model="vm.product.Video" cols="30" rows="10"></textarea>
+          </md-input-container>
+        </div>
+      </form>
+      <!--END VIDEO-->
+
+    <div layout="row" layout-align="end center">
+      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
+    </div>
 
     </md-content>
   </section>
-
-
 </div>

@@ -7,7 +7,7 @@
         .controller('ProductEditController', ProductEditController);
 
     /** @ngInject */
-    function ProductEditController(dialogService, $stateParams, productService,Upload, api, $http){
+    function ProductEditController(dialogService, commonService, $stateParams, productService,Upload, api, $http){
         var vm = this;
         vm.uploadFiles = uploadFiles;
         vm.removeFiles = removeFiles;
@@ -86,6 +86,19 @@
           {label:'Amueble.com', handle:'OnAmueble'},
         ];
 
+        vm.guarenteeUnits = [
+          {label:'Año(s)', value:'YEAR'},
+          {label:'Meses', value: 'MONTH'}
+        ];
+
+        vm.ensembleTimes = [
+          {label:'menor a 15 minutos', value:'15min<'},
+          {label:'15 a 30 minutos', value:'15min-30min'},
+          {label:'30 a 60 minutos', value:'30min-60min<'},
+          {label:'mayor a una hora', value:'>1hr'},
+
+        ];
+
 
         vm.init();
 
@@ -94,9 +107,13 @@
         function init(){
           productService.getById($stateParams.id).then(function(res){
             vm.product = res.data.data;
+            if(!vm.product.Seats){
+              vm.product.Seats = 0;
+            }
             vm.loadCategories();
             vm.loadFilters();
             vm.loadMaterials();
+            vm.countries = commonService.getCountriesList();
           });
         }
 

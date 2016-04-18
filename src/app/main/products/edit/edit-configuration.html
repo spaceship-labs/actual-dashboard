@@ -1,0 +1,56 @@
+<section class="md-whiteframe-z1">
+  <md-toolbar class="demo-toolbar md-primary">
+    <div class="md-toolbar-tools">
+      <h3>Configuración</h3>
+    </div>
+  </md-toolbar>
+  <md-content class="md-padding">
+
+    <div layout="row" layout-align="end center">
+      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
+    </div>
+
+    <!--CATEGORY CHOOSER-->
+    <div>
+      <h2><strong>Categorias</strong></h2>
+
+      <div ng-repeat="group in vm.categoriesGroups track by $index">
+        <p ng-if="group.length > 0">
+          <label><strong>Categorias Nivel {{$index+1}}</strong></label>
+        </p>
+        <div >
+          <md-checkbox class="spaced-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+        </div>
+      </div>
+
+    </div>
+    <!--END CATEGORY CHOOSER-->
+
+    <!--DISPLAYS-->
+    <div>
+      <h2><strong>Pagina Display</strong></h2>
+      <div>
+        <md-checkbox class="spaced-checkbox" ng-repeat="display in vm.displays" ng-model="vm.product[display.handle]">{{display.label}}</md-checkbox>
+      </div>
+    </div>
+    <!--END DISPLAYS-->
+
+    <!--MARCA-->
+    <div>
+      <h2><strong>Marca</strong></h2>
+    </div>
+    <!--MARCA-->
+
+    <!--MODELO-->
+    <div>
+      <h2><strong>Agrupador de productos (Modelo)</strong></h2>
+    </div>
+    <!--MODELO-->
+
+
+    <div layout="row" layout-align="end center">
+      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
+    </div>
+
+  </md-content>
+</section>

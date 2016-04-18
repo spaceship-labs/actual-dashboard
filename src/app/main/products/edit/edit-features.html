@@ -1,0 +1,134 @@
+<section class="md-whiteframe-z1">
+  <md-toolbar class="demo-toolbar md-primary">
+    <div class="md-toolbar-tools">
+      <h3>Caractersticas</h3>
+    </div>
+  </md-toolbar>
+  <md-content class="md-padding">
+
+    <div layout="row" layout-align="end center">
+      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
+    </div>
+
+
+    <!--Materials-->
+    <div>
+      <h2><strong>Materiales</strong></h2>
+      <div ng-repeat="group in vm.materialsGroups">
+        <p><strong>{{group.label}}</strong></p>
+        <div>
+          <md-checkbox class="spaced-checkbox" ng-repeat="material in group.materials" ng-model="material.selected">{{material.Name}}</md-checkbox>
+        </div>
+      </div>
+    </div>
+    <!--END Materials-->
+
+    <!--FILTERS-->
+    <div class="editor-block">
+      <h2><strong>Caracteristicas</strong></h2>
+      <div ng-repeat="filter in vm.filters">
+        <p><label><strong>{{filter.Name}}</strong></label></p>
+
+        <div ng-if="filter.IsMultiple">
+          <md-checkbox class="spaced-checkbox" ng-repeat="value in filter.Values" ng-model="value.selected">{{value.Name}}</md-checkbox>
+        </div>
+
+        <div ng-if="!filter.IsMultiple">
+          <md-input-container>
+            <md-select placeholder="{{filter.Name}}" ng-model="filter.selectedValue">
+              <md-option value="false">Ninguno</md-option>
+              <md-option ng-repeat="value in filter.Values track by $index" value="{{$index}}">
+                {{value.Name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+
+      </div>
+
+    </div>
+    <!--END FILTERS-->
+
+    <!--COLOR-->
+    <div>
+      <p><label><strong>Color: {{vm.product.Color}}</strong> </label></p>
+      <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
+        <a
+          ng-repeat="color in vm.colors"
+          ng-click="vm.selectColor(color.value)"
+          ng-class="{'wrap-on': color.value == vm.product.Color}"
+          class="colorpicker-sp-color-wrap"
+          flex="33"
+          title="{{color.label}}"
+          >
+          <md-icon
+            ng-class="{'checked-on': color.value == vm.product.Color}"
+            md-font-icon="icon-check"
+            class="s16 colorpicker-sp-checked">
+          </md-icon>
+          <span class="colorpicker-sp-color"  ng-style="{'background-color': color.code}"></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="input-element">
+      <label>Color detallado*</label>
+      <div class="input-element-inner">
+        <input type="text" ng-model="vm.product.DetailedColor" required placeholder="Color detallado *">
+      </div>
+    </div>
+    <!--END COLOR-->
+
+    <!--ASIENTOS-->
+    <div>
+      <p><label><strong>Asientos</strong></label></p>
+      <md-input-container>
+        <input type="number" min="0" max="10" ng-model="vm.product.Seats">
+      </md-input-container>
+    </div>
+    <!--END ASIENTOS-->
+
+    <!--GARANTIA-->
+    <div class="wyswyg-block">
+      <h2>Garantia</h2>
+      <label for=""><strong>Texto garantia</strong></label>
+      <wysiwyg-edit content="vm.product.GuaranteeText"></wysiwyg-edit>
+    </div>
+
+    <div>
+      <p><label><strong>Garantia</strong></label></p>
+      <md-input-container>
+        <input type="number" min="0" ng-model="vm.Product.GuaranteeUnit">
+      </md-input-container>
+      <md-select placeholder="Garantia (Unidad de medida)" ng-model="vm.Product.GuaranteeUnitMsr">
+        <md-option ng-repeat="guarenteeUnit in vm.guarenteeUnits" value="{{guarenteeUnit.value}}">
+          {{guarenteeUnit.label}}
+        </md-option>
+      </md-select>
+    </div>
+    <!--END GARANTIA-->
+
+    <div>
+      <p><label><strong>Pais de producción (Diseñado en)</strong></label></p>
+      <md-select placeholder="Pais de producción (Diseñado en)" ng-model="vm.Product.DesignedInCountry">
+        <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
+          {{country}}
+        </md-option>
+      </md-select>
+    </div>
+
+    <div>
+      <p><label><strong>Pais de ensamble (Hecho en)</strong></label></p>
+      <md-select placeholder="Pais de ensamble (Hecho en)" ng-model="vm.Product.MadeInCountry">
+        <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
+          {{country}}
+        </md-option>
+      </md-select>
+    </div>
+
+    <div layout="row" layout-align="end center">
+      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
+    </div>
+
+  </md-content>
+</section>
