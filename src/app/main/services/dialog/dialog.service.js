@@ -42,8 +42,9 @@
           });
         }
 
-        function showDestroyDialog(ev, destroyPromise,id, redirectUrl){
-          var redirect = redirectUrl || false;
+        function showDestroyDialog(ev, destroyPromise,id, redirectUrl, isPromise, loadingFlag){
+          var redirectPath = redirectUrl || false;
+          var deferred = $q.defer();
           var confirm = $mdDialog.confirm()
                 .title('Eliminar')
                 .textContent('¿Deseas eliminar este registro?')
@@ -53,24 +54,40 @@
                 .cancel('Cancelar');
           $mdDialog.show(confirm).then(function() {
             $rootScope.$emit('destroyingItemStart', true);
-            destroyPromise(id).then(function(res){
-              console.log(res);
-              $rootScope.$emit('destroyingItemEnd', true);
+            loadingFlag = true;
+            destroyPromise(id).then(
+              function(res){
+                console.log(res);
+                loadingFlag = false;
+                $rootScope.$emit('destroyingItemEnd', true);
 
-              if(redirect){
-                console.log('redirecting');
-                $location.path(redirect);
-              }else{
-                console.log('reloading');
-                $window.location.reload();
+                if(isPromise){
+                  deferred.resolve({destroyed:true});
+                }
+                else{
+                  if(redirectPath){
+                    console.log('redirecting');
+                    $location.path(redirect);
+                  }
+                  else{
+                    console.log('reloading');
+                    $window.location.reload();
+                  }
+                }
+              },
+              function(err){
+                $rootScope.$emit('destroyingItemEnd', true);
+                console.log(err);
+                deferred.reject(err);
               }
-            }, function(err){
-              $rootScope.$emit('destroyingItemEnd', true);
-              console.log(err);
-            });
+            );
           }, function() {
             $scope.status = 'You decided to keep your debt.';
           });
+
+          if(isPromise){
+            return deferred.promise;
+          }
 
         }
     }

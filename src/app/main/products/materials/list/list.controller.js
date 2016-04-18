@@ -11,7 +11,6 @@
         var vm = this;
 
         vm.init = init;
-        vm.updateAll = updateAll;
         vm.groupMaterials = groupMaterials;
         vm.mergeMaterialsGroups = mergeMaterialsGroups;
         vm.newMaterial = newMaterial;
@@ -79,17 +78,6 @@
 
         }
 
-        function updateAll(){
-          vm.mergeMaterialsGroups();
-          console.log(vm.materials);
-          vm.isLoading = true;
-          productService.updateMaterials({materials:vm.materials}).then(function(res){
-            vm.isLoading = false;
-            dialogService.showDialog('Materiales actualizados');
-            console.log(res);
-
-          });
-        }
 
         function newMaterial(chip, materialType){
           var material = {Name:chip};
@@ -99,16 +87,41 @@
 
         function addMaterial(material, group){
           material[group.type] = true;
-          group.materials.push(material);
-          console.log(group);
+          vm.isLoading = true;
+          productService.createMaterial(material).then(function(res){
+            console.log(res);
+            vm.isLoading = false;
+            vm.materials.push(material);
+            vm.groupMaterials();
+          });
         }
 
         function editMaterial(newData, material){
-          material = newData;
+          vm.isLoading = true;
+          productService.updateMaterial(material.id, newData).then(function(res){
+            console.log(res);
+            material = res.data;
+            vm.isLoading = false;
+            vm.groupMaterials();
+          });
         }
 
-        function removeMaterial(materialIndex, group){
-          group.materials.splice(materialIndex, 1);
+        function removeMaterial($ev,materialId, materialIndex, group){
+          var hasRedirect = false;
+          var isPromise = true;
+          console.log('empezo removeValue');
+          dialogService.showDestroyDialog(
+            $ev,
+            productService.destroyMaterial,
+            materialId,
+            hasRedirect,
+            isPromise,
+            vm.isLoading
+          ).then(function(res){
+            console.log(res);
+            group.materials.splice(materialIndex, 1);
+          });
+
         }
 
         function openMaterialForm(ev, action, material, group) {

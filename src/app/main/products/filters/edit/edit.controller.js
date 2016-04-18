@@ -20,6 +20,7 @@
         vm.removeValue = removeValue;
         vm.editValue = editValue;
         vm.isLoading = false;
+        vm.isLoadingValues = false;
 
         vm.init();
 
@@ -95,16 +96,41 @@
         });
 
         function addValue(value){
-          vm.filter.Values.push(value);
           console.log(vm.filter.Values);
+          vm.isLoadingValues = true;
+          value.Filter = vm.filter.id;
+          productService.createFilterValue(value).then(function(res){
+            console.log(res);
+            vm.filter.Values.push(res.data);
+            vm.isLoadingValues = false;
+          });
         }
 
         function editValue(newData, value){
-          value = newData;
+          console.log(value);
+          vm.isLoadingValues = true;
+          productService.updateFilterValue(value.id, newData).then(function(res){
+            console.log(res);
+            value = res.data;
+            vm.isLoadingValues = false;
+          })
         }
 
-        function removeValue(valueIndex){
-          vm.filter.Values.splice(valueIndex, 1);
+        function removeValue($ev,valueId, valueIndex){
+          var hasRedirect = false;
+          var isPromise = true;
+          console.log('empezo removeValue');
+          dialogService.showDestroyDialog(
+            $ev,
+            productService.destroyFilterValue,
+            valueId,
+            hasRedirect,
+            isPromise,
+            vm.isLoadingValues
+          ).then(function(res){
+            console.log(res);
+            vm.filter.Values.splice(valueIndex, 1);
+          });
         }
 
         function openValueForm(ev, action, value) {

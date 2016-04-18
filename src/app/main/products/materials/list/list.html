@@ -29,10 +29,6 @@
 
             <form name="updateForm" ng-if="!vm.isLoading" ng-submit="vm.updateAll(updateForm)" class="md-inline-form" novalidate>
 
-              <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.updateAll(updateForm)" class="md-raised md-primary">Guardar</md-button>
-              </div>
-
               <div class="editor-block" ng-repeat="group in vm.materialsGroups track by $index">
                 <h2><strong>{{group.label}}</strong></h2>
 
@@ -43,7 +39,7 @@
                         <md-button ng-click="vm.openMaterialForm($event, 'edit', material, group)" class="md-raised md-primary">
                           Editar
                         </md-button>
-                        <md-button ng-click="vm.removeMaterial($index)" class="md-raised md-warn">
+                        <md-button ng-click="vm.removeMaterial($event,material.id,$index, group)" class="md-raised md-warn">
                           Eliminar
                         </md-button>
                       </div>
@@ -56,10 +52,6 @@
                     </md-button>
                   </div>
 
-              </div>
-
-              <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.updateAll(updateForm)" class="md-raised md-primary">Guardar</md-button>
               </div>
 
             </form>

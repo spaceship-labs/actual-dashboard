@@ -58,14 +58,19 @@
               <!--FILTER VALUES-->
               <div>
                 <p flex="100"><label><strong>Valores aceptados*</strong></label></p>
-                <md-list>
+
+                <div ng-show="vm.isLoadingValues" layout="row" layout-sm="column" layout-align="space-around">
+                  <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+                </div>
+
+                <md-list ng-if="!vm.isLoadingValues">
                   <md-list-item ng-repeat="value in vm.filter.Values track by $index" class="noright">
                     <p>{{ value.Name }}</p>
                     <div class="md-secondary" layout="row">
                       <md-button ng-click="vm.openValueForm($event, 'edit', value)" class="md-raised md-primary">
                         Editar
                       </md-button>
-                      <md-button ng-click="vm.removeValue($index)" class="md-raised md-warn">
+                      <md-button ng-click="vm.removeValue($event,value.id, $index)" class="md-raised md-warn">
                         Eliminar
                       </md-button>
                     </div>

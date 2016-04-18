@@ -34,10 +34,16 @@
         updateFilterById: updateFilterById,
         getAllFilters: getAllFilters,
 
-        //Materials
-        updateMaterials: updateMaterials,
-        getMaterials: getMaterials
+        //FilterValues
+        updateFilterValue: updateFilterValue,
+        createFilterValue: createFilterValue,
+        destroyFilterValue: destroyFilterValue,
 
+        //Materials
+        getMaterials: getMaterials,
+        updateMaterial: updateMaterial,
+        destroyMaterial: destroyMaterial,
+        createMaterial: createMaterial
       };
 
       return service;
@@ -142,15 +148,41 @@
         return api.$http.post(url, params);
       }
 
+      function createFilterValue(params){
+        var url = '/productfiltervalue/create/';
+        return api.$http.post(url, params);
+      }
+
+      function destroyFilterValue(id){
+        var url = '/productfiltervalue/destroy/'+id;
+        return api.$http.post(url);
+      }
+
+      function updateFilterValue(id, params){
+        var url = '/productfiltervalue/update/' + id;
+        return api.$http.post(url, params);
+      }
+
       function getMaterials(){
         var url = '/productmaterial/getall';
         return api.$http.post(url);
       }
 
-      function updateMaterials(params){
-        var url = '/productmaterial/updateall';
+      function createMaterial(params){
+        var url = '/productmaterial/create/';
         return api.$http.post(url, params);
       }
+
+      function updateMaterial(id, params){
+        var url = '/productmaterial/update/' + id;
+        return api.$http.post(url, params);
+      }
+
+      function destroyMaterial(id){
+        var url = '/productmaterial/destroy/'+id;
+        return api.$http.post(url);
+      }
+
 
     }
 
