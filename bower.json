@@ -37,7 +37,8 @@
     "angular-local-storage": "~0.2.3",
     "angular-jwt": "~0.0.9",
     "ng-file-upload": "~12.0.1",
-    "ngWYSIWYG": "^0.6.2"
+    "ngWYSIWYG": "^0.6.2",
+    "textAngular": "^1.5.0"
   },
   "devDependencies": {
     "angular-mocks": "1.4.8"

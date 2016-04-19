@@ -60,6 +60,7 @@
             'LocalStorageModule',
             'angular-jwt',
             'bw.paging',
-            'ngWYSIWYG'
+            'ngWYSIWYG',
+            'textAngular'
         ]);
 })();
