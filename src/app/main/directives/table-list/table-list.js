@@ -32,7 +32,7 @@
             $compile(angular.element(row).contents())($scope);
         })
         .withOption('initComplete', function() {
-          $('<button/>').text('Search').attr('id', 'new-search').appendTo('.dataTables_filter');
+          $('<button/>').text('Buscar').attr('id', 'new-search').appendTo('.dataTables_filter');
           $('.dataTables_filter input').unbind();
           $('.dataTables_filter input').keypress(function(e){
             if(e.which == 10 || e.which == 13) {
@@ -91,6 +91,7 @@
             .newColumn(column.key).withTitle(column.label)
             .renderWith(
               function renderCell(data, type, full, pos){
+                var html = '';
 
                 if(column.yesNo){
                   data = data ? 'Si' : 'No';
@@ -98,13 +99,14 @@
 
                 if(column.destroy){
                   var id = (column.propId) ? column.propId : 'id';
-                  var html = '<a href="#" ng-click="showDestroyDialog($event, '+ full[id] +')">Eliminar</a>';
+                  html = '<a href="#" ng-click="showDestroyDialog($event, '+ full[id] +')">Eliminar</a>';
                 }
                 else{
-                  var html = data;
                   if(column.actionUrl){
                     var id = (column.propId) ? column.propId : 'id';
                     html = '<a href="'+(column.actionUrl + full[id])+'">' + data + '</a>';
+                  }else{
+                    html = data;
                   }
                 }
 

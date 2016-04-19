@@ -67,7 +67,7 @@
                 else{
                   if(redirectPath){
                     console.log('redirecting');
-                    $location.path(redirect);
+                    $location.path(redirectPath);
                   }
                   else{
                     console.log('reloading');
@@ -82,7 +82,7 @@
               }
             );
           }, function() {
-            $scope.status = 'You decided to keep your debt.';
+            console.log('Cancelado');
           });
 
           if(isPromise){

@@ -28,24 +28,40 @@
             </div>
 
             <form name="createForm" ng-if="!vm.isLoading" ng-submit="vm.create(createForm)" class="md-inline-form" novalidate>
+
               <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.create(createForm)" class="md-raised md-primary">Guardar</md-button>
+                <md-button ng-click="vm.create(createForm)" class="md-raised md-primary action-button">Guardar</md-button>
               </div>
-              <p>
-                <md-input-container>
+
+              <div class="input-element">
+                <label>Nombre*</label>
+                <div class="input-element-inner">
                   <input type="text" ng-model="vm.category.Name" required placeholder="Nombre*">
-                </md-input-container>
-              </p>
-              <p>
-                <md-input-container>
-                  <input type="text" ng-model="vm.category.Keywords" required placeholder="Keywords*">
-                </md-input-container>
-              </p>
-              <p>
-                <md-input-container>
+                </div>
+              </div>
+
+              <div class="input-element">
+                <label>Keywords</label>
+                <div class="input-element-inner">
+                  <input type="text" ng-model="vm.category.Keywords" placeholder="Keywords">
+                </div>
+              </div>
+
+              <div class="input-element">
+                <label>Handle*</label>
+                <div class="input-element-inner">
                   <input type="text" ng-model="vm.category.Handle" required placeholder="Handle*">
-                </md-input-container>
-              </p>
+                </div>
+              </div>
+
+
+              <div class="input-element textarea-element">
+                <label>Descripción</label>
+                <div class="input-element-inner">
+                  <textarea ng-model="vm.category.Description" rows="5" placeholder="Descripción"></textarea>
+                </div>
+              </div>
+
               <div class="category-form-editor">
                 <p>
                   <md-checkbox ng-model="vm.category.IsMain" ng-click="vm.toggleCategoryMain()" aria-label="Categoria principal">
@@ -54,44 +70,42 @@
                 </p>
 
 
-                <p ng-if="!vm.category.IsMain">
-                  <md-input-container>
+                <div ng-if="!vm.category.IsMain" class="input-element number-element">
+                  <label>Nivel</label>
+                  <div class="input-element-inner">
                     <input type="number" min="2" max="3" ng-model="vm.category.CategoryLevel"  placeholder="Category Level">
-                  </md-input-container>
-                </p>
-
-
-                <p ng-if="!vm.category.IsMain"><label><strong>Categorias padre</strong></label></p>
-
-                <div ng-if="!vm.category.IsMain && vm.category.CategoryLevel > 1">
-                  <p>
-                    <label><strong>Categorias Nivel 1</strong></label>
-                  </p>
-                  <div >
-                    <md-checkbox class="spaced-checkbox" ng-repeat="category in vm.categoriesGroups[0]" ng-model="category.selected">{{category.Name}}</md-checkbox>
                   </div>
                 </div>
 
+                <h2 ng-if="!vm.category.IsMain"><label><strong>Categorias padre</strong></label></h2>
 
-                <div ng-if="!vm.category.IsMain && vm.category.CategoryLevel > 2 ">
-                  <p>
-                    <label><strong>Categorias Nivel 2</strong></label>
-                  </p>
-                  <div >
-                    <md-checkbox class="spaced-checkbox" ng-repeat="category in vm.categoriesGroups[1]" ng-model="category.selected">{{category.Name}}</md-checkbox>
+                <div layout="row" layout-wrap>
+                  <div ng-if="!vm.category.IsMain && vm.category.CategoryLevel > 1" flex="50" flex-sm="100">
+                    <p>
+                      <label><strong>Categorias Nivel 1</strong></label>
+                    </p>
+                    <div >
+                      <md-checkbox class="spaced-checkbox" ng-repeat="category in vm.categoriesGroups[0]" ng-model="category.selected">{{category.Name}}</md-checkbox>
+                    </div>
                   </div>
 
+
+                  <div ng-if="!vm.category.IsMain && vm.category.CategoryLevel > 2 "  flex="50" flex-sm="100">
+                    <p>
+                      <label><strong>Categorias Nivel 2</strong></label>
+                    </p>
+                    <div >
+                      <md-checkbox class="spaced-checkbox" ng-repeat="category in vm.categoriesGroups[1]" ng-model="category.selected">{{category.Name}}</md-checkbox>
+                    </div>
+
+                  </div>
                 </div>
 
               </div>
 
-              <md-input-container>
-                <label><strong>Descripción</strong></label>
-                <textarea ng-model="vm.category.Description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
-              </md-input-container>
 
               <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.create(createForm)" class="md-raised md-primary">Guardar</md-button>
+                <md-button ng-click="vm.create(createForm)" class="md-raised md-primary action-button">Guardar</md-button>
               </div>
 
             </form>

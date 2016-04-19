@@ -13,8 +13,8 @@
         // Data
         vm.columns = [
             //{key:'id', label:'ID'},
-            {key:'ItemCode', label:'Code', actionUrl:'/products/edit/', propId: 'ItemCode'},
-            {key:'ItemName', label:'Name'},
+            {key:'ItemCode', label:'Código', actionUrl:'/products/edit/', propId: 'ItemCode'},
+            {key:'ItemName', label:'Nombre'},
             {key:'U_COLOR', label:'U_COLOR'},
             {key:'U_LINEA', label:'U_LINEA'},
             {key:'U_garantia', label:'U_garantia'},

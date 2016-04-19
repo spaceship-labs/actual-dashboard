@@ -5,7 +5,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #3C4252;
+    /*background-color: #3C4252;*/
+    background-color: #000;
     z-index: 99999;
 
     &.ng-leave {
@@ -23,6 +24,7 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
+        text-align:center;
     }
 
     .logo {

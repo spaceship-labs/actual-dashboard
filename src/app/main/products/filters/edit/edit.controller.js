@@ -19,8 +19,11 @@
         vm.addValue = addValue;
         vm.removeValue = removeValue;
         vm.editValue = editValue;
+        vm.showDestroyDialog = showDestroyDialog;
+
         vm.isLoading = false;
         vm.isLoadingValues = false;
+        vm.destroyFn = productService.destroyFilterById;
 
         vm.init();
 
@@ -47,6 +50,10 @@
           else{
             dialogService.showDialog('Campos incompletos');
           }
+        }
+
+        function showDestroyDialog($ev){
+          dialogService.showDestroyDialog($ev, vm.destroyFn, vm.filter.id, '/products/filters');
         }
 
         function newFilterValue(chip) {

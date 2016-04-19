@@ -7,22 +7,22 @@
   <md-content class="md-padding">
 
     <div layout="row" layout-align="end center">
-      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
+      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
     </div>
 
     <!--CATEGORY CHOOSER-->
     <div>
       <h2><strong>Categorias</strong></h2>
-
-      <div ng-repeat="group in vm.categoriesGroups track by $index">
-        <p ng-if="group.length > 0">
-          <label><strong>Categorias Nivel {{$index+1}}</strong></label>
-        </p>
-        <div >
-          <md-checkbox class="spaced-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+      <div layout="row" layout-wrap>
+        <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100">
+          <p ng-if="group.length > 0">
+            <label><strong>Categorias Nivel {{$index+1}}</strong></label>
+          </p>
+          <div >
+            <md-checkbox class="spaced-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+          </div>
         </div>
       </div>
-
     </div>
     <!--END CATEGORY CHOOSER-->
 
@@ -30,7 +30,7 @@
     <div>
       <h2><strong>Pagina Display</strong></h2>
       <div>
-        <md-checkbox class="spaced-checkbox" ng-repeat="display in vm.displays" ng-model="vm.product[display.handle]">{{display.label}}</md-checkbox>
+        <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="display in vm.displays" ng-model="vm.product[display.handle]">{{display.label}}</md-checkbox>
       </div>
     </div>
     <!--END DISPLAYS-->

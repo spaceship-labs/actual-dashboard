@@ -101,6 +101,7 @@
              */
             function setActiveTheme(themeName)
             {
+                console.log('themeName : ' + themeName);
                 // If theme does not exist, fallback to the default theme
                 if ( angular.isUndefined(service.themes.list[themeName]) )
                 {

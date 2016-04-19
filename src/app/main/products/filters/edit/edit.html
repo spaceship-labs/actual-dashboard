@@ -28,20 +28,31 @@
 
             <form name="updateForm" ng-if="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
               <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
+                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
+                <md-button ng-click="vm.showDestroyDialog($event)" class="md-raised md-warn">Eliminar</md-button>
               </div>
 
-              <p>
-                <md-input-container>
-                  <input type="text" ng-model="vm.filter.Name" placeholder="Nombre*" required>
-                </md-input-container>
-              </p>
 
-              <p>
-                <md-input-container>
-                  <input type="text" ng-model="vm.filter.Handle" placeholder="Handle*" required>
-                </md-input-container>
-              </p>
+              <div class="input-element">
+                <label>Nombre*</label>
+                <div class="input-element-inner">
+                  <input type="text" ng-model="vm.filter.Name" required placeholder="Nombre*">
+                </div>
+              </div>
+
+              <div class="input-element">
+                <label>Handle*</label>
+                <div class="input-element-inner">
+                  <input type="text" ng-model="vm.filter.Handle" required placeholder="Handle*">
+                </div>
+              </div>
+
+              <div class="input-element textarea-element">
+                <label>Descripción</label>
+                <div class="input-element-inner">
+                  <textarea ng-model="vm.filter.Description" placeholder="Descripción" rows="5"></textarea>
+                </div>
+              </div>
 
               <p>
                 <md-checkbox ng-model="vm.filter.IsMultiple" aria-label="¿Acepta valores multiples?">
@@ -49,16 +60,11 @@
                 </md-checkbox>
               </p>
 
-              <md-input-container>
-                <label for=""><strong>Descripción</strong></label>
-                <textarea ng-model="vm.filter.Description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
-              </md-input-container>
-
 
               <!--FILTER VALUES-->
               <div>
-                <p flex="100"><label><strong>Valores aceptados*</strong></label></p>
-
+                <p><label><strong>Valores aceptados*</strong></label></p>
+                <p ng-if="vm.filter.Values.length <= 0">No hay valores agregados a este filtro</p>
                 <div ng-show="vm.isLoadingValues" layout="row" layout-sm="column" layout-align="space-around">
                   <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
                 </div>
@@ -90,12 +96,14 @@
               <div>
                 <h2><strong>Categorias con este filtro</strong></h2>
 
-                <div ng-repeat="group in vm.categoriesGroups track by $index">
-                  <p ng-if="group.length > 0">
-                    <label><strong>Categorias Nivel {{$index+1}}</strong></label>
-                  </p>
-                  <div >
-                    <md-checkbox class="spaced-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+                <div layout="row" layout-wrap>
+                  <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100">
+                    <p ng-if="group.length > 0">
+                      <label><strong>Categorias Nivel {{$index+1}}</strong></label>
+                    </p>
+                    <div >
+                      <md-checkbox class="spaced-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+                    </div>
                   </div>
                 </div>
 
@@ -103,7 +111,7 @@
               <!--END CATEGORY CHOOSER-->
 
               <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
+                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
               </div>
 
             </form>

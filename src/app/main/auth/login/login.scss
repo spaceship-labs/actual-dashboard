@@ -1,16 +1,19 @@
 #login {
     height: 100%;
-    background: url('/assets/images/backgrounds/march.jpg') no-repeat;
+    background: url('/assets/images/fondo-login.jpg') no-repeat;
     background-size: cover;
 
     #login-form-wrapper {
         flex: 1 0 auto;
-        padding: 32px;
+
+        .logo-wrapper{
+          background: #000;
+          padding: 32px;
+        }
 
         #login-form {
-            width: 384px;
-            max-width: 384px;
-            padding: 32px;
+            width: 340px;
+            max-width: 340px;
             background: #FFFFFF;
             text-align: center;
 
@@ -31,6 +34,7 @@
             }
 
             form {
+                padding: 10px 32px;
                 width: 100%;
                 text-align: left;
 
@@ -110,7 +114,7 @@
             }
 
             .md-button {
-
+                background-color: #34BA2C;
                 &.google,
                 &.facebook {
                     width: 192px;

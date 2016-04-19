@@ -86,6 +86,7 @@ div.dataTables_filter label{float: left;}
 .wyswyg-block{margin: 20px 0;}
 
 .spaced-checkbox{margin: 10px!important;}
+.block-checkbox{display: block;}
 
 .colorpicker-sp{
   padding: 10px;
@@ -143,13 +144,15 @@ div.dataTables_filter label{float: left;}
   max-width: 100%;
   border-radius: 2px;
   display: block;
-  margin: 10px 0;
+  margin: 20px 0;
   position: relative;
   overflow: visible;
 }
 .input-element > label{
   font-weight: 700;
 }
+
+.select-element,
 .input-element .input-element-inner{
   background: rgb(254,254,254);
   margin: 4px 0 0;
@@ -158,8 +161,13 @@ div.dataTables_filter label{float: left;}
   overflow: visible;
   height: 36px;
 }
+
+.select-element md-select,
+.input-element .input-element-inner textarea,
 .input-element .input-element-inner input[type="text"],
-.input-element .input-element-inner input[type="password"]{
+.input-element .input-element-inner input[type="password"],
+.input-element .input-element-inner input[type="email"],
+.input-element .input-element-inner input[type="number"]{
   font-size: 14px;
   box-sizing: border-box;
   border: none;
@@ -174,3 +182,65 @@ div.dataTables_filter label{float: left;}
 wysiwyg-edit .tinyeditor .sizer{
   height: 200px;
 }
+
+.input-element.textarea-element .input-element-inner,
+.input-element.textarea-element .input-element-inner textarea{
+  height: auto;
+}
+
+.input-element.number-element .input-element-inner{
+  max-width: 100px;
+}
+.input-element.number-element .input-element-inner input{
+  padding: 0 0 0 15px;
+  width: auto;
+  max-width: 100%;
+}
+
+.select-element{padding: 0 0 0 10px}
+.select-element.md-default-theme:not([disabled]):focus .md-select-value,
+.select-element:not([disabled]):focus .md-select-value{
+  border: 0;
+}
+.select-element-label{margin: 0}
+.select-element-label + md-input-container{margin-top:0;}
+.select-element-wrapper{margin: 20px 0;}
+
+/*---------------/
+  #GLOBAL DASHBOARD
+/*----------------*/
+.ms-navigation .ms-navigation-node:not(.group).has-children:not(.collapsed) > ul{
+  background: #fff;
+}
+.ms-navigation .ms-navigation-node:not(.group).has-children:not(.collapsed) > ul .ms-navigation-item .ms-navigation-button{
+  color: #000;
+}
+.ms-navigation .ms-navigation-node .ms-navigation-item > .ms-navigation-button.active{
+  background: #CE2329;
+  color: #fff!important;
+}
+
+.ms-navigation .ms-navigation-node .ms-navigation-item > .ms-navigation-button .arrow{
+  color: #CE2329;
+}
+#vertical-navigation .navigation-header{background: #fff;}
+#vertical-navigation .navigation-header .fold-toggle{color: #000;}
+#vertical-navigation .navigation-header .logo .logo-image{background: #000;}
+.page-layout.simple.fullwidth > .header{
+  background: none;
+  color: #000;
+  text-transform: uppercase;
+}
+#new-search{background: #000;}
+.action-button{
+  background: #34BA2C!important;
+  color: #fff!important;
+}
+.action-button md-icon{color: #fff}
+
+table.dataTable thead th{
+  text-transform: uppercase;
+  background-color: whitesmoke!important;
+}
+
+.filter-column{padding: 0 10px;}
