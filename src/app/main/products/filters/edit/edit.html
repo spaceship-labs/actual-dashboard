@@ -69,7 +69,7 @@
                   <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
                 </div>
 
-                <md-list ng-if="!vm.isLoadingValues">
+                <md-list ng-if="!vm.isLoadingValues" class="scroll-column scroll-column-xlg">
                   <md-list-item ng-repeat="value in vm.filter.Values track by $index" class="noright">
                     <p>{{ value.Name }}</p>
                     <div class="md-secondary" layout="row">
@@ -97,11 +97,11 @@
                 <h2><strong>Categorias con este filtro</strong></h2>
 
                 <div layout="row" layout-wrap>
-                  <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100">
+                  <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100" >
                     <p ng-if="group.length > 0">
                       <label><strong>Categorias Nivel {{$index+1}}</strong></label>
                     </p>
-                    <div >
+                    <div class="scroll-column">
                       <md-checkbox class="spaced-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
                     </div>
                   </div>

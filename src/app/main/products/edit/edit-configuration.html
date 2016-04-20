@@ -14,7 +14,7 @@
     <div>
       <h2><strong>Categorias</strong></h2>
       <div layout="row" layout-wrap>
-        <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100">
+        <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100" class="scroll-column">
           <p ng-if="group.length > 0">
             <label><strong>Categorias Nivel {{$index+1}}</strong></label>
           </p>

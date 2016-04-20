@@ -154,7 +154,8 @@ div.dataTables_filter label{float: left;}
 
 .select-element,
 .input-element .input-element-inner{
-  background: rgb(254,254,254);
+  /*background: rgb(254,254,254);*/
+  background: #f6f6f6;
   margin: 4px 0 0;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
   position: relative;
@@ -193,7 +194,7 @@ wysiwyg-edit .tinyeditor .sizer{
 }
 .input-element.number-element .input-element-inner input{
   padding: 0 0 0 15px;
-  width: auto;
+  width: 100%;
   max-width: 100%;
 }
 
@@ -205,6 +206,17 @@ wysiwyg-edit .tinyeditor .sizer{
 .select-element-label{margin: 0}
 .select-element-label + md-input-container{margin-top:0;}
 .select-element-wrapper{margin: 20px 0;}
+
+/*----------------/
+  #ERROR FIELDS
+/*---------------*/
+.input-element .ng-message,
+.input-element div[ng-message]{
+  color: #CE2329;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
 
 /*---------------/
   #GLOBAL DASHBOARD
@@ -244,3 +256,14 @@ table.dataTable thead th{
 }
 
 .filter-column{padding: 0 10px;}
+.scroll-column{
+  overflow: auto;
+  max-height: 200px;
+}
+.scroll-column-lg{
+  max-height: 260px;
+}
+
+.scroll-column-xlg{
+  max-height: 400px;
+}

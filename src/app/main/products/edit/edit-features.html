@@ -15,7 +15,7 @@
     <div>
       <h2><strong>Materiales</strong></h2>
       <div layout="row" layout-wrap>
-        <div ng-repeat="group in vm.materialsGroups" flex="20">
+        <div ng-repeat="group in vm.materialsGroups" flex="20" class="scroll-column">
           <p><strong>{{group.label}}</strong></p>
           <div>
             <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="material in group.materials" ng-model="material.selected">{{material.Name}}</md-checkbox>
@@ -32,7 +32,7 @@
         <div ng-repeat="filter in vm.filters | orderBy: 'IsMultiple'" class="filter-column" flex="33" flex-sm="100">
           <p ng-if="filter.IsMultiple"><label><strong>{{filter.Name}}</strong></label></p>
 
-          <div ng-if="filter.IsMultiple">
+          <div ng-if="filter.IsMultiple" class="scroll-column">
             <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="value in filter.Values" ng-model="value.selected">{{value.Name}}</md-checkbox>
           </div>
 

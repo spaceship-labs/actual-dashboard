@@ -1,107 +1,147 @@
-<div id="forms" class="page-layout simple fullwidth doc-page" layout="column">
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
 
     <!-- HEADER -->
     <div class="header md-accent-bg" layout="row" layout-align="space-between">
-        <div layout="column" layout-align="space-between">
-            <div class="breadcrumb" layout="row" layout-align="start center">
-                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
-                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
-                <span class="parent">USER INTERFACE</span>
-            </div>
-
-            <div class="title">Editar usuario</div>
+        <div layout="column" layout-align="center start">
+            <div class="title">Usuarios</div>
         </div>
     </div>
     <!-- / HEADER -->
 
     <!-- CONTENT -->
-    <div class="content" layout="column">
+    <div class="content">
 
-        <div layout="row">
 
-          <div class="form-wrapper md-whiteframe-1dp">
+      <div class="page-layout simple fullwidth">
+
+        <section class="md-whiteframe-z1">
+          <md-toolbar class="demo-toolbar md-primary">
+            <div class="md-toolbar-tools">
+              <h3>Editar usuario</h3>
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
 
             <form name="basicForm" flex="80" ng-submit="vm.sendForm($event)" class="md-inline-form" novalidate>
 
-                <div class="form-title">Datos personales</div>
-
-                <div layout="column" layout-gt-sm="row">
-                    <md-input-container flex>
-                        <input type="text" name="firstname" ng-model="vm.user.firstName"
-                               placeholder="Nombre"
-                               required>
-                        <div ng-messages="basicForm.firstname.$error" ng-show="basicForm.firstname.$touched"
-                             role="alert">
-                            <div ng-message="required">
-                                <span>Este campo es requerido.</span>
-                            </div>
-                        </div>
-                    </md-input-container>
-
-                    <md-input-container flex>
-                        <input type="text" name="lastname" ng-model="vm.user.lastName" placeholder="Apellidos"
-                               required>
-                        <div ng-messages="basicForm.lastname.$error" ng-show="basicForm.lastname.$touched"
-                             role="alert">
-                            <div ng-message="required">
-                                <span>Este campo es requerido.</span>
-                            </div>
-                        </div>
-                    </md-input-container>
+              <div class="input-element">
+                <label>Nombre*</label>
+                <div class="input-element-inner">
+                  <input type="text" ng-model="vm.user.firstName" name="firstname" required placeholder="Nombre*">
                 </div>
+                <div ng-messages="basicForm.firstname.$error" ng-show="basicForm.firstname.$touched"
+                     role="alert">
+                    <div ng-message="required">
+                        <span>Este campo es requerido.</span>
+                    </div>
+                </div>
+              </div>
 
-                <div layout="column" layout-gt-xs="row">
-                    <md-input-container flex>
-                      <input type="email" name="email" ng-model="vm.user.email" placeholder="Email"
-                             translate translate-attr-placeholder="LOGIN.EMAIL"
+              <div class="input-element">
+                <label>Apellidos*</label>
+                <div class="input-element-inner">
+                  <input type="text" name="lastname" ng-model="vm.user.lastName" placeholder="Apellidos"
+                               required>
+                </div>
+                <div ng-messages="basicForm.lastname.$error" ng-show="basicForm.lastname.$touched"
+                     role="alert">
+                    <div ng-message="required">
+                        <span>Este campo es requerido.</span>
+                    </div>
+                </div>
+              </div>
+
+              <div class="input-element">
+                <label>Email*</label>
+                <div class="input-element-inner">
+                  <input type="email" name="email" ng-model="vm.user.email" placeholder="Email"
+                             translate
                              ng-pattern="/^.+@.+\..+$/" required>
-                      <div ng-messages="basicForm.email.$error" ng-show="basicForm.email.$touched" role="alert" multiple>
-                          <div ng-message="required">
-                              <span translate="LOGIN.ERRORS.EMAIL_REQUIRED">Este campo es requerido</span>
-                          </div>
-                          <div ng-message="pattern">
-                              <span translate="LOGIN.ERRORS.EMAIL_MUST_VALID">E-mail invalido</span>
-                          </div>
-                      </div>
-                    </md-input-container>
-
                 </div>
-
-                <div layout="row">
-
-                  <md-input-container flex>
-                    <label>Rol</label>
-                    <md-select ng-model="vm.user.userType">
-                      <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
-                        {{role.name}}
-                      </md-option>
-                    </md-select>
-                  </md-input-container>
-
-                  <md-input-container flex>
-                    <label>Usuario SAP</label>
-                    <md-select ng-model="vm.user.userSap">
-                      <md-option ng-repeat="userSap in vm.usersSap track by $index" value="{{userSap.id}}">
-                        {{userSap.U_NAME}}
-                      </md-option>
-                    </md-select>
-                  </md-input-container>
-
+                <div ng-messages="basicForm.email.$error" ng-show="basicForm.email.$touched" role="alert" multiple>
+                    <div ng-message="required">
+                        <span translate="LOGIN.ERRORS.EMAIL_REQUIRED">Este campo es requerido</span>
+                    </div>
+                    <div ng-message="pattern">
+                        <span translate="LOGIN.ERRORS.EMAIL_MUST_VALID">E-mail invalido</span>
+                    </div>
                 </div>
+              </div>
 
-                <md-button type="submit" class="md-raised md-accent" aria-label="Guardar"
-                           ng-disabled="basicForm.$invalid">
+              <div class="input-element">
+                <label>Contraseña*</label>
+                <div class="input-element-inner">
+                  <input type="password" name="password" ng-model="vm.user.password" placeholder="Contraseña*"
+                       required>
+                </div>
+                <div ng-messages="basicForm.password.$error" ng-show="basicForm.password.$touched"
+                     role="alert">
+                    <div ng-message="required">
+                        <span>Este campo es requerido.</span>
+                    </div>
+                </div>
+              </div>
+
+              <div class="input-element">
+                <label>Confirmar contraseña*</label>
+                <div class="input-element-inner">
+                  <input type="password" name="confirmPassword" ng-model="vm.user.confirmPassword" placeholder="Confirmar contraseña"
+                               required>
+                </div>
+                <div ng-messages="basicForm.confirmPassword.$error" ng-show="basicForm.confirmPassword.$touched"
+                     role="alert">
+                    <div ng-message="required">
+                        <span>Este campo es requerido.</span>
+                    </div>
+                </div>
+                <div ng-show="vm.user.confirmPassword != vm.user.password && basicForm.confirmPassword.$touched"
+                     role="alert">
+                    <div class="ng-message">
+                        <span>El campo de contraseña y confirmar contraseña deben coincidir</span>
+                    </div>
+                </div>
+              </div>
+
+              <div class="input-element ">
+                <label>Rol</label>
+                <div class="input-element-inner select-element">
+                  <md-select ng-model="vm.user.userType">
+                    <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
+                      {{role.name}}
+                    </md-option>
+                  </md-select>
+                </div>
+              </div>
+
+
+              <div class="input-element ">
+                <label>Usuario SAP</label> {{vm.user.userSap}}
+                <div class="input-element-inner select-element">
+                  <md-select ng-model="vm.user.userSap">
+                    <md-option ng-repeat="userSap in vm.usersSap track by $index" value="{{userSap.id}}">
+                      {{userSap.U_NAME}}
+                    </md-option>
+                  </md-select>
+                </div>
+              </div>
+
+              <div>
+                <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
+                           ng-disabled="basicForm.$invalid || basicForm.$pristine || vm.isLoading">
                     Guardar
                 </md-button>
+              </div>
+
             </form>
 
-          </div>
+          </md-content>
 
           <!--<div form-helper flex="80"></div>-->
-        </div>
+        </section>
 
 
     </div>
     <!-- / CONTENT -->
+  </div>
 
 </div>

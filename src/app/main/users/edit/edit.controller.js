@@ -42,7 +42,7 @@
           userService.getUser($stateParams.id).then(function(res){
             vm.getUsersSap();
             vm.user = res.data.data;
-
+            console.log(vm.user);
           });
 
 
