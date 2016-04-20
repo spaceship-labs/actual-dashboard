@@ -13,7 +13,14 @@
     <div class="input-element">
       <label>Nombre*</label>
       <div class="input-element-inner">
-        <input type="text" ng-model="vm.product.Name" required placeholder="Nombre*">
+        <input type="text" ng-model="vm.product.Name" name="Name" required placeholder="Nombre*" >
+      </div>
+      <p class="input-hint"><strong>SAP</strong>: {{vm.product.ItemName}}</p>
+      <div ng-messages="updateForm.Name.$error" ng-show="updateForm.Name.$touched"
+           role="alert">
+          <div ng-message="required">
+              <span>Este campo es requerido.</span>
+          </div>
       </div>
     </div>
 

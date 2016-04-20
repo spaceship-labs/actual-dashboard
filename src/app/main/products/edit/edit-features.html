@@ -80,7 +80,14 @@
     <div class="input-element">
       <label>Color detallado*</label>
       <div class="input-element-inner">
-        <input type="text" ng-model="vm.product.DetailedColor" required placeholder="Color detallado *">
+        <input type="text" ng-model="vm.product.DetailedColor" name="DetailedColor" required placeholder="Color detallado *">
+      </div>
+      <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_COLOR}}</p>
+      <div ng-messages="updateForm.DetailedColor.$error" ng-show="updateForm.DetailedColor.$touched"
+           role="alert">
+          <div ng-message="required">
+              <span>Este campo es requerido.</span>
+          </div>
       </div>
     </div>
     <!--END COLOR-->
@@ -109,6 +116,7 @@
         <div class="input-element-inner">
           <input type="number" min="0" ng-model="vm.product.GuaranteeUnit">
         </div>
+        <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_garantia}}</p>
       </div>
       <p class="select-element-label"><label><strong>Garantia (Unidad de medida)</strong></label></p>
       <md-input-container>
@@ -128,6 +136,7 @@
           {{country}}
         </md-option>
       </md-select>
+      <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_disenado_en}}</p>
     </div>
 
     <div class="select-element-wrapper">
@@ -137,6 +146,7 @@
           {{country}}
         </md-option>
       </md-select>
+      <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_ensamblado_en}}</p>
     </div>
 
     <div layout="row" layout-align="end center">

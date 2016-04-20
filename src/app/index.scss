@@ -208,7 +208,7 @@ wysiwyg-edit .tinyeditor .sizer{
 .select-element-wrapper{margin: 20px 0;}
 
 /*----------------/
-  #ERROR FIELDS
+  #ERROR FIELDS & SAP HINTS
 /*---------------*/
 .input-element .ng-message,
 .input-element div[ng-message]{
@@ -217,6 +217,11 @@ wysiwyg-edit .tinyeditor .sizer{
   margin-top: 5px;
 }
 
+.select-element-wrapper .input-hint,
+.input-element .input-hint{
+  margin: 7px 0;
+  font-size: 12px;
+}
 
 /*---------------/
   #GLOBAL DASHBOARD

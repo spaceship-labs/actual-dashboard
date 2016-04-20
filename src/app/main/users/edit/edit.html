@@ -104,8 +104,8 @@
 
               <div class="input-element ">
                 <label>Rol</label>
-                <div class="input-element-inner select-element">
-                  <md-select ng-model="vm.user.userType">
+                <div class="input-element-inner select-element-wrapper">
+                  <md-select class="select-element" ng-model="vm.user.userType">
                     <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
                       {{role.name}}
                     </md-option>
@@ -116,8 +116,8 @@
 
               <div class="input-element ">
                 <label>Usuario SAP</label> {{vm.user.userSap}}
-                <div class="input-element-inner select-element">
-                  <md-select ng-model="vm.user.userSap">
+                <div class="input-element-inner select-element-wrapper">
+                  <md-select class="select-element" ng-model="vm.user.userSap">
                     <md-option ng-repeat="userSap in vm.usersSap track by $index" value="{{userSap.id}}">
                       {{userSap.U_NAME}}
                     </md-option>
