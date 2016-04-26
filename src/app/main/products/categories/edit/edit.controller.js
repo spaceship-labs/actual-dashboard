@@ -59,8 +59,6 @@
               for(var j=0;j<vm.category.Parents.length;j++){
                 if(vm.category.Parents[j].id === category.id){
                   category.selected = true;
-                }else{
-                  category.selected = false;
                 }
               }
               return category;

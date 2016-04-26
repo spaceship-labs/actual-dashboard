@@ -32,6 +32,9 @@
             $compile(angular.element(row).contents())($scope);
         })
         .withOption('initComplete', function() {
+          $('<p class="sorting-by-label"></p>').appendTo('.dataTables_wrapper .top');
+          $('.dataTables_wrapper .top .sorting-by-label').text('Ordenado por: '+ $scope.columns[0].label);
+
           $('<button/>').text('Buscar').attr('id', 'new-search').appendTo('.dataTables_filter');
           $('.dataTables_filter input').unbind();
           $('.dataTables_filter input').keypress(function(e){
@@ -48,11 +51,19 @@
       function serverData(sSource, aoData, fnCallback, oSettings) {
         //All the parameters you need is in the aoData variable
         var draw = aoData[0].value;
+        var columns = aoData[1].value;
         var start = aoData[3].value;
         var length = aoData[4].value;
         var search = aoData[5].value;
         var page = 0;
         var query = {};
+        var sorting = oSettings.aaSorting[0];
+
+        var sortingColumnIndex = sorting[0];
+        var sortingColumnLabel = $scope.columns[sortingColumnIndex].label;
+        var sortingColumnName = columns[sortingColumnIndex].data;
+        var sortingDirection = sorting[1].toUpperCase();
+
         page = (start==0) ? 1 : (start/length) + 1;
         if(search != ''){
             query = {page:page,term:search.value}
@@ -63,6 +74,13 @@
         if($scope.orderBy){
           query.orderby = $scope.orderBy;
         }
+        //Do not sort when is a destroy column
+        else if(!$scope.columns[sortingColumnIndex].destroy){
+          query.orderby = sortingColumnName + ' ' + sortingDirection;
+          $('.dataTables_wrapper .top .sorting-by-label').text('Ordenado por: '+ sortingColumnLabel);
+        }
+
+        //console.log(query.orderby);
 
         $scope.apiResource(page,query)
           .then(
@@ -130,7 +148,6 @@
           actionUrl: '=',
           searchText: '@',
           orderBy: '@',
-          dtColumns: '='
         },
         templateUrl : 'app/main/directives/table-list/table-list.html'
       };

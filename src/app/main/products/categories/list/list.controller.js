@@ -12,6 +12,7 @@
         var vm = this;
         // Data
         vm.columns = [
+            {key: 'id', label:'ID'},
             {key:'Name', label:'Nombre',actionUrl:'/products/categories/edit/', propId: 'id'},
             {key:'CategoryLevel', label:'Nivel'},
             {key:'IsMain', label:'Principal', yesNo: true},
