@@ -1,112 +1,86 @@
-<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+<md-dialog class="form-dialog" aria-label="Editar categoria"  ng-cloak>
 
-    <!-- HEADER -->
-    <div class="header md-accent-bg" layout="row" layout-align="space-between">
-        <div layout="column" layout-align="center start">
-            <div class="title">Categorias de productos</div>
-        </div>
+  <form name="updateForm" ng-submit="update(updateForm)" class="md-inline-form" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Editar categoria</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
 
-    </div>
-    <!-- / HEADER -->
-
-    <!-- CONTENT -->
-    <div class="content">
-
-
-      <div class="page-layout simple fullwidth">
-
-        <section class="md-whiteframe-z1">
-          <md-toolbar class="demo-toolbar md-primary">
-            <div class="md-toolbar-tools">
-              <h3>Editar categoria</h3>
-            </div>
-          </md-toolbar>
-          <md-content class="md-padding">
-
-            <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
-              <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
-            </div>
-
-            <form name="updateForm" ng-if="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
-              <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
-                <md-button ng-click="vm.showDestroyDialog($event)" class="md-raised md-warn">Eliminar</md-button>
-              </div>
-              <div class="input-element">
-                <label>Nombre*</label>
-                <div class="input-element-inner">
-                  <input type="text" ng-model="vm.category.Name" required placeholder="Nombre*">
-                </div>
-              </div>
-
-              <div class="input-element">
-                <label>Keywords</label>
-                <div class="input-element-inner">
-                  <input type="text" ng-model="vm.category.Keywords" placeholder="Keywords">
-                </div>
-              </div>
-
-              <div class="input-element">
-                <label>Handle*</label>
-                <div class="input-element-inner">
-                  <input type="text" ng-model="vm.category.Handle" required placeholder="Handle*">
-                </div>
-              </div>
-
-
-              <div class="input-element textarea-element">
-                <label>Descripción</label>
-                <div class="input-element-inner">
-                  <textarea ng-model="vm.category.Description" rows="5" placeholder="Descripción"></textarea>
-                </div>
-              </div>
-
-              <!--CATEGORY PARENTS EDITOR-->
-              <div class="category-form-editor">
-                <p>Nivel de categoria: <strong>{{vm.category.CategoryLevel}}</strong></p>
-                <h2 ng-if="!vm.category.IsMain"><label><strong>Categorias padre</strong></label></h2>
-
-                <div layout="row" layout-wrap>
-                  <div ng-if="!vm.category.IsMain && vm.category.CategoryLevel > 1">
-                    <p>
-                      <label><strong>Categorias Nivel 1</strong></label>
-                    </p>
-                    <div >
-                      <md-checkbox class="spaced-checkbox" ng-repeat="category in vm.categoriesGroups[0]" ng-model="category.selected">{{category.Name}}</md-checkbox>
-                    </div>
-                  </div>
-
-
-                  <div ng-if="!vm.category.IsMain && vm.category.CategoryLevel > 2 ">
-                    <p>
-                      <label><strong>Categorias Nivel 2</strong></label>
-                    </p>
-                    <div >
-                      <md-checkbox class="spaced-checkbox" ng-repeat="category in vm.categoriesGroups[1]" ng-model="category.selected">{{category.Name}}</md-checkbox>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <!--END CATEGORY PARENTS EDITOR-->
-
-
-              <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
-              </div>
-
-            </form>
-          </md-content>
-        </section>
-
+      <div ng-show="isLoading" class="loading-wrapper" layout="row" layout-sm="column" layout-align="space-around">
+        <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
       </div>
 
+      <div ng-show="!isLoading" class="md-dialog-content">
+        <div class="input-element">
+          <label>Nombre*</label>
+          <div class="input-element-inner">
+            <input type="text" ng-model="category.Name" required placeholder="Nombre*">
+          </div>
+        </div>
 
-    </div>
-    <!-- / CONTENT -->
+        <div class="input-element">
+          <label>Keywords</label>
+          <div class="input-element-inner">
+            <input type="text" ng-model="category.Keywords" placeholder="Keywords">
+          </div>
+        </div>
 
-</div>
+        <div class="input-element">
+          <label>URL*</label>
+          <div class="input-element-inner">
+            <input type="text" ng-model="category.Handle" required placeholder="URL*">
+          </div>
+        </div>
 
 
+        <div class="input-element textarea-element">
+          <label>Descripción</label>
+          <div class="input-element-inner">
+            <textarea ng-model="category.Description" rows="5" placeholder="Descripción"></textarea>
+          </div>
+        </div>
+
+        <!--CATEGORY PARENTS EDITOR-->
+        <div class="category-form-editor">
+          <p>Nivel de categoria: <strong>{{category.CategoryLevel}}</strong></p>
+          <h2 ng-if="!category.IsMain"><label><strong>Categorias padre</strong></label></h2>
+
+          <div layout="row" layout-wrap>
+            <div ng-if="!category.IsMain && category.CategoryLevel > 1">
+              <p>
+                <label><strong>Categorias Nivel 1</strong></label>
+              </p>
+              <div >
+                <md-checkbox class="spaced-checkbox" ng-repeat="category in categoriesGroups[0]" ng-model="category.selected">{{category.Name}}</md-checkbox>
+              </div>
+            </div>
 
 
+            <div ng-if="!category.IsMain && category.CategoryLevel > 2 ">
+              <p>
+                <label><strong>Categorias Nivel 2</strong></label>
+              </p>
+              <div >
+                <md-checkbox class="spaced-checkbox" ng-repeat="category in categoriesGroups[1]" ng-model="category.selected">{{category.Name}}</md-checkbox>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!--END CATEGORY PARENTS EDITOR-->
+
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+       Cancelar
+      </md-button>
+      <md-button ng-click="update(updateForm)" class="md-raised md-primary action-button">
+        Guardar
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

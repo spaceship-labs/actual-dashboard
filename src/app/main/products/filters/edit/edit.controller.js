@@ -28,6 +28,10 @@
         vm.init();
 
         //Methods
+        function cancel(){
+          $mdDialog.cancel();
+        }
+
 
         function init(){
           productService.getFilterById($stateParams.id).then(function(res){
@@ -45,6 +49,7 @@
               console.log(res);
               vm.isLoading = false;
               dialogService.showDialog('Filtro actualizado');
+              $mdDialog.hide();
             });
           }
           else{
@@ -93,14 +98,6 @@
             }
           }
         }
-
-
-        $scope.$watch('vm.filter.Name', function(newVal, oldVal){
-          if(newVal != oldVal && newVal != ''){
-            vm.filter.Handle = newVal.replace(/\s+/g, '-').toLowerCase();
-            vm.filter.Handle = commonService.formatHandle(vm.filter.Handle);
-          }
-        });
 
         function addValue(value){
           console.log(vm.filter.Values);

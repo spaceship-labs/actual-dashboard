@@ -15,15 +15,21 @@
     dialogController.$inject = ['$scope','$mdDialog'];
 
     /** @ngInject */
-    function dialogService($q, $log, $mdDialog, $window, $location, $rootScope){
+    function dialogService($q, $log, $mdDialog, $window, $location, $rootScope, $mdToast){
         var service = {
             showDialog: showDialog,
-            showDestroyDialog: showDestroyDialog
+            showDestroyDialog: showDestroyDialog,
+            showMessageDialog: showMessageDialog
         };
 
         return service;
 
-        function showDialog(message,ev){
+        function showDialog(message, parent, ev){
+          var parentCon = angular.element('body');
+          if(parent){
+            parentCon = angular.element(parent);
+          }
+          console.log(parentCon);
 
           // Show the sent data.. you can delete this safely.
           $mdDialog.show({
@@ -36,7 +42,7 @@
               '    </md-button>' +
               '  </md-dialog-actions>' +
               '</md-dialog>',
-              parent             : angular.element('body'),
+              parent             : parentCon,
               targetEvent        : ev,
               clickOutsideToClose: true
           });
@@ -90,6 +96,44 @@
           }
 
         }
+
+        function showMessageDialog(message){
+          var last = {
+              bottom: false,
+              top: true,
+              left: false,
+              right: true
+            };
+          var toastPosition = angular.extend({},last);
+          var getToastPosition = function() {
+            sanitizePosition();
+            return Object.keys(toastPosition)
+              .filter(function(pos) { return toastPosition[pos]; })
+              .join(' ');
+          };
+          function sanitizePosition() {
+            var current = toastPosition;
+            if ( current.bottom && last.top ) current.top = false;
+            if ( current.top && last.bottom ) current.bottom = false;
+            if ( current.right && last.left ) current.left = false;
+            if ( current.left && last.right ) current.right = false;
+            last = angular.extend({},current);
+          }
+
+
+
+          var pinTo = getToastPosition();
+          $mdToast.show(
+            $mdToast.simple()
+              .textContent(message)
+              .position(pinTo )
+              .hideDelay(3000)
+          );
+
+
+
+        }
+
     }
 
 })();

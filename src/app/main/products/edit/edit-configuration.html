@@ -14,12 +14,12 @@
     <div>
       <h2><strong>Categorias</strong></h2>
       <div layout="row" layout-wrap>
-        <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100" class="scroll-column">
+        <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100">
           <p ng-if="group.length > 0">
             <label><strong>Categorias Nivel {{$index+1}}</strong></label>
           </p>
-          <div >
-            <md-checkbox class="spaced-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+          <div class="scroll-column">
+            <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
           </div>
         </div>
       </div>

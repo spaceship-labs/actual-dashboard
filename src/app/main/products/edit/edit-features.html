@@ -10,21 +10,6 @@
       <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
     </div>
 
-
-    <!--Materials-->
-    <div>
-      <h2><strong>Materiales</strong></h2>
-      <div layout="row" layout-wrap>
-        <div ng-repeat="group in vm.materialsGroups" flex="20" class="scroll-column">
-          <p><strong>{{group.label}}</strong></p>
-          <div>
-            <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="material in group.materials" ng-model="material.selected">{{material.Name}}</md-checkbox>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--END Materials-->
-
     <!--FILTERS-->
     <div class="editor-block">
       <h2><strong>Caracteristicas</strong></h2>

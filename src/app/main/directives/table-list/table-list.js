@@ -6,7 +6,7 @@
         .module('app.directives')
         .directive('tableList', tableList);
 
-    var controller = function($scope, DTOptionsBuilder, DTColumnBuilder, dialogService, $compile){
+    var controller = function($scope, $rootScope, DTOptionsBuilder, DTColumnBuilder, dialogService, $compile){
       $scope.dtInstance = {};
 
       $scope.showDestroyDialog = function(ev, id){
@@ -49,6 +49,8 @@
         });
 
       function serverData(sSource, aoData, fnCallback, oSettings) {
+        console.log('en serverData');
+
         //All the parameters you need is in the aoData variable
         var draw = aoData[0].value;
         var columns = aoData[1].value;
@@ -122,7 +124,11 @@
                 else{
                   if(column.actionUrl){
                     var id = (column.propId) ? column.propId : 'id';
-                    html = '<a href="'+(column.actionUrl + full[id])+'">' + data + '</a>';
+                    if($scope.quickEdit){
+                      html = '<a href="#" ng-click="editFn($event'+ ',' + full[id]+')">' + data + '</a>';
+                    }else{
+                      html = '<a href="'+(column.actionUrl + full[id])+'">' + data + '</a>';
+                    }
                   }else{
                     html = data;
                   }
@@ -134,8 +140,24 @@
         );
       });
 
+      $rootScope.$on('reloadTable', function(event, data){
+        var callback = function(json){console.log(json);}
+        var resetPaging = false;
+        //$scope.dtInstance.reloadData(callback, resetPaging);
+        //$scope.dtInstance.reloadData(callback, resetPaging);
+        $scope.dtInstance.rerender();
+        /*
+        DTInstances.getLast().then(function(instance) {
+            dtInstance = instance;
+            dtInstance.reloadData();
+        });
+        */
+
+
+      });
+
     };
-    controller.$inject = ['$scope','DTOptionsBuilder','DTColumnBuilder','dialogService','$compile'];
+    controller.$inject = ['$scope','$rootScope','DTOptionsBuilder','DTColumnBuilder','dialogService','$compile'];
 
     /** @ngInject */
     function tableList(){
@@ -144,6 +166,8 @@
         scope : {
           apiResource : '=',
           destroyFn: '=',
+          editFn: '=',
+          quickEdit: '=',
           columns: '=',
           actionUrl: '=',
           searchText: '@',

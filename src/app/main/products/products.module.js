@@ -28,25 +28,25 @@
     {
         // Navigation
         msNavigationServiceProvider.saveItem('products', {
-            title : 'Productos',
-            group : false,
-            weight: 2
+            title : 'Articulos',
+            group : true,
+            weight: 3
         });
 
 
         msNavigationServiceProvider.saveItem('products.filters', {
             title: 'Filtros',
-            group: false
+            group: true
         });
 
         msNavigationServiceProvider.saveItem('products.categories', {
             title: 'Categorias',
-            group: false
+            group: true
         });
 
 
         msNavigationServiceProvider.saveItem('products.list', {
-            title: 'Lista de productos',
+            title: 'Lista de articulos',
             state: 'app.products_list'
         });
 
@@ -54,26 +54,25 @@
             title: 'Categorias de productos',
             state: 'app.products_categories_list'
         });
+        /*
         msNavigationServiceProvider.saveItem('products.categories.create', {
             title: 'Crear categoria',
             state: 'app.products_categories_create'
         });
+        */
 
         msNavigationServiceProvider.saveItem('products.filters.list', {
             title: 'Filtros de productos',
             state: 'app.products_filters_list'
         });
 
+        /*
         msNavigationServiceProvider.saveItem('products.filters.create', {
             title: 'Crear filtro',
             state: 'app.products_filters_create'
         });
+        */
 
-
-        msNavigationServiceProvider.saveItem('products.materials', {
-            title: 'Ver materiales',
-            state: 'app.products_materials_list'
-        });
 
     }
 })();

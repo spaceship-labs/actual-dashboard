@@ -1,3 +1,4 @@
+/*
 (function ()
 {
     'use strict';
@@ -5,59 +6,70 @@
     angular
         .module('app.products.categories.edit')
         .controller('ProductCategoriesEditController', ProductCategoriesEditController);
+*/
 
     /** @ngInject */
-    function ProductCategoriesEditController($scope ,$stateParams, dialogService,productService, commonService){
-        var vm = this;
+    function ProductCategoriesEditController($scope, $rootScope ,$stateParams, $mdDialog, dialogService,productService, commonService, params){
+        //var $scope = this;
 
-        vm.init = init;
-        vm.update = update;
-        vm.toggleCategory = toggleCategory;
-        vm.loadCategories = loadCategories;
-        vm.showDestroyDialog = showDestroyDialog;
-        vm.formatCategoryGroups = formatCategoryGroups;
+        $scope.init = init;
+        $scope.update = update;
+        $scope.toggleCategory = toggleCategory;
+        $scope.loadCategories = loadCategories;
+        $scope.showDestroyDialog = showDestroyDialog;
+        $scope.formatCategoryGroups = formatCategoryGroups;
+        $scope.cancel = cancel;
 
-        vm.isLoading = false;
-        vm.destroyFn = productService.destroyCategorybyId;
+        $scope.isLoading = false;
 
-        //vm.category = {};
+        console.log('llego al controller');
+        console.log($scope.isLoading);
 
-        vm.init();
+        $scope.destroyFn = productService.destroyCategorybyId;
+
+        //$scope.category = {};
+
+        $scope.init();
 
         //Methods
+        function cancel(){
+          $mdDialog.cancel();
+        }
+
 
         function init(){
+          var id = params.id;
 
-          productService.getCategoryById($stateParams.id).then(function(res){
+          productService.getCategoryById(params.id).then(function(res){
             console.log(res);
-            vm.category = res.data;
-            vm.loadCategories();
+            $scope.category = res.data;
+            $scope.loadCategories();
           });
 
 
         }
 
         function showDestroyDialog($ev){
-          dialogService.showDestroyDialog($ev, vm.destroyFn, vm.category.id, '/products/categories');
+          dialogService.showDestroyDialog($ev, $scope.destroyFn, $scope.category.id, '/products/categories');
         }
 
         function loadCategories(){
           productService.getCategoriesGroups().then(function(res){
             console.log(res);
-            vm.categoriesGroups = res.data;
-            vm.formatCategoryGroups();
+            $scope.categoriesGroups = res.data;
+            $scope.formatCategoryGroups();
           });
         }
 
         function formatCategoryGroups(){
-          for(var i=0;i<vm.categoriesGroups.length;i++){
-            vm.categoriesGroups[i] = vm.categoriesGroups[i].filter(function(category){
-              return category.id != vm.category.id;
+          for(var i=0;i<$scope.categoriesGroups.length;i++){
+            $scope.categoriesGroups[i] = $scope.categoriesGroups[i].filter(function(category){
+              return category.id != $scope.category.id;
             });
 
-            vm.categoriesGroups[i] = vm.categoriesGroups[i].map(function(category){
-              for(var j=0;j<vm.category.Parents.length;j++){
-                if(vm.category.Parents[j].id === category.id){
+            $scope.categoriesGroups[i] = $scope.categoriesGroups[i].map(function(category){
+              for(var j=0;j<$scope.category.Parents.length;j++){
+                if($scope.category.Parents[j].id === category.id){
                   category.selected = true;
                 }
               }
@@ -69,30 +81,33 @@
 
         function update(form){
           if(form.$valid){
-            vm.category.Parents = [];
-            vm.isLoading = true;
+            $scope.category.Parents = [];
+            $scope.isLoading = true;
 
-            if(vm.category.IsMain){
-              vm.category.CategoryLevel = 1;
-              vm.category.Parents = [];
+            if($scope.category.IsMain){
+              $scope.category.CategoryLevel = 1;
+              $scope.category.Parents = [];
             }
 
-            for(var i=0;i<vm.categoriesGroups.length;i++){
-              for(var j=0;j<vm.categoriesGroups[i].length;j++){
-                if(vm.categoriesGroups[i][j].selected){
-                  vm.category.Parents.push(vm.categoriesGroups[i][j].id);
+            for(var i=0;i<$scope.categoriesGroups.length;i++){
+              for(var j=0;j<$scope.categoriesGroups[i].length;j++){
+                if($scope.categoriesGroups[i][j].selected){
+                  $scope.category.Parents.push($scope.categoriesGroups[i][j].id);
                 }
               }
             }
 
-            productService.updateCategory(vm.category.id,vm.category).then(function(res){
+            productService.updateCategory($scope.category.id,$scope.category).then(function(res){
               console.log(res);
-              vm.isLoading = false;
-              dialogService.showDialog('Categoria actualizada');
+              $scope.isLoading = false;
+              $rootScope.$emit('reloadTable', true);
+              dialogService.showMessageDialog('Categoria actualizada');
+              $mdDialog.hide();
+              //dialogService.showDialog('Categoria actualizada');
             });
           }
           else{
-            dialogService.showDialog('Campos incompletos');
+            dialogService.showMessageDialog('Campos incompletos');
           }
 
         }
@@ -107,12 +122,16 @@
           }
         }
 
-        $scope.$watch('vm.category.Name', function(newVal, oldVal){
+        /*
+        $scope.$watch('$scope.category.Name', function(newVal, oldVal){
           if(newVal != oldVal && newVal!= ''){
-            vm.category.Handle = newVal.replace(/\s+/g, '-').toLowerCase();
-            vm.category.Handle = commonService.formatHandle(vm.category.Handle);
+            $scope.category.Handle = newVal.replace(/\s+/g, '-').toLowerCase();
+            $scope.category.Handle = commonService.formatHandle($scope.category.Handle);
           }
         });
+        */
 
     }
+/*
 })();
+*/
