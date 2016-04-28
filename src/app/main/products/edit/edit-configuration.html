@@ -35,6 +35,21 @@
     </div>
     <!--END DISPLAYS-->
 
+    <!--DISPLAYS-->
+    <div>
+      <h2><strong>Sociedad</strong></h2>
+      <div>
+        <md-input-container>
+          <md-select class="select-element" placeholder="Compañia" required ng-model="vm.product.SA">
+            <md-option ng-repeat="company in vm.companies" value="company.handle">
+              {{company.handle}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </div>
+    <!--END DISPLAYS-->
+
     <!--MARCA-->
     <div>
       <h2><strong>Marca</strong></h2>

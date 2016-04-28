@@ -7,7 +7,7 @@
         .controller('ProductFiltersCreateController', ProductFiltersCreateController);
 
     /** @ngInject */
-    function ProductFiltersCreateController($scope, $mdDialog, $mdMedia ,productService, dialogService, commonService){
+    function ProductFiltersCreateController($scope, $location, $mdDialog, $mdMedia ,productService, dialogService, commonService){
         var vm = this;
         vm.init = init;
         vm.create = create;
@@ -39,6 +39,7 @@
               console.log(res);
               vm.isLoading = false;
               dialogService.showDialog('Filtro creado');
+              $location.path('/products/filters');
             });
           }
           else{

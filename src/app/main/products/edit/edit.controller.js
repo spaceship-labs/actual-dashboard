@@ -86,6 +86,12 @@
           {label:'Amueble.com', handle:'OnAmueble'},
         ];
 
+        vm.companies = [
+          {label:'Actual Studio', handle:'Actual Studio'},
+          {label:'Actual Home', handle:'Actual Home'},
+          {label:'Actual Kids', handle:'Actual Kids'},
+        ];
+
         vm.guarenteeUnits = [
           {label:'Año(s)', value:'YEAR'},
           {label:'Meses', value: 'MONTH'}
