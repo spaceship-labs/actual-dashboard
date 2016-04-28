@@ -24,6 +24,7 @@
         vm.formatSelectedFilterValues = formatSelectedFilterValues;
         vm.loadColors = loadColors;
         vm.formatSelectedColors = formatSelectedColors;
+        vm.formatColors = formatColors;
         vm.isLoading = false;
 
         // Data
@@ -289,6 +290,7 @@
           productService.getColors().then(function(res){
             console.log(res);
             vm.colors = res.data;
+            vm.formatColors();
           });
         }
 
@@ -298,6 +300,16 @@
             if(color.selected){
               vm.product.Colors.push(color.id);
             }
+          });
+        }
+
+        function formatColors(){
+          vm.product.Colors.forEach(function(productColor){
+            vm.colors.forEach(function(color){
+              if(color.id == productColor.id){
+                color.selected = true;
+              }
+            });
           });
         }
 
