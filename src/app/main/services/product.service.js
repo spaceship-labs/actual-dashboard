@@ -39,11 +39,8 @@
         createFilterValue: createFilterValue,
         destroyFilterValue: destroyFilterValue,
 
-        //Materials
-        getMaterials: getMaterials,
-        updateMaterial: updateMaterial,
-        destroyMaterial: destroyMaterial,
-        createMaterial: createMaterial
+        //Colors
+        getColors: getColors,
       };
 
       return service;
@@ -163,26 +160,10 @@
         return api.$http.post(url, params);
       }
 
-      function getMaterials(){
-        var url = '/productmaterial/getall';
+      function getColors(){
+        var url = '/productcolor/getall';
         return api.$http.post(url);
       }
-
-      function createMaterial(params){
-        var url = '/productmaterial/create/';
-        return api.$http.post(url, params);
-      }
-
-      function updateMaterial(id, params){
-        var url = '/productmaterial/update/' + id;
-        return api.$http.post(url, params);
-      }
-
-      function destroyMaterial(id){
-        var url = '/productmaterial/destroy/'+id;
-        return api.$http.post(url);
-      }
-
 
     }
 

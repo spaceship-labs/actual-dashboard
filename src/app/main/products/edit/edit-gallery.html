@@ -35,7 +35,13 @@
       <div class="input-element">
         <label>Titulo imagen principal</label>
         <div class="input-element-inner">
-          <input type="text" ng-model="vm.product.icon_description" required placeholder="Titulo imagen principal">
+          <input type="text" ng-model="vm.product.icon_description" name="icon_description" required placeholder="Titulo imagen principal">
+        </div>
+        <div ng-messages="updateForm.icon_description.$error" ng-show="updateForm.icon_description.$touched"
+             role="alert">
+            <div ng-message="required">
+                <span>Este campo es requerido.</span>
+            </div>
         </div>
       </div>
       <!--END IMAGEN PRINCIPAL-->

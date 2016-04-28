@@ -46,18 +46,18 @@
       <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
         <a
           ng-repeat="color in vm.colors"
-          ng-click="vm.selectColor(color.value)"
-          ng-class="{'wrap-on': color.value == vm.product.Color}"
+          ng-click="color.selected = !color.selected"
+          ng-class="{'wrap-on': color.selected}"
           class="colorpicker-sp-color-wrap"
           flex="33"
-          title="{{color.label}}"
+          title="{{color.Name}}"
           >
           <md-icon
-            ng-class="{'checked-on': color.value == vm.product.Color}"
+            ng-class="{'checked-on': color.selected}"
             md-font-icon="icon-check"
             class="s16 colorpicker-sp-checked">
           </md-icon>
-          <span class="colorpicker-sp-color"  ng-style="{'background-color': color.code}"></span>
+          <span class="colorpicker-sp-color"  ng-style="{'background-color': color.Code}"></span>
         </a>
       </div>
     </div>
