@@ -38,8 +38,6 @@
 
 
         function init(){
-          var id = params.id;
-
           productService.getCategoryById(params.id).then(function(res){
             console.log(res);
             $scope.category = res.data;

@@ -16,6 +16,8 @@
         vm.formatCategoryGroups = formatCategoryGroups;
         vm.groupSelectedCategories = groupSelectedCategories;
         vm.openValueForm = openValueForm;
+        vm.sortValues = sortValues;
+        vm.getValuesOrder = getValuesOrder;
         vm.addValue = addValue;
         vm.removeValue = removeValue;
         vm.editValue = editValue;
@@ -24,6 +26,7 @@
         vm.isLoading = false;
         vm.isLoadingValues = false;
         vm.destroyFn = productService.destroyFilterById;
+        vm.selectedValue = false;
 
         vm.init();
 
@@ -38,13 +41,33 @@
             console.log(res);
             vm.filter = res.data;
             vm.loadCategories();
+            vm.sortValues();
           });
+        }
+
+        function sortValues(){
+          //var idsList = [93,92,94,95];
+          var idsList = vm.filter.ValuesOrder.split(',');
+
+          if(idsList.length > 0 && vm.filter.ValuesOrder){
+            var baseArr = angular.copy(vm.filter.Values);
+            var newArr = [];
+            idsList.forEach(function(id){
+              baseArr.forEach(function(val){
+                if(val.id == id){
+                  newArr.push(val);
+                }
+              })
+            });
+            vm.filter.Values = newArr;
+          }
         }
 
         function update(form){
           if(form.$valid && vm.filter.Values.length > 0){
             vm.isLoading = true;
             vm.groupSelectedCategories();
+            vm.getValuesOrder();
             productService.updateFilterById(vm.filter.id, vm.filter).then(function(res){
               console.log(res);
               vm.isLoading = false;
@@ -55,6 +78,13 @@
           else{
             dialogService.showDialog('Campos incompletos');
           }
+        }
+
+        function getValuesOrder(){
+          vm.filter.ValuesOrder =  [];
+          vm.filter.Values.forEach(function(val){
+            vm.filter.ValuesOrder.push(val.id);
+          });
         }
 
         function showDestroyDialog($ev){
@@ -177,11 +207,12 @@
           $scope.cancel = function(){ $mdDialog.cancel(); };
           $scope.submit = function(value){ $mdDialog.hide(value); };
 
-          $scope.$watch('value.Name', function(newVal, oldVal){
+          /*$scope.$watch('value.Name', function(newVal, oldVal){
             if(newVal != oldVal){
               $scope.value.Handle = commonService.formatHandle(newVal);
             }
           });
+          */
         }
 
     }

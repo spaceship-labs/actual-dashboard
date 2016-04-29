@@ -61,6 +61,7 @@
             'angular-jwt',
             'bw.paging',
             'ngWYSIWYG',
-            'textAngular'
+            'textAngular',
+            'dndLists'
         ]);
 })();

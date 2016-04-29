@@ -65,19 +65,29 @@
               <div>
                 <p><label><strong>Valores aceptados*</strong></label></p>
                 <p ng-if="vm.filter.Values.length <= 0">No hay valores agregados a este filtro</p>
-                <md-list class="scroll-column scroll-column-xlg">
-                  <md-list-item ng-repeat="value in vm.filter.Values track by $index" class="noright">
+
+                <ul ng-if="!vm.isLoadingValues" class="draggable-list" dnd-list="vm.filter.Values">
+                  <li
+                    ng-repeat="value in vm.filter.Values"
+                    class="noright"
+                    layout="row"
+                    layout-align="space-between center"
+                    dnd-draggable="value"
+                    dnd-moved="vm.filter.Values.splice($index, 1)"
+                    dnd-selected="vm.selectedValue = value"
+                    ng-class="{'selected-item': vm.selectedValue === value}"
+                    dnd-effect-allowed="move">
                     <p>{{ value.Name }}</p>
-                    <div class="md-secondary" layout="row">
+                    <div class="md-secondary">
                       <md-button ng-click="vm.openValueForm($event, 'edit', value)" class="md-raised md-primary">
                         Editar
                       </md-button>
-                      <md-button ng-click="vm.removeValue($index)" class="md-raised md-warn">
+                      <md-button ng-click="vm.removeValue($event,value.id, $index)" class="md-raised md-warn">
                         Eliminar
                       </md-button>
                     </div>
-                  </md-list-item>
-                </md-list>
+                  </li>
+                </ul>
 
                 <div>
                   <md-button ng-click="vm.openValueForm($event, 'add')" class="md-raised md-primary">
@@ -97,7 +107,7 @@
                       <label><strong>Categorias Nivel {{$index+1}}</strong></label>
                     </p>
                     <div class="scroll-column">
-                      <md-checkbox class="spaced-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+                      <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
                     </div>
                   </div>
                 </div>

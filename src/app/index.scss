@@ -264,6 +264,7 @@ table.dataTable thead th{
 .scroll-column{
   overflow: auto;
   max-height: 200px;
+  padding: 0;
 }
 .scroll-column-lg{
   max-height: 260px;
@@ -274,7 +275,9 @@ table.dataTable thead th{
 }
 
 
+/*
 wysiwyg-edit .tinyeditor .tinyeditor-header .tinyeditor-buttons-group .tinyeditor-control{background-image:url(images/icons.png);background-position-x:0}
+*/
 
 table.dataTable thead .sorting_asc {
   background: url("http://cdn.datatables.net/1.10.0/images/sort_asc.png") no-repeat center left;
@@ -296,4 +299,53 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 
 .loading-wrapper{
   min-width: 420px;
+}
+
+.editor-list{padding: 0;}
+.editor-list .editor-list-item{
+  border-bottom: 1px solid #000;
+}
+.editor-list .quick-edit{
+  background: #f6f6f6;
+  padding: 10px;
+}
+
+.draggable-list{
+  min-height: 50px;
+  padding: 0;
+}
+.draggable-list li{
+  border: 2px solid #000;
+  padding: 10px;
+}
+.draggable-list li + li{
+  /*border-top: 0;*/
+}
+
+.draggable-list .dndDragging,
+.draggable-list .selected-item{
+  background: #f6f6f6;
+  border: 2px solid #34BA2C;
+}
+
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.draggable-list .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.draggable-list .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 96px;
 }

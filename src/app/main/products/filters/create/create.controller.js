@@ -65,6 +65,7 @@
           });
         }
 
+
         $scope.$watch('vm.filter.Name', function(newVal, oldVal){
           if(newVal != oldVal){
             vm.filter.Handle = commonService.formatHandle(newVal);

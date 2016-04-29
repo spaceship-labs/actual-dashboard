@@ -66,12 +66,12 @@
             state: 'app.products_filters_list'
         });
 
-        /*
+
         msNavigationServiceProvider.saveItem('products.filters.create', {
             title: 'Crear filtro',
             state: 'app.products_filters_create'
         });
-        */
+
 
 
     }
