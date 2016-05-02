@@ -52,12 +52,12 @@
 
     <!--MARCA-->
     <div>
-      <h2><strong>Marca</strong></h2>
+      <h2><strong>Marca: </strong></h2>
         <p class="select-element-label"><label><strong>Marca</strong></label></p>
         <md-input-container>
-          <md-select class="select-element select-element-lg" placeholder="Marca" ng-model="vm.product.ItmsGrpCod">
-            <md-option value="false">Ninguno</md-option>
-            <md-option ng-repeat="brand in vm.brands track by $index" value="{{$index}}">
+          <md-select class="select-element select-element-lg" placeholder="Marca" ng-model="vm.product.ItmsGrpCod.ItmsGrpCod">
+            
+            <md-option ng-repeat="brand in vm.brands track by $index" ng-value="brand.ItmsGrpCod">
               {{brand.ItmsGrpNam}}
             </md-option>
           </md-select>

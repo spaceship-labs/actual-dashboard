@@ -1,0 +1,26 @@
+CONFIGURACIONES*​
+        ​*Usuarios*​: Muestra una lista de usuarios en la cual se pueden editar usuariso existente o agregar nuevos. Los campos serian los siguientes:
+                      Nombres
+                     Apellidos
+                     Email
+                     Contraseña
+                    Confirmar contraseña
+                     Accesos: Aquí se elige vía check-box el acceso a los siguientes módulos
+                                  TODOS
+                                  CONFIGURACIONES
+                                                  Todas
+                                                  Usuarios
+                                                 Filtros
+                                                  Categorías
+                                                  Agrupadores
+                                                  Metas Ventas
+                                              Comisiones
+                                   ARTICULOS
+                                  MARKETING
+        ​*Filtros*​: Muestra una lista de filtros en la cual se pueden editar filtro existentes o agregar nuevos.
+        ​*Categorías*​: Muestra una lista de categorías en la cual se pueden editar categorías existentes o agregar nuevas.
+        ​*Agrupadores*​: Muestra una lista de agrupadores en la cual se pueden editar agrupadores existentes.
+        ​*Metas Ventas*​: Permite ingresar los parámetros de metas de ventas por tienda/mes/vendedor/etc.
+        ​*Comisiones*​: Permite ingresar los niveles de comisiones por vendedor/gerente, etc.
+​*ARTÍCULOS*​: Muestra una lista de artículos en la cual se pueden editar artículos existente o agregar nuevos.
+​*MARKETING*​: Muestra una lista de promociones en la cual se pueden editar promociones existente o agregar nuevos. (edited)
