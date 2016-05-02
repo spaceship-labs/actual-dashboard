@@ -114,17 +114,6 @@
               </div>
 
 
-              <div class="input-element ">
-                <label>Usuario SAP</label> {{vm.user.userSap}}
-                <div class="input-element-inner select-element-wrapper">
-                  <md-select class="select-element" ng-model="vm.user.userSap">
-                    <md-option ng-repeat="userSap in vm.usersSap track by $index" value="{{userSap.id}}">
-                      {{userSap.U_NAME}}
-                    </md-option>
-                  </md-select>
-                </div>
-              </div>
-
               <div>
                 <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
                            ng-disabled="basicForm.$invalid || basicForm.$pristine || vm.isLoading">

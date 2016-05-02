@@ -23,6 +23,7 @@
         vm.formatFiltersValues = formatFiltersValues;
         vm.formatSelectedFilterValues = formatSelectedFilterValues;
         vm.loadColors = loadColors;
+        vm.loadBrands = loadBrands;
         vm.formatSelectedColors = formatSelectedColors;
         vm.formatColors = formatColors;
         vm.isLoading = false;
@@ -102,6 +103,7 @@
             vm.loadCategories();
             vm.loadFilters();
             vm.loadColors();
+            vm.loadBrands();
             vm.countries = commonService.getCountriesList();
           });
         }
@@ -163,6 +165,14 @@
             console.log(res);
             vm.categoriesGroups = res.data;
             vm.formatCategoryGroups();
+          });
+        }
+
+        function loadBrands(){
+          console.log('loading brands');
+          productService.getBrands().then(function(res){
+            console.log(res);
+            vm.brands = res.data;
           });
         }
 

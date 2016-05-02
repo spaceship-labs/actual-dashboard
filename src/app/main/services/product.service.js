@@ -41,6 +41,9 @@
 
         //Colors
         getColors: getColors,
+
+        //Brands
+        getBrands: getBrands
       };
 
       return service;
@@ -162,6 +165,11 @@
 
       function getColors(){
         var url = '/productcolor/getall';
+        return api.$http.post(url);
+      }
+
+      function getBrands(){
+        var url = '/productbrand/getall';
         return api.$http.post(url);
       }
 

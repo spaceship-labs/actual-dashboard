@@ -180,6 +180,10 @@ div.dataTables_filter label{float: left;}
   line-height: 36px;
   height: 36px;
 }
+.select-element-lg{
+  min-width: 360px;
+}
+
 wysiwyg-edit .tinyeditor .sizer{
   height: 200px;
 }
@@ -278,6 +282,10 @@ table.dataTable thead th{
 /*
 wysiwyg-edit .tinyeditor .tinyeditor-header .tinyeditor-buttons-group .tinyeditor-control{background-image:url(images/icons.png);background-position-x:0}
 */
+
+wysiwyg-edit .tinyeditor .tinyeditor-header .tinyeditor-buttons-group .tinyeditor-control{
+  background-image: url(http://psergus.github.io/ngWYSIWYG/images/icons.png);
+}
 
 table.dataTable thead .sorting_asc {
   background: url("http://cdn.datatables.net/1.10.0/images/sort_asc.png") no-repeat center left;

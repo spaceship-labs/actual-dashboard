@@ -53,12 +53,31 @@
     <!--MARCA-->
     <div>
       <h2><strong>Marca</strong></h2>
+        <p class="select-element-label"><label><strong>Marca</strong></label></p>
+        <md-input-container>
+          <md-select class="select-element select-element-lg" placeholder="Marca" ng-model="vm.product.ItmsGrpCod">
+            <md-option value="false">Ninguno</md-option>
+            <md-option ng-repeat="brand in vm.brands track by $index" value="{{$index}}">
+              {{brand.ItmsGrpNam}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
     </div>
     <!--MARCA-->
 
     <!--MODELO-->
     <div>
       <h2><strong>Agrupador de productos (Modelo)</strong></h2>
+
+      <div class="input-element">
+        <label>Código de agrupador</label>
+        <div class="input-element-inner">
+          <input type="text" ng-model="vm.product.SuppCatNum" name="SuppCatNum" required placeholder="Código de agrupador" >
+        </div>
+        <p class="input-hint"><strong>SAP</strong>: {{vm.product.SuppCatNum}}</p>
+      </div>
+
     </div>
     <!--MODELO-->
 

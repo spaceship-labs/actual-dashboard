@@ -23,9 +23,12 @@
         });
 
         vm.roles = [
-          {'name':'Admin', id:1, handle:'admin'},
-          {'name':'Seller', id:2, handle:'seller'},
-          {'name':'Broker', id:3, handle:'broker'}
+          {name:'Admin', id:1, handle:'admin'},
+          {name:'Vendedor', id:2, handle:'seller'},
+          {name:'Broker', id:3, handle:'broker'},
+          {name: 'Editor de contenido', id:4, handle:'content-editor'},
+          {name:'Contabilidad', id:5, handle:'contability'},
+          {name:'Marketing', id:6, handle:'marketing'}
         ];
 
 
