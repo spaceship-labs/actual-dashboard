@@ -103,15 +103,45 @@
               </div>
 
               <div class="input-element ">
-                <label>Rol</label>
-                <div class="input-element-inner select-element">
-                  <md-select ng-model="vm.user.userType">
+                <p class="select-element-label"><label><strong>Rol</strong></label></p>
+                <md-input-container>
+                  <md-select class="select-element select-element-lg" ng-model="vm.user.userType">
                     <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
                       {{role.name}}
                     </md-option>
                   </md-select>
+                </md-input-container>
+              </div>
+
+              <!--Tienda-->
+              <div class="input-element">
+                <p class="select-element-label"><label><strong>Tienda</strong></label></p>
+                <md-input-container>
+                  <md-select class="select-element select-element-lg" ng-model="vm.user.company">
+                    
+                    <md-option ng-repeat="company in vm.companies track by $index" ng-value="company.handle">
+                      {{company.label}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
+              <!--Tienda-->  
+
+              <!--MODULES CHOOSER-->
+              <div>
+                <h2><strong>Modulos</strong></h2>
+                <md-checkbox class="spaced-checkbox block-checkbox"  ng-model="allAppModules.selected">TODOS</md-checkbox>
+                <div>
+                  <div ng-repeat="appModule in vm.appModules">
+                    <md-checkbox class="spaced-checkbox block-checkbox"  ng-model="appModule.selected">{{appModule.label}}</md-checkbox>
+                    <div class="submodules-list" ng-if="appModule.subModules.length > 0">
+                      <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="subModule in appModule.subModules" ng-model="subModule.selected">{{subModule.label}}</md-checkbox>                  
+                    </div>                  
+                  </div>
+
                 </div>
               </div>
+              <!--END MODULES CHOOSER-->                          
 
               <div>
                 <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"

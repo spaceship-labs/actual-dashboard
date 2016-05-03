@@ -10,8 +10,15 @@
     function UsersCreateController(dialogService, userService){
         var vm = this;
 
+        vm.toggleModule = toggleModule;
+        vm.toggleAllModules = toggleAllModules;
+        vm.moduleExists = moduleExists;
+        vm.allModulesChecked = allModulesChecked;
+
         // Data
-        vm.user = {};
+        vm.user = {
+          modules: []
+        };
         vm.basicForm = {};
         vm.formWizard = {};
 
@@ -30,6 +37,35 @@
           {name:'Contabilidad', id:5, handle:'contability'},
           {name:'Marketing', id:6, handle:'marketing'}
         ];
+
+        vm.companies = [
+          {label:'Actual Studio', handle:'Actual Studio'},
+          {label:'Actual Home', handle:'Actual Home'},
+          {label:'Actual Kids', handle:'Actual Kids'},
+          {label:'Actual Group', handle:'Actual Group'},
+        ];  
+
+        vm.allAppModules = {
+          label: 'TODOS',
+          handle:'all'
+        };
+
+        vm.appModules = [
+          {
+            label:'CONFIGURACIONES',
+            handle:'config', 
+            subModules:[
+              {label:'Todas', handle:'config-all'},
+              {label:'Usuarios', handle:'config-users'},
+              {label:'Filtros', handle:'config-filters'},
+              {label:'Categorias', handle:'config-categories'},
+              {label:'Agrupadores', handle:'config-grouper'},
+              {label:'Metas Ventas', handle:'config-sales-goals'}
+            ]
+          },
+          {label: 'ARTICULOS', handle: 'articles'},
+          {label:'MARKETING', handle:'marketing'}
+        ];      
 
         // Methods
         vm.sendForm = sendForm;
@@ -69,6 +105,43 @@
             vm.usersSap = res.data.data;
           })
         }
+
+        function toggleModule(item, list) {
+          var idx = list.indexOf(item);
+          if (idx > -1) {
+            list.splice(idx, 1);
+          }
+          else {
+            list.push(item);
+          }
+        }
+        
+        function moduleExists(item, list) {
+          return list.indexOf(item) > -1;
+        }
+
+        function allModulesChecked() {
+          var allCheckedFlag = true;
+          vm.appModules.forEach(function(mod){
+            if(!mod.selected){
+              allCheckedFlag = false;
+            }
+            mod.subModules.forEach(function(sub){
+              if(!sub.selected){
+                allCheckedFlag = false;
+              }
+            });
+          });
+          return allCheckedFlag;
+        }
+
+        function toggleAllModules() {
+          if ($scope.selected.length === $scope.items.length) {
+            $scope.selected = [];
+          } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
+            $scope.selected = $scope.items.slice(0);
+          }
+        }        
 
     }
 })();

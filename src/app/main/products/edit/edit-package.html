@@ -87,6 +87,44 @@
     </div>
     <!--END PACKAGE SIZE-->
 
+    <!--SIZES-->
+    <div>
+      <p><label><strong>Medidas y peso pieza empaque</strong></label></p>
+      <p ng-if="vm.product.Sizes.length <= 0">No hay medidas agregadas a este producto</p>
+
+      <ul ng-if="!vm.isLoadingValues" class="draggable-list" dnd-list="vm.product.Sizes">
+        <li
+          ng-repeat="size in vm.product.Sizes"
+          class="noright"
+          layout="row"
+          layout-align="space-between center"
+          dnd-draggable="size"
+          dnd-moved="vm.product.Sizes.splice($index, 1)"
+          dnd-selected="vm.selectedSize = size"
+          ng-class="{'selected-item': vm.selectedSize === size}"
+          dnd-effect-allowed="move">
+          <p>Longitud : {{ size.Length }} | Ancho: {{size.Width}} | Altura: {{size.Height}} | Volumen: {{size.Volume}} | Peso(kg): {{size.Weight}}</p>
+          <div class="md-secondary">
+            <md-button ng-click="vm.openSizeForm($event, 'edit', size)" class="md-raised md-primary">
+              Editar
+            </md-button>
+            <md-button ng-click="vm.removeSize($index)" class="md-raised md-warn">
+              Eliminar
+            </md-button>
+          </div>
+        </li>
+      </ul>
+
+      <div>
+        <md-button ng-click="vm.openSizeForm($event, 'add')" class="md-raised md-primary">
+          Agregar tamaño
+        </md-button>
+      </div>
+    </div>
+    <!--END FILTER VALUES-->
+
+
+
     <div layout="row" layout-align="end center">
       <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
     </div>

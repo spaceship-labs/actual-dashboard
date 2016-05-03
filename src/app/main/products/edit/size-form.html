@@ -1,0 +1,56 @@
+<md-dialog aria-label=""  ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2 ng-if="action==='add'">Crear tamaño de empaque</h2>
+        <h2 ng-if="action==='edit'">Editar tamaño de empaque</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <form action="#">
+          <div>
+            <md-input-container>
+              <label>Longitud</label>
+              <input type="text" ng-model="size.Length">
+            </md-input-container>
+          </div>
+          <div>
+            <md-input-container>
+              <label>Ancho</label>
+              <input type="text" ng-model="size.Width">
+            </md-input-container>
+          </div>
+          <div>
+            <md-input-container>
+              <label>Altura</label>
+              <input type="text" ng-model="size.Height">
+            </md-input-container>
+          </div>
+          <div>
+            <md-input-container>
+              <label>Volumen</label>
+              <input type="text" ng-model="size.Volume">
+            </md-input-container>
+          </div>          
+          <div>
+            <md-input-container>
+              <label>Peso (kg)</label>
+              <input type="text" ng-model="size.Weight">
+            </md-input-container>
+          </div> 
+        </form>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+       Cancelar
+      </md-button>
+      <md-button ng-click="submit(size)" style="margin-right:20px;">
+        {{actionLabel}}
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

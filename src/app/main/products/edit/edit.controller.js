@@ -7,7 +7,7 @@
         .controller('ProductEditController', ProductEditController);
 
     /** @ngInject */
-    function ProductEditController(dialogService, commonService, $stateParams, productService,Upload, api, $http){
+    function ProductEditController(dialogService, commonService, $stateParams, productService,Upload, api, $http, $mdDialog, $mdMedia){
         var vm = this;
         vm.uploadFiles = uploadFiles;
         vm.removeFiles = removeFiles;
@@ -26,6 +26,10 @@
         vm.loadBrands = loadBrands;
         vm.formatSelectedColors = formatSelectedColors;
         vm.formatColors = formatColors;
+        vm.editSize = editSize;
+        vm.addSize = addSize;
+        vm.removeSize = removeSize;
+        vm.openSizeForm = openSizeForm;
         vm.isLoading = false;
 
         // Data
@@ -168,11 +172,22 @@
           });
         }
 
+        function getSapBrand(brandCode){
+          var result = false;
+          vm.brands.forEach(function(brand){
+            if(brand.ItmsGrpCod == brandCode){
+              result = brand;
+            }
+          });
+          return result;
+        }
+
         function loadBrands(){
           console.log('loading brands');
           productService.getBrands().then(function(res){
             console.log(res);
             vm.brands = res.data;
+            vm.productBrandSap = getSapBrand(vm.product.ItmsGrpCod);
           });
         }
 
@@ -341,6 +356,66 @@
             }
           });
         }
+
+
+        /*-------------------/
+          #SIZES-FORM
+        /*-------------------*/
+
+        function addSize(size){
+          vm.product.Sizes.push(size);
+          console.log(vm.product.Sizes);
+        }
+
+        function editSize(newData, size){
+          size = newData;
+        }
+
+        function removeSize(sizeIndex){
+          vm.product.Sizes.splice(sizeIndex, 1);
+        }
+
+        function openSizeForm(ev, action, size) {
+          console.log('createValue');
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          var params = {
+            size: size,
+            action: action
+          };
+          $mdDialog.show({
+            controller: SizeFormController,
+            templateUrl: 'app/main/products/edit/size-form.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen,
+            locals: params
+          })
+          .then(function(newData) {
+            if(action === 'add'){
+              vm.addSize(newData);
+            }
+            else if(action === 'edit'){
+              vm.editSize(newData, size);
+            }
+          }, function() {
+            console.log('You cancelled the dialog.');
+          });
+        };
+
+
+
+        function SizeFormController($scope, commonService, size, action){
+          $scope.size = size || {};
+          $scope.action = action || 'add';
+          $scope.actionLabel = 'Crear';
+          if($scope.action === 'edit'){
+            $scope.actionLabel = 'Editar';
+          }
+          $scope.cancel = function(){ $mdDialog.cancel(); };
+          $scope.submit = function(size){ $mdDialog.hide(size); };
+
+        }        
 
     }
 })();

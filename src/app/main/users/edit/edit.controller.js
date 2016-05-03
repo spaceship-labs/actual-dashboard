@@ -31,6 +31,13 @@
           {name:'Marketing', id:6, handle:'marketing'}
         ];
 
+        vm.companies = [
+          {label:'Actual Studio', handle:'Actual Studio'},
+          {label:'Actual Home', handle:'Actual Home'},
+          {label:'Actual Kids', handle:'Actual Kids'},
+          {label:'Actual Group', handle:'Actual Group'},          
+        ];
+
 
         // Methods
         vm.sendForm = sendForm;

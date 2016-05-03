@@ -11,7 +11,6 @@
     <!-- CONTENT -->
     <div class="content">
 
-
       <div class="page-layout simple fullwidth">
 
         <section class="md-whiteframe-z1">
@@ -68,51 +67,34 @@
                 </div>
               </div>
 
-              <div class="input-element">
-                <label>Contraseña*</label>
-                <div class="input-element-inner">
-                  <input type="password" name="password" ng-model="vm.user.password" placeholder="Contraseña*"
-                       required>
-                </div>
-                <div ng-messages="basicForm.password.$error" ng-show="basicForm.password.$touched"
-                     role="alert">
-                    <div ng-message="required">
-                        <span>Este campo es requerido.</span>
-                    </div>
-                </div>
-              </div>
-
-              <div class="input-element">
-                <label>Confirmar contraseña*</label>
-                <div class="input-element-inner">
-                  <input type="password" name="confirmPassword" ng-model="vm.user.confirmPassword" placeholder="Confirmar contraseña"
-                               required>
-                </div>
-                <div ng-messages="basicForm.confirmPassword.$error" ng-show="basicForm.confirmPassword.$touched"
-                     role="alert">
-                    <div ng-message="required">
-                        <span>Este campo es requerido.</span>
-                    </div>
-                </div>
-                <div ng-show="vm.user.confirmPassword != vm.user.password && basicForm.confirmPassword.$touched"
-                     role="alert">
-                    <div class="ng-message">
-                        <span>El campo de contraseña y confirmar contraseña deben coincidir</span>
-                    </div>
-                </div>
-              </div>
 
               <div class="input-element ">
-                <label>Rol</label>
-                <div class="input-element-inner select-element-wrapper">
-                  <md-select class="select-element" ng-model="vm.user.userType">
+                <p class="select-element-label"><label><strong>Rol</strong></label></p>
+                <md-input-container>
+                  <md-select class="select-element select-element-lg" ng-model="vm.user.userType">
                     <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
                       {{role.name}}
                     </md-option>
                   </md-select>
-                </div>
+                </md-input-container>
               </div>
 
+
+              <!--Tienda-->
+              <div class="input-element">
+                  <p class="select-element-label"><label><strong>Tienda</strong></label></p>
+                  <md-input-container>
+                    <md-select class="select-element select-element-lg" ng-model="vm.user.company">
+                      
+                      <md-option ng-repeat="company in vm.companies track by $index" ng-value="company.handle">
+                        {{company.label}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+              </div>
+              <!--Tienda--> 
+
+              <p><a target="_blank" href="/auth/forgot-password">Haz click aqui para cambiar la contraseña</a></p>              
 
               <div>
                 <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
@@ -120,6 +102,7 @@
                     Guardar
                 </md-button>
               </div>
+
 
             </form>
 

@@ -126,7 +126,7 @@
           $scope.submit = function(value){ $mdDialog.hide(value); };
 
           $scope.$watch('value.Name', function(newVal, oldVal){
-            if(newVal != oldVal){
+            if(newVal != oldVal && action === 'add'){
               $scope.value.Handle = commonService.formatHandle(newVal);
             }
           });
