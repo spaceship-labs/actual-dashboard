@@ -39,6 +39,11 @@
         createFilterValue: createFilterValue,
         destroyFilterValue: destroyFilterValue,
 
+        //Sizes
+        updateSize: updateSize,
+        createSize: createSize,
+        destroySize: destroySize,
+
         //Colors
         getColors: getColors,
 
@@ -171,6 +176,21 @@
       function getBrands(){
         var url = '/productbrand/getall';
         return api.$http.post(url);
+      }
+
+      function createSize(params){
+        var url = '/productsize/create/';
+        return api.$http.post(url, params);
+      }
+
+      function destroySize(id){
+        var url = '/productsize/destroy/'+id;
+        return api.$http.post(url);
+      }
+
+      function updateSize(id, params){
+        var url = '/productsize/update/' + id;
+        return api.$http.post(url, params);
       }
 
     }

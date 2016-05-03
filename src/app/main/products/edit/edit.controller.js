@@ -22,7 +22,7 @@
         vm.loadFilters = loadFilters;
         vm.formatFiltersValues = formatFiltersValues;
         vm.formatSelectedFilterValues = formatSelectedFilterValues;
-        vm.loadColors = loadColors;
+        //vm.loadColors = loadColors;
         vm.loadBrands = loadBrands;
         vm.formatSelectedColors = formatSelectedColors;
         vm.formatColors = formatColors;
@@ -30,7 +30,11 @@
         vm.addSize = addSize;
         vm.removeSize = removeSize;
         vm.openSizeForm = openSizeForm;
+        vm.sortFiltersValues = sortFiltersValues;
+        vm.getImagesOrder = getImagesOrder;
+        vm.sortImages = sortImages;
         vm.isLoading = false;
+        vm.isLoadingFiles = false;
 
         // Data
         vm.loading = [];
@@ -73,6 +77,7 @@
         ];
 
         vm.companies = [
+          {label:'Ninguno', handle:'none'},
           {label:'Actual Studio', handle:'Actual Studio'},
           {label:'Actual Home', handle:'Actual Home'},
           {label:'Actual Kids', handle:'Actual Kids'},
@@ -106,8 +111,9 @@
             }
             vm.loadCategories();
             vm.loadFilters();
-            vm.loadColors();
+            //vm.loadColors();
             vm.loadBrands();
+            vm.sortImages();
             vm.countries = commonService.getCountriesList();
           });
         }
@@ -126,6 +132,7 @@
             vm.groupSelectedCategories();
             vm.formatSelectedFilterValues();
             vm.formatSelectedColors();
+            vm.getImagesOrder();
             console.log(vm.product);
             productService.update(vm.product.ItemCode, vm.product)
               .then(function(res){
@@ -191,10 +198,79 @@
           });
         }
 
+        function sortFiltersValues(){
+          vm.filters.forEach(function(filter){
+            var idsList = filter.ValuesOrder.split(',');
+
+            if(idsList.length > 0 && filter.ValuesOrder){
+              var baseArr = angular.copy(filter.Values);
+              var newArr = [];
+              idsList.forEach(function(id){
+                baseArr.forEach(function(val){
+                  if(val.id == id){
+                    newArr.push(val);
+                  }
+                })
+              });
+              filter.Values = newArr;
+            }
+          });
+        }
+
+        function getImagesOrder(){
+          vm.product.ImagesOrder =  [];
+          vm.product.files.forEach(function(file){
+            vm.product.ImagesOrder.push(file.id);
+          });
+        }
+
+        function sortImages(){
+          var idsList = vm.product.ImagesOrder.split(',');
+          var notSortedImages = [];
+          var found = false;
+
+          if(idsList.length > 0 && vm.product.ImagesOrder){
+            var baseArr = angular.copy(vm.product.files);
+            var orderedList = [];
+            idsList.forEach(function(id){
+              baseArr.forEach(function(file){
+                if(file.id == id){
+                  orderedList.push(file);
+                }
+              });
+            });
+
+            //Checking if a file was not in the orderedList
+            baseArr.forEach(function(file){
+              if( !_.where(orderedList, {id: file.id}) ){
+                orderedList.push(file);
+              }
+            });
+            /*
+            baseArr.forEach(function(val){
+              idsList.forEach(function(id){
+                if(val.id == id){
+                  newArr.push(val);
+                  found = true;
+                }
+              });
+              if(!found){
+                notSortedImages.push(val);
+              }
+            });
+            */
+
+            console.log(orderedList);
+            orderedList.concat(notSortedImages);
+            vm.product.files = orderedList;
+          }
+        }
+
         function loadFilters(){
           productService.getAllFilters().then(function(res){
-            console.log(res);
+            //console.log(res);
             vm.filters = res.data;
+            vm.sortFiltersValues();
             vm.formatFiltersValues();
           });
         }
@@ -230,6 +306,7 @@
         function uploadFiles($files){
           //console.log($files);
           vm.loading = [];
+          vm.isLoadingFiles = true;
           var uid = Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 
           if($files && $files.length > 0){
@@ -248,9 +325,13 @@
                 }).then(function (resp) {
                     console.log(resp);
                     vm.loading = [];
-                    vm.product.files = resp.data.files;
+                    vm.isLoadingFiles = false;
+                    vm.product.files = resp.data;
+                    //vm.product.ImagesOrder.push('new id');
+                    vm.sortImages();
                   }, function (err) {
                     console.log(err);
+                    vm.isLoadingFiles = false;
                   }, function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
@@ -263,6 +344,7 @@
           var c = '';
           if(file.selected) c += "selected ";
           if(file.deleting) c += "deleting ";
+          if(file == vm.selectedFile) c+= "selected-item ";
           return c;
         }
 
@@ -277,13 +359,16 @@
           });
 
           vm.product.removeFiles = files;
+          vm.isLoadingFiles = true;
 
           $http({method: 'POST', url: api.baseUrl + vm.removeMethod,data:vm.product}).then(
-            function (object){
-              console.log(object);
-              vm.product.files = object.data.files;
+            function (resp){
+              console.log(resp);
+              vm.product.files = resp.data;
+              vm.isLoadingFiles = false;
             },
             function(err){
+              vm.isLoadingFiles = false;
               vm.product.files.forEach(function(file){
                 if(file.selected) file.deleting = false;
               });
@@ -311,13 +396,15 @@
           });
         }
 
+        /*
         function loadColors(){
           productService.getColors().then(function(res){
-            console.log(res);
+            //console.log(res);
             vm.colors = res.data;
             vm.formatColors();
           });
         }
+        */
 
         function formatSelectedColors(){
           vm.product.Colors = [];
@@ -363,20 +450,43 @@
         /*-------------------*/
 
         function addSize(size){
-          vm.product.Sizes.push(size);
-          console.log(vm.product.Sizes);
+          //console.log(vm.product.Sizes);
+          vm.isLoadingSizes = true;
+          size.ItemCode = vm.product.ItemCode;
+          productService.createSize(size).then(function(res){
+            //console.log(res);
+            vm.product.Sizes.push(res.data);
+            vm.isLoadingSizes = false;
+          });
         }
 
         function editSize(newData, size){
-          size = newData;
+          //console.log(size);
+          vm.isLoadingSizes = true;
+          productService.updateSize(size.id, newData).then(function(res){
+            //console.log(res);
+            size = res.data;
+            vm.isLoadingSizes = false;
+          });
         }
 
-        function removeSize(sizeIndex){
-          vm.product.Sizes.splice(sizeIndex, 1);
+        function removeSize($ev,sizeId, sizeIndex){
+          var hasRedirect = false;
+          var isPromise = true;
+          dialogService.showDestroyDialog(
+            $ev,
+            productService.destroySize,
+            sizeId,
+            hasRedirect,
+            isPromise,
+            vm.isLoadingSizes
+          ).then(function(res){
+            //console.log(res);
+            vm.product.Sizes.splice(sizeIndex, 1);
+          });
         }
 
         function openSizeForm(ev, action, size) {
-          console.log('createValue');
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
           var params = {
             size: size,
@@ -415,7 +525,7 @@
           $scope.cancel = function(){ $mdDialog.cancel(); };
           $scope.submit = function(size){ $mdDialog.hide(size); };
 
-        }        
+        }
 
     }
 })();

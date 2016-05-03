@@ -47,19 +47,21 @@
 
         function sortValues(){
           //var idsList = [93,92,94,95];
-          var idsList = vm.filter.ValuesOrder.split(',');
+          if(vm.filter.ValuesOrder){
+            var idsList = vm.filter.ValuesOrder.split(',');
 
-          if(idsList.length > 0 && vm.filter.ValuesOrder){
-            var baseArr = angular.copy(vm.filter.Values);
-            var newArr = [];
-            idsList.forEach(function(id){
-              baseArr.forEach(function(val){
-                if(val.id == id){
-                  newArr.push(val);
-                }
-              })
-            });
-            vm.filter.Values = newArr;
+            if(idsList.length > 0 && vm.filter.ValuesOrder){
+              var baseArr = angular.copy(vm.filter.Values);
+              var newArr = [];
+              idsList.forEach(function(id){
+                baseArr.forEach(function(val){
+                  if(val.id == id){
+                    newArr.push(val);
+                  }
+                })
+              });
+              vm.filter.Values = newArr;
+            }
           }
         }
 
@@ -111,6 +113,7 @@
 
         function loadCategories(){
           productService.getCategoriesGroups().then(function(res){
+            console.log(res);
             vm.categoriesGroups = res.data;
             vm.formatCategoryGroups();
           });
@@ -147,7 +150,7 @@
             console.log(res);
             value = res.data;
             vm.isLoadingValues = false;
-          })
+          });
         }
 
         function removeValue($ev,valueId, valueIndex){

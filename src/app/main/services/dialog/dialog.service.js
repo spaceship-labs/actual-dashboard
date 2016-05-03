@@ -29,7 +29,6 @@
           if(parent){
             parentCon = angular.element(parent);
           }
-          console.log(parentCon);
 
           // Show the sent data.. you can delete this safely.
           $mdDialog.show({

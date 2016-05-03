@@ -321,6 +321,7 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 .draggable-list{
   min-height: 50px;
   padding: 0;
+  list-style: none;
 }
 .draggable-list li{
   border: 2px solid #000;
@@ -331,6 +332,7 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 }
 
 .draggable-list .dndDragging,
+.draggable-list .selected,
 .draggable-list .selected-item{
   background: #f6f6f6;
   border: 2px solid #34BA2C;
@@ -356,6 +358,11 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
     display: block;
     background-color: #ddd;
     min-height: 96px;
+}
+
+.draggable-list-row li{
+  min-width: 20%;
+  text-align: center;
 }
 
 .submodules-list{padding-left: 20px;}

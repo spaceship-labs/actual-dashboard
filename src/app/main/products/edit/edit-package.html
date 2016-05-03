@@ -91,8 +91,10 @@
     <div>
       <p><label><strong>Medidas y peso pieza empaque</strong></label></p>
       <p ng-if="vm.product.Sizes.length <= 0">No hay medidas agregadas a este producto</p>
-
-      <ul ng-if="!vm.isLoadingValues" class="draggable-list" dnd-list="vm.product.Sizes">
+      <div ng-show="vm.isLoadingSizes" layout="row" layout-sm="column" layout-align="space-around">
+        <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+      </div>
+      <ul ng-if="!vm.isLoadingSizes" class="draggable-list" dnd-list="vm.product.Sizes">
         <li
           ng-repeat="size in vm.product.Sizes"
           class="noright"
@@ -108,7 +110,7 @@
             <md-button ng-click="vm.openSizeForm($event, 'edit', size)" class="md-raised md-primary">
               Editar
             </md-button>
-            <md-button ng-click="vm.removeSize($index)" class="md-raised md-warn">
+            <md-button ng-click="vm.removeSize($event,size.id, $index)" class="md-raised md-warn">
               Eliminar
             </md-button>
           </div>

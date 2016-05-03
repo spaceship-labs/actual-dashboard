@@ -56,13 +56,13 @@
         <p class="select-element-label"><label><strong>Marca</strong></label></p>
         <md-input-container>
           <md-select class="select-element select-element-lg" ng-model="vm.product.Brand">
-            
-            <md-option ng-repeat="brand in vm.brands track by $index | orderBy: 'ItmsGrpNam' " ng-value="brand.ItmsGrpCod">
+
+            <md-option ng-repeat="brand in vm.brands track by $index" ng-value="brand.ItmsGrpCod">
               {{brand.ItmsGrpNam}}
             </md-option>
           </md-select>
         </md-input-container>
-        <p class="input-hint"><strong>SAP:</strong> {{vm.productBrandSap.ItmsGrpNam}}</p>
+        <p class="input-hint"><strong>SAP:</strong>Marca: {{vm.productBrandSap.ItmsGrpNam}}</p>
     </div>
     <!--MARCA-->
 
@@ -73,7 +73,7 @@
       <div class="input-element">
         <label>Código de agrupador</label>
         <div class="input-element-inner">
-          <input type="text" ng-model="vm.product.Grouper" name="Grouper" required placeholder="Código de agrupador" >
+          <input type="text" ng-model="vm.product.Grouper" name="Grouper" placeholder="Código de agrupador" >
         </div>
         <p class="input-hint"><strong>SAP</strong>: {{vm.product.SuppCatNum}}</p>
       </div>
