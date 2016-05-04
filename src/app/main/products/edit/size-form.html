@@ -10,36 +10,58 @@
     <md-dialog-content>
       <div class="md-dialog-content">
         <form action="#">
-          <div>
-            <md-input-container>
+          <div layout="row" layout-align="start start">
+            <md-input-container flex>
               <label>Longitud</label>
               <input type="text" ng-model="size.Length">
             </md-input-container>
-          </div>
-          <div>
             <md-input-container>
+              <md-select ng-model="size.LengthUnitMsr" placeholder="Unidad de medida" flex>
+                <md-option value="cm">cm</md-option>
+                <md-option value="m">m</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          <div layout="row" layout-align="start start">
+            <md-input-container flex>
               <label>Ancho</label>
               <input type="text" ng-model="size.Width">
             </md-input-container>
+            <md-select ng-model="size.WidthUnitMsr" placeholder="Unidad de medida" flex>
+              <md-option value="cm">cm</md-option>
+              <md-option value="m">m</md-option>
+            </md-select>
           </div>
-          <div>
-            <md-input-container>
+          <div layout="row" layout-align="start start">
+            <md-input-container flex>
               <label>Altura</label>
               <input type="text" ng-model="size.Height">
             </md-input-container>
+            <md-select ng-model="size.HeightUnitMsr" placeholder="Unidad de medida" flex>
+              <md-option value="cm">cm</md-option>
+              <md-option value="m">m</md-option>
+            </md-select>
           </div>
-          <div>
-            <md-input-container>
+          <div layout="row" layout-align="start start">
+            <md-input-container flex>
               <label>Volumen</label>
               <input type="text" ng-model="size.Volume">
             </md-input-container>
-          </div>          
-          <div>
-            <md-input-container>
-              <label>Peso (kg)</label>
+            <md-select ng-model="size.VolumeUnitMsr" placeholder="Unidad de medida" flex>
+              <md-option value="cc">cc</md-option>
+              <md-option value="mc">mc</md-option>
+            </md-select>
+          </div>
+          <div layout="row" layout-align="start start">
+            <md-input-container flex>
+              <label>Peso</label>
               <input type="text" ng-model="size.Weight">
             </md-input-container>
-          </div> 
+            <md-select ng-model="size.WeightUnitMsr" placeholder="Unidad de medida" flex>
+              <md-option value="g">g</md-option>
+              <md-option value="kg">kg</md-option>
+            </md-select>
+          </div>
         </form>
       </div>
     </md-dialog-content>

@@ -1,0 +1,25 @@
+Buen día a los 3 (pao azucenabm luis)
+
+Dando seguimiento a lo conversado ayer, les envío el resumen de los ​*AGRUPADORES*​ que tengo como pendiente:
+
+Sugiero que manejamos 4 tipos de agrupadores que se deben configurar dentro de cada producto correspondiente:
+
+a) ​*Agrupador Variaciones*​: este agrupador permite vincular varios artículos iguales, que solo se difieren en una o varias de las siguientes características/ filtros: ​*Tamaño camas y blancos cama*​, ​*Paleta de color*​, ​*Forma*​ y ​*Firmeza*​. De esta manera en la pagina de los listados no estaremos mostrando articulo visualmente duplicados (la misma foto). En la pagina individual del articulo (y en la lista de cotizacion) podemos mostrar ​_drop-downs_​ con las agrupaciones de los diferentes filtros (de acuerdo a su respectiva disponibilidad),  que cambien el texto descriptivo disponibilidad y precio. La idea es que no se recarga la pagina con cada cambio. Para esto se deben traer (escondido) todos los datos necesarios desde la carga de la pagina. Por ​_default_​ siempre se mostrará la opción mas económica. Debido a que en SAP cada producto se crea individualmente, en la captura del contenido de cada producto debe haber una opción que permite duplicar/copiar los textos descriptivos, con la opción de cambiar uno o varios de los valores de estos filtros. De esta manera se acelera enormemente el proceso de creación de contenido y en la pagina siempre estamos preparado mostrar el contenido de cualquier producto.
+
+b) ​*Agrupador Ambientes*​: este agrupador permite vincular varios artículos similares que se muestran en una foto de la sección ambientes. Sugiero que este agrupador tenga un código y titulo para poder encontrarlo rápido. No tiene otra función que poder traer en una sola carga todos los artículos vinculados con una foto de ambientes. De esa manera evitamos que cada articulo requiere una recarga de la pagina de este ambiente.
+
+c) ​*Agrupador Paquetes*​: este agrupador permite vincular un grupo de artículos que forman parte de un paquete comercial a un precio especial de descuento, siempre y cuando se adquiere la cantidad configurada de artículos de cada grupo. Aquí es importante que el producto permite ingresar la cantidad necesaria de cada articulo que forma parte de este agrupador. Ejemplo:El paquete incluye:
+-1 mesa
+-6 sillas
+-1 tapete
+-1 credenza
+El codigo de este agrupador va a poder vincular los 4 articulos, pero tambien es importante saber que el descuento solo aplica si compra 6 sillas.
+Tambien aqui suguiero poder ingresar el codigo y un titulo.
+La funcion de este agrupador es poder crear una imagen de cada "paquete" en la pagina de ​*Ofertas*​ y al elegirlo mostramos como resultado una cotización que viene precargada con la lista y cantidades de artículos del paquete.
+La promoción/descuento de estos artículos se maneja a través del modulo de Marketing.
+
+d) ​*Agrupador Relaciones*​: este agrupador permite vincular artículos de una linea de productos. La idea es hacer saber al cliente que el articulo elegido forma parte de otros artículos con diseños similares. Ejemplo: Si el cliente elige una base de cama, en lugar de mostrarle inmediatamente la pagina individual del articulo, le estaremos mostrando una pagina intermediaria que muestra todos los artículos vinculados con esta agrupador (ejemplo: los burós, la cabecera, etc.) para fines informativos/educacionales del clientes. Con esta información el cliente puede decidir si quiere solo la base de la cama o si quiere comprar también los demás artículos con el mismo diseño.
+
+Cabe mencionar que puede existir que un articulo tenga configurado multiples tipos de agrupadores.
+
+Realmente todo esto es lo que conversamos ayer, pero para cualquier duda y/o aclaración estoy, como siempre,  a sus ordenes. (edited)

@@ -211,6 +211,14 @@ wysiwyg-edit .tinyeditor .sizer{
 .select-element-label + md-input-container{margin-top:0;}
 .select-element-wrapper{margin: 20px 0;}
 
+.select-element-wrapper-nomargin{
+  margin: 0;
+}
+.select-element-wrapper-nomargin .select-element-label{
+  margin: 0;
+}
+.select-element-wrapper-nomargin md-input-container{margin: 18px 0;}
+
 /*----------------/
   #ERROR FIELDS & SAP HINTS
 /*---------------*/
