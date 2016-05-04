@@ -48,7 +48,17 @@
         getColors: getColors,
 
         //Brands
-        getBrands: getBrands
+        getBrands: getBrands,
+
+        //Groups
+        getGroupById: getGroupById,
+        getGroups: getGroups,
+        createGroup: createGroup,
+        updateGroup: updateGroup,
+        destroyGroup: destroyGroup,
+        addProductToGroup: addProductToGroup,
+        removeProductFromGroup: removeProductFromGroup
+
       };
 
       return service;
@@ -71,9 +81,9 @@
         return api.$http.post(url);
       }
 
-      function search(id){
+      function search(params){
         var url = '/product/search/';
-        return api.$http.post(url);
+        return api.$http.post(url, params);
       }
 
       function update(id, params){
@@ -190,6 +200,42 @@
 
       function updateSize(id, params){
         var url = '/productsize/update/' + id;
+        return api.$http.post(url, params);
+      }
+
+      function getGroups(page, params){
+        var p = page || 1;
+        var url = '/productgroup/find/' + p;
+        return api.$http.post(url, params);
+      }
+
+      function getGroupById(id){
+        var url = '/productgroup/findbyid/' + id;
+        return api.$http.post(url);
+      }
+
+      function createGroup(params){
+        var url = '/productgroup/create/';
+        return api.$http.post(url, params);
+      }
+
+      function destroyGroup(id){
+        var url = '/productgroup/destroy/'+id;
+        return api.$http.post(url);
+      }
+
+      function updateGroup(id, params){
+        var url = '/productgroup/update/' + id;
+        return api.$http.post(url, params);
+      }
+
+      function addProductToGroup(params){
+        var url = '/productgroup/addproducttogroup/';
+        return api.$http.post(url, params);
+      }
+
+      function removeProductFromGroup(params){
+        var url = '/productgroup/removeproductfromgroup/';
         return api.$http.post(url, params);
       }
 

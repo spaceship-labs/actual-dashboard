@@ -17,7 +17,11 @@
             'app.products.filters.create',
             'app.products.filters.edit',
 
-            'app.products.materials.list'
+            'app.products.materials.list',
+
+            'app.products.groups.list',
+            'app.products.groups.create',
+            'app.products.groups.edit',
 
 
         ])
@@ -41,6 +45,11 @@
 
         msNavigationServiceProvider.saveItem('products.categories', {
             title: 'Categorias',
+            group: true
+        });
+
+        msNavigationServiceProvider.saveItem('products.groups', {
+            title: 'Agrupadores',
             group: true
         });
 
@@ -71,6 +80,19 @@
             title: 'Crear filtro',
             state: 'app.products_filters_create'
         });
+
+
+        msNavigationServiceProvider.saveItem('products.groups.create', {
+            title: 'Crear agrupador',
+            state: 'app.products_groups_create'
+        });
+
+
+        msNavigationServiceProvider.saveItem('products.groups.list', {
+            title: 'Agrupadores',
+            state: 'app.products_groups_list'
+        });
+
 
 
 

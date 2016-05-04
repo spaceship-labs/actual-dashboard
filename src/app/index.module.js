@@ -62,6 +62,7 @@
             'bw.paging',
             'ngWYSIWYG',
             'textAngular',
-            'dndLists'
+            'dndLists',
+            'ngMaterialDatePicker'
         ]);
 })();
