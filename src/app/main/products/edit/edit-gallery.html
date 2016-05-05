@@ -12,25 +12,30 @@
       </div>
 
       <!--IMAGEN PRINCIPAL-->
-      <h2><strong>Imagen principal</strong></h2>
-      <div class="file-manager-thumbs" layout="row"   layout-align="space-between start" layout-wrap>
-        <span
-          ng-if="vm.product.icon_filename && !vm.loadingAvatar"
-          class="file-manager-thumb"
-          >
-          <img ngf-thumbnail="vm.api.baseUrl+'/uploads/products/201x201'+vm.product.icon_filename || 'assets/images/product.png'">
-        </span>
+      <div>
+        <h2><strong>Imagen principal</strong></h2>
+        <div class="file-manager-thumbs" layout="row"   layout-align="space-between start" layout-wrap>
+          <span
+            ng-if="vm.product.icon_filename && !vm.isLoadingAvatar"
+            class="file-manager-thumb"
+            >
+            <img ngf-thumbnail="vm.api.baseUrl+'/uploads/products/201x201'+vm.product.icon_filename || 'assets/images/product.png'">
+          </span>
 
-        <span ng-if='vm.loadingAvatar' class='loader' >
-          <div layout="row" layout-sm="column" layout-align="space-around">
-            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-          </div>
-          <span>Cargando</span>
-        </span>
+          <span ng-if='vm.isLoadingAvatar' class='loader' >
+            <div layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+            <span>Cargando</span>
+          </span>
+
+        </div>
+
+        <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Subir</md-button>
+        <md-button ng-if="vm.product.icon_filename" class="file-manager-btn md-raised md-warn" ng-click="vm.removeIcon()">Remover imagen</md-button>
 
       </div>
 
-      <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Subir</md-button>
 
       <div class="input-element">
         <label>Titulo imagen principal</label>

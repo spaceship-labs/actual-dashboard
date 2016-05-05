@@ -134,7 +134,6 @@
         }
 
         function removeIcon(){
-          console.log('removeIcon');
           var params = {id: vm.group.id};
           vm.isLoadingAvatar = true;
           productService.removeGroupIcon(params).then(function(res){

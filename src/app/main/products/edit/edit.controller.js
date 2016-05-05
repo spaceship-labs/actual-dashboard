@@ -13,6 +13,7 @@
         vm.removeFiles = removeFiles;
         vm.fileClass = fileClass;
         vm.updateIcon = updateIcon;
+        vm.removeIcon = removeIcon;
         vm.init = init;
         vm.update = update;
         vm.loadCategories = loadCategories;
@@ -24,7 +25,6 @@
         vm.formatSelectedFilterValues = formatSelectedFilterValues;
         //vm.loadColors = loadColors;
 
-        //BRANDS
         vm.loadBrands = loadBrands;
         vm.formatSelectedColors = formatSelectedColors;
         vm.formatColors = formatColors;
@@ -290,7 +290,7 @@
 
         function updateIcon($file) {
           console.log($file);
-          vm.loadingAvatar = true;
+          vm.isLoadingAvatar = true;
           vm.uploadAvatar = Upload.upload({
             url: api.baseUrl + vm.updateIconMethod,
             data: {
@@ -306,10 +306,10 @@
                 vm.product.icon_type = resp.data.icon_type;
                 vm.product.icon_typebase = resp.data.icon_typebase;
               }
-              vm.loadingAvatar = false;
+              vm.isLoadingAvatar = false;
             }, function (err) {
               console.log(err);
-              vm.loadingAvatar = false;
+              vm.isLoadingAvatar = false;
             }, function (evt) {
               var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
               console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
@@ -409,15 +409,21 @@
           });
         }
 
-        /*
-        function loadColors(){
-          productService.getColors().then(function(res){
-            //console.log(res);
-            vm.colors = res.data;
-            vm.formatColors();
+        function removeIcon(){
+          var params = {id: vm.proudct.ItemCode};
+          vm.isLoadingAvatar = true;
+          productService.removeIcon(params).then(function(res){
+            console.log(res);
+            vm.isLoadingAvatar = false;
+            if(!res.data.icon_filename){
+              vm.product.icon_filename = null;
+              vm.product.icon_name = null;
+              vm.product.icon_size = null;
+              vm.product.icon_type = null;
+              vm.product.icon_typebase = null;
+            }
           });
         }
-        */
 
         function formatSelectedColors(){
           vm.product.Colors = [];

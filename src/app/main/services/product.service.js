@@ -93,6 +93,12 @@
         return api.$http.post(url, params);
       }
 
+      function removeIcon(params){
+        var url = '/product/removeicon/';
+        return api.$http.post(url, params);
+      }
+
+
       function createCategory(params){
         var url = '/productcategory/create';
         return api.$http.post(url, params);
