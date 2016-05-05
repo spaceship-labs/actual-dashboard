@@ -410,7 +410,7 @@
         }
 
         function removeIcon(){
-          var params = {id: vm.proudct.ItemCode};
+          var params = {id: vm.product.ItemCode};
           vm.isLoadingAvatar = true;
           productService.removeIcon(params).then(function(res){
             console.log(res);
