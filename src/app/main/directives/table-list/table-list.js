@@ -73,7 +73,7 @@
             query.page = page;
         }
 
-        if($scope.orderBy){
+        if($scope.orderBy && !sortingColumnName){
           query.orderby = $scope.orderBy;
         }
         //Do not sort when is a destroy column

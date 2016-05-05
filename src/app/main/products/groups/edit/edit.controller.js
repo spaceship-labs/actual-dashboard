@@ -21,7 +21,6 @@
           {label:'Agrupador Ambientes', handle:'environments'},
           {label:'Agrupador Paquetes', handle:'packages'},
           {label:'Agrupador Relaciones', handle:'relations'},
-
         ];
 
         vm.init();

@@ -57,7 +57,8 @@
         updateGroup: updateGroup,
         destroyGroup: destroyGroup,
         addProductToGroup: addProductToGroup,
-        removeProductFromGroup: removeProductFromGroup
+        removeProductFromGroup: removeProductFromGroup,
+        searchGroups: searchGroups
 
       };
 
@@ -236,6 +237,11 @@
 
       function removeProductFromGroup(params){
         var url = '/productgroup/removeproductfromgroup/';
+        return api.$http.post(url, params);
+      }
+
+      function searchGroups(params){
+        var url = '/productgroup/search/';
         return api.$http.post(url, params);
       }
 

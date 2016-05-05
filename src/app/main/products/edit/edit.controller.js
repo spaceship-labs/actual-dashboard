@@ -7,7 +7,7 @@
         .controller('ProductEditController', ProductEditController);
 
     /** @ngInject */
-    function ProductEditController(dialogService, commonService, $stateParams, productService,Upload, api, $http, $mdDialog, $mdMedia){
+    function ProductEditController(dialogService, commonService, $stateParams, productService,Upload, api, $http, $q, $mdDialog, $mdMedia){
         var vm = this;
         vm.uploadFiles = uploadFiles;
         vm.removeFiles = removeFiles;
@@ -23,6 +23,8 @@
         vm.formatFiltersValues = formatFiltersValues;
         vm.formatSelectedFilterValues = formatSelectedFilterValues;
         //vm.loadColors = loadColors;
+
+        //BRANDS
         vm.loadBrands = loadBrands;
         vm.formatSelectedColors = formatSelectedColors;
         vm.formatColors = formatColors;
@@ -33,8 +35,12 @@
         vm.sortFiltersValues = sortFiltersValues;
         vm.getImagesOrder = getImagesOrder;
         vm.sortImages = sortImages;
+        vm.queryGroups = queryGroups;
+        vm.selectedGroupChange = selectedGroupChange;
+        vm.removeProductFromGroup = removeProductFromGroup;
         vm.isLoading = false;
         vm.isLoadingFiles = false;
+        vm.isLoadingGroups = false;
 
         // Data
         vm.loading = [];
@@ -51,6 +57,13 @@
           {value:'Requiere poco ensamble', label:'Requiere poco ensamble'},
           {value:'Requiere mucho ensamble', label:'Requiere mucho ensamble'},
         ];
+
+        vm.groupTypes = {
+          'variations': 'Agrupador Variaciones',
+          'environments': 'Agrupador Ambientes',
+          'packages': 'Agrupador Paquetes',
+          'relations': 'Agrupador Relaciones'
+        };
 
         vm.colors = [
           {label:'Rojo',value:'rojo',code:'#CC0000'},
@@ -441,6 +454,58 @@
                 vm.product.FilterValues.push( val );
               }
             }
+          });
+        }
+
+        /*----------------/
+          #GROUPS
+        /*---------------*/
+
+        function queryGroups(term){
+          console.log(term);
+          if(term != '' && term){
+            var deferred = $q.defer();
+            var params = {term: term, autocomplete: true};
+            productService.searchGroups(params).then(function(res){
+              console.log(res);
+              deferred.resolve(res.data.data);
+            });
+            return deferred.promise;
+          }
+          else{
+            return [];
+          }
+        }
+
+        function selectedGroupChange(item){
+          if(item && item.id){
+            vm.selectedGroup = null;
+            vm.searchGroupText = null;
+            vm.isLoadingGroups = true;
+            var params = {
+              product: vm.product.ItemCode,
+              group: item.id
+            };
+            productService.addProductToGroup(params).then(function(res){
+              vm.isLoadingGroups = false;
+              vm.product.Groups.push(item);
+            });
+            //$mdAutocomplete.clear();
+          }
+          //vm.selectedProduct = undefined;
+          //vm.searchText = '';
+        }
+
+        function removeProductFromGroup(groupId, index){
+          vm.isLoadingGroups = true;
+          var params = {
+            product: vm.product.ItemCode,
+            group: groupId
+          };
+          productService.removeProductFromGroup(params).then(function(res){
+            console.log(res);
+            vm.product.Groups.splice(index, 1);
+            vm.isLoadingGroups = false;
           });
         }
 
