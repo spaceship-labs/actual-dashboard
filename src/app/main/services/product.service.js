@@ -15,6 +15,7 @@
         search: search,
         getCategories: getCategories,
         update: update,
+        removeIcon: removeIcon,
 
         //Categories
         createCategory: createCategory,
