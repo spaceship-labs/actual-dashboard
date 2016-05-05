@@ -314,7 +314,7 @@
               var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
               console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
           });
-        };
+        }
 
         function uploadFiles($files){
           //console.log($files);

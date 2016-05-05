@@ -58,7 +58,8 @@
         destroyGroup: destroyGroup,
         addProductToGroup: addProductToGroup,
         removeProductFromGroup: removeProductFromGroup,
-        searchGroups: searchGroups
+        searchGroups: searchGroups,
+        removeGroupIcon: removeGroupIcon
 
       };
 
@@ -244,6 +245,12 @@
         var url = '/productgroup/search/';
         return api.$http.post(url, params);
       }
+
+      function removeGroupIcon(params){
+        var url = '/productgroup/removeicon/';
+        return api.$http.post(url, params);
+      }
+
 
     }
 

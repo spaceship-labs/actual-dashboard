@@ -13,7 +13,7 @@
 
         // Base Url
         //api.baseUrl = 'app/data/';
-        api.baseUrl = 'http://actual-api.herokuapp.com';
+        //api.baseUrl = 'http://actual-api.herokuapp.com';
         //api.baseUrl = 'http://localhost:1337';
 
         api.sample = $resource(api.baseUrl + 'sample/sample.json');

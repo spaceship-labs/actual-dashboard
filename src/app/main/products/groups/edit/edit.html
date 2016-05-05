@@ -73,7 +73,7 @@
                   <label>Vigencia | Termina:</label>
                   <div class="input-element-inner">
                     <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
-                    placeholder="Termina" min-date="date" ng-model="vm.group.EndsOn"  lang="es" class=" md-input">
+                    placeholder="Termina" min-date="vm.group.StartsOn" ng-model="vm.group.EndsOn"  lang="es" class=" md-input">
                   </div>
                 </div>
               </div>
@@ -90,6 +90,32 @@
                 </md-input-container>
               </div>
 
+
+              <!--IMAGEN-->
+              <p><strong>Imagen</strong></p>
+              <div class="file-manager-thumbs" layout="row"   layout-align="space-between start" layout-wrap>
+                <span
+                  ng-if="vm.group.icon_filename && !vm.isLoadingAvatar"
+                  class="file-manager-thumb"
+                  >
+                  <img ngf-thumbnail="vm.api.baseUrl+'/uploads/groups/201x201'+vm.group.icon_filename || 'assets/images/group.png'">
+                </span>
+
+                <span ng-if='vm.isLoadingAvatar' class='loader' >
+                  <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                  </div>
+                  <span>Cargando</span>
+                </span>
+
+              </div>
+              <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">
+                Subir imagen
+              </md-button>
+              <md-button ng-if="vm.group.icon_filename" class="file-manager-btn md-raised md-primary md-warn" ng-click="vm.removeIcon()">
+                Remover imagen
+              </md-button>
+              <!--END IMAGEN-->
 
 
               <!--GROUP PRODUCTS-->
@@ -138,6 +164,7 @@
 
               </div>
               <!--GROUP PRODUCTS-->
+
 
               <div layout="row" layout-align="end center">
                 <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
