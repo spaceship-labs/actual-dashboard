@@ -67,6 +67,7 @@
     <!--MARCA-->
 
     <!--MODELO-->
+    <!--
     <div>
       <h2><strong>Agrupador de productos (Modelo)</strong></h2>
 
@@ -79,12 +80,16 @@
       </div>
 
     </div>
+    -->
     <!--MODELO-->
 
     <!--GROUP PRODUCTS-->
     <div>
-      <p><label><strong>Agrupadores</strong></label></p>
-
+      <h2>
+        <label><strong>Agrupadores</strong></label>
+        <a href="" ng-click="vm.openGroupForm($event)">(Crear nuevo agrupador)</a>
+      </h2>
+      <p class="input-hint"><strong>SAP</strong>: {{vm.product.SuppCatNum}}</p>
       <md-autocomplete
           md-no-cache="false"
           md-selected-item="vm.selectedGroup"

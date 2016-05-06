@@ -42,6 +42,8 @@
         vm.isLoadingFiles = false;
         vm.isLoadingGroups = false;
 
+        vm.openGroupForm = openGroupForm;
+
         // Data
         vm.loading = [];
         //vm.product = Product.data;
@@ -597,6 +599,49 @@
           $scope.submit = function(size){ $mdDialog.hide(size); };
 
         }
+
+
+        function openGroupForm(ev) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          $mdDialog.show({
+            controller: GroupFormController,
+            templateUrl: 'app/main/products/edit/group-form.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen,
+          })
+          .then(function(newData) {
+            productService.createGroup(newData).then(function(res){
+              console.log(res);
+              dialogService.showDialog('Agrupador creado');
+            });
+          }, function() {
+            console.log('You cancelled the dialog.');
+          });
+        }
+
+        function GroupFormController($scope, commonService){
+          $scope.group = {};
+          $scope.cancel = function(){ $mdDialog.cancel(); };
+          $scope.submit = function(size){ $mdDialog.hide(size); };
+          $scope.$watch('group.Name', function(newVal, oldVal){
+            if(newVal != oldVal){
+              $scope.group.Handle = commonService.formatHandle(newVal);
+            }
+          });
+
+          $scope.types = [
+            {label:'Agrupador Variaciones', handle:'variations'},
+            {label:'Agrupador Ambientes', handle:'environments'},
+            {label:'Agrupador Paquetes', handle:'packages'},
+            {label:'Agrupador Relaciones', handle:'relations'},
+
+          ];
+
+        }
+
+
 
     }
 })();
