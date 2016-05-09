@@ -227,7 +227,10 @@
                   }
                 })
               });
-              filter.Values = newArr;
+              //Fixes values order missmatch
+              if(newArr.length > 0){
+                filter.Values = newArr;
+              }
             }
           });
         }
@@ -261,21 +264,7 @@
                 orderedList.push(file);
               }
             });
-            /*
-            baseArr.forEach(function(val){
-              idsList.forEach(function(id){
-                if(val.id == id){
-                  newArr.push(val);
-                  found = true;
-                }
-              });
-              if(!found){
-                notSortedImages.push(val);
-              }
-            });
-            */
 
-            console.log(orderedList);
             orderedList.concat(notSortedImages);
             vm.product.files = orderedList;
           }

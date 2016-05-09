@@ -47,9 +47,10 @@
 
         function sortValues(){
           //var idsList = [93,92,94,95];
+          console.log(vm.filter.Values);
           if(vm.filter.ValuesOrder){
             var idsList = vm.filter.ValuesOrder.split(',');
-
+            console.log(idsList);
             if(idsList.length > 0 && vm.filter.ValuesOrder){
               var baseArr = angular.copy(vm.filter.Values);
               var newArr = [];
@@ -60,7 +61,11 @@
                   }
                 })
               });
-              vm.filter.Values = newArr;
+              console.log(newArr);
+              //Fixes values order missmatch
+              if(newArr.length > 0){
+                vm.filter.Values = newArr;
+              }
             }
           }
         }
@@ -210,12 +215,12 @@
           $scope.cancel = function(){ $mdDialog.cancel(); };
           $scope.submit = function(value){ $mdDialog.hide(value); };
 
-          /*$scope.$watch('value.Name', function(newVal, oldVal){
-            if(newVal != oldVal){
+          $scope.$watch('value.Name', function(newVal, oldVal){
+            if(newVal != oldVal && $scope.action === 'add'){
               $scope.value.Handle = commonService.formatHandle(newVal);
             }
           });
-          */
+
         }
 
     }
