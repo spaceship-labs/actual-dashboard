@@ -6,139 +6,141 @@
   </md-toolbar>
   <md-content class="md-padding">
 
-    <div layout="row" layout-align="end center">
-      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
-    </div>
+    <form name="configForm" ng-submit="vm.updateConfig(configForm)" class="md-inline-form" novalidate>
 
-    <!--CATEGORY CHOOSER-->
-    <div>
-      <h2><strong>Categorias</strong></h2>
-      <div layout="row" layout-wrap>
-        <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100">
-          <p ng-if="group.length > 0">
-            <label><strong>Categorias Nivel {{$index+1}}</strong></label>
-          </p>
-          <div class="scroll-column">
-            <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+      <div layout="row" layout-align="end center">
+        <md-button ng-click="vm.updateConfig(configForm)" class="md-raised md-primary action-button">Guardar</md-button>
+      </div>
+
+      <!--CATEGORY CHOOSER-->
+      <div>
+        <h2><strong>Categorias</strong></h2>
+        <div layout="row" layout-wrap>
+          <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100">
+            <p ng-if="group.length > 0">
+              <label><strong>Categorias Nivel {{$index+1}}</strong></label>
+            </p>
+            <div class="scroll-column">
+              <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!--END CATEGORY CHOOSER-->
+      <!--END CATEGORY CHOOSER-->
 
-    <!--DISPLAYS-->
-    <div>
-      <h2><strong>Pagina Display</strong></h2>
+      <!--DISPLAYS-->
       <div>
-        <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="display in vm.displays" ng-model="vm.product[display.handle]">{{display.label}}</md-checkbox>
-      </div>
-    </div>
-    <!--END DISPLAYS-->
-
-    <!--DISPLAYS-->
-    <div>
-      <h2><strong>Sociedad*</strong></h2>
-      <div>
-        <md-input-container>
-          <md-select class="select-element" placeholder="Compañia" required ng-model="vm.product.SA">
-            <md-option ng-repeat="company in vm.companies track by $index" value="{{company.handle}}">
-              {{company.handle}}
-            </md-option>
-          </md-select>
-        </md-input-container>
-      </div>
-    </div>
-    <!--END DISPLAYS-->
-
-    <!--MARCA-->
-    <div>
-      <h2><strong>Marca: </strong></h2>
-        <p class="select-element-label"><label><strong>Marca</strong></label></p>
-        <md-input-container>
-          <md-select class="select-element select-element-lg" ng-model="vm.product.Brand">
-
-            <md-option ng-repeat="brand in vm.brands track by $index" ng-value="brand.ItmsGrpCod">
-              {{brand.ItmsGrpNam}}
-            </md-option>
-          </md-select>
-        </md-input-container>
-        <p class="input-hint"><strong>SAP:</strong>Marca: {{vm.productBrandSap.ItmsGrpNam}}</p>
-    </div>
-    <!--MARCA-->
-
-    <!--MODELO-->
-    <!--
-    <div>
-      <h2><strong>Agrupador de productos (Modelo)</strong></h2>
-
-      <div class="input-element">
-        <label>Código de agrupador</label>
-        <div class="input-element-inner">
-          <input type="text" ng-model="vm.product.Grouper" name="Grouper" placeholder="Código de agrupador" >
+        <h2><strong>Pagina Display</strong></h2>
+        <div>
+          <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="display in vm.displays" ng-model="vm.product[display.handle]">{{display.label}}</md-checkbox>
         </div>
+      </div>
+      <!--END DISPLAYS-->
+
+      <!--DISPLAYS-->
+      <div>
+        <h2><strong>Sociedad*</strong></h2>
+        <div>
+          <md-input-container>
+            <md-select class="select-element" placeholder="Compañia" required ng-model="vm.product.SA">
+              <md-option ng-repeat="company in vm.companies track by $index" value="{{company.handle}}">
+                {{company.handle}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+      </div>
+      <!--END DISPLAYS-->
+
+      <!--MARCA-->
+      <div>
+        <h2><strong>Marca: </strong></h2>
+          <p class="select-element-label"><label><strong>Marca</strong></label></p>
+          <md-input-container>
+            <md-select class="select-element select-element-lg" ng-model="vm.product.Brand">
+
+              <md-option ng-repeat="brand in vm.brands track by $index" ng-value="brand.ItmsGrpCod">
+                {{brand.ItmsGrpNam}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <p class="input-hint"><strong>SAP:</strong>Marca: {{vm.productBrandSap.ItmsGrpNam}}</p>
+      </div>
+      <!--MARCA-->
+
+      <!--MODELO-->
+      <!--
+      <div>
+        <h2><strong>Agrupador de productos (Modelo)</strong></h2>
+
+        <div class="input-element">
+          <label>Código de agrupador</label>
+          <div class="input-element-inner">
+            <input type="text" ng-model="vm.product.Grouper" name="Grouper" placeholder="Código de agrupador" >
+          </div>
+          <p class="input-hint"><strong>SAP</strong>: {{vm.product.SuppCatNum}}</p>
+        </div>
+
+      </div>
+      -->
+      <!--MODELO-->
+
+      <!--GROUP PRODUCTS-->
+      <div>
+        <h2>
+          <label><strong>Agrupadores</strong></label>
+          <a href="" ng-click="vm.openGroupForm($event)">(Crear nuevo agrupador)</a>
+        </h2>
         <p class="input-hint"><strong>SAP</strong>: {{vm.product.SuppCatNum}}</p>
+        <md-autocomplete
+            md-no-cache="false"
+            md-selected-item="vm.selectedGroup"
+            md-search-text="vm.searchGroupText"
+            md-items="item in vm.queryGroups(vm.searchGroupText)"
+            md-selected-item-change="vm.selectedGroupChange(item)"
+            md-item-text="item.Name + ' | ' + vm.groupTypes[item.Type]"
+            md-min-length="0"
+            placeholder="Buscar agrupador">
+          <md-item-template>
+            <span md-highlight-text="vm.searchGroupText" md-highlight-flags="^i">{{item.Name}} | {{vm.groupTypes[item.Type]}}</span>
+          </md-item-template>
+          <md-not-found>
+            No se encontro "{{vm.searchGroupText}}".
+          </md-not-found>
+        </md-autocomplete>
+
+
+        <p ng-if="vm.product.Groups.length <= 0">No hay agrupadores asignados al producto</p>
+        <div ng-show="vm.isLoadingGroups" layout="row" layout-sm="column" layout-align="space-around">
+          <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <ul ng-if="!vm.isLoadingGroups" class="draggable-list" dnd-list="vm.group.Products">
+          <li
+            ng-repeat="group in vm.product.Groups"
+            class="noright"
+            layout="row"
+            layout-align="space-between center"
+            dnd-draggable="group"
+            dnd-moved="vm.product.Groups.splice($index, 1)"
+            dnd-selected="vm.selectedGroup = group"
+            ng-class="{'selected-item': vm.selectedGroup === group}"
+            dnd-effect-allowed="move">
+            <p>{{group.Name}} | {{ vm.groupTypes[group.Type] }}</p>
+            <div class="md-secondary">
+              <md-button ng-click="vm.removeProductFromGroup(group.id, $index)" class="md-raised md-warn">
+                Remover
+              </md-button>
+            </div>
+          </li>
+        </ul>
+
       </div>
-
-    </div>
-    -->
-    <!--MODELO-->
-
-    <!--GROUP PRODUCTS-->
-    <div>
-      <h2>
-        <label><strong>Agrupadores</strong></label>
-        <a href="" ng-click="vm.openGroupForm($event)">(Crear nuevo agrupador)</a>
-      </h2>
-      <p class="input-hint"><strong>SAP</strong>: {{vm.product.SuppCatNum}}</p>
-      <md-autocomplete
-          md-no-cache="false"
-          md-selected-item="vm.selectedGroup"
-          md-search-text="vm.searchGroupText"
-          md-items="item in vm.queryGroups(vm.searchGroupText)"
-          md-selected-item-change="vm.selectedGroupChange(item)"
-          md-item-text="item.Name + ' | ' + vm.groupTypes[item.Type]"
-          md-min-length="0"
-          placeholder="Buscar agrupador">
-        <md-item-template>
-          <span md-highlight-text="vm.searchGroupText" md-highlight-flags="^i">{{item.Name}} | {{vm.groupTypes[item.Type]}}</span>
-        </md-item-template>
-        <md-not-found>
-          No se encontro "{{vm.searchGroupText}}".
-        </md-not-found>
-      </md-autocomplete>
+      <!--GROUP PRODUCTS-->
 
 
-      <p ng-if="vm.product.Groups.length <= 0">No hay agrupadores asignados al producto</p>
-      <div ng-show="vm.isLoadingGroups" layout="row" layout-sm="column" layout-align="space-around">
-        <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+      <div layout="row" layout-align="end center">
+        <md-button ng-click="vm.updateConfig(updateConfigForm)" class="md-raised md-primary">Guardar</md-button>
       </div>
-      <ul ng-if="!vm.isLoadingGroups" class="draggable-list" dnd-list="vm.group.Products">
-        <li
-          ng-repeat="group in vm.product.Groups"
-          class="noright"
-          layout="row"
-          layout-align="space-between center"
-          dnd-draggable="group"
-          dnd-moved="vm.product.Groups.splice($index, 1)"
-          dnd-selected="vm.selectedGroup = group"
-          ng-class="{'selected-item': vm.selectedGroup === group}"
-          dnd-effect-allowed="move">
-          <p>{{group.Name}} | {{ vm.groupTypes[group.Type] }}</p>
-          <div class="md-secondary">
-            <md-button ng-click="vm.removeProductFromGroup(group.id, $index)" class="md-raised md-warn">
-              Remover
-            </md-button>
-          </div>
-        </li>
-      </ul>
-
-    </div>
-    <!--GROUP PRODUCTS-->
-
-
-    <div layout="row" layout-align="end center">
-      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
-    </div>
 
   </md-content>
 </section>

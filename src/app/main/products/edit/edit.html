@@ -13,7 +13,7 @@
         <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
       </div>
 
-      <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
+      <section class="product-editor" ng-show="!vm.isLoading">
 
         <md-tabs md-dynamic-height>
           <md-tab label="Configuración">
@@ -38,7 +38,7 @@
           -->
         </md-tabs>
 
-      </form>
+      </section>
 
     </div>
     <!-- / CONTENT -->

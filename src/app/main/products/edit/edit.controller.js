@@ -16,6 +16,7 @@
         vm.removeIcon = removeIcon;
         vm.init = init;
         vm.update = update;
+
         vm.loadCategories = loadCategories;
         vm.formatCategoryGroups = formatCategoryGroups;
         vm.groupSelectedCategories = groupSelectedCategories;
@@ -38,6 +39,13 @@
         vm.queryGroups = queryGroups;
         vm.selectedGroupChange = selectedGroupChange;
         vm.removeProductFromGroup = removeProductFromGroup;
+
+        vm.updateConfig = updateConfig;
+        vm.updateContent = updateContent;
+        vm.updateFeatures = updateFeatures;
+        vm.updatePackage = updatePackage;
+        vm.updateMedia = updateMedia;
+
         vm.isLoading = false;
         vm.isLoadingFiles = false;
         vm.isLoadingGroups = false;
@@ -98,8 +106,6 @@
           {label:'Actual Kids', handle:'Actual Kids'},
         ];
 
-        console.log(vm.companies);
-
         vm.guarenteeUnits = [
           {label:'Año(s)', value:'YEAR'},
           {label:'Meses', value: 'MONTH'}
@@ -141,6 +147,114 @@
           });
         }
 
+        function updateConfig(form){
+          if(form.$valid){
+            vm.isLoading = true;
+            vm.groupSelectedCategories();
+            var params = {
+              Categories: vm.product.Categories,
+              SA: vm.product.SA,
+              Brand: vm.product.Brand
+            };
+            vm.displays.forEach(function(display){
+              params[display.handle] = vm.product[display.handle];
+            });
+            productService.update(vm.product.ItemCode, params).then(function(res){
+              vm.isLoading = false;
+              dialogService.showDialog('Datos actualizados');
+              console.log(res);
+            });
+          }else{
+            dialogService.showDialog('Campos incompletos');
+          }
+        }
+
+        function updateContent(form){
+          if(form.$valid){
+            vm.isLoading = true;
+            var params = {
+              Name: vm.product.Name,
+              Description: vm.product.Description,
+              MainFeatures: vm.product.MainFeatures,
+              Restrictions: vm.product.Restrictions,
+              Conservation: vm.product.Conservation
+            };
+            productService.update(vm.product.ItemCode, params).then(function(res){
+              vm.isLoading = false;
+              dialogService.showDialog('Datos actualizados');
+              console.log(res);
+            });
+          }else{
+            dialogService.showDialog('Campos incompletos');
+          }
+        }
+
+        function updateFeatures(form){
+          if(form.$valid){
+            vm.isLoading = true;
+            vm.formatSelectedFilterValues();
+            var params = {
+              FilterValues: vm.product.FilterValues,
+              DetailedColor: vm.product.DetailedColor,
+              GuaranteeText: vm.product.GuaranteeText,
+              GuaranteeUnit: vm.product.GuaranteeUnit,
+              GuaranteeUnitMsr: vm.product.GuaranteeUnitMsr,
+              DesignedInCountry: vm.product.DesignedInCountry,
+              MadeInCountry: vm.product.MadeInCountry
+            };
+            productService.update(vm.product.ItemCode, params).then(function(res){
+              vm.isLoading = false;
+              dialogService.showDialog('Datos actualizados');
+              console.log(res);
+            });
+          }else{
+            dialogService.showDialog('Campos incompletos');
+          }
+        }
+
+        function updatePackage(form){
+          if(form.$valid){
+            vm.isLoading = true;
+            var params = {
+              Ensemble: vm.product.Ensemble,
+              EnsembleTime: vm.product.EnsembleTime,
+              PackageContent: vm.product.PackageContent,
+              CommercialPieces: vm.product.CommercialPieces,
+              DeliveryPieces: vm.product.DeliveryPieces,
+              Length: vm.product.Length,
+              LengthUnitMsr: vm.product.LengthUnitMsr,
+              Width: vm.product.Width,
+              WidthUnitMsr: vm.product.WidthUnitMsr
+            };
+            productService.update(vm.product.ItemCode, params).then(function(res){
+              vm.isLoading = false;
+              dialogService.showDialog('Datos actualizados');
+              console.log(res);
+            });
+          }else{
+            dialogService.showDialog('Campos incompletos');
+          }
+        }
+
+        function updateMedia(form){
+          if(form.$valid){
+            vm.isLoading = true;
+            var params = {
+              icon_description: vm.product.icon_description,
+              Video: vm.product.Video
+            };
+            productService.update(vm.product.ItemCode, params).then(function(res){
+              vm.isLoading = false;
+              dialogService.showDialog('Datos actualizados');
+              console.log(res);
+            });
+          }else{
+            dialogService.showDialog('Campos incompletos');
+          }
+        }
+
+
+        //Update global (SIN USO POR EL MOMENTO)
         function update(form){
           if(form.$valid){
             vm.isLoading = true;
@@ -384,7 +498,7 @@
 
         function formatFiltersValues(){
           vm.filters.forEach(function(filter){
-            filter.Values.forEach(function(value){
+            filter.Values.forEach(function(value ,indexValue){
               vm.product.FilterValues.forEach(function(productVal, index){
 
                 if(productVal.id == value.id){
@@ -392,7 +506,8 @@
                       value.selected = true;
                   }
                   else{
-                    filter.selectedValue = index;
+                    console.log(index, productVal);
+                    filter.selectedValue = indexValue;
                   }
                 }
               });
@@ -448,7 +563,9 @@
             else{
               if(filter.selectedValue){
                 var val = filter.Values[filter.selectedValue];
-                vm.product.FilterValues.push( val );
+                if(val){
+                  vm.product.FilterValues.push( val );
+                }
               }
             }
           });

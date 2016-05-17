@@ -6,136 +6,141 @@
   </md-toolbar>
   <md-content class="md-padding">
 
-    <div layout="row" layout-align="end center">
-      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary">Guardar</md-button>
-    </div>
+    <form name="featuresForm" ng-submit="vm.updateFeatures(featuresForm)" class="md-inline-form" novalidate>
 
-    <!--FILTERS-->
-    <div class="editor-block">
-      <h2><strong>Caracteristicas</strong></h2>
-      <div layout="row" layout-wrap layout-align="start start">
-        <div ng-repeat="filter in vm.filters | orderBy: 'IsMultiple'" class="filter-column" flex="33" flex-sm="100">
-          <p ng-if="filter.IsMultiple"><label><strong>{{filter.Name}}</strong></label></p>
+      <div layout="row" layout-align="end center">
+        <md-button ng-click="vm.updateFeatures(featuresForm)" class="md-raised md-primary">Guardar</md-button>
+      </div>
 
-          <div ng-if="filter.IsMultiple && filter.Name != 'Color' " class="scroll-column">
-            <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="value in filter.Values" ng-model="value.selected">{{value.Name}}</md-checkbox>
-          </div>
+      <!--FILTERS-->
+      <div class="editor-block">
+        <h2><strong>Caracteristicas</strong></h2>
+        <div layout="row" layout-wrap layout-align="start start">
+          <div ng-repeat="filter in vm.filters | orderBy: 'IsMultiple'" class="filter-column" flex="33" flex-sm="100">
+            <p ng-if="filter.IsMultiple"><label><strong>{{filter.Name}}</strong></label></p>
 
-          <div ng-if="!filter.IsMultiple && filter.Name != 'Color' ">
-            <p class="select-element-label"><label><strong>{{filter.Name}}</strong></label></p>
-            <md-input-container>
-              <md-select class="select-element" placeholder="{{filter.Name}}" ng-model="filter.selectedValue">
-                <md-option value="false">Ninguno</md-option>
-                <md-option ng-repeat="value in filter.Values track by $index" value="{{$index}}">
-                  {{value.Name}}
-                </md-option>
-              </md-select>
-            </md-input-container>
-          </div>
-
-          <!--COLOR-->
-          <div ng-if="filter.Name == 'Color' ">
-            <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
-              <a
-                ng-repeat="color in filter.Values"
-                ng-click="color.selected = !color.selected"
-                ng-class="{'wrap-on': color.selected}"
-                class="colorpicker-sp-color-wrap"
-                flex="33"
-                title="{{color.Name}}"
-                >
-                <md-icon
-                  ng-class="{'checked-on': color.selected}"
-                  md-font-icon="icon-check"
-                  class="s16 colorpicker-sp-checked">
-                </md-icon>
-                <span class="colorpicker-sp-color"  ng-style="{'background-color': color.Code}"></span>
-              </a>
+            <div ng-if="filter.IsMultiple && filter.Name != 'Color paleta' " class="scroll-column">
+              <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="value in filter.Values" ng-model="value.selected">{{value.Name}}</md-checkbox>
             </div>
-          </div>
 
+            <div ng-if="!filter.IsMultiple && filter.Name != 'Color paleta' ">
+              <p class="select-element-label"><label><strong>{{filter.Name}}</strong></label></p>
+              <md-input-container>
+                <md-select class="select-element" placeholder="{{filter.Name}}" ng-model="filter.selectedValue">
+                  <md-option value="false">Ninguno</md-option>
+                  <md-option ng-repeat="value in filter.Values track by $index" value="{{$index}}">
+                    {{value.Name}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+
+            <!--COLOR-->
+            <div ng-if="filter.Name == 'Color' || filter.Name == 'Color paleta' ">
+              <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
+                <a
+                  ng-repeat="color in filter.Values"
+                  ng-click="color.selected = !color.selected"
+                  ng-class="{'wrap-on': color.selected}"
+                  class="colorpicker-sp-color-wrap"
+                  flex="33"
+                  title="{{color.Name}}"
+                  >
+                  <md-icon
+                    ng-class="{'checked-on': color.selected}"
+                    md-font-icon="icon-check"
+                    class="s16 colorpicker-sp-checked">
+                  </md-icon>
+                  <span class="colorpicker-sp-color"  ng-style="{'background-color': color.Code}"></span>
+                </a>
+              </div>
+            </div>
+
+          </div>
         </div>
+
+
       </div>
+      <!--END FILTERS-->
 
-
-    </div>
-    <!--END FILTERS-->
-
-    <div class="input-element">
-      <label>Color detallado*</label>
-      <div class="input-element-inner">
-        <input type="text" ng-model="vm.product.DetailedColor" name="DetailedColor" required placeholder="Color detallado *">
-      </div>
-      <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_COLOR}}</p>
-      <div ng-messages="updateForm.DetailedColor.$error" ng-show="updateForm.DetailedColor.$touched"
-           role="alert">
-          <div ng-message="required">
-              <span>Este campo es requerido.</span>
-          </div>
-      </div>
-    </div>
-    <!--END COLOR-->
-
-    <!--ASIENTOS-->
-    <div class="input-element number-element">
-      <label>Asientos</label>
-      <div class="input-element-inner">
-        <input type="number" min="0" max="10" ng-model="vm.product.Seats" >
-      </div>
-    </div>
-
-    <!--END ASIENTOS-->
-
-    <!--GARANTIA-->
-    <div class="wyswyg-block">
-      <h2>Garantia</h2>
-      <label for=""><strong>Texto garantia</strong></label>
-      <wysiwyg-edit content="vm.product.GuaranteeText"></wysiwyg-edit>
-    </div>
-
-    <div>
-      <p><label><strong>Garantia</strong></label></p>
-      <div class="input-element number-element">
-        <label>Garantia</label>
+      <div class="input-element">
+        <label>Color detallado*</label>
         <div class="input-element-inner">
-          <input type="number" min="0" ng-model="vm.product.GuaranteeUnit">
+          <input type="text" ng-model="vm.product.DetailedColor" name="DetailedColor" required placeholder="Color detallado *">
         </div>
-        <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_garantia}}</p>
+        <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_COLOR}}</p>
+        <div ng-messages="featuresForm.DetailedColor.$error" ng-show="featuresForm.DetailedColor.$touched"
+             role="alert">
+            <div ng-message="required">
+                <span>Este campo es requerido.</span>
+            </div>
+        </div>
       </div>
-      <p class="select-element-label"><label><strong>Garantia (Unidad de medida)</strong></label></p>
-      <md-input-container>
-        <md-select class="select-element" placeholder="Garantia (Unidad de medida)" ng-model="vm.Product.GuaranteeUnitMsr">
-          <md-option ng-repeat="guarenteeUnit in vm.guarenteeUnits" value="{{guarenteeUnit.value}}">
-            {{guarenteeUnit.label}}
+      <!--END COLOR-->
+
+      <!--ASIENTOS-->
+      <!--
+      <div class="input-element number-element">
+        <label>Asientos</label>
+        <div class="input-element-inner">
+          <input type="number" min="0" max="10" ng-model="vm.product.Seats" >
+        </div>
+      </div>
+      -->
+      <!--END ASIENTOS-->
+
+      <!--GARANTIA-->
+      <div class="wyswyg-block">
+        <h2>Garantia</h2>
+        <label for=""><strong>Texto garantia</strong></label>
+        <wysiwyg-edit content="vm.product.GuaranteeText"></wysiwyg-edit>
+      </div>
+
+      <div>
+        <p><label><strong>Garantia</strong></label></p>
+        <div class="input-element number-element">
+          <label>Garantia</label>
+          <div class="input-element-inner">
+            <input type="number" min="0" ng-model="vm.product.GuaranteeUnit">
+          </div>
+          <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_garantia}}</p>
+        </div>
+        <p class="select-element-label"><label><strong>Garantia (Unidad de medida)</strong></label></p>
+        <md-input-container>
+          <md-select class="select-element" placeholder="Garantia (Unidad de medida)" ng-model="vm.product.GuaranteeUnitMsr">
+            <md-option ng-repeat="guarenteeUnit in vm.guarenteeUnits" value="{{guarenteeUnit.value}}">
+              {{guarenteeUnit.label}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+      <!--END GARANTIA-->
+
+      <div class="select-element-wrapper">
+        <p class="select-element-label"><label><strong>Pais de producción (Diseñado en)</strong></label></p>
+        <md-select class="select-element" placeholder="Pais de producción (Diseñado en)" ng-model="vm.product.DesignedInCountry">
+          <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
+            {{country}}
           </md-option>
         </md-select>
-      </md-input-container>
-    </div>
-    <!--END GARANTIA-->
+        <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_disenado_en}}</p>
+      </div>
 
-    <div class="select-element-wrapper">
-      <p class="select-element-label"><label><strong>Pais de producción (Diseñado en)</strong></label></p>
-      <md-select class="select-element" placeholder="Pais de producción (Diseñado en)" ng-model="vm.Product.DesignedInCountry">
-        <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
-          {{country}}
-        </md-option>
-      </md-select>
-      <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_disenado_en}}</p>
-    </div>
+      <div class="select-element-wrapper">
+        <p class="select-element-label"><label><strong>Pais de ensamble (Hecho en)</strong></label></p>
+        <md-select  class="select-element" placeholder="Pais de ensamble (Hecho en)" ng-model="vm.product.MadeInCountry">
+          <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
+            {{country}}
+          </md-option>
+        </md-select>
+        <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_ensamblado_en}}</p>
+      </div>
 
-    <div class="select-element-wrapper">
-      <p class="select-element-label"><label><strong>Pais de ensamble (Hecho en)</strong></label></p>
-      <md-select  class="select-element" placeholder="Pais de ensamble (Hecho en)" ng-model="vm.Product.MadeInCountry">
-        <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
-          {{country}}
-        </md-option>
-      </md-select>
-      <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_ensamblado_en}}</p>
-    </div>
+      <div layout="row" layout-align="end center">
+        <md-button ng-click="vm.updateFeatures(featuresForm)" class="md-raised md-primary action-button">Guardar</md-button>
+      </div>
 
-    <div layout="row" layout-align="end center">
-      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
-    </div>
+    </form>
 
   </md-content>
 </section>
