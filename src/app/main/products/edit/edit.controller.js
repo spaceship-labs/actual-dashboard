@@ -27,8 +27,6 @@
         //vm.loadColors = loadColors;
 
         vm.loadBrands = loadBrands;
-        vm.formatSelectedColors = formatSelectedColors;
-        vm.formatColors = formatColors;
         vm.editSize = editSize;
         vm.addSize = addSize;
         vm.removeSize = removeSize;
@@ -336,21 +334,23 @@
 
         function sortFiltersValues(){
           vm.filters.forEach(function(filter){
-            var idsList = filter.ValuesOrder.split(',');
+            if(filter.ValuesOrder){
+              var idsList = filter.ValuesOrder.split(',');
 
-            if(idsList.length > 0 && filter.ValuesOrder){
-              var baseArr = angular.copy(filter.Values);
-              var newArr = [];
-              idsList.forEach(function(id){
-                baseArr.forEach(function(val){
-                  if(val.id == id){
-                    newArr.push(val);
-                  }
-                })
-              });
-              //Fixes values order missmatch
-              if(newArr.length > 0){
-                filter.Values = newArr;
+              if(idsList.length > 0 && filter.ValuesOrder){
+                var baseArr = angular.copy(filter.Values);
+                var newArr = [];
+                idsList.forEach(function(id){
+                  baseArr.forEach(function(val){
+                    if(val.id == id){
+                      newArr.push(val);
+                    }
+                  })
+                });
+                //Fixes values order missmatch
+                if(newArr.length > 0){
+                  filter.Values = newArr;
+                }
               }
             }
           });
@@ -397,6 +397,7 @@
             vm.filters = res.data;
             vm.sortFiltersValues();
             vm.formatFiltersValues();
+            vm.loadedFilters = true;
           });
         }
 
@@ -542,25 +543,6 @@
           });
         }
 
-        function formatSelectedColors(){
-          vm.product.Colors = [];
-          vm.colors.forEach(function(color){
-            if(color.selected){
-              vm.product.Colors.push(color.id);
-            }
-          });
-        }
-
-        function formatColors(){
-          vm.product.Colors.forEach(function(productColor){
-            vm.colors.forEach(function(color){
-              if(color.id == productColor.id){
-                color.selected = true;
-              }
-            });
-          });
-        }
-
         function formatSelectedFilterValues(){
           vm.product.FilterValues = [];
           vm.filters.forEach(function(filter){
@@ -579,17 +561,25 @@
         }
 
         function toggleColor(colorId, filter){
-          var index = filter.selectedValues.indexOf(colorId);
-          if(index > -1){
-            filter.selectedValues.splice(index, 1);
-          }else{
-            filter.selectedValues.push(colorId);
+          console.log('toggleColor');
+          console.log(filter);
+          if(filter.selectedValues){
+            var index = filter.selectedValues.indexOf(colorId);
+            if(index > -1){
+              filter.selectedValues.splice(index, 1);
+            }else{
+              filter.selectedValues.push(colorId);
+            }
           }
         }
 
         function isActiveColor(colorId, filter){
-          var index = filter.selectedValues.indexOf(colorId);
-          return (index > -1);
+          if(filter.selectedValues){
+            var index = filter.selectedValues.indexOf(colorId);
+            return (index > -1);
+          }else{
+            return false;
+          }
         }
 
         /*----------------/
