@@ -1,27 +1,45 @@
 <section class="md-whiteframe-z1">
   <md-toolbar class="demo-toolbar md-primary">
-    <div class="md-toolbar-tools">
-      <h3>Configuración</h3>
+    <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+      <h3>CONFIGURACIÓN</h3>
+      <md-button ng-click="vm.updateConfig(configForm)" class="md-raised md-primary action-button">Guardar</md-button>
     </div>
   </md-toolbar>
   <md-content class="md-padding">
 
     <form name="configForm" ng-submit="vm.updateConfig(configForm)" class="md-inline-form" novalidate>
 
-      <div layout="row" layout-align="end center">
-        <md-button ng-click="vm.updateConfig(configForm)" class="md-raised md-primary action-button">Guardar</md-button>
-      </div>
-
       <!--CATEGORY CHOOSER-->
       <div>
-        <h2><strong>Categorias</strong></h2>
-        <div layout="row" layout-wrap>
-          <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100">
+        <h2 class="no-margin"><strong>CATEGORIAS</strong></h2>
+        <div layout="row" layout-align="space-between start" layout-wrap>
+          <div ng-repeat="group in vm.categoriesGroups track by $index" flex="30" flex-sm="100">
             <p ng-if="group.length > 0">
               <label><strong>Categorias Nivel {{$index+1}}</strong></label>
             </p>
             <div class="scroll-column">
-              <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+              <md-input-container class="checkboxes-dropdown-wrap">
+                <md-select class="checkboxes-dropdown select-element" ng-model="vm.selectedCategories[$index]"
+                   data-md-container-class="selectdemoSelectHeader"
+                   multiple
+                >
+
+                  <!--
+                  <md-select-header class="demo-select-header">
+                    <input ng-model="searchTerm"
+                      type="search"
+                      placeholder="Search for a vegetable.."
+                      class="demo-header-searchbox md-text"
+                    >
+                  </md-select-header>
+                  -->
+
+                  <md-optgroup label="Categorias">
+                    <md-option ng-value="category.id" ng-repeat="category in group |
+                      filter:searchTerm">{{category.Name}}</md-option>
+                  </md-optgroup>
+                </md-select>
+              </md-input-container>
             </div>
           </div>
         </div>
@@ -37,10 +55,11 @@
       </div>
       <!--END DISPLAYS-->
 
-      <!--DISPLAYS-->
-      <div>
-        <h2><strong>Sociedad*</strong></h2>
-        <div>
+      <section layout="row" layout-align="space-between start">
+
+        <!--DISPLAYS-->
+        <div flex>
+          <p class="select-element-label"><label><strong>Sociedad*</strong></label></p>
           <md-input-container>
             <md-select class="select-element" placeholder="Compañia" required ng-model="vm.product.SA">
               <md-option ng-repeat="company in vm.companies track by $index" value="{{company.handle}}">
@@ -49,24 +68,24 @@
             </md-select>
           </md-input-container>
         </div>
-      </div>
-      <!--END DISPLAYS-->
+        <!--END DISPLAYS-->
 
-      <!--MARCA-->
-      <div>
-        <h2><strong>Marca: </strong></h2>
-          <p class="select-element-label"><label><strong>Marca</strong></label></p>
-          <md-input-container>
-            <md-select class="select-element select-element-lg" ng-model="vm.product.Brand">
+        <!--MARCA-->
+        <div flex>
+            <p class="select-element-label"><label><strong>Marca</strong></label></p>
+            <md-input-container>
+              <md-select class="select-element select-element-lg" ng-model="vm.product.Brand">
 
-              <md-option ng-repeat="brand in vm.brands track by $index" ng-value="brand.ItmsGrpCod">
-                {{brand.ItmsGrpNam}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <p class="input-hint"><strong>SAP:</strong>Marca: {{vm.productBrandSap.ItmsGrpNam}}</p>
-      </div>
-      <!--MARCA-->
+                <md-option ng-repeat="brand in vm.brands track by $index" ng-value="brand.ItmsGrpCod">
+                  {{brand.ItmsGrpNam}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <p class="input-hint"><strong>SAP:</strong>Marca: {{vm.productBrandSap.ItmsGrpNam}}</p>
+        </div>
+        <!--MARCA-->
+
+      </section>
 
       <!--MODELO-->
       <!--
@@ -88,7 +107,7 @@
       <!--GROUP PRODUCTS-->
       <div>
         <h2>
-          <label><strong>Agrupadores</strong></label>
+          <label><strong>AGRUPADORES</strong></label>
           <a href="" ng-click="vm.openGroupForm($event)">(Crear nuevo agrupador)</a>
         </h2>
         <p class="input-hint"><strong>SAP</strong>: {{vm.product.SuppCatNum}}</p>
@@ -139,7 +158,7 @@
 
 
       <div layout="row" layout-align="end center">
-        <md-button ng-click="vm.updateConfig(updateConfigForm)" class="md-raised md-primary">Guardar</md-button>
+        <md-button ng-click="vm.updateConfig(configForm)" class="md-raised md-primary">Guardar</md-button>
       </div>
 
   </md-content>

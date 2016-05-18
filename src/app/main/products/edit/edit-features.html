@@ -1,26 +1,39 @@
 <section class="md-whiteframe-z1">
   <md-toolbar class="demo-toolbar md-primary">
-    <div class="md-toolbar-tools">
-      <h3>Caractersticas</h3>
+    <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+      <h3>CARACTERSTICAS</h3>
+       <md-button ng-click="vm.updateFeatures(featuresForm)" class="md-raised md-primary action-button">Guardar</md-button>
     </div>
   </md-toolbar>
   <md-content class="md-padding">
 
     <form name="featuresForm" ng-submit="vm.updateFeatures(featuresForm)" class="md-inline-form" novalidate>
 
-      <div layout="row" layout-align="end center">
-        <md-button ng-click="vm.updateFeatures(featuresForm)" class="md-raised md-primary">Guardar</md-button>
-      </div>
 
       <!--FILTERS-->
-      <div class="editor-block">
-        <h2><strong>Caracteristicas</strong></h2>
+      <div>
         <div layout="row" layout-wrap layout-align="start start">
           <div ng-repeat="filter in vm.filters | orderBy: 'IsMultiple'" class="filter-column" flex="33" flex-sm="100">
             <p ng-if="filter.IsMultiple"><label><strong>{{filter.Name}}</strong></label></p>
 
             <div ng-if="filter.IsMultiple && filter.Name != 'Color paleta' " class="scroll-column">
+
+              <!--
               <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="value in filter.Values" ng-model="value.selected">{{value.Name}}</md-checkbox>
+              -->
+
+              <md-input-container class="checkboxes-dropdown-wrap">
+                <md-select class="checkboxes-dropdown select-element" ng-model="filter.selectedValues"
+                   data-md-container-class="selectdemoSelectHeader"
+                   multiple
+                >
+                  <md-optgroup label="Valores">
+                    <md-option ng-value="value.id" ng-repeat="value in filter.Values |
+                      filter:searchTerm">{{value.Name}}</md-option>
+                  </md-optgroup>
+                </md-select>
+              </md-input-container>
+
             </div>
 
             <div ng-if="!filter.IsMultiple && filter.Name != 'Color paleta' ">
@@ -40,14 +53,14 @@
               <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
                 <a
                   ng-repeat="color in filter.Values"
-                  ng-click="color.selected = !color.selected"
-                  ng-class="{'wrap-on': color.selected}"
+                  ng-click="vm.toggleColor(color.id, filter)"
+                  ng-class="{'wrap-on': vm.isActiveColor(color.id, filter)}"
                   class="colorpicker-sp-color-wrap"
                   flex="33"
                   title="{{color.Name}}"
                   >
                   <md-icon
-                    ng-class="{'checked-on': color.selected}"
+                    ng-class="{'checked-on': vm.isActiveColor(color.id, filter)}"
                     md-font-icon="icon-check"
                     class="s16 colorpicker-sp-checked">
                   </md-icon>
@@ -91,50 +104,56 @@
 
       <!--GARANTIA-->
       <div class="wyswyg-block">
-        <h2>Garantia</h2>
+        <h2><strong>GARANTIA</strong></h2>
         <label for=""><strong>Texto garantia</strong></label>
         <wysiwyg-edit content="vm.product.GuaranteeText"></wysiwyg-edit>
       </div>
 
-      <div>
-        <p><label><strong>Garantia</strong></label></p>
-        <div class="input-element number-element">
-          <label>Garantia</label>
+      <div layout="row" layout-align="space-between start">
+        <div class="input-element number-element" flex="45">
+          <label>Tiempo de garantia</label>
           <div class="input-element-inner">
             <input type="number" min="0" ng-model="vm.product.GuaranteeUnit">
           </div>
           <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_garantia}}</p>
         </div>
-        <p class="select-element-label"><label><strong>Garantia (Unidad de medida)</strong></label></p>
-        <md-input-container>
-          <md-select class="select-element" placeholder="Garantia (Unidad de medida)" ng-model="vm.product.GuaranteeUnitMsr">
-            <md-option ng-repeat="guarenteeUnit in vm.guarenteeUnits" value="{{guarenteeUnit.value}}">
-              {{guarenteeUnit.label}}
-            </md-option>
-          </md-select>
-        </md-input-container>
+
+        <div class="input-element" flex="45">
+          <p class="select-element-label"><label><strong>Tiempo de garantia (Unidad de medida)</strong></label></p>
+          <md-input-container>
+            <md-select class="select-element" placeholder="Tiempo de garantia (Unidad de medida)" ng-model="vm.product.GuaranteeUnitMsr">
+              <md-option ng-repeat="guarenteeUnit in vm.guarenteeUnits" value="{{guarenteeUnit.value}}">
+                {{guarenteeUnit.label}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
       </div>
       <!--END GARANTIA-->
 
-      <div class="select-element-wrapper">
-        <p class="select-element-label"><label><strong>Pais de producción (Diseñado en)</strong></label></p>
-        <md-select class="select-element" placeholder="Pais de producción (Diseñado en)" ng-model="vm.product.DesignedInCountry">
-          <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
-            {{country}}
-          </md-option>
-        </md-select>
-        <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_disenado_en}}</p>
-      </div>
+      <section layout="row" layout-align="space-between start">
 
-      <div class="select-element-wrapper">
-        <p class="select-element-label"><label><strong>Pais de ensamble (Hecho en)</strong></label></p>
-        <md-select  class="select-element" placeholder="Pais de ensamble (Hecho en)" ng-model="vm.product.MadeInCountry">
-          <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
-            {{country}}
-          </md-option>
-        </md-select>
-        <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_ensamblado_en}}</p>
-      </div>
+        <div class="select-element-wrapper" flex="45">
+          <p class="select-element-label"><label><strong>Pais de producción (Diseñado en)</strong></label></p>
+          <md-select class="select-element" placeholder="Pais de producción (Diseñado en)" ng-model="vm.product.DesignedInCountry">
+            <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
+              {{country}}
+            </md-option>
+          </md-select>
+          <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_disenado_en}}</p>
+        </div>
+
+        <div class="select-element-wrapper" flex="45">
+          <p class="select-element-label"><label><strong>Pais de ensamble (Hecho en)</strong></label></p>
+          <md-select  class="select-element" placeholder="Pais de ensamble (Hecho en)" ng-model="vm.product.MadeInCountry">
+            <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
+              {{country}}
+            </md-option>
+          </md-select>
+          <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_ensamblado_en}}</p>
+        </div>
+
+      </section>
 
       <div layout="row" layout-align="end center">
         <md-button ng-click="vm.updateFeatures(featuresForm)" class="md-raised md-primary action-button">Guardar</md-button>

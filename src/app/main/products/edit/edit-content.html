@@ -1,16 +1,13 @@
 <section class="md-whiteframe-z1">
   <md-toolbar class="demo-toolbar md-primary">
-    <div class="md-toolbar-tools">
-      <h3>Contenido</h3>
+    <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+      <h3>CONTENIDO</h3>
+      <md-button ng-click="vm.updateContent(contentForm)" class="md-raised md-primary action-button">Guardar</md-button>
     </div>
   </md-toolbar>
   <md-content class="md-padding">
 
     <form name="contentForm" ng-submit="vm.updateContent(contentForm)" class="md-inline-form" novalidate>
-
-      <div layout="row" layout-align="end center">
-        <md-button ng-click="vm.updateContent(contentForm)" class="md-raised md-primary action-button">Guardar</md-button>
-      </div>
 
       <div class="input-element">
         <label>Nombre*</label>

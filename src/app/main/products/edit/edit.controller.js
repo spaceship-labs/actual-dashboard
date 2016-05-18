@@ -46,6 +46,9 @@
         vm.updatePackage = updatePackage;
         vm.updateMedia = updateMedia;
 
+        vm.toggleColor = toggleColor;
+        vm.isActiveColor = isActiveColor;
+
         vm.isLoading = false;
         vm.isLoadingFiles = false;
         vm.isLoadingGroups = false;
@@ -119,6 +122,7 @@
 
         ];
 
+        vm.selectedCategories = [];
 
         vm.init();
 
@@ -159,11 +163,14 @@
             vm.displays.forEach(function(display){
               params[display.handle] = vm.product[display.handle];
             });
+            console.log(params);
+
             productService.update(vm.product.ItemCode, params).then(function(res){
               vm.isLoading = false;
               dialogService.showDialog('Datos actualizados');
               console.log(res);
             });
+
           }else{
             dialogService.showDialog('Campos incompletos');
           }
@@ -277,21 +284,21 @@
 
         function groupSelectedCategories(){
           vm.product.Categories = [];
-          for(var i=0;i<vm.categoriesGroups.length;i++){
-            for(var j=0;j<vm.categoriesGroups[i].length;j++){
-              if(vm.categoriesGroups[i][j].selected){
-                vm.product.Categories.push(vm.categoriesGroups[i][j]);
-              }
-            }
+          for(var i=0; i<vm.categoriesGroups.length; i++){
+            console.log('selectedCategories'+i , vm.selectedCategories[i]);
+            vm.product.Categories = vm.product.Categories.concat(vm.selectedCategories[i]);
           }
+          console.log(vm.product.Categories);
         }
 
         function formatCategoryGroups(){
           for(var i=0;i<vm.categoriesGroups.length;i++){
+            vm.selectedCategories[i] = [];
+
             for(var j=0;j<vm.product.Categories.length;j++){
               vm.categoriesGroups[i] = vm.categoriesGroups[i].map(function(category){
                 if(vm.product.Categories[j].id == category.id){
-                  category.selected = true;
+                  vm.selectedCategories[i].push(category.id);
                 }
                 return category;
               });
@@ -498,12 +505,16 @@
 
         function formatFiltersValues(){
           vm.filters.forEach(function(filter){
+            filter.selectedValues = [];
             filter.Values.forEach(function(value ,indexValue){
               vm.product.FilterValues.forEach(function(productVal, index){
 
                 if(productVal.id == value.id){
                   if(filter.IsMultiple){
-                      value.selected = true;
+                      console.log('filter IsMultiple');
+                      console.log(value.Name);
+                      filter.selectedValues.push(productVal.id);
+                      //value.selected = true;
                   }
                   else{
                     console.log(index, productVal);
@@ -554,11 +565,7 @@
           vm.product.FilterValues = [];
           vm.filters.forEach(function(filter){
             if(filter.IsMultiple){
-              filter.Values.forEach(function(value){
-                if(value.selected){
-                  vm.product.FilterValues.push(value);
-                }
-              });
+              vm.product.FilterValues = vm.product.FilterValues.concat(filter.selectedValues);
             }
             else{
               if(filter.selectedValue){
@@ -569,6 +576,20 @@
               }
             }
           });
+        }
+
+        function toggleColor(colorId, filter){
+          var index = filter.selectedValues.indexOf(colorId);
+          if(index > -1){
+            filter.selectedValues.splice(index, 1);
+          }else{
+            filter.selectedValues.push(colorId);
+          }
+        }
+
+        function isActiveColor(colorId, filter){
+          var index = filter.selectedValues.indexOf(colorId);
+          return (index > -1);
         }
 
         /*----------------/
@@ -739,8 +760,8 @@
 
           $scope.types = [
             {label:'Agrupador Variaciones', handle:'variations'},
-            {label:'Agrupador Ambientes', handle:'environments'},
-            {label:'Agrupador Paquetes', handle:'packages'},
+            //{label:'Agrupador Ambientes', handle:'environments'},
+            //{label:'Agrupador Paquetes', handle:'packages'},
             {label:'Agrupador Relaciones', handle:'relations'},
 
           ];
