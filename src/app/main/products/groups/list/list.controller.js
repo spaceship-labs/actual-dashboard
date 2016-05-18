@@ -12,6 +12,7 @@
         var vm = this;
         // Data
         vm.columns = [
+            {key:'Edit', label:'Editar', editUrl:'/products/groups/edit/', propId: 'id'},
             {key:'Name', label:'Nombre',actionUrl:'/products/groups/edit/', propId: 'id'},
             {key:'Delete',label:'Eliminar',destroy:true}
         ];

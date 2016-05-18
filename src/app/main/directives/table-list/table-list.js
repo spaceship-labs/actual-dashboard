@@ -77,7 +77,7 @@
           query.orderby = $scope.orderBy;
         }
         //Do not sort when is a destroy column
-        else if(!$scope.columns[sortingColumnIndex].destroy){
+        else if(!$scope.columns[sortingColumnIndex].destroy && !$scope.columns[sortingColumnIndex].editUrl){
           query.orderby = sortingColumnName + ' ' + sortingDirection;
           $('.dataTables_wrapper .top .sorting-by-label').text('Ordenado por: '+ sortingColumnLabel);
         }
@@ -120,6 +120,11 @@
                 if(column.destroy){
                   var id = (column.propId) ? column.propId : 'id';
                   html = '<a href="#" ng-click="showDestroyDialog($event, '+ full[id] +')">Eliminar</a>';
+                }
+                else if(column.editUrl){
+                  var id = (column.propId) ? column.propId : 'id';
+                  var icon = '<md-icon md-font-icon="icon-pencil" class="icon edit-pencil md-font icon-pencil material-icons md-default-theme" aria-hidden="true"></md-icon>';
+                  html = '<a href="'+(column.editUrl + full[id])+'">' + icon + '</a>';
                 }
                 else{
                   if(column.actionUrl){

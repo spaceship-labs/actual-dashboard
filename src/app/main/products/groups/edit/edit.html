@@ -1,13 +1,5 @@
 <div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
 
-    <!-- HEADER -->
-    <div class="header md-accent-bg" layout="row" layout-align="space-between">
-        <div layout="column" layout-align="center start">
-            <div class="title">Agrupadores de productos</div>
-        </div>
-    </div>
-    <!-- / HEADER -->
-
     <!-- CONTENT -->
     <div class="content">
 
@@ -16,8 +8,9 @@
 
         <section class="md-whiteframe-z1">
           <md-toolbar class="demo-toolbar md-primary">
-            <div class="md-toolbar-tools">
-              <h3>Editar agrupador</h3>
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+              <h3>EDITAR AGRUPADOR</h3>
+              <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Editar</md-button>
             </div>
           </md-toolbar>
           <md-content class="md-padding">
@@ -27,25 +20,22 @@
             </div>
 
             <form name="updateForm" ng-if="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
-              <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Editar</md-button>
-              </div>
 
-
-              <div class="input-element">
-                <label>Nombre*</label>
-                <div class="input-element-inner">
-                  <input type="text" ng-model="vm.group.Name" required placeholder="Nombre*">
+              <section layout="row" layout-align="space-between end" layout-wrap>
+                <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
+                  <label>Nombre*</label>
+                  <div class="input-element-inner">
+                    <input type="text" ng-model="vm.group.Name" required placeholder="Nombre*">
+                  </div>
                 </div>
-              </div>
 
-              <div class="input-element">
-                <label>URL*</label>
-                <div class="input-element-inner">
-                  <input type="text" ng-model="vm.group.Handle" required placeholder="URL*">
+                <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
+                  <label>URL*</label>
+                  <div class="input-element-inner">
+                    <input type="text" ng-model="vm.group.Handle" required placeholder="URL*">
+                  </div>
                 </div>
-              </div>
-
+              </section>
 
               <div class="input-element textarea-element">
                 <label>Descripción</label>
@@ -54,29 +44,36 @@
                 </div>
               </div>
 
-              <p>
-                <md-checkbox ng-model="vm.group.HasExpiration" aria-label="¿Tiene vigencia?">
-                  ¿Tiene vigencia?
-                </md-checkbox>
-              </p>
 
-              <div ng-if="vm.group.HasExpiration">
-                <div class="input-element">
-                  <label>Vigencia | Empieza:</label>
-                  <div class="input-element-inner">
-                    <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
-                    placeholder="Empieza" min-date="date" ng-model="vm.group.StartsOn" lang="es" class=" md-input">
+              <section layout="row" layout-align="space-between end" layout-wrap>
+                <div flex="30" flex-sm="100" flex-xs="100">
+                  <p>
+                    <md-checkbox ng-model="vm.group.HasExpiration" aria-label="¿Tiene vigencia?">
+                      ¿Tiene vigencia?
+                    </md-checkbox>
+                  </p>
+                </div>
+
+                <div ng-if="vm.group.HasExpiration" flex="30" flex-sm="100" flex-xs="100">
+                  <div class="input-element">
+                    <label>Vigencia | Empieza:</label>
+                    <div class="input-element-inner">
+                      <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
+                      placeholder="Empieza" min-date="date" ng-model="vm.group.StartsOn" lang="es" class=" md-input">
+                    </div>
                   </div>
                 </div>
 
-                <div class="input-element">
-                  <label>Vigencia | Termina:</label>
-                  <div class="input-element-inner">
-                    <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
-                    placeholder="Termina" min-date="vm.group.StartsOn" ng-model="vm.group.EndsOn"  lang="es" class=" md-input">
+                <div ng-if="vm.group.HasExpiration" flex="30" flex-sm="100" flex-xs="100">
+                  <div class="input-element">
+                    <label>Vigencia | Termina:</label>
+                    <div class="input-element-inner">
+                      <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
+                      placeholder="Termina" min-date="vm.group.StartsOn" ng-model="vm.group.EndsOn" lang="es" class=" md-input">
+                    </div>
                   </div>
                 </div>
-              </div>
+              </section>
 
 
               <div>

@@ -13,6 +13,7 @@
 
         // Data
         vm.columns = [
+            {key:'Edit', label:'Editar', editUrl:'/users/edit/', propId: 'id'},
             {key:'email', label:'Email', actionUrl:'/users/edit/'},
             {key:'firstName', label:'Nombre'},
             {key:'lastName', label:'Apellidos'},
