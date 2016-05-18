@@ -13,7 +13,7 @@
       <!--FILTERS-->
       <div>
         <div layout="row" layout-wrap layout-align="start start">
-          <div ng-repeat="filter in vm.filters | orderBy: 'IsMultiple'" class="filter-column" flex="33" flex-sm="100">
+          <div ng-repeat="filter in vm.filters | orderBy: 'IsMultiple'" class="filter-column" flex="33" flex-xs="100">
             <p ng-if="filter.IsMultiple"><label><strong>{{filter.Name}}</strong></label></p>
 
             <div ng-if="filter.IsMultiple && filter.Name != 'Color paleta' " class="scroll-column">
@@ -59,11 +59,6 @@
                   flex="33"
                   title="{{color.Name}}"
                   >
-                  <md-icon
-                    ng-class="{'checked-on': vm.isActiveColor(color.id, filter)}"
-                    md-font-icon="icon-check"
-                    class="s16 colorpicker-sp-checked">
-                  </md-icon>
                   <span class="colorpicker-sp-color"  ng-style="{'background-color': color.Code}"></span>
                 </a>
               </div>
@@ -109,8 +104,8 @@
         <wysiwyg-edit content="vm.product.GuaranteeText"></wysiwyg-edit>
       </div>
 
-      <div layout="row" layout-align="space-between start">
-        <div class="input-element number-element" flex="45">
+      <div layout="row" layout-wrap layout-align="space-between start">
+        <div class="input-element number-element" flex="45" flex-xs="100">
           <label>Tiempo de garantia</label>
           <div class="input-element-inner">
             <input type="number" min="0" ng-model="vm.product.GuaranteeUnit">
@@ -118,7 +113,7 @@
           <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_garantia}}</p>
         </div>
 
-        <div class="input-element" flex="45">
+        <div class="input-element" flex="45" flex-xs="100">
           <p class="select-element-label"><label><strong>Tiempo de garantia (Unidad de medida)</strong></label></p>
           <md-input-container>
             <md-select class="select-element" placeholder="Tiempo de garantia (Unidad de medida)" ng-model="vm.product.GuaranteeUnitMsr">
@@ -131,9 +126,9 @@
       </div>
       <!--END GARANTIA-->
 
-      <section layout="row" layout-align="space-between start">
+      <section layout="row" layout-wrap layout-align="space-between start">
 
-        <div class="select-element-wrapper" flex="45">
+        <div class="select-element-wrapper" flex="45" flex-xs="100">
           <p class="select-element-label"><label><strong>Pais de producción (Diseñado en)</strong></label></p>
           <md-select class="select-element" placeholder="Pais de producción (Diseñado en)" ng-model="vm.product.DesignedInCountry">
             <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
@@ -143,7 +138,7 @@
           <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_disenado_en}}</p>
         </div>
 
-        <div class="select-element-wrapper" flex="45">
+        <div class="select-element-wrapper" flex="45" flex-xs="100">
           <p class="select-element-label"><label><strong>Pais de ensamble (Hecho en)</strong></label></p>
           <md-select  class="select-element" placeholder="Pais de ensamble (Hecho en)" ng-model="vm.product.MadeInCountry">
             <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">

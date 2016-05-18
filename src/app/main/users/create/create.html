@@ -18,7 +18,7 @@
 
         <section class="md-whiteframe-z1">
           <md-toolbar class="demo-toolbar md-primary">
-            <div class="md-toolbar-tools" layout="row" layout-align="space-between start">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
               <h3>REGISTRAR USUARIO</h3>
 
               <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
@@ -32,9 +32,9 @@
 
             <form name="basicForm" ng-submit="vm.sendForm($event)" class="md-inline-form" novalidate>
 
-              <section layout="row" layout-align="space-between start">
+              <section layout="row" layout-wrap layout-align="space-between start">
 
-                <div class="input-element" flex="30">
+                <div class="input-element" flex-xs="100" flex-sm="100" flex="30">
                   <label>Nombre*</label>
                   <div class="input-element-inner">
                     <input type="text" ng-model="vm.user.firstName" name="firstname" required placeholder="Nombre*">
@@ -47,7 +47,7 @@
                   </div>
                 </div>
 
-                <div class="input-element" flex="30">
+                <div class="input-element" flex-xs="100" flex-sm="100" flex="30">
                   <label>Apellidos*</label>
                   <div class="input-element-inner">
                     <input type="text" name="lastname" ng-model="vm.user.lastName" placeholder="Apellidos"
@@ -61,7 +61,7 @@
                   </div>
                 </div>
 
-                <div class="input-element" flex="30">
+                <div class="input-element" flex-xs="100" flex-sm="100" flex="30">
                   <label>Email*</label>
                   <div class="input-element-inner">
                     <input type="email" name="email" ng-model="vm.user.email" placeholder="Email"
@@ -80,9 +80,9 @@
 
               </section>
 
-              <section layout="row" layout-align="space-between start">
+              <section layout="row" layout-wrap layout-align="space-between start">
 
-                <div class="input-element" flex="45">
+                <div class="input-element" flex="45" flex-xs="100" flex-sm="100">
                   <label>Contraseña*</label>
                   <div class="input-element-inner">
                     <input type="password" name="password" ng-model="vm.user.password" placeholder="Contraseña*"
@@ -96,7 +96,7 @@
                   </div>
                 </div>
 
-                <div class="input-element" flex="45">
+                <div class="input-element" flex="45" flex-xs="100" flex-sm="100">
                   <label>Confirmar contraseña*</label>
                   <div class="input-element-inner">
                     <input type="password" name="confirmPassword" ng-model="vm.user.confirmPassword" placeholder="Confirmar contraseña"
@@ -118,9 +118,9 @@
 
               </section>
 
-              <section layout="row" layout-align="space-between start">
+              <section layout="row" layout-wrap layout-align="space-between start">
 
-                <div class="input-element " flex="45">
+                <div class="input-element " flex="45" flex-xs="100">
                   <p class="select-element-label"><label><strong>Rol</strong></label></p>
                   <md-input-container>
                     <md-select class="select-element select-element-lg" ng-model="vm.user.userType">
@@ -132,7 +132,7 @@
                 </div>
 
                 <!--Tienda-->
-                <div class="input-element" flex="45">
+                <div class="input-element" flex="45" flex-xs="100">
                   <p class="select-element-label"><label><strong>Tienda</strong></label></p>
                   <md-input-container>
                     <md-select class="select-element select-element-lg" ng-model="vm.user.company">

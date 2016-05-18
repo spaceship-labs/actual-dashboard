@@ -1,60 +1,66 @@
 <div>
   <section class="file-manager ">
     <md-toolbar class="demo-toolbar md-primary">
-      <div class="md-toolbar-tools">
+      <div class="md-toolbar-tools" layout-align="space-between center">
         <h3>MULTIMEDIA</h3>
+        <md-button ng-click="vm.updateMedia(mediaForm)" class="md-raised md-primary action-button">Guardar</md-button>
       </div>
     </md-toolbar>
     <md-content class="md-padding md-whiteframe-z1">
 
       <form name="mediaForm" ng-submit="vm.updateMedia(mediaForm)" class="md-inline-form" novalidate>
 
-        <div layout="row" layout-align="end center">
-          <md-button ng-click="vm.updateMedia(mediaForm)" class="md-raised md-primary action-button">Guardar</md-button>
-        </div>
-
         <!--IMAGEN PRINCIPAL-->
         <div>
-          <h2><strong>Imagen principal</strong></h2>
-          <div class="file-manager-thumbs" layout="row"   layout-align="space-between start" layout-wrap>
-            <span
-              ng-if="vm.product.icon_filename && !vm.isLoadingAvatar"
-              class="file-manager-thumb"
-              >
-              <img ngf-thumbnail="vm.api.baseUrl+'/uploads/products/201x201'+vm.product.icon_filename || 'assets/images/product.png'">
-            </span>
+          <h2><strong>IMAGEN PRINCIPAL</strong></h2>
 
-            <span ng-if='vm.isLoadingAvatar' class='loader' >
-              <div layout="row" layout-sm="column" layout-align="space-around">
-                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+          <section layout="row" layout-wrap layout-align="space-between start">
+
+            <!--IMAGEN PRINCIPAL INPUT-->
+            <div flex flex-sm="100" flex-xs="100">
+              <div class="file-manager-thumbs" layout="row"   layout-align="space-between start" layout-wrap>
+                <span
+                  ng-if="vm.product.icon_filename && !vm.isLoadingAvatar"
+                  class="file-manager-thumb"
+                  >
+                  <img ngf-thumbnail="vm.api.baseUrl+'/uploads/products/201x201'+vm.product.icon_filename || 'assets/images/product.png'">
+                </span>
+
+                <span ng-if='vm.isLoadingAvatar' class='loader' >
+                  <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                  </div>
+                  <span>Cargando</span>
+                </span>
+
               </div>
-              <span>Cargando</span>
-            </span>
 
-          </div>
+              <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Subir</md-button>
+              <md-button ng-if="vm.product.icon_filename" class="file-manager-btn md-raised md-warn" ng-click="vm.removeIcon()">Remover imagen</md-button>
+            </div>
+            <!--END IMAGEN PRINCIPAL INPUT-->
 
-          <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Subir</md-button>
-          <md-button ng-if="vm.product.icon_filename" class="file-manager-btn md-raised md-warn" ng-click="vm.removeIcon()">Remover imagen</md-button>
-
-        </div>
-
-
-        <div class="input-element">
-          <label>Titulo imagen principal</label>
-          <div class="input-element-inner">
-            <input type="text" ng-model="vm.product.icon_description" name="icon_description" placeholder="Titulo imagen principal">
-          </div>
-          <div ng-messages="mediaForm.icon_description.$error" ng-show="mediaForm.icon_description.$touched"
-               role="alert">
-              <div ng-message="required">
-                  <span>Este campo es requerido.</span>
+            <!--TITULO IMAGEN PRINCIPAL-->
+            <div class="input-element" flex flex-sm="100" flex-xs="100">
+              <label>Titulo imagen principal</label>
+              <div class="input-element-inner">
+                <input type="text" ng-model="vm.product.icon_description" name="icon_description" placeholder="Titulo imagen principal">
               </div>
-          </div>
+              <div ng-messages="mediaForm.icon_description.$error" ng-show="mediaForm.icon_description.$touched"
+                   role="alert">
+                  <div ng-message="required">
+                      <span>Este campo es requerido.</span>
+                  </div>
+              </div>
+            </div>
+            <!--END TITULO IMAGEN PRINCIPAL-->
+
+          </section>
         </div>
         <!--END IMAGEN PRINCIPAL-->
 
         <!--IMAGENES EXTRA-->
-        <h2><strong>Imagenes extra</strong></h2>
+        <h2><strong>IMAGENES EXTRA</strong></h2>
         <div ng-show="vm.isLoadingFiles" layout="row" layout-sm="column" layout-align="space-around">
           <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
         </div>
@@ -79,11 +85,11 @@
         <!--END IMAGENES EXTRA-->
 
         <!--VIDEO-->
-        <h2><strong>Video</strong></h2>
+        <h2><strong>VIDEO</strong></h2>
         <div class="input-element textarea-element">
           <label>Video(iframe)</label>
           <div class="input-element-inner">
-            <textarea ng-model="vm.product.Video" cols="30" rows="10"></textarea>
+            <textarea ng-model="vm.product.Video" cols="30" rows="3"></textarea>
           </div>
         </div>
         <!--END VIDEO-->

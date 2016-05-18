@@ -19,6 +19,8 @@
         vm.removeValue = removeValue;
         vm.editValue = editValue;
 
+        vm.selectedCategories = [];
+
         vm.filter = {
           Values:[]
         };
@@ -49,19 +51,19 @@
 
         function groupSelectedCategories(){
           vm.filter.Categories = [];
-          for(var i=0;i<vm.categoriesGroups.length;i++){
-            for(var j=0;j<vm.categoriesGroups[i].length;j++){
-              if(vm.categoriesGroups[i][j].selected){
-                vm.filter.Categories.push(vm.categoriesGroups[i][j].id);
-              }
-            }
+          for(var i=0; i<vm.categoriesGroups.length; i++){
+            vm.filter.Categories = vm.filter.Categories.concat(vm.selectedCategories[i]);
           }
+          console.log(vm.filter.Categories);
         }
 
         function loadCategories(){
           productService.getCategoriesGroups().then(function(res){
             console.log(res);
             vm.categoriesGroups = res.data;
+            for(var i=0;i<vm.categoriesGroups.length;i++){
+              vm.selectedCategories[i] = [];
+            }
           });
         }
 

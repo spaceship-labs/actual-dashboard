@@ -1,13 +1,5 @@
 <div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
 
-    <!-- HEADER -->
-    <div class="header md-accent-bg" layout="row" layout-align="space-between">
-        <div layout="column" layout-align="center start">
-            <div class="title">Filtros de productos</div>
-        </div>
-    </div>
-    <!-- / HEADER -->
-
     <!-- CONTENT -->
     <div class="content">
 
@@ -16,8 +8,13 @@
 
         <section class="md-whiteframe-z1">
           <md-toolbar class="demo-toolbar md-primary">
-            <div class="md-toolbar-tools">
-              <h3>Editar filtro</h3>
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+              <h3>EDITAR FILTRO</h3>
+              <div>
+                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
+                <md-button ng-click="vm.showDestroyDialog($event)" class="md-raised md-warn">Eliminar</md-button>
+              </div>
+
             </div>
           </md-toolbar>
           <md-content class="md-padding">
@@ -27,25 +24,30 @@
             </div>
 
             <form name="updateForm" ng-if="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
-              <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
-                <md-button ng-click="vm.showDestroyDialog($event)" class="md-raised md-warn">Eliminar</md-button>
-              </div>
 
-
-              <div class="input-element">
-                <label>Nombre*</label>
-                <div class="input-element-inner">
-                  <input type="text" ng-model="vm.filter.Name" required placeholder="Nombre*">
+              <section layout="row" layout-align="space-between end" layout-wrap>
+                <div flex="30" flex-sm="100" flex-xs="100" class="input-element">
+                  <label>Nombre*</label>
+                  <div class="input-element-inner">
+                    <input type="text" ng-model="vm.filter.Name" required placeholder="Nombre*">
+                  </div>
                 </div>
-              </div>
 
-              <div class="input-element">
-                <label>URL*</label>
-                <div class="input-element-inner">
-                  <input type="text" ng-model="vm.filter.Handle" required placeholder="URL*">
+                <div flex="30" flex-sm="100" flex-xs="100" class="input-element">
+                  <label>URL*</label>
+                  <div class="input-element-inner">
+                    <input type="text" ng-model="vm.filter.Handle" required placeholder="URL*">
+                  </div>
                 </div>
-              </div>
+
+                <div flex="30" flex-sm="100" flex-xs="100">
+                  <p>
+                    <md-checkbox ng-model="vm.filter.IsMultiple" aria-label="¿Acepta valores multiples?">
+                      ¿Acepta valores multiples?
+                    </md-checkbox>
+                  </p>
+                </div>
+              </section>
 
               <div class="input-element textarea-element">
                 <label>Descripción</label>
@@ -53,12 +55,6 @@
                   <textarea ng-model="vm.filter.Description" placeholder="Descripción" rows="5"></textarea>
                 </div>
               </div>
-
-              <p>
-                <md-checkbox ng-model="vm.filter.IsMultiple" aria-label="¿Acepta valores multiples?">
-                  ¿Acepta valores multiples?
-                </md-checkbox>
-              </p>
 
 
               <!--FILTER VALUES-->
@@ -106,12 +102,25 @@
                 <h2><strong>Categorias con este filtro</strong></h2>
 
                 <div layout="row" layout-wrap>
-                  <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100" >
+                  <div ng-repeat="group in vm.categoriesGroups track by $index" flex="33" flex-sm="100" flex-xs="100">
                     <p ng-if="group.length > 0">
                       <label><strong>Categorias Nivel {{$index+1}}</strong></label>
                     </p>
                     <div class="scroll-column">
+                      <!--
                       <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="category in group" ng-model="category.selected">{{category.Name}}</md-checkbox>
+                      -->
+                      <md-input-container class="checkboxes-dropdown-wrap">
+                        <md-select class="checkboxes-dropdown select-element" ng-model="vm.selectedCategories[$index]"
+                           data-md-container-class="selectdemoSelectHeader"
+                           multiple
+                        >
+                          <md-optgroup label="Categorias">
+                            <md-option ng-value="category.id" ng-repeat="category in group |
+                              filter:searchTerm">{{category.Name}}</md-option>
+                          </md-optgroup>
+                        </md-select>
+                      </md-input-container>
                     </div>
                   </div>
                 </div>

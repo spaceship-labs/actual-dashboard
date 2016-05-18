@@ -28,6 +28,8 @@
         vm.destroyFn = productService.destroyFilterById;
         vm.selectedValue = false;
 
+        vm.selectedCategories = [];
+
         vm.init();
 
         //Methods
@@ -75,7 +77,9 @@
             vm.isLoading = true;
             vm.groupSelectedCategories();
             vm.getValuesOrder();
-            productService.updateFilterById(vm.filter.id, vm.filter).then(function(res){
+            var params = angular.copy(vm.filter);
+            delete params.Values;
+            productService.updateFilterById(vm.filter.id, params).then(function(res){
               console.log(res);
               vm.isLoading = false;
               dialogService.showDialog('Filtro actualizado');
@@ -107,13 +111,11 @@
 
         function groupSelectedCategories(){
           vm.filter.Categories = [];
-          for(var i=0;i<vm.categoriesGroups.length;i++){
-            for(var j=0;j<vm.categoriesGroups[i].length;j++){
-              if(vm.categoriesGroups[i][j].selected){
-                vm.filter.Categories.push(vm.categoriesGroups[i][j]);
-              }
-            }
+          for(var i=0; i<vm.categoriesGroups.length; i++){
+            console.log('selectedCategories'+i , vm.selectedCategories[i]);
+            vm.filter.Categories = vm.filter.Categories.concat(vm.selectedCategories[i]);
           }
+          console.log(vm.filter.Categories);
         }
 
         function loadCategories(){
@@ -126,10 +128,11 @@
 
         function formatCategoryGroups(){
           for(var i=0;i<vm.categoriesGroups.length;i++){
+            vm.selectedCategories[i] = [];
             for(var j=0;j<vm.filter.Categories.length;j++){
               vm.categoriesGroups[i] = vm.categoriesGroups[i].map(function(category){
                 if(vm.filter.Categories[j].id == category.id){
-                  category.selected = true;
+                  vm.selectedCategories[i].push(category.id);
                 }
                 return category;
               });
