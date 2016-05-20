@@ -43,7 +43,7 @@
           {label:'Actual Home', handle:'Actual Home'},
           {label:'Actual Kids', handle:'Actual Kids'},
           {label:'Actual Group', handle:'Actual Group'},
-        ];  
+        ];
 
         vm.allAppModules = {
           label: 'TODOS',
@@ -53,7 +53,7 @@
         vm.appModules = [
           {
             label:'CONFIGURACIONES',
-            handle:'config', 
+            handle:'config',
             subModules:[
               {label:'Todas', handle:'config-all'},
               {label:'Usuarios', handle:'config-users'},
@@ -65,7 +65,7 @@
           },
           {label: 'ARTICULOS', handle: 'articles'},
           {label:'MARKETING', handle:'marketing'}
-        ];      
+        ];
 
         // Methods
         vm.sendForm = sendForm;
@@ -86,13 +86,13 @@
                 .then(
                   function(res){
                     console.log(res);
-                    vm.isLoading = true;
-                    dialogService.showDialog('Datos guardados',ev);
+                    vm.isLoading = false;
+                    dialogService.showDialog('Datos guardados');
                   },
                   function(err){
                     console.log(err);
                     vm.isLoading = false;
-                    dialogService.showDialog('Error, intenta de nuevo',ev);
+                    dialogService.showDialog('Error, intenta de nuevo');
                   }
                 );
           }
@@ -115,7 +115,7 @@
             list.push(item);
           }
         }
-        
+
         function moduleExists(item, list) {
           return list.indexOf(item) > -1;
         }
@@ -141,7 +141,7 @@
           } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
             $scope.selected = $scope.items.slice(0);
           }
-        }        
+        }
 
     }
 })();

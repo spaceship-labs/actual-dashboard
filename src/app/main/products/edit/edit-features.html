@@ -14,16 +14,13 @@
       <div>
         <div layout="row" layout-wrap layout-align="start start">
           <div ng-if="vm.loadedFilters" ng-repeat="filter in vm.filters | orderBy: 'IsMultiple'" class="filter-column" flex="33" flex-xs="100">
-            <p ng-if="filter.IsMultiple"><label><strong>{{filter.Name}}</strong></label></p>
 
             <div ng-if="filter.IsMultiple && filter.Name != 'Color paleta' " class="scroll-column">
-
-              <!--
-              <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="value in filter.Values" ng-model="value.selected">{{value.Name}}</md-checkbox>
-              -->
-
+              <p ng-if="filter.IsMultiple" class="select-element-label">
+                <label><strong>{{filter.Name}}</strong></label>
+              </p>
               <md-input-container class="checkboxes-dropdown-wrap">
-                <md-select class="checkboxes-dropdown select-element" ng-model="filter.selectedValues"
+                <md-select class="checkboxes-dropdown select-element select-element-md2" ng-model="filter.selectedValues"
                    data-md-container-class="selectdemoSelectHeader"
                    multiple
                 >
@@ -39,33 +36,13 @@
             <div ng-if="!filter.IsMultiple && filter.Name != 'Color paleta' ">
               <p class="select-element-label"><label><strong>{{filter.Name}}</strong></label></p>
               <md-input-container>
-                <md-select class="select-element" placeholder="{{filter.Name}}" ng-model="filter.selectedValue">
+                <md-select class="select-element select-element-md2" placeholder="{{filter.Name}}" ng-model="filter.selectedValue">
                   <md-option value="false">Ninguno</md-option>
                   <md-option ng-repeat="value in filter.Values track by $index" value="{{$index}}">
                     {{value.Name}}
                   </md-option>
                 </md-select>
               </md-input-container>
-            </div>
-
-            <!--COLOR-->
-            <div ng-if="filter.Name == 'Color' || filter.Name == 'Color paleta' ">
-              <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
-                <a
-                  ng-repeat="color in filter.Values"
-                  ng-click="vm.toggleColor(color.id, filter)"
-                  ng-class="{'wrap-on': vm.isActiveColor(color.id, filter)}"
-                  class="colorpicker-sp-color-wrap"
-                  flex="33"
-                  title="{{color.Name}}"
-                  >
-                  <span
-                    class="colorpicker-sp-color"
-                    ng-class="{ 'colorpicker-sp-color-black' : (color.Code == 'Negro' || color.Code == '#000000') }"
-                    ng-style="{'background-color': color.Code}">
-                  </span>
-                </a>
-              </div>
             </div>
 
           </div>
@@ -75,20 +52,47 @@
       </div>
       <!--END FILTERS-->
 
-      <div class="input-element">
-        <label>Color detallado*</label>
-        <div class="input-element-inner">
-          <input type="text" ng-model="vm.product.DetailedColor" name="Color_detallado" required placeholder="Color detallado *">
+
+      <section class="color-section" layout="row" layout-wrap layout-align="start start">
+        <!--COLOR-->
+
+        <div class="input-element">
+          <label>Color detallado*</label>
+          <div class="input-element-inner">
+            <input type="text" ng-model="vm.product.DetailedColor" name="Color_detallado" required placeholder="Color detallado *">
+          </div>
+          <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_COLOR}}</p>
+          <div ng-messages="featuresForm.Color_detallado.$error" ng-show="featuresForm.Color_detallado.$touched"
+               role="alert">
+              <div ng-message="required">
+                  <span>Este campo es requerido.</span>
+              </div>
+          </div>
         </div>
-        <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_COLOR}}</p>
-        <div ng-messages="featuresForm.Color_detallado.$error" ng-show="featuresForm.Color_detallado.$touched"
-             role="alert">
-            <div ng-message="required">
-                <span>Este campo es requerido.</span>
-            </div>
+
+        <div class="colorpicker-sp-wrapper">
+          <label><strong>Color</strong></label>
+          <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
+            <a
+              ng-repeat="color in vm.colorFilter.Values"
+              ng-click="vm.toggleColor(color.id, vm.colorFilter)"
+              ng-class="{'wrap-on': vm.isActiveColor(color.id, vm.colorFilter)}"
+              class="colorpicker-sp-color-wrap"
+              flex
+              title="{{color.Name}}"
+              >
+              <span
+                class="colorpicker-sp-color"
+                ng-class="{ 'colorpicker-sp-color-black' : (color.Code == 'Negro' || color.Code == '#000000') }"
+                ng-style="{'background-color': color.Code}">
+              </span>
+            </a>
+          </div>
         </div>
-      </div>
-      <!--END COLOR-->
+
+        <!--END COLOR-->
+
+      </section>
 
       <!--ASIENTOS-->
       <!--
@@ -105,7 +109,7 @@
       <div class="wyswyg-block">
         <h2><strong>GARANTIA</strong></h2>
         <label for=""><strong>Texto garantia</strong></label>
-        <wysiwyg-edit content="vm.product.GuaranteeText"></wysiwyg-edit>
+        <textarea ui-tinymce="tinymceOptions" ng-model="vm.product.GuaranteeText"></textarea>
       </div>
 
       <div layout="row" >

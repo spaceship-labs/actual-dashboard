@@ -88,9 +88,20 @@ div.dataTables_filter label{float: left;}
 .spaced-checkbox{margin: 10px!important;}
 .block-checkbox{display: block;}
 
+.color-section{
+  margin: 20px 0;
+}
+
+.colorpicker-sp-wrapper{
+  margin: 0 20px;
+}
+
 .colorpicker-sp{
   padding: 10px;
-  max-width: 200px;
+  /*max-width: 200px;*/
+  max-width: 800px;
+  margin: 0px 0px;
+  min-width: 400px;
 }
 .colorpicker-sp-color-wrap{
   padding: 4px;
@@ -208,6 +219,10 @@ div.dataTables_filter label{float: left;}
 .select-element-md{
   min-width: 280px;
 }
+.select-element-md2{
+  max-width: 280px;
+}
+
 .select-element-lg{
   min-width: 360px;
 }
@@ -306,7 +321,14 @@ table.dataTable thead th{
   background-color: whitesmoke!important;
 }
 
-.filter-column{padding: 0 10px;}
+.filter-column{
+  /*padding: 0 10px;*/
+}
+.checkboxes-dropdown-wrap{
+  margin: 18px 0;
+}
+
+
 .scroll-column{
   overflow: auto;
   max-height: 200px;

@@ -44,6 +44,12 @@
           $scope.user = localStorageService.get('user');
         }
 
+       $scope.tinymceOptions = {
+          plugins: 'link wordcount',
+          toolbar: 'undo redo | bold italic | alignleft aligncenter alignright ',
+          browser_spellcheck: true
+        };
+
         // Data
         vm.themes = fuseTheming.themes;
 

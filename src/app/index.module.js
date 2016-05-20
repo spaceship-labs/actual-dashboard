@@ -63,6 +63,7 @@
             'ngWYSIWYG',
             'textAngular',
             'dndLists',
-            'ngMaterialDatePicker'
+            'ngMaterialDatePicker',
+            'ui.tinymce'
         ]);
 })();

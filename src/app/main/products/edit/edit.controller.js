@@ -51,6 +51,9 @@
         vm.isLoadingFiles = false;
         vm.isLoadingGroups = false;
 
+        vm.counterColors = 0;
+        vm.colorFilter = false;
+
         vm.openGroupForm = openGroupForm;
         vm.checkAllMark = checkAllMark;
         vm.getRelatedProducts = getRelatedProducts;
@@ -446,6 +449,7 @@
             vm.sortFiltersValues();
             vm.formatFiltersValues();
             vm.loadedFilters = true;
+
           });
         }
 
@@ -572,6 +576,12 @@
                 }
               });
             });
+
+            if(filter.Name === 'Color paleta'){
+              vm.colorFilter = filter;
+              vm.counterColors = filter.selectedValues.length;
+            }
+
           });
         }
 
@@ -611,12 +621,18 @@
         function toggleColor(colorId, filter){
           console.log('toggleColor');
           console.log(filter);
+          console.log(vm.counterColors);
           if(filter.selectedValues){
             var index = filter.selectedValues.indexOf(colorId);
             if(index > -1){
               filter.selectedValues.splice(index, 1);
-            }else{
+              if(vm.counterColors > 0){
+                vm.counterColors--;
+              }
+            }
+            else if(vm.counterColors < 4){
               filter.selectedValues.push(colorId);
+              vm.counterColors++;
             }
           }
         }
