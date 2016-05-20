@@ -34,7 +34,7 @@
         }
 
         function create(form){
-          if(form.$valid && vm.filter.Values.length > 0){
+          if(form.$valid){
             vm.isLoading = true;
             vm.groupSelectedCategories();
             productService.createFilter(vm.filter).then(function(res){
@@ -45,7 +45,11 @@
             });
           }
           else{
-            dialogService.showDialog('Campos incompletos');
+            var errors = [];
+            form.$error.required.forEach(function(err){
+              errors.push(err.$name);
+            });
+            dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }
 

@@ -16,6 +16,7 @@
         getCategories: getCategories,
         update: update,
         removeIcon: removeIcon,
+        getProductsbySuppCatNum: getProductsbySuppCatNum,
 
         //Categories
         createCategory: createCategory,
@@ -258,6 +259,10 @@
         return api.$http.post(url, params);
       }
 
+      function getProductsbySuppCatNum(id){
+        var url = '/product/getproductsbysuppcatnum/' + id;
+        return api.$http.post(url);
+      }
 
     }
 

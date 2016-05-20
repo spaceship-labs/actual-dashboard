@@ -14,10 +14,10 @@
         <div>
           <h2><strong>IMAGEN PRINCIPAL</strong></h2>
 
-          <section layout="row" layout-wrap layout-align="space-between start">
+          <section layout="row" layout-wrap layout-align="start start">
 
             <!--IMAGEN PRINCIPAL INPUT-->
-            <div flex flex-sm="100" flex-xs="100">
+            <div flex="25" flex-sm="100" flex-xs="100">
               <div class="file-manager-thumbs" layout="row"   layout-align="space-between start" layout-wrap>
                 <span
                   ng-if="vm.product.icon_filename && !vm.isLoadingAvatar"
@@ -41,7 +41,7 @@
             <!--END IMAGEN PRINCIPAL INPUT-->
 
             <!--TITULO IMAGEN PRINCIPAL-->
-            <div class="input-element" flex flex-sm="100" flex-xs="100">
+            <div class="input-element" flex="75" flex-sm="100" flex-xs="100">
               <label>Titulo imagen principal</label>
               <div class="input-element-inner">
                 <input type="text" ng-model="vm.product.icon_description" name="icon_description" placeholder="Titulo imagen principal">

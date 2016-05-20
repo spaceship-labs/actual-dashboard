@@ -7,7 +7,7 @@
         .controller('UsersEditController', UsersEditController);
 
     /** @ngInject */
-    function UsersEditController($mdDialog, $stateParams, userService){
+    function UsersEditController($mdDialog, $stateParams, userService, dialogService){
         var vm = this;
 
         // Data
@@ -35,7 +35,7 @@
           {label:'Actual Studio', handle:'Actual Studio'},
           {label:'Actual Home', handle:'Actual Home'},
           {label:'Actual Kids', handle:'Actual Kids'},
-          {label:'Actual Group', handle:'Actual Group'},          
+          {label:'Actual Group', handle:'Actual Group'},
         ];
 
 
@@ -65,15 +65,16 @@
             userService.update(vm.user.id,vm.user)
               .then(
                 function(res){
-                  showDialog('Datos guardados',ev);
+                  //showDialog('Datos guardados',ev);
+                  dialogService.showDialog('Datos guardados');
                   // Clear the form data
                   vm.formWizard = {};
-
                 },
-                function(err){
-                console.log(err);
+                function(errUpdate){
+                  console.log(errUpdate);
+                  dialogService.showErrorMessage('Hubo un error');
                 }
-              );
+            );
 
         }
 

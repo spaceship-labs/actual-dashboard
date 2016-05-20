@@ -22,9 +22,6 @@
 
         $scope.isLoading = false;
 
-        console.log('llego al controller');
-        console.log($scope.isLoading);
-
         $scope.destroyFn = productService.destroyCategorybyId;
 
         //$scope.category = {};

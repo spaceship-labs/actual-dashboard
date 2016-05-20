@@ -7,7 +7,7 @@
         .controller('ProductEditController', ProductEditController);
 
     /** @ngInject */
-    function ProductEditController(dialogService, commonService, $stateParams, productService,Upload, api, $http, $q, $mdDialog, $mdMedia){
+    function ProductEditController(dialogService, commonService, $stateParams, $scope, productService,Upload, api, $http, $q, $mdDialog, $mdMedia){
         var vm = this;
         vm.uploadFiles = uploadFiles;
         vm.removeFiles = removeFiles;
@@ -52,6 +52,8 @@
         vm.isLoadingGroups = false;
 
         vm.openGroupForm = openGroupForm;
+        vm.checkAllMark = checkAllMark;
+        vm.getRelatedProducts = getRelatedProducts;
 
         // Data
         vm.loading = [];
@@ -61,6 +63,7 @@
         vm.removeMethod = '/product/removefiles';
         vm.dir = 'products/gallery';
         vm.api = api;
+        vm.relatedProducts = [];
 
 
         vm.ensembles = [
@@ -101,7 +104,7 @@
         ];
 
         vm.companies = [
-          {label:'Ninguno', handle:'none'},
+          {label:'Ninguno', handle:'Ninguno'},
           {label:'Actual Studio', handle:'Actual Studio'},
           {label:'Actual Home', handle:'Actual Home'},
           {label:'Actual Kids', handle:'Actual Kids'},
@@ -132,12 +135,29 @@
             if(!vm.product.Seats){
               vm.product.Seats = 0;
             }
+
+            if(!vm.product.Name){
+              vm.product.Name = vm.product.ItemName;
+            }
+
+            if(!vm.product.DetailedColor){
+              vm.product.DetailedColor = vm.product.U_COLOR;
+            }
+
             vm.loadCategories();
             vm.loadFilters();
             //vm.loadColors();
             vm.loadBrands();
             vm.sortImages();
             vm.countries = commonService.getCountriesList();
+            vm.getRelatedProducts(vm.product.SuppCatNum);
+          });
+        }
+
+        function getRelatedProducts(SuppCatNum){
+          productService.getProductsbySuppCatNum(SuppCatNum).then(function(res){
+            console.log(res);
+            vm.relatedProducts = res.data;
           });
         }
 
@@ -150,6 +170,7 @@
         }
 
         function updateConfig(form){
+          console.log(form);
           if(form.$valid){
             vm.isLoading = true;
             vm.groupSelectedCategories();
@@ -170,7 +191,11 @@
             });
 
           }else{
-            dialogService.showDialog('Campos incompletos');
+            var errors = [];
+            form.$error.required.forEach(function(err){
+              errors.push(err.$name);
+            });
+            dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }
 
@@ -190,7 +215,11 @@
               console.log(res);
             });
           }else{
-            dialogService.showDialog('Campos incompletos');
+            var errors = [];
+            form.$error.required.forEach(function(err){
+              errors.push(err.$name);
+            });
+            dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }
 
@@ -213,7 +242,11 @@
               console.log(res);
             });
           }else{
-            dialogService.showDialog('Campos incompletos');
+            var errors = [];
+            form.$error.required.forEach(function(err){
+              errors.push(err.$name);
+            });
+            dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }
 
@@ -229,7 +262,14 @@
               Length: vm.product.Length,
               LengthUnitMsr: vm.product.LengthUnitMsr,
               Width: vm.product.Width,
-              WidthUnitMsr: vm.product.WidthUnitMsr
+              WidthUnitMsr: vm.product.WidthUnitMsr,
+              Height: vm.product.Height,
+              HeightUnitMsr: vm.product.HeightUnitMsr,
+              Volume: vm.product.Volume,
+              VolumeUnitMsr: vm.product.VolumeUnitMsr,
+              Weight: vm.product.Weight,
+              WeightUnitMsr: vm.product.WeightUnitMsr,
+
             };
             productService.update(vm.product.ItemCode, params).then(function(res){
               vm.isLoading = false;
@@ -237,7 +277,11 @@
               console.log(res);
             });
           }else{
-            dialogService.showDialog('Campos incompletos');
+            var errors = [];
+            form.$error.required.forEach(function(err){
+              errors.push(err.$name);
+            });
+            dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }
 
@@ -254,7 +298,11 @@
               console.log(res);
             });
           }else{
-            dialogService.showDialog('Campos incompletos');
+            var errors = [];
+            form.$error.required.forEach(function(err){
+              errors.push(err.$name);
+            });
+            dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }
 
@@ -633,6 +681,22 @@
             vm.isLoadingGroups = false;
           });
         }
+
+
+        function checkAllMark(display){
+          if(display){
+            vm.toggleAllDisplays = false;
+          }
+        }
+
+
+        $scope.$watch('vm.toggleAllDisplays', function(newVal, oldVal){
+          if(newVal != oldVal && newVal == true){
+            vm.displays.forEach(function(display){
+              vm.product[display.handle] = newVal;
+            });
+          }
+        });
 
 
         /*-------------------/

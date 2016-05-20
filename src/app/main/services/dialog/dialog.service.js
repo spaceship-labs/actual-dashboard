@@ -19,7 +19,8 @@
         var service = {
             showDialog: showDialog,
             showDestroyDialog: showDestroyDialog,
-            showMessageDialog: showMessageDialog
+            showMessageDialog: showMessageDialog,
+            showErrorMessage: showErrorMessage
         };
 
         return service;
@@ -35,6 +36,36 @@
               controller: dialogController,
               template           : '<md-dialog>' +
               '  <md-dialog-content><h1>' + message + '</h1></md-dialog-content>' +
+              '  <md-dialog-actions>' +
+              '    <md-button ng-click="closeDialog()" class="md-primary">' +
+              '      Aceptar' +
+              '    </md-button>' +
+              '  </md-dialog-actions>' +
+              '</md-dialog>',
+              parent             : parentCon,
+              targetEvent        : ev,
+              clickOutsideToClose: true
+          });
+        }
+
+
+        function showErrorMessage(message, errors, parent, ev){
+          var parentCon = angular.element('body');
+          if(parent){
+            parentCon = angular.element(parent);
+          }
+          var errorsHtml = '';
+          errors.forEach(function(error){
+            errorsHtml += '<li>'+error+'</li>';
+          });
+
+          // Show the sent data.. you can delete this safely.
+          $mdDialog.show({
+              controller: dialogController,
+              template           : '<md-dialog>' +
+              '  <md-dialog-content>' +
+                '<h1>' + message + '</h1>' + errorsHtml +
+              '</md-dialog-content>' +
               '  <md-dialog-actions>' +
               '    <md-button ng-click="closeDialog()" class="md-primary">' +
               '      Aceptar' +

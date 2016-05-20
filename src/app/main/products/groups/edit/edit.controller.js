@@ -53,7 +53,11 @@
             });
           }
           else{
-            dialogService.showDialog('Campos incompletos');
+            var errors = [];
+            form.$error.required.forEach(function(err){
+              errors.push(err.$name);
+            });
+            dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }
 

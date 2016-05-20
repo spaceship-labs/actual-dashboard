@@ -46,35 +46,41 @@
       </div>
       <!--END CATEGORY CHOOSER-->
 
-      <!--DISPLAYS-->
-      <div>
-        <h2><strong>Pagina Display</strong></h2>
-        <div>
-          <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="display in vm.displays" ng-model="vm.product[display.handle]">{{display.label}}</md-checkbox>
-        </div>
-      </div>
-      <!--END DISPLAYS-->
+
 
       <section layout="row" layout-wrap layout-align="space-between start">
 
         <!--DISPLAYS-->
-        <div flex flex-sm="100" flex-xs="100">
+        <div class="editor-column" flex="30" flex-sm="100" flex-xs="100">
+          <h2><strong>Pagina Display</strong></h2>
+          <div>
+            <md-checkbox class="spaced-checkbox block-checkbox" ng-model="vm.toggleAllDisplays">
+              Todos
+            </md-checkbox>
+
+            <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="display in vm.displays" ng-model="vm.product[display.handle]" ng-click="vm.checkAllMark( vm.product[display.handle] )">{{display.label}}</md-checkbox>
+          </div>
+        </div>
+        <!--END DISPLAYS-->
+
+        <!--SOCIEDAD-->
+        <div class="editor-column" flex="30" flex-sm="100" flex-xs="100">
           <p class="select-element-label"><label><strong>Sociedad*</strong></label></p>
           <md-input-container>
-            <md-select class="select-element" placeholder="Compañia" required ng-model="vm.product.SA">
+            <md-select class="select-element" placeholder="Sociedad" name="Sociedad" required ng-model="vm.product.SA">
               <md-option ng-repeat="company in vm.companies track by $index" value="{{company.handle}}">
                 {{company.handle}}
               </md-option>
             </md-select>
           </md-input-container>
         </div>
-        <!--END DISPLAYS-->
+        <!--END SOCIEDAD-->
 
         <!--MARCA-->
-        <div flex flex-sm="100" flex-xs="100">
+        <div class="editor-column" flex="30" flex-sm="100" flex-xs="100">
             <p class="select-element-label"><label><strong>Marca</strong></label></p>
             <md-input-container>
-              <md-select class="select-element select-element-lg" ng-model="vm.product.Brand">
+              <md-select class="select-element select-element-md" ng-model="vm.product.Brand">
 
                 <md-option ng-repeat="brand in vm.brands track by $index" ng-value="brand.ItmsGrpCod">
                   {{brand.ItmsGrpNam}}
@@ -87,30 +93,26 @@
 
       </section>
 
-      <!--MODELO-->
-      <!--
-      <div>
-        <h2><strong>Agrupador de productos (Modelo)</strong></h2>
-
-        <div class="input-element">
-          <label>Código de agrupador</label>
-          <div class="input-element-inner">
-            <input type="text" ng-model="vm.product.Grouper" name="Grouper" placeholder="Código de agrupador" >
-          </div>
-          <p class="input-hint"><strong>SAP</strong>: {{vm.product.SuppCatNum}}</p>
-        </div>
-
-      </div>
-      -->
-      <!--MODELO-->
-
       <!--GROUP PRODUCTS-->
       <div>
         <h2>
           <label><strong>AGRUPADORES</strong></label>
           <a href="" ng-click="vm.openGroupForm($event)">(Crear nuevo agrupador)</a>
         </h2>
-        <p class="input-hint"><strong>SAP</strong>: {{vm.product.SuppCatNum}}</p>
+        <p class="input-hint">
+          <strong>SAP</strong>: {{vm.product.SuppCatNum}}
+          <span class="related-list" ng-if="vm.relatedProducts.length > 0">
+             | Relacionados:
+            <a
+              ng-repeat="related in vm.relatedProducts track by $index"
+              ng-href="/products/edit/{{related.ItemCode}}"
+              target="_blank"
+              ng-if="related.ItemCode != vm.product.ItemCode"
+            >
+              {{related.ItemCode}}
+            </a>
+          </span>
+        </p>
         <md-autocomplete
             md-no-cache="false"
             md-selected-item="vm.selectedGroup"

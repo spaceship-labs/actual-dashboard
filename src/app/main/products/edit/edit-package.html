@@ -39,16 +39,16 @@
       </div>
 
 
-      <section layout="row" layout-wrap layout-align="space-between start">
+      <section layout="row" layout-wrap layout-align="start start">
 
-        <div class="input-element number-element" flex="45" flex-xs="100" flex-sm="100">
+        <div class="input-element number-element input-col"  flex-xs="100" flex-sm="100">
           <label>Piezas comerciales</label>
           <div class="input-element-inner">
             <input type="number" ng-model="vm.product.CommercialPieces">
           </div>
         </div>
 
-        <div class="input-element number-element" flex="45" flex-xs="100" flex-sm="100">
+        <div class="input-element number-element input-col"  flex-xs="100" flex-sm="100">
           <label>Piezas de envío</label>
           <div class="input-element-inner">
             <input type="number" ng-model="vm.product.DeliveryPieces">
@@ -163,7 +163,7 @@
 
       <!--SIZES-->
       <div>
-        <p><label><strong>Medidas y peso pieza empaque</strong></label></p>
+        <h2>Medidas y peso pieza empaque</h2>
         <p ng-if="vm.product.Sizes.length <= 0">No hay medidas agregadas a este producto</p>
         <div ng-show="vm.isLoadingSizes" layout="row" layout-sm="column" layout-align="space-around">
           <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>

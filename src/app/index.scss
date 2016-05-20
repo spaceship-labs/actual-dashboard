@@ -83,7 +83,7 @@ div.dataTables_filter label{float: left;}
 .row-info{margin:10px 0}
 
 .content md-tabs-content-wrapper{margin-top:20px;}
-.wyswyg-block{margin: 20px 0;}
+.wyswyg-block{margin: 6px 0;}
 
 .spaced-checkbox{margin: 10px!important;}
 .block-checkbox{display: block;}
@@ -99,12 +99,26 @@ div.dataTables_filter label{float: left;}
   cursor: pointer;
 }
 .colorpicker-sp-color-wrap.wrap-on .colorpicker-sp-color{
+  /*
   border: 3px solid #fff;
-  padding: 7px;
   outline: #039BE5;
   outline-width: 2px;
   outline-style: solid;
+  */
+  padding: 7px;
+  text-align: center;
 }
+
+.colorpicker-sp-color-wrap.wrap-on .colorpicker-sp-color:after{
+  content: '\2713';
+  color: #000;
+  font-size: 18px;
+}
+
+.colorpicker-sp-color-wrap.wrap-on .colorpicker-sp-color-black:after{
+  color: #fff;
+}
+
 .colorpicker-sp-color{
   display: inline-block;
   height: 30px;
@@ -148,12 +162,13 @@ div.dataTables_filter label{float: left;}
   max-width: 100%;
   border-radius: 2px;
   display: block;
-  margin: 20px 0;
+  margin: 6px 0;
   position: relative;
   overflow: visible;
 }
 .input-element > label{
   font-weight: 700;
+  font-size: 12px;
 }
 
 .select-element,
@@ -164,7 +179,8 @@ div.dataTables_filter label{float: left;}
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
   position: relative;
   overflow: visible;
-  height: 36px;
+  height: 28px;
+  /*height: 36px;*/
 }
 
 .select-element md-select,
@@ -173,7 +189,8 @@ div.dataTables_filter label{float: left;}
 .input-element .input-element-inner input[type="password"],
 .input-element .input-element-inner input[type="email"],
 .input-element .input-element-inner input[type="number"]{
-  font-size: 14px;
+  /*font-size: 14px;*/
+  font-size: 12px;
   box-sizing: border-box;
   border: none;
   box-shadow: none;
@@ -181,8 +198,15 @@ div.dataTables_filter label{float: left;}
   background: transparent;
   width: 100%;
   padding: 0 15px;
+  /*
   line-height: 36px;
   height: 36px;
+  */
+  height: 28px;
+}
+
+.select-element-md{
+  min-width: 280px;
 }
 .select-element-lg{
   min-width: 360px;
@@ -213,7 +237,7 @@ wysiwyg-edit .tinyeditor .sizer{
 }
 .select-element-label{margin: 0}
 .select-element-label + md-input-container{margin-top:0;}
-.select-element-wrapper{margin: 20px 0;}
+.select-element-wrapper{margin: 6px 0;}
 
 .select-element-wrapper-nomargin{
   margin: 0;
@@ -221,7 +245,13 @@ wysiwyg-edit .tinyeditor .sizer{
 .select-element-wrapper-nomargin .select-element-label{
   margin: 0;
 }
-.select-element-wrapper-nomargin md-input-container{margin: 18px 0;}
+.select-element-wrapper-nomargin md-input-container{margin: 4px 0;}
+.select-element .md-select-value{
+  height: 18px;
+  font-size: 12px;
+}
+.select-element .md-select-value .md-text{font-size: 12px;}
+
 
 /*----------------/
   #ERROR FIELDS & SAP HINTS
@@ -400,4 +430,34 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
 
 .dataTable .icon-pencil{
   color:rgb(3,155,229)!important;
+}
+
+.editor-column{
+  margin: 10px 0;
+}
+.editor-column h2{
+  margin: 0 0 10px;
+}
+
+.related-list a:not(:last-child):after{
+  content: ',';
+}
+
+
+#content form h2{font-size: 14px;}
+#content form p{
+  font-size: 12px;
+  margin: 6px 0;
+}
+#content form .block-checkbox{
+  font-size: 12px;
+}
+#content form label{font-size: 12px;}
+md-option{
+  height: 28px;
+}
+md-option .md-text{font-size: 12px;}
+
+.input-col + .input-col{
+  margin: 6px 14px;
 }

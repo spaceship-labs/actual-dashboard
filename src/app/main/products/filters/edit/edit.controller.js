@@ -73,7 +73,9 @@
         }
 
         function update(form){
-          if(form.$valid && vm.filter.Values.length > 0){
+          //if(form.$valid && vm.filter.Values.length > 0){
+          console.log(form);
+          if(form.$valid){
             vm.isLoading = true;
             vm.groupSelectedCategories();
             vm.getValuesOrder();
@@ -87,7 +89,11 @@
             });
           }
           else{
-            dialogService.showDialog('Campos incompletos');
+            var errors = [];
+            form.$error.required.forEach(function(err){
+              errors.push(err.$name);
+            });
+            dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }
 

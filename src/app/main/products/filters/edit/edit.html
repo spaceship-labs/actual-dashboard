@@ -23,20 +23,20 @@
               <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
             </div>
 
-            <form name="updateForm" ng-if="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
+            <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
 
               <section layout="row" layout-align="space-between end" layout-wrap>
                 <div flex="30" flex-sm="100" flex-xs="100" class="input-element">
                   <label>Nombre*</label>
                   <div class="input-element-inner">
-                    <input type="text" ng-model="vm.filter.Name" required placeholder="Nombre*">
+                    <input type="text" ng-model="vm.filter.Name" name="Nombre" required placeholder="Nombre*">
                   </div>
                 </div>
 
                 <div flex="30" flex-sm="100" flex-xs="100" class="input-element">
                   <label>URL*</label>
                   <div class="input-element-inner">
-                    <input type="text" ng-model="vm.filter.Handle" required placeholder="URL*">
+                    <input type="text" ng-model="vm.filter.Handle" name="URL" required placeholder="URL*">
                   </div>
                 </div>
 
