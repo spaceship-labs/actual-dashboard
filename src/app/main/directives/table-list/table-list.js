@@ -119,14 +119,15 @@
 
                 if(column.destroy){
                   var id = (column.propId) ? column.propId : 'id';
-                  html = '<a href="#" ng-click="showDestroyDialog($event, '+ full[id] +')">Eliminar</a>';
+                  html = '<a href="#" ng-click="showDestroyDialog($event, \''+ full[id] +'\')">Eliminar</a>';
                 }
                 else if(column.editUrl){
                   var id = (column.propId) ? column.propId : 'id';
                   var icon = '<md-icon md-font-icon="icon-pencil" class="icon edit-pencil md-font icon-pencil material-icons md-default-theme" aria-hidden="true"></md-icon>';
+                  console.log(full[id]);
 
                   if($scope.quickEdit){
-                    html = '<a href="#" ng-click="editFn($event'+ ',' + full[id]+')">' + icon + '</a>';
+                    html = '<a href="#" ng-click="editFn($event'+ ', \'' + full[id]+'\' )">' + icon + '</a>';
                   }else{
                     html = '<a href="'+(column.editUrl + full[id])+'">' + icon + '</a>';
                   }
@@ -135,7 +136,7 @@
                   if(column.actionUrl){
                     var id = (column.propId) ? column.propId : 'id';
                     if($scope.quickEdit){
-                      html = '<a href="#" ng-click="editFn($event'+ ',' + full[id]+')">' + data + '</a>';
+                      html = '<a href="#" ng-click="editFn($event'+ ', \'' + full[id]+ '\')">' + data + '</a>';
                     }else{
                       html = '<a href="'+(column.actionUrl + full[id])+'">' + data + '</a>';
                     }

@@ -236,6 +236,8 @@ wysiwyg-edit .tinyeditor .sizer{
   height: auto;
 }
 
+.input-element.textarea-element .input-element-inner textarea{padding-top: 10px}
+
 .input-element.number-element .input-element-inner{
   max-width: 100px;
 }

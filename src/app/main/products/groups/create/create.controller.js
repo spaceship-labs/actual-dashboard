@@ -40,6 +40,11 @@
           //if(form.$valid && vm.group.Products.length > 0){
           if(form.$valid){
             vm.isLoading = true;
+
+            vm.group.Products = vm.group.Products.map(function(prod){
+              return prod.ItemCode;
+            })
+
             productService.createGroup(vm.group).then(function(res){
               vm.isLoading = false;
               dialogService.showDialog('Agrupador creado');

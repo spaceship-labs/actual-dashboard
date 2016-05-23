@@ -139,6 +139,11 @@
 
                 <p ng-if="vm.group.Products.length <= 0">No hay productos agregados a este grupo</p>
 
+
+                <div ng-show="vm.isLoadingProducts" layout="row" layout-sm="column" layout-align="space-around">
+                  <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+                </div>
+
                 <ul ng-if="!vm.isLoadingProducts" class="draggable-list" dnd-list="vm.group.Products">
                   <li
                     ng-repeat="product in vm.group.Products"

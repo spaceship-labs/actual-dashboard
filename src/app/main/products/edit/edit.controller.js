@@ -375,12 +375,15 @@
         }
 
         function loadBrands(){
-          console.log('loading brands');
+          vm.brands = [];
+
           productService.getBrands().then(function(res){
             console.log(res);
             vm.brands = res.data;
             vm.productBrandSap = getSapBrand(vm.product.ItmsGrpCod);
+            console.log(vm.productBrandSap);
           });
+
         }
 
         function sortFiltersValues(){
@@ -415,7 +418,7 @@
         }
 
         function sortImages(){
-          var idsList = vm.product.ImagesOrder.split(',');
+          var idsList = vm.product.ImagesOrder ? vm.product.ImagesOrder.split(',') : [];
           var notSortedImages = [];
           var found = false;
 
