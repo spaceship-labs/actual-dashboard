@@ -124,7 +124,6 @@
                 else if(column.editUrl){
                   var id = (column.propId) ? column.propId : 'id';
                   var icon = '<md-icon md-font-icon="icon-pencil" class="icon edit-pencil md-font icon-pencil material-icons md-default-theme" aria-hidden="true"></md-icon>';
-                  console.log(full[id]);
 
                   if($scope.quickEdit){
                     html = '<a href="#" ng-click="editFn($event'+ ', \'' + full[id]+'\' )">' + icon + '</a>';

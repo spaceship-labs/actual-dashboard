@@ -66,7 +66,19 @@
                 <label><strong>Categorias Nivel 1</strong></label>
               </p>
               <div >
-                <md-checkbox class="spaced-checkbox" ng-repeat="category in categoriesGroups[0]" ng-model="category.selected">{{category.Name}}</md-checkbox>
+
+                <md-input-container class="checkboxes-dropdown-wrap">
+                  <md-select class="checkboxes-dropdown select-element" ng-model="selectedCategories[0]"
+                     data-md-container-class="selectdemoSelectHeader"
+                     multiple
+                  >
+                    <md-optgroup label="Categorias">
+                      <md-option ng-value="category.id" ng-repeat="category in categoriesGroups[0] |
+                        filter:searchTerm">{{category.Name}}</md-option>
+                    </md-optgroup>
+                  </md-select>
+                </md-input-container>
+
               </div>
             </div>
 
@@ -76,7 +88,17 @@
                 <label><strong>Categorias Nivel 2</strong></label>
               </p>
               <div >
-                <md-checkbox class="spaced-checkbox" ng-repeat="category in categoriesGroups[1]" ng-model="category.selected">{{category.Name}}</md-checkbox>
+                <md-input-container class="checkboxes-dropdown-wrap">
+                  <md-select class="checkboxes-dropdown select-element" ng-model="selectedCategories[1]"
+                     data-md-container-class="selectdemoSelectHeader"
+                     multiple
+                  >
+                    <md-optgroup label="Categorias">
+                      <md-option ng-value="category.id" ng-repeat="category in categoriesGroups[1] |
+                        filter:searchTerm">{{category.Name}}</md-option>
+                    </md-optgroup>
+                  </md-select>
+                </md-input-container>
               </div>
 
             </div>

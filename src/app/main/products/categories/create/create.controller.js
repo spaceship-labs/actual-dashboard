@@ -31,6 +31,13 @@
         function init(){
           productService.getCategoriesGroups().then(function(res){
             $scope.categoriesGroups = res.data;
+            $scope.selectedCategories = [];
+            console.log($scope.categoriesGroups.length);
+            /*
+            for(var i=0;$scope.categoriesGroups.length; i++){
+              $scope.selectedCategories[i] = [];
+            }
+            */
           });
         }
 
@@ -64,11 +71,9 @@
         function setSelectedCategories(){
           $scope.category.Parents = [];
           if(!$scope.category.IsMain){
-            for(var i=0;i<$scope.categoriesGroups.length;i++){
-              for(var j=0;j<$scope.categoriesGroups[i].length;j++){
-                if($scope.categoriesGroups[i][j].selected){
-                  $scope.category.Parents.push($scope.categoriesGroups[i][j].id);
-                }
+            for(var i=0;i<$scope.selectedCategories.length;i++){
+              for(var j=0;j<$scope.selectedCategories[i].length;j++){
+                $scope.category.Parents.push($scope.selectedCategories[i][j]);
               }
             }
           }

@@ -57,7 +57,10 @@
         }
 
         function formatCategoryGroups(){
+          $scope.selectedCategories = [];
           for(var i=0;i<$scope.categoriesGroups.length;i++){
+            $scope.selectedCategories[i] = [];
+            //Hidding current category from options
             $scope.categoriesGroups[i] = $scope.categoriesGroups[i].filter(function(category){
               return category.id != $scope.category.id;
             });
@@ -65,7 +68,9 @@
             $scope.categoriesGroups[i] = $scope.categoriesGroups[i].map(function(category){
               for(var j=0;j<$scope.category.Parents.length;j++){
                 if($scope.category.Parents[j].id === category.id){
-                  category.selected = true;
+                  $scope.selectedCategories[i].push(category.id);
+                  console.log('categoria seleccionada : ' + category.Name);
+                  //category.selected = true;
                 }
               }
               return category;
@@ -84,11 +89,9 @@
               $scope.category.Parents = [];
             }
 
-            for(var i=0;i<$scope.categoriesGroups.length;i++){
-              for(var j=0;j<$scope.categoriesGroups[i].length;j++){
-                if($scope.categoriesGroups[i][j].selected){
-                  $scope.category.Parents.push($scope.categoriesGroups[i][j].id);
-                }
+            for(var i=0;i<$scope.selectedCategories.length;i++){
+              for(var j=0;j<$scope.selectedCategories[i].length;j++){
+                $scope.category.Parents.push($scope.selectedCategories[i][j]);
               }
             }
 
