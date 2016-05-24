@@ -69,11 +69,9 @@
 
         // Methods
         vm.sendForm = sendForm;
-        vm.getUsersSap = getUsersSap;
 
         //////////
 
-        vm.getUsersSap();
 
         /**
          * Send form
@@ -100,11 +98,6 @@
             // Clear the form data
         }
 
-        function getUsersSap(){
-          userService.getUsersSap().then(function(res){
-            vm.usersSap = res.data.data;
-          })
-        }
 
         function toggleModule(item, list) {
           var idx = list.indexOf(item);

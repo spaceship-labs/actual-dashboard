@@ -13,7 +13,6 @@
         getUser: getUser,
         update: update,
         create: create,
-        getUsersSap: getUsersSap
       };
 
       return service;
@@ -41,10 +40,12 @@
         return api.$http.post(url,params);
       }
 
+      /*
       function getUsersSap(){
         var url = '/usersap/get';
         return api.$http.get(url);
       }
+      */
 
     }
 

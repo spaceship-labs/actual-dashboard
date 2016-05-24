@@ -42,7 +42,6 @@
         // Methods
         vm.sendForm = sendForm;
         vm.init = init;
-        vm.getUsersSap = getUsersSap;
 
         vm.init();
 
@@ -50,7 +49,6 @@
 
         function init(){
           userService.getUser($stateParams.id).then(function(res){
-            vm.getUsersSap();
             vm.user = res.data.data;
             console.log(vm.user);
           });
@@ -78,11 +76,6 @@
 
         }
 
-        function getUsersSap(){
-          userService.getUsersSap().then(function(res){
-            vm.usersSap = res.data.data;
-          })
-        }
 
         function showDialog(message,ev){
 
