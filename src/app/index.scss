@@ -485,3 +485,17 @@ md-option .md-text{font-size: 12px;}
 .input-col + .input-col{
   margin: 6px 14px;
 }
+
+/*TINYMCE CHARACTER COUNTER*/
+/* Optional: Adjust the positioning of the character count text. */
+.mce-label,
+.mce-charactercount,
+label.mce-charactercount {
+  margin: 2px 0 2px 2px;
+  padding: 8px;
+}
+
+/* Optional: Remove the html path code from the status bar. */
+.mce-path {
+    display: none !important;
+}

@@ -45,8 +45,19 @@
         }
 
        $scope.tinymceOptions = {
-          plugins: 'link wordcount',
-          toolbar: 'undo redo | bold italic | alignleft aligncenter alignright ',
+          //plugins: 'link wordcount',
+          plugins: 'charactercount',
+          menu:{
+            edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
+            insert : {title : 'Insert', items : 'link media | template hr'},
+          },
+          //toolbar: false,
+          //toolbar: 'undo redo',
+          //toolbar: 'undo redo | bold italic | alignleft aligncenter alignright ',
+          toolbar: 'undo redo',
+          limitChars: 400,
+          //menu: false,
+          //toolbar: false,
           browser_spellcheck: true
         };
 
