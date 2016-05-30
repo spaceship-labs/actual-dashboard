@@ -56,6 +56,9 @@
             //Ventas
             'app.sales',
 
+            //Configuracion
+            'app.configuration',
+
             //CUSTOM EXTERNAL MODULES
             'LocalStorageModule',
             'angular-jwt',
