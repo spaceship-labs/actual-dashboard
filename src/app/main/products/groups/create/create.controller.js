@@ -81,10 +81,7 @@
             vm.group.Products.push(item);
             vm.selectedProduct = null;
             vm.searchText = null;
-            //$mdAutocomplete.clear();
           }
-          //vm.selectedProduct = undefined;
-          //vm.searchText = '';
         }
 
         function removeProductFromGroup(index){
