@@ -32,10 +32,12 @@
             $compile(angular.element(row).contents())($scope);
         })
         .withOption('initComplete', function() {
-          $('<p class="sorting-by-label"></p>').appendTo('.dataTables_wrapper .top');
-          $('.dataTables_wrapper .top .sorting-by-label').text('Ordenado por: '+ $scope.columns[0].label);
+          if($('#new-search').length <= 0){
+            $('<p class="sorting-by-label"></p>').appendTo('.dataTables_wrapper .top');
+            $('.dataTables_wrapper .top .sorting-by-label').text('Ordenado por: '+ $scope.columns[0].label);
+            $('<button/>').text('Buscar').attr('id', 'new-search').appendTo('.dataTables_filter');
+          }
 
-          $('<button/>').text('Buscar').attr('id', 'new-search').appendTo('.dataTables_filter');
           $('.dataTables_filter input').unbind();
           $('.dataTables_filter input').keypress(function(e){
             if(e.which == 10 || e.which == 13) {
