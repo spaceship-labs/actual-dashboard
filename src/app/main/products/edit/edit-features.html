@@ -13,7 +13,7 @@
       <!--FILTERS-->
       <div>
         <div layout="row" layout-wrap layout-align="start start">
-          <div ng-if="vm.loadedFilters" ng-repeat="filter in vm.filters | orderBy: 'IsMultiple'" class="filter-column" flex="33" flex-xs="100">
+          <div ng-if="vm.loadedFilters" ng-repeat="filter in vm.normalFilters | orderBy: 'IsMultiple'" class="filter-column" flex="33" flex-xs="100">
 
             <div ng-if="filter.IsMultiple && filter.Name != 'Color paleta' " class="scroll-column">
               <p ng-if="filter.IsMultiple" class="select-element-label">
@@ -52,6 +52,70 @@
       </div>
       <!--END FILTERS-->
 
+      <!--VARIANT FILTERS-->
+      <section  class="variant-filters-wrap">
+        <h2><strong>VARIANTES</strong></h2>
+        <div layout="row" layout-wrap layout-align="start start">
+
+          <div ng-if="vm.loadedFilters" ng-repeat="filter in vm.variantFilters | orderBy: 'IsMultiple'" class="filter-column" flex="33" flex-xs="100">
+
+            <div ng-if="filter.IsMultiple && filter.Name != 'Color paleta' " class="scroll-column">
+              <p ng-if="filter.IsMultiple" class="select-element-label">
+                <label><strong>{{filter.Name}}</strong></label>
+              </p>
+              <md-input-container class="checkboxes-dropdown-wrap">
+                <md-select class="checkboxes-dropdown select-element select-element-md2" ng-model="filter.selectedValues"
+                   data-md-container-class="selectdemoSelectHeader"
+                   multiple
+                >
+                  <md-optgroup label="Valores">
+                    <md-option ng-value="value.id" ng-repeat="value in filter.Values |
+                      filter:searchTerm">{{value.Name}}</md-option>
+                  </md-optgroup>
+                </md-select>
+              </md-input-container>
+
+            </div>
+
+            <div ng-if="!filter.IsMultiple && filter.Name != 'Color paleta' ">
+              <p class="select-element-label"><label><strong>{{filter.Name}}</strong></label></p>
+              <md-input-container>
+                <md-select class="select-element select-element-md2" placeholder="{{filter.Name}}" ng-model="filter.selectedValue">
+                  <md-option value="false">Ninguno</md-option>
+                  <md-option ng-repeat="value in filter.Values track by $index" value="{{$index}}">
+                    {{value.Name}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+
+            <div ng-if="filter.Name == 'Color paleta' " class="colorpicker-sp-wrapper">
+              <label><strong>Color</strong></label>
+              <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
+                <a
+                  ng-repeat="color in filter.Values"
+                  ng-click="vm.toggleColor(color.id, filter)"
+                  ng-class="{'wrap-on': vm.isActiveColor(color.id, filter)}"
+                  class="colorpicker-sp-color-wrap"
+                  flex
+                  title="{{color.Name}}"
+                  >
+                  <span
+                    class="colorpicker-sp-color"
+                    ng-class="{ 'colorpicker-sp-color-black' : (color.Code == 'Negro' || color.Code == '#000000') }"
+                    ng-style="{'background-color': color.Code}">
+                  </span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </section>
+      <!--END VARIANT FILTERS-->
+
 
       <section class="color-section" layout="row" layout-wrap layout-align="start start">
         <!--COLOR-->
@@ -67,26 +131,6 @@
               <div ng-message="required">
                   <span>Este campo es requerido.</span>
               </div>
-          </div>
-        </div>
-
-        <div class="colorpicker-sp-wrapper">
-          <label><strong>Color</strong></label>
-          <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
-            <a
-              ng-repeat="color in vm.colorFilter.Values"
-              ng-click="vm.toggleColor(color.id, vm.colorFilter)"
-              ng-class="{'wrap-on': vm.isActiveColor(color.id, vm.colorFilter)}"
-              class="colorpicker-sp-color-wrap"
-              flex
-              title="{{color.Name}}"
-              >
-              <span
-                class="colorpicker-sp-color"
-                ng-class="{ 'colorpicker-sp-color-black' : (color.Code == 'Negro' || color.Code == '#000000') }"
-                ng-style="{'background-color': color.Code}">
-              </span>
-            </a>
           </div>
         </div>
 
@@ -113,20 +157,18 @@
       </div>
 
       <div layout="row" >
-        <div class="input-element number-element">
+        <div class="select-element-wrapper">
           <!--
           <div class="input-element-inner">
             <input type="number" min="0" ng-model="vm.product.GuaranteeUnit">
           </div>
           -->
-          <md-input-container>
-            <label>Tiempo de garantia</label>
+            <p class="select-element-label"><label><strong>Tiempo de garantia</strong></label></p>
             <md-select class="select-element" placeholder="Tiempo de garantia" ng-model="vm.product.GuaranteeUnit">
               <md-option ng-repeat="guarenteeUnit in [0,1,2,3,4,5,6,7,8,9,10,11,12]" value="{{guarenteeUnit}}">
                 {{guarenteeUnit}}
               </md-option>
             </md-select>
-          </md-input-container>
           <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_garantia}}</p>
         </div>
 

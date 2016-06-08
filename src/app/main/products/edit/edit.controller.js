@@ -54,6 +54,9 @@
         vm.counterColors = 0;
         vm.colorFilter = false;
 
+        vm.normalFilters = [];
+        vm.variantFilters = [];
+
         vm.openGroupForm = openGroupForm;
         vm.checkAllMark = checkAllMark;
         vm.getRelatedProducts = getRelatedProducts;
@@ -560,6 +563,8 @@
 
 
         function formatFiltersValues(){
+          var variantFiltersHandles = ['tamano-blancos','forma','firmeza','color'];
+
           vm.filters.forEach(function(filter){
             filter.selectedValues = [];
             filter.Values.forEach(function(value ,indexValue){
@@ -580,8 +585,15 @@
               });
             });
 
-            if(filter.Name === 'Color paleta'){
-              vm.colorFilter = filter;
+            if( variantFiltersHandles.indexOf(filter.Handle) >= 0){
+              vm.variantFilters.push(filter);
+            }else{
+              vm.normalFilters.push(filter);
+            }
+
+
+            if(filter.Handle === 'color'){
+              //vm.colorFilter = filter;
               vm.counterColors = filter.selectedValues.length;
             }
 
@@ -606,7 +618,7 @@
 
         function formatSelectedFilterValues(){
           vm.product.FilterValues = [];
-          vm.filters.forEach(function(filter){
+          vm.normalFilters.forEach(function(filter){
             if(filter.IsMultiple){
               vm.product.FilterValues = vm.product.FilterValues.concat(filter.selectedValues);
             }
@@ -614,17 +626,31 @@
               if(filter.selectedValue){
                 var val = filter.Values[filter.selectedValue];
                 if(val){
+                  //console.log('pushing value: ', val);
                   vm.product.FilterValues.push( val );
                 }
               }
             }
           });
+          vm.variantFilters.forEach(function(filter){
+            if(filter.IsMultiple){
+              vm.product.FilterValues = vm.product.FilterValues.concat(filter.selectedValues);
+            }
+            else{
+              if(filter.selectedValue){
+                var val = filter.Values[filter.selectedValue];
+                if(val){
+                  //console.log('pushing value: ', val);
+                  vm.product.FilterValues.push( val );
+                }
+              }
+            }
+          });
+
+          //console.log(vm.product.FilterValues);
         }
 
         function toggleColor(colorId, filter){
-          console.log('toggleColor');
-          console.log(filter);
-          console.log(vm.counterColors);
           if(filter.selectedValues){
             var index = filter.selectedValues.indexOf(colorId);
             if(index > -1){
