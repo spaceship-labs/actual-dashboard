@@ -24,7 +24,7 @@
               */
             },
             bodyClass: 'edit',
-            accessList:['admin']
+            accessList:['admin','content-editor']
         });
     }
 

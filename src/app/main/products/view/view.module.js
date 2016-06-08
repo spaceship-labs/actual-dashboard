@@ -20,7 +20,7 @@
             resolve  : {
             },
             bodyClass: 'view',
-            accessList:['admin']
+            accessList:['admin','content-editor']
         });
     }
 
