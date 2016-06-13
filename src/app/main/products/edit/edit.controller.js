@@ -461,30 +461,36 @@
 
         function updateIcon($file) {
           console.log($file);
-          vm.isLoadingAvatar = true;
-          vm.uploadAvatar = Upload.upload({
-            url: api.baseUrl + vm.updateIconMethod,
-            data: {
-              id: vm.product.ItemCode,
-              file: $file
-            }
-          }).then(function (resp) {
-              console.log(resp);
-              if(resp.data.icon_filename){
-                vm.product.icon_filename = resp.data.icon_filename;
-                vm.product.icon_name = resp.data.icon_name;
-                vm.product.icon_size = resp.data.icon_size;
-                vm.product.icon_type = resp.data.icon_type;
-                vm.product.icon_typebase = resp.data.icon_typebase;
+          if($file){
+            vm.isLoadingAvatar = true;
+            vm.uploadAvatar = Upload.upload({
+              url: api.baseUrl + vm.updateIconMethod,
+              data: {
+                id: vm.product.ItemCode,
+                file: $file
               }
-              vm.isLoadingAvatar = false;
-            }, function (err) {
-              console.log(err);
-              vm.isLoadingAvatar = false;
-            }, function (evt) {
-              var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-              console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-          });
+            }).then(function (resp) {
+                console.log(resp);
+                if(resp.data.icon_filename){
+                  vm.product.icon_filename = resp.data.icon_filename;
+                  vm.product.icon_name = resp.data.icon_name;
+                  vm.product.icon_size = resp.data.icon_size;
+                  vm.product.icon_type = resp.data.icon_type;
+                  vm.product.icon_typebase = resp.data.icon_typebase;
+                }else{
+                  alert('Error al subir archivo, intente de nuevo');
+                }
+                vm.isLoadingAvatar = false;
+              }, function (err) {
+                console.log(err);
+                vm.isLoadingAvatar = false;
+              }, function (evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            });
+          }else{
+            alert('Error al subir archivo, intente de nuevo');
+          }
         }
 
         function uploadFiles($files){
@@ -572,13 +578,10 @@
 
                 if(productVal.id == value.id){
                   if(filter.IsMultiple){
-                      console.log('filter IsMultiple');
-                      console.log(value.Name);
                       filter.selectedValues.push(productVal.id);
                       //value.selected = true;
                   }
                   else{
-                    console.log(index, productVal);
                     filter.selectedValue = indexValue;
                   }
                 }

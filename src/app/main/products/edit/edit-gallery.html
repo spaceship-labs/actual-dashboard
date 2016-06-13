@@ -35,8 +35,8 @@
 
               </div>
 
-              <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Subir</md-button>
-              <md-button ng-if="vm.product.icon_filename" class="file-manager-btn md-raised md-warn" ng-click="vm.removeIcon()">Remover imagen</md-button>
+              <md-button ng-if="!vm.isLoadingAvatar" class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Subir</md-button>
+              <md-button ng-if="vm.product.icon_filename && !vm.isLoadingAvatar" class="file-manager-btn md-raised md-warn" ng-click="vm.removeIcon()">Remover imagen</md-button>
             </div>
             <!--END IMAGEN PRINCIPAL INPUT-->
 

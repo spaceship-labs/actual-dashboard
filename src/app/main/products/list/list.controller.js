@@ -16,9 +16,6 @@
             {key:'Edit', label:'Editar', editUrl:'/products/edit/', propId: 'ItemCode'},
             {key:'ItemCode', label:'Código', actionUrl:'/products/edit/', propId: 'ItemCode'},
             {key:'ItemName', label:'Nombre'},
-            {key:'U_COLOR', label:'U_COLOR'},
-            {key:'U_LINEA', label:'U_LINEA'},
-            {key:'U_garantia', label:'U_garantia'},
             {key:'OnHand', label:'OnHand'},
 
         ];
