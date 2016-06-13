@@ -527,6 +527,8 @@
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
                 });
             }
+          }else{
+            vm.isLoadingFiles = false;
           }
         }
 
