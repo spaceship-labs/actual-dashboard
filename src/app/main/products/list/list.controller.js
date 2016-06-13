@@ -16,7 +16,8 @@
             {key:'Edit', label:'Editar', editUrl:'/products/edit/', propId: 'ItemCode'},
             {key:'ItemCode', label:'Código', actionUrl:'/products/edit/', propId: 'ItemCode'},
             {key:'ItemName', label:'Nombre'},
-            {key:'OnHand', label:'OnHand'},
+            {key:'Available', label:'Disponibles'},
+            {key: 'SA', label: 'Sociedad'}
 
         ];
 
