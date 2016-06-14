@@ -84,6 +84,13 @@
           $('.dataTables_wrapper .top .sorting-by-label').text('Ordenado por: '+ sortingColumnLabel);
         }
 
+        query.fields = [];
+        $scope.columns.forEach(function(col){
+          if(!col.destroy && !col.editUrl && !col.quickEdit ){
+            query.fields.push(col.key);
+          }
+        });
+
         //console.log(query.orderby);
 
         $scope.apiResource(page,query)
