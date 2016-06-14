@@ -83,7 +83,8 @@
             vm.searchText = null;
             vm.isLoadingProducts = true;
             var params = {
-              product: item.ItemCode,
+              //product: item.ItemCode,
+              product: item.id,
               group: vm.group.id
             };
             productService.addProductToGroup(params).then(function(res){

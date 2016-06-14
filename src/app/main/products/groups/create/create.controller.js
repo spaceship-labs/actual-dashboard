@@ -42,7 +42,8 @@
             vm.isLoading = true;
 
             vm.group.Products = vm.group.Products.map(function(prod){
-              return prod.ItemCode;
+              //return prod.ItemCode;
+              return prod.id;
             })
 
             productService.createGroup(vm.group).then(function(res){

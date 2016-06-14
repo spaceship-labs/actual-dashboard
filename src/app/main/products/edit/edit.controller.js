@@ -706,10 +706,12 @@
             vm.searchGroupText = null;
             vm.isLoadingGroups = true;
             var params = {
-              product: vm.product.ItemCode,
+              //product: vm.product.ItemCode,
+              product: vm.product.id,
               group: item.id
             };
             productService.addProductToGroup(params).then(function(res){
+              console.log(res);
               vm.isLoadingGroups = false;
               vm.product.Groups.push(item);
             });
