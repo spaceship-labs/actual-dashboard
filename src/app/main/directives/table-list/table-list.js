@@ -145,10 +145,16 @@
                     var id = (column.propId) ? column.propId : 'id';
                     if($scope.quickEdit){
                       html = '<a href="#" ng-click="editFn($event'+ ', \'' + full[id]+ '\')">' + data + '</a>';
-                    }else{
+                    }
+
+                    else{
                       html = '<a href="'+(column.actionUrl + full[id])+'">' + data + '</a>';
                     }
-                  }else{
+                  }
+                  else if(column.key === 'ItemName' && full['Name']){
+                    html = full['Name'];
+                  }
+                  else{
                     html = data;
                   }
                 }

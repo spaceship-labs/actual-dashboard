@@ -183,7 +183,8 @@
             var params = {
               Categories: vm.product.Categories,
               SA: vm.product.SA,
-              Brand: vm.product.Brand
+              Brand: vm.product.Brand,
+              CheckedStructure: vm.product.CheckedStructure
             };
             vm.displays.forEach(function(display){
               params[display.handle] = vm.product[display.handle];
@@ -213,7 +214,8 @@
               Description: vm.product.Description,
               MainFeatures: vm.product.MainFeatures,
               Restrictions: vm.product.Restrictions,
-              Conservation: vm.product.Conservation
+              Conservation: vm.product.Conservation,
+              CheckedDescription: vm.product.CheckedDescription
             };
             productService.update(vm.product.ItemCode, params).then(function(res){
               vm.isLoading = false;
@@ -275,6 +277,7 @@
               VolumeUnitMsr: vm.product.VolumeUnitMsr,
               Weight: vm.product.Weight,
               WeightUnitMsr: vm.product.WeightUnitMsr,
+              CheckedPackage: vm.product.CheckedPackage
 
             };
             productService.update(vm.product.ItemCode, params).then(function(res){
@@ -296,7 +299,8 @@
             vm.isLoading = true;
             var params = {
               icon_description: vm.product.icon_description,
-              Video: vm.product.Video
+              Video: vm.product.Video,
+              CheckedPhotos: vm.product.CheckedPhotos
             };
             productService.update(vm.product.ItemCode, params).then(function(res){
               vm.isLoading = false;

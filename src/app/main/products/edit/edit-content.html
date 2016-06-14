@@ -43,6 +43,15 @@
         <textarea ui-tinymce="tinymceOptions" maxlength="{{tinymceOptions.limitChars}}" ng-model="vm.product.Conservation"></textarea>
       </div>
 
+      <!--CHECKED-->
+      <div>
+        <h2><strong>Revisión</strong></h2>
+        <div>
+          <md-checkbox class="spaced-checkbox block-checkbox" ng-model="vm.product.CheckedDescription">Estructura revisada</md-checkbox>
+        </div>
+      </div>
+      <!--END CHECKED-->
+
 
       <div layout="row" layout-align="end center">
         <md-button ng-click="vm.updateContent(contentForm)" class="md-raised md-primary action-button">Guardar</md-button>

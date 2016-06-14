@@ -17,7 +17,11 @@
             {key:'ItemCode', label:'Código', actionUrl:'/products/edit/', propId: 'ItemCode'},
             {key:'ItemName', label:'Nombre'},
             {key:'Available', label:'Disponibles'},
-            {key: 'SA', label: 'Sociedad'}
+            {key: 'SA', label: 'Sociedad'},
+            {key:'CheckedPhotos', label:'Fotos revisadas', yesNo: true},
+            {key:'CheckedStructure', label:'Estructura revisada', yesNo: true},
+            {key:'CheckedDescription', label:'Textos descripción revisado', yesNo: true},
+            {key:'CheckedPackage', label:'Empaque y envío revisado', yesNo: true}
 
         ];
 
