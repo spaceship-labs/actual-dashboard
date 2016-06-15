@@ -18,10 +18,11 @@
             {key:'ItemName', label:'Nombre'},
             {key:'Available', label:'Disponibles'},
             {key: 'SA', label: 'Sociedad'},
-            {key:'CheckedPhotos', label:'Fotos revisadas', yesNo: true},
-            {key:'CheckedStructure', label:'Estructura revisada', yesNo: true},
-            {key:'CheckedDescription', label:'Textos descripción revisado', yesNo: true},
-            {key:'CheckedPackage', label:'Empaque y envío revisado', yesNo: true}
+            {key:'CheckedStructure', label:'Estructura', yesNo: true},
+            {key:'CheckedDescription', label:'Contenido', yesNo: true},
+            {key:'CheckedFeatures', label:'Caracteristicas', yesNo: true},
+            {key:'CheckedPackage', label:'Empaque y envío', yesNo: true},
+            {key:'CheckedPhotos', label:'Fotos', yesNo: true},
 
         ];
 

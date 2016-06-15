@@ -158,6 +158,84 @@
 
         </section>
 
+
+        <section layout="row" layout-wrap layout-align="space-between start">
+
+          <div flex flex-xs="100" flex-sm="100" layout="row" layout-wrap layout-align="start end">
+            <div class="input-element" flex >
+              <label>Altura asiento</label>
+              <div class="input-element-inner">
+                <input type="text" placeholder="Altura asiento" ng-model="vm.product.SeatHeight">
+              </div>
+            </div>
+            <div class="select-element-wrapper select-element-wrapper-nomargin" flex>
+              <md-input-container>
+                <md-select class="select-element" placeholder="Unidad de medida" ng-model="vm.product.SeatHeightUnitMsr">
+                  <md-option value="cm">cm</md-option>
+                  <md-option value="m">m</md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+          </div>
+
+          <div flex flex-xs="100" flex-sm="100" layout="row" layout-wrap layout-align="start end">
+            <div class="input-element" flex >
+              <label>Altura respaldo</label>
+              <div class="input-element-inner">
+                <input type="text" placeholder="Altura respaldo" ng-model="vm.product.ChairBackHeight">
+              </div>
+            </div>
+            <div class="select-element-wrapper select-element-wrapper-nomargin" flex>
+              <md-input-container>
+                <md-select class="select-element" placeholder="Unidad de medida" ng-model="vm.product.ChairBackHeightUnitMsr">
+                  <md-option value="cm">cm</md-option>
+                  <md-option value="m">m</md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+          </div>
+
+        </section>
+
+        <section layout="row" layout-wrap layout-align="space-between start">
+
+          <div flex flex-xs="100" flex-sm="100" layout="row" layout-wrap layout-align="start end">
+            <div class="input-element" flex >
+              <label>Altura reposa brazos</label>
+              <div class="input-element-inner">
+                <input type="text" placeholder="Altura reposa brazos" ng-model="vm.product.ArmRestHeight">
+              </div>
+            </div>
+            <div class="select-element-wrapper select-element-wrapper-nomargin" flex>
+              <md-input-container>
+                <md-select class="select-element" placeholder="Unidad de medida" ng-model="vm.product.ArmRestHeightUnitMsr">
+                  <md-option value="cm">cm</md-option>
+                  <md-option value="m">m</md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+          </div>
+
+          <div flex flex-xs="100" flex-sm="100" layout="row" layout-wrap layout-align="start end">
+            <div class="input-element" flex >
+              <label>Profundidad</label>
+              <div class="input-element-inner">
+                <input type="text" placeholder="Profundidad" ng-model="vm.product.Depth">
+              </div>
+            </div>
+            <div class="select-element-wrapper select-element-wrapper-nomargin" flex>
+              <md-input-container>
+                <md-select class="select-element" placeholder="Unidad de medida" ng-model="vm.product.DepthUnitMsr">
+                  <md-option value="cm">cm</md-option>
+                  <md-option value="m">m</md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+          </div>
+
+        </section>
+
+
       </div>
       <!--END PACKAGE SIZE-->
 

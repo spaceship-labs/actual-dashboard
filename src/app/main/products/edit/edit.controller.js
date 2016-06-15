@@ -242,7 +242,8 @@
               GuaranteeUnit: vm.product.GuaranteeUnit,
               GuaranteeUnitMsr: vm.product.GuaranteeUnitMsr,
               DesignedInCountry: vm.product.DesignedInCountry,
-              MadeInCountry: vm.product.MadeInCountry
+              MadeInCountry: vm.product.MadeInCountry,
+              CheckedFeatures: vm.product.CheckedFeatures
             };
             productService.update(vm.product.ItemCode, params).then(function(res){
               vm.isLoading = false;
@@ -275,9 +276,18 @@
               HeightUnitMsr: vm.product.HeightUnitMsr,
               Volume: vm.product.Volume,
               VolumeUnitMsr: vm.product.VolumeUnitMsr,
-              Weight: vm.product.Weight,
+              Weight: vm.product.Weight || null,
               WeightUnitMsr: vm.product.WeightUnitMsr,
-              CheckedPackage: vm.product.CheckedPackage
+              CheckedPackage: vm.product.CheckedPackage,
+
+              ChairBackHeight: vm.product.ChairBackHeight,
+              ChairBackHeightUnitMsr: vm.product.ChairBackHeightUnitMsr,
+              SeatHeight: vm.product.SeatHeight,
+              SeatHeightUnitMsr: vm.product.SeatHeightUnitMsr,
+              ArmRestHeight: vm.product.ArmRestHeight,
+              ArmRestHeightUnitMsr: vm.product.ArmRestHeightUnitMsr,
+              Depth: vm.product.Depth,
+              DepthUnitMsr: vm.product.DepthUnitMsr
 
             };
             productService.update(vm.product.ItemCode, params).then(function(res){
