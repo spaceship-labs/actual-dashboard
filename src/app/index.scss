@@ -23,6 +23,14 @@
   border-radius: 4px;
   margin-left: 4px;
 }
+.dataTables_wrapper .dt-buttons{
+  padding: 0 24px;
+}
+.dataTables_wrapper .dt-buttons + .top{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 div.dataTables_filter label{float: left;}
 .page-layout.simple.fullwidth > .header {
     height: 100px;

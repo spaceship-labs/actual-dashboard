@@ -48,7 +48,16 @@
               $scope.dtInstance.DataTable.search($('.dataTables_filter input').val()).draw();
           })
 
-        });
+        })
+        .withButtons([
+          {
+            extend: 'excel',
+            text: 'Exportar a Excel',
+            filename: 'MyDT',
+            name: 'Productos',
+            extension: '.xlsx'
+          },
+        ])
 
       function serverData(sSource, aoData, fnCallback, oSettings) {
         console.log('en serverData');
