@@ -13,7 +13,7 @@
       <!--FILTERS-->
       <div>
         <div layout="row" layout-wrap layout-align="start start">
-          <div ng-if="vm.loadedFilters" ng-repeat="filter in vm.normalFilters | orderBy: 'IsMultiple'" class="filter-column" flex="33" flex-xs="100">
+          <div ng-if="vm.loadedFilters" ng-repeat="filter in vm.normalFilters | orderBy: 'IsMultiple' track by $index" class="filter-column" flex="33" flex-xs="100">
 
             <div ng-if="filter.IsMultiple && filter.Name != 'Color paleta' " class="scroll-column">
               <p ng-if="filter.IsMultiple" class="select-element-label">
@@ -26,7 +26,7 @@
                 >
                   <md-optgroup label="Valores">
                     <md-option ng-value="value.id" ng-repeat="value in filter.Values |
-                      filter:searchTerm">{{value.Name}}</md-option>
+                      filter:searchTerm track by $index">{{value.Name}}</md-option>
                   </md-optgroup>
                 </md-select>
               </md-input-container>
@@ -57,7 +57,7 @@
         <h2><strong>VARIANTES</strong></h2>
         <div layout="row" layout-wrap layout-align="start start">
 
-          <div ng-if="vm.loadedFilters" ng-repeat="filter in vm.variantFilters | orderBy: 'IsMultiple'" class="filter-column" flex="33" flex-xs="100">
+          <div ng-if="vm.loadedFilters" ng-repeat="filter in vm.variantFilters | orderBy: 'IsMultiple' track by $index" class="filter-column" flex="33" flex-xs="100">
 
             <div ng-if="filter.IsMultiple && filter.Name != 'Color paleta' " class="scroll-column">
               <p ng-if="filter.IsMultiple" class="select-element-label">
@@ -93,7 +93,7 @@
               <label><strong>Color</strong></label>
               <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
                 <a
-                  ng-repeat="color in filter.Values"
+                  ng-repeat="color in filter.Values track by $index"
                   ng-click="vm.toggleColor(color.id, filter)"
                   ng-class="{'wrap-on': vm.isActiveColor(color.id, filter)}"
                   class="colorpicker-sp-color-wrap"
@@ -186,7 +186,7 @@
         <div class="select-element-wrapper" flex="45" flex-xs="100">
           <p class="select-element-label"><label><strong>Pais de producción (Diseñado en)</strong></label></p>
           <md-select class="select-element" placeholder="Pais de producción (Diseñado en)" ng-model="vm.product.DesignedInCountry">
-            <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
+            <md-option ng-repeat="(code, country) in vm.countries track by $index" value="{{code}}">
               {{country}}
             </md-option>
           </md-select>
@@ -196,7 +196,7 @@
         <div class="select-element-wrapper" flex="45" flex-xs="100">
           <p class="select-element-label"><label><strong>Pais de ensamble (Hecho en)</strong></label></p>
           <md-select  class="select-element" placeholder="Pais de ensamble (Hecho en)" ng-model="vm.product.MadeInCountry">
-            <md-option ng-repeat="(code, country) in vm.countries" value="{{code}}">
+            <md-option ng-repeat="(code, country) in vm.countries track by $index" value="{{code}}">
               {{country}}
             </md-option>
           </md-select>

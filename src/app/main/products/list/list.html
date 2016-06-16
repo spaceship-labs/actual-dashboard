@@ -9,10 +9,95 @@
     <!-- / HEADER -->
 
     <!-- CONTENT -->
-    <div class="content">
+    <div class="content no-paddingtop">
 
         <div class="white-bg md-whiteframe-4dp">
-            <div table-list columns="vm.columns" order-by="OnHand DESC" api-resource="vm.apiResource"></div>
+
+          <section class="container-block" layout="row" layout-wrap layout-align="start center">
+
+            <div class="select-element-wrapper" flex flex-xs="100" flex-sm="100">
+              <p class="select-element-label"><label><strong>Sociedad</strong></label></p>
+              <md-input-container class="no-margin">
+                <md-select class="select-element" placeholder="Sociedad" ng-model="vm.filters.SA">
+                  <md-option ng-repeat="sa in vm.sas" value="{{sa.value}}">
+                    {{sa.label}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+
+            <div class="select-element-wrapper" flex flex-xs="100" flex-sm="100">
+              <p class="select-element-label"><label><strong>Marca</strong></label></p>
+              <md-input-container class="no-margin">
+                <md-select class="select-element" placeholder="Marca" ng-model="vm.filters.ItmsGrpCod">
+                  <md-option ng-repeat="brand in vm.brands" value="{{brand.ItmsGrpCod}}">
+                    {{brand.ItmsGrpNam}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+
+            <div class="select-element-wrapper" flex flex-xs="100" flex-sm="100">
+              <p class="select-element-label"><label><strong>Estructura</strong></label></p>
+              <md-input-container class="no-margin">
+                <md-select class="select-element" placeholder="Estructura" ng-model="vm.filters.CheckedStructure">
+                  <md-option ng-repeat="option in vm.options" value="{{option.value}}">
+                    {{option.label}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+
+            <div class="select-element-wrapper" flex flex-xs="100" flex-sm="100">
+              <p class="select-element-label"><label><strong>Contenido</strong></label></p>
+              <md-input-container class="no-margin">
+                <md-select class="select-element" placeholder="Contenido" ng-model="vm.filters.CheckedDescription">
+                  <md-option ng-repeat="option in vm.options" value="{{option.value}}">
+                    {{option.label}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+
+            <div class="select-element-wrapper" flex flex-xs="100" flex-sm="100">
+              <p class="select-element-label"><label><strong>Caracteristicas</strong></label></p>
+              <md-input-container class="no-margin">
+                <md-select class="select-element" placeholder="Caracteristicas" ng-model="vm.filters.CheckedFeatures">
+                  <md-option ng-repeat="option in vm.options" value="{{option.value}}">
+                    {{option.label}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+
+            <div class="select-element-wrapper" flex flex-xs="100" flex-sm="100">
+              <p class="select-element-label"><label><strong>Empaque y envío</strong></label></p>
+              <md-input-container class="no-margin">
+                <md-select class="select-element" placeholder="Empaque y envío" ng-model="vm.filters.CheckedPackage">
+                  <md-option ng-repeat="option in vm.options" value="{{option.value}}">
+                    {{option.label}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+
+            <div class="select-element-wrapper" flex flex-xs="100" flex-sm="100">
+              <p class="select-element-label"><label><strong>Fotos</strong></label></p>
+              <md-input-container class="no-margin">
+                <md-select class="select-element" placeholder="Fotos" ng-model="vm.filters.CheckedPhotos">
+                  <md-option ng-repeat="option in vm.options" value="{{option.value}}">
+                    {{option.label}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+
+            <md-button class="md-raised md-primary action-button" ng-click="vm.applyFilters()">Filtrar</md-button>
+
+          </section>
+
+
+          <div table-list columns="vm.columns" filters="vm.finalFilters" order-by="OnHand DESC" api-resource="vm.apiResource"></div>
         </div>
 
     </div>

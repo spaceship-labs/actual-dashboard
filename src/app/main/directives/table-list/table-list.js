@@ -6,7 +6,7 @@
         .module('app.directives')
         .directive('tableList', tableList);
 
-    var controller = function($scope, $rootScope, DTOptionsBuilder, DTColumnBuilder, dialogService, $compile){
+    var controller = function($scope, $rootScope , $timeout, DTOptionsBuilder, DTColumnBuilder, dialogService, $compile){
       $scope.dtInstance = {};
 
       $scope.showDestroyDialog = function(ev, id){
@@ -85,6 +85,7 @@
         }
 
         query.fields = [];
+        query.filters = $scope.filters || false;
         $scope.columns.forEach(function(col){
           if(!col.destroy && !col.editUrl && !col.quickEdit ){
             query.fields.push(col.key);
@@ -166,23 +167,19 @@
       });
 
       $rootScope.$on('reloadTable', function(event, data){
-        var callback = function(json){console.log(json);}
-        var resetPaging = false;
-        //$scope.dtInstance.reloadData(callback, resetPaging);
-        //$scope.dtInstance.reloadData(callback, resetPaging);
-        $scope.dtInstance.rerender();
-        /*
-        DTInstances.getLast().then(function(instance) {
-            dtInstance = instance;
-            dtInstance.reloadData();
-        });
-        */
-
-
+        $timeout(function(){
+          var callback = function(json){console.log(json);}
+          var resetPaging = false;
+          console.log('filters');
+          console.log($scope.filters);
+          if($scope.dtInstance){
+            $scope.dtInstance.rerender();
+          }
+        }, 2000);
       });
 
     };
-    controller.$inject = ['$scope','$rootScope','DTOptionsBuilder','DTColumnBuilder','dialogService','$compile'];
+    controller.$inject = ['$scope','$rootScope', '$timeout','DTOptionsBuilder','DTColumnBuilder','dialogService','$compile'];
 
     /** @ngInject */
     function tableList(){
@@ -197,6 +194,8 @@
           actionUrl: '=',
           searchText: '@',
           orderBy: '@',
+          filters: '=',
+          toggleFilters: '='
         },
         templateUrl : 'app/main/directives/table-list/table-list.html'
       };
