@@ -38,6 +38,7 @@
 
         productService.getBrands().then(function(res){
           vm.brands = res.data;
+          vm.brands.unshift({ItmsGrpCod:'none', ItmsGrpNam:'Todas'})
         });
 
         vm.options = [

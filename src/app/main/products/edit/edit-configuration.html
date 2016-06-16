@@ -23,17 +23,6 @@
                    data-md-container-class="selectdemoSelectHeader"
                    multiple
                 >
-
-                  <!--
-                  <md-select-header class="demo-select-header">
-                    <input ng-model="searchTerm"
-                      type="search"
-                      placeholder="Search for a vegetable.."
-                      class="demo-header-searchbox md-text"
-                    >
-                  </md-select-header>
-                  -->
-
                   <md-optgroup label="Categorias">
                     <md-option ng-value="category.id" ng-repeat="category in group |
                       filter:searchTerm">{{category.Name}}</md-option>
