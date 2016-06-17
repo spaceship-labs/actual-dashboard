@@ -270,24 +270,25 @@
               DeliveryPieces: vm.product.DeliveryPieces,
               Length: vm.product.Length,
               LengthUnitMsr: vm.product.LengthUnitMsr,
-              Width: vm.product.Width,
+              Width: vm.product.Width || null,
               WidthUnitMsr: vm.product.WidthUnitMsr,
-              Height: vm.product.Height,
+              Height: vm.product.Height || null,
               HeightUnitMsr: vm.product.HeightUnitMsr,
-              Volume: vm.product.Volume,
+              Volume: vm.product.Volume || null,
               VolumeUnitMsr: vm.product.VolumeUnitMsr,
               Weight: vm.product.Weight || null,
               WeightUnitMsr: vm.product.WeightUnitMsr,
-              CheckedPackage: vm.product.CheckedPackage,
 
-              ChairBackHeight: vm.product.ChairBackHeight,
+              ChairBackHeight: vm.product.ChairBackHeight || null,
               ChairBackHeightUnitMsr: vm.product.ChairBackHeightUnitMsr,
-              SeatHeight: vm.product.SeatHeight,
+              SeatHeight: vm.product.SeatHeight || null,
               SeatHeightUnitMsr: vm.product.SeatHeightUnitMsr,
-              ArmRestHeight: vm.product.ArmRestHeight,
+              ArmRestHeight: vm.product.ArmRestHeight || null,
               ArmRestHeightUnitMsr: vm.product.ArmRestHeightUnitMsr,
-              Depth: vm.product.Depth,
-              DepthUnitMsr: vm.product.DepthUnitMsr
+              Depth: vm.product.Depth || null,
+              DepthUnitMsr: vm.product.DepthUnitMsr,
+
+              CheckedPackage: vm.product.CheckedPackage
 
             };
             productService.update(vm.product.ItemCode, params).then(function(res){

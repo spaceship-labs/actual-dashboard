@@ -8,6 +8,7 @@
 
     var controller = function($scope, $rootScope , $timeout, DTOptionsBuilder, DTColumnBuilder, dialogService, $compile){
       $scope.dtInstance = {};
+      $scope.isExporting = false;
 
       $scope.showDestroyDialog = function(ev, id){
         console.log('showDestroyDialog');
@@ -36,6 +37,13 @@
             $('<p class="sorting-by-label"></p>').appendTo('.dataTables_wrapper .top');
             $('.dataTables_wrapper .top .sorting-by-label').text('Ordenado por: '+ $scope.columns[0].label);
             $('<button/>').text('Buscar').attr('id', 'new-search').appendTo('.dataTables_filter');
+
+            if($scope.exportQuery){
+              $('<a class="export-button" href="" ng-click="exportToExcel()">Exportar registros</a>')
+                .appendTo('.dataTables_wrapper .top .sorting-by-label');
+              $compile($('.export-button'))($scope);
+            }
+
           }
 
           $('.dataTables_filter input').unbind();
@@ -49,15 +57,17 @@
           })
 
         })
+        /*
         .withButtons([
           {
             extend: 'excel',
-            text: 'Exportar a Excel',
+            text: 'Exportar pagina',
             filename: 'MyDT',
             name: 'Productos',
             extension: '.xlsx'
           },
         ])
+        */
 
       function serverData(sSource, aoData, fnCallback, oSettings) {
         console.log('en serverData');
@@ -103,11 +113,15 @@
 
         //console.log(query.orderby);
 
+        $scope.query = query;
+        $scope.page = page;
+
         $scope.apiResource(page,query)
           .then(
-            function(res){
-              console.log(res);
-              var res = res.data;
+            function(result){
+              console.log(result);
+              var res = result.data;
+
               var records = {
                   'draw': draw,
                   'recordsTotal': res.total,
@@ -184,8 +198,52 @@
           if($scope.dtInstance){
             $scope.dtInstance.rerender();
           }
-        }, 2000);
+        }, 100);
       });
+
+      //$rootScope.$on('exportData', function(event, data){
+      $scope.exportToExcel = function(){
+        if(!$scope.isExporting){
+          $scope.isExporting = true;
+          $('.export-button').text('Exportando...');
+          var auxQuery = angular.copy($scope.query);
+          auxQuery.getAll = true;
+          $scope.apiResource($scope.page, auxQuery).then(function(result){
+            var items = result.data.data;
+            var itemsFormatted = items.map(function(item){
+              $scope.exportColumns.forEach(function(col){
+                var columnParts = col.split('.');
+                if(columnParts.length > 1){
+                  if( item[columnParts[0]][columnParts[1]]== false){
+                    item[columnParts[0]][columnParts[1]]= 'No';
+                  }
+                  else if( item[columnParts[0]][columnParts[1]] == true ){
+                    item[columnParts[0]][columnParts[1]]= 'Si';
+                  }
+                  else if( typeof item[columnParts[0]][columnParts[1]] == 'undefined' ){
+                    item[columnParts[0]][columnParts[1]] = 'No';
+                  }
+                }else{
+                  if( item[columnParts[0]] == false){
+                    item[columnParts[0]] = 'No';
+                  }
+                  else if( item[columnParts[0]] == true ){
+                    item[columnParts[0]] = 'Si';
+                  }
+                  else if( typeof item[columnParts[0]] == 'undefined' ){
+                    item[columnParts[0]] = 'No';
+                  }
+                }
+              });
+              return item;
+            });
+            console.log(itemsFormatted)
+            alasql($scope.exportQuery ,[itemsFormatted]);
+            $('.export-button').text('Exportar registros');
+            $scope.isExporting = false;
+          });
+        }
+      }
 
     };
     controller.$inject = ['$scope','$rootScope', '$timeout','DTOptionsBuilder','DTColumnBuilder','dialogService','$compile'];
@@ -204,7 +262,9 @@
           searchText: '@',
           orderBy: '@',
           filters: '=',
-          toggleFilters: '='
+          toggleFilters: '=',
+          exportQuery: '=',
+          exportColumns: '='
         },
         templateUrl : 'app/main/directives/table-list/table-list.html'
       };

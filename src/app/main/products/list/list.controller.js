@@ -29,6 +29,19 @@
 
         ];
 
+        vm.exportQuery = 'SELECT ItemCode AS Codigo, ItemName AS Nombre, Available AS Disponibles, productBrand->ItmsGrpNam AS Marca, CheckedStructure AS Estructura, CheckedDescription AS Contenido, CheckedFeatures AS Caracteristicas, CheckedPackage AS Empaque  INTO XLS("prods.xls",{headers:true}) FROM ?';
+        vm.exportColumns = [
+          'ItemCode',
+          'ItemName',
+          'Available',
+          'productBrand.ItmsGrpNam',
+          'CheckedStructure',
+          'CheckedDescription',
+          'CheckedFeatures',
+          'CheckedPackage',
+          'CheckedPhotos'
+        ];
+
         vm.sas = [
           {label:'Ninguno', value:'none'},
           {label:'Actual Studio', value:'Actual Studio'},
