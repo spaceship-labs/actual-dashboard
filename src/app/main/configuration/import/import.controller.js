@@ -13,6 +13,7 @@
 
         //vm.isImportingImages = localStorageService.get('isImportingImages');
         vm.isImportingImages = false;
+        vm.results = [];
 
         // Methods
         //////////
@@ -26,9 +27,17 @@
             //vm.isImportingImages = localStorageService.get('isImportingImages');
             vm.isImportingImages = true;
 
-            $http.post(api.baseUrl + '/import/importimagessap').then(function(res){
+            var req = {
+              method: 'POST',
+              url: api.baseUrl + '/import/importimagessap',
+              data: {limit: vm.productsNum}
+            };
+            $http(req).then(function(res){
               console.log(res);
               vm.isImportingImages = false;
+              vm.results = res.data;
+              vm.exportQuery = 'SELECT ItemCode AS Codigo, status INTO XLS("fotos.xls",{headers:true}) FROM ?';
+              alasql(vm.exportQuery ,[vm.results]);
             });
 
           }

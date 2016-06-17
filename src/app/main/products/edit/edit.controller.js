@@ -739,7 +739,7 @@
         function removeProductFromGroup(groupId, index){
           vm.isLoadingGroups = true;
           var params = {
-            product: vm.product.ItemCode,
+            product: vm.product.id,
             group: groupId
           };
           productService.removeProductFromGroup(params).then(function(res){
