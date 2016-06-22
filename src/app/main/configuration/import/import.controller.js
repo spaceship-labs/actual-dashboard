@@ -36,7 +36,7 @@
               console.log(res);
               vm.isImportingImages = false;
               vm.results = res.data;
-              vm.exportQuery = 'SELECT ItemCode AS Codigo, status INTO XLS("fotos.xls",{headers:true}) FROM ?';
+              vm.exportQuery = 'SELECT ItemCode AS Codigo, status INTO XLS("fotos-importadas.xls",{headers:true}) FROM ?';
               alasql(vm.exportQuery ,[vm.results]);
             });
 

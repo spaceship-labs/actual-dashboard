@@ -22,7 +22,7 @@
               <h3>REGISTRAR USUARIO</h3>
 
               <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
-                         ng-disabled="basicForm.$invalid || basicForm.$pristine || vm.isLoading">
+                        ng-click="vm.sendForm($event)" ng-disabled="basicForm.$invalid || basicForm.$pristine || vm.isLoading">
                   Registrar
               </md-button>
 
@@ -123,12 +123,12 @@
 
               </section>
 
-              <section layout="row" layout-wrap layout-align="space-between start">
+              <section layout="row" layout-wrap layout-align="start start">
 
-                <div class="input-element " flex="45" flex-xs="100">
+                <div class="input-element " flex="30" flex-xs="100">
                   <p class="select-element-label"><label><strong>Rol</strong></label></p>
                   <md-input-container>
-                    <md-select class="select-element select-element-lg" ng-model="vm.user.userType">
+                    <md-select class="select-element select-element-md" ng-model="vm.user.userType">
                       <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
                         {{role.name}}
                       </md-option>
@@ -137,10 +137,10 @@
                 </div>
 
                 <!--Tienda-->
-                <div class="input-element" flex="45" flex-xs="100">
+                <div class="input-element" flex="30" flex-xs="100">
                   <p class="select-element-label"><label><strong>Tienda</strong></label></p>
                   <md-input-container>
-                    <md-select class="select-element select-element-lg" ng-model="vm.user.company">
+                    <md-select class="select-element select-element-md" ng-model="vm.user.company">
 
                       <md-option ng-repeat="company in vm.companies track by $index" ng-value="company.handle">
                         {{company.label}}
@@ -149,6 +149,17 @@
                   </md-input-container>
                 </div>
                 <!--Tienda-->
+
+                <div class="input-element " flex="30" flex-xs="100">
+                  <p class="select-element-label"><label><strong>Vendedor(SAP)</strong></label></p>
+                  <md-input-container>
+                    <md-select class="select-element select-element-md" ng-model="vm.user.SlpCode">
+                      <md-option ng-repeat="seller in vm.sellers track by $index" value="{{seller.SlpCode}}">
+                        {{seller.SlpName + ' | ' + seller.SlpCode}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+                </div>
 
               </section>
 

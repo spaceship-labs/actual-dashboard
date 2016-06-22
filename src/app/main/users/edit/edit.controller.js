@@ -53,6 +53,10 @@
             console.log(vm.user);
           });
 
+          userService.getSellers().then(function(res){
+            vm.sellers = res.data;
+            console.log(vm.sellers);
+          });
 
         }
 
