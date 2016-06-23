@@ -26,7 +26,8 @@
         .withOption('autoWidth',true)
         .withOption('displayLength', 10)
         .withOption('bLengthChange',false)
-        .withPaginationType('numbers')
+        //.withPaginationType('numbers')
+        .withPaginationType('input')
         .withDOM('<"top"f>rt<"bottom"<"left"<"length"l>><"right"<"info"i><"pagination"p>>>')
         .withOption('createdRow', function(row) {
             // Recompiling so we can bind Angular directive to the DT
