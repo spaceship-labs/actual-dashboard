@@ -197,8 +197,10 @@
           console.log('filters');
           console.log($scope.filters);
           if($scope.dtInstance){
-            $scope.dtInstance.rerender();
+            //$scope.dtInstance.rerender();
+            $scope.dtInstance.DataTable.search($('.dataTables_filter input').val()).draw();
           }
+
         }, 100);
       });
 
