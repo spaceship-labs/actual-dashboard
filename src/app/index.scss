@@ -342,6 +342,10 @@ wysiwyg-edit .tinyeditor .sizer{
   color: #fff!important;
 }
 .action-button md-icon{color: #fff}
+.action-button > a.download-btn{
+  color: #fff;
+}
+
 
 table.dataTable thead th{
   text-transform: uppercase;

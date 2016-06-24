@@ -23,7 +23,7 @@
                   ng-if="vm.product.icon_filename && !vm.isLoadingAvatar"
                   class="file-manager-thumb"
                   >
-                  <img ngf-thumbnail="vm.api.baseUrl+'/uploads/products/201x201'+vm.product.icon_filename || 'assets/images/product.png'">
+                  <img ngf-thumbnail="vm.api.baseUrl+'/uploads/products/300x300'+vm.product.icon_filename || 'assets/images/product.png'">
                 </span>
 
                 <span ng-if='vm.isLoadingAvatar' class='loader' >
@@ -36,7 +36,16 @@
               </div>
 
               <md-button ng-if="!vm.isLoadingAvatar" class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Subir</md-button>
+
               <md-button ng-if="vm.product.icon_filename && !vm.isLoadingAvatar" class="file-manager-btn md-raised md-warn" ng-click="vm.removeIcon()">Remover imagen</md-button>
+
+              <md-button ng-if="vm.product.icon_filename && !vm.isLoadingAvatar" class="file-manager-btn md-raised md-primary action-button" >
+                <a class="download-btn" ng-href="{{vm.api.baseUrl+'/uploads/products/'+vm.product.icon_filename}}" download>
+                  Descargar
+                </a>
+
+              </md-button>
+
             </div>
             <!--END IMAGEN PRINCIPAL INPUT-->
 
@@ -81,7 +90,7 @@
 
         <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.uploadFiles($files)" multiple="multiple">Subir imagenes</md-button>
 
-        <md-button class="md-raised md-warn" ng-click="vm.removeFiles()">Eliminar archivos seleccionados</md-button>
+        <md-button ng-if="vm.product.files.length > 0" class="md-raised md-warn" ng-click="vm.removeFiles()">Eliminar archivos seleccionados</md-button>
         <!--END IMAGENES EXTRA-->
 
         <!--VIDEO-->

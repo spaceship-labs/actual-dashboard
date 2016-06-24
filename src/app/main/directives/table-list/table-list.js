@@ -263,7 +263,6 @@
           searchText: '@',
           orderBy: '@',
           filters: '=',
-          toggleFilters: '=',
           exportQuery: '=',
           exportColumns: '='
         },
