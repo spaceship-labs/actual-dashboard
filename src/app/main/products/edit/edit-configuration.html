@@ -67,9 +67,9 @@
 
         <!--MARCA-->
         <div class="editor-column" flex="30" flex-sm="100" flex-xs="100">
-            <p class="select-element-label"><label><strong>Marca</strong></label></p>
+            <p class="select-element-label"><label><strong>Marca SAP</strong></label></p>
             <md-input-container>
-              <md-select class="select-element select-element-md" ng-model="vm.product.Brand">
+              <md-select class="select-element select-element-md" ng-model="vm.product.ItmsGrpCod">
 
                 <md-option ng-repeat="brand in vm.brands track by $index" ng-value="brand.ItmsGrpCod">
                   {{brand.ItmsGrpNam}}
@@ -77,6 +77,23 @@
               </md-select>
             </md-input-container>
             <p class="input-hint"><strong>SAP:</strong>Marca: {{vm.productBrandSap.ItmsGrpNam}}</p>
+
+
+            <!--MARCA APP-->
+            <br/>
+            <p class="select-element-label"><label><strong>Marca</strong></label></p>
+            <p><a href="#" ng-click="vm.openBrandForm($event)">Crear nueva marca</a></p>
+
+            <md-input-container>
+              <md-select class="select-element select-element-md" ng-model="vm.product.CustomBrand">
+
+                <md-option ng-repeat="brand in vm.customBrands track by $index" ng-value="brand.id">
+                  {{brand.Name}}
+                </md-option>
+              </md-select>
+            </md-input-container>
+
+
         </div>
         <!--MARCA-->
 

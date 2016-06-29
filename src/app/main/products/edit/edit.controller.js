@@ -27,6 +27,8 @@
         //vm.loadColors = loadColors;
 
         vm.loadBrands = loadBrands;
+        vm.loadCustomBrands = loadCustomBrands;
+
         vm.editSize = editSize;
         vm.addSize = addSize;
         vm.removeSize = removeSize;
@@ -60,6 +62,8 @@
         vm.openGroupForm = openGroupForm;
         vm.checkAllMark = checkAllMark;
         vm.getRelatedProducts = getRelatedProducts;
+
+        vm.openBrandForm = openBrandForm;
 
         // Data
         vm.loading = [];
@@ -154,6 +158,7 @@
             vm.loadFilters();
             //vm.loadColors();
             vm.loadBrands();
+            vm.loadCustomBrands();
             vm.sortImages();
             vm.countries = commonService.getCountriesList();
             vm.getRelatedProducts(vm.product.SuppCatNum);
@@ -180,10 +185,18 @@
           if(form.$valid){
             vm.isLoading = true;
             vm.groupSelectedCategories();
+
+            var selectedBrandSAP = _.findWhere(vm.brands, { ItmsGrpCod: vm.product.ItmsGrpCod});
+            delete selectedBrandSAP.id;
+            console.log(selectedBrandSAP);
+
             var params = {
               Categories: vm.product.Categories,
               SA: vm.product.SA,
-              Brand: vm.product.Brand,
+              //Brand: vm.product.Brand,
+              productBrand: selectedBrandSAP,
+              ItmsGrpCod: vm.product.ItmsGrpCod,
+              CustomBrand: vm.product.CustomBrand,
               CheckedStructure: vm.product.CheckedStructure
             };
             vm.displays.forEach(function(display){
@@ -263,8 +276,8 @@
           if(form.$valid){
             vm.isLoading = true;
             var params = {
-              Ensemble: vm.product.Ensemble,
-              EnsembleTime: vm.product.EnsembleTime,
+              //Ensemble: vm.product.Ensemble,
+              //EnsembleTime: vm.product.EnsembleTime,
               PackageContent: vm.product.PackageContent,
               CommercialPieces: vm.product.CommercialPieces,
               DeliveryPieces: vm.product.DeliveryPieces,
@@ -309,7 +322,7 @@
           if(form.$valid){
             vm.isLoading = true;
             var params = {
-              icon_description: vm.product.icon_description,
+              //icon_description: vm.product.icon_description,
               Video: vm.product.Video,
               CheckedPhotos: vm.product.CheckedPhotos
             };
@@ -402,6 +415,14 @@
             console.log(vm.productBrandSap);
           });
 
+        }
+
+        function loadCustomBrands(){
+          vm.customBrands = [];
+          productService.getCustomBrands().then(function(res){
+            console.log(res);
+            vm.customBrands = res.data;
+          });
         }
 
         function sortFiltersValues(){
@@ -832,7 +853,7 @@
           }, function() {
             console.log('You cancelled the dialog.');
           });
-        };
+        }
 
 
 
@@ -886,7 +907,39 @@
             {label:'Agrupador Relaciones', handle:'relations'},
 
           ];
+        }
 
+
+        //BRAND SECTION
+        function openBrandForm(ev) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          $mdDialog.show({
+            controller: BrandFormController,
+            templateUrl: 'app/main/products/edit/brand-form.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen,
+          })
+          .then(function(newData) {
+            productService.createCustomBrand(newData).then(function(res){
+              console.log(res);
+              dialogService.showDialog('Marca creada');
+            });
+          }, function() {
+            console.log('You cancelled the dialog.');
+          });
+        }
+
+        function BrandFormController($scope, commonService){
+          $scope.brand = {};
+          $scope.$watch('brand.Name', function(newVal, oldVal){
+            if(newVal != oldVal){
+              $scope.brand.Handle = commonService.formatHandle(newVal);
+            }
+          });
+          $scope.cancel = function(){ $mdDialog.cancel(); };
+          $scope.submit = function(size){ $mdDialog.hide(size); };
         }
 
 

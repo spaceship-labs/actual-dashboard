@@ -1,0 +1,46 @@
+<md-dialog aria-label=""  ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Crear marca</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <form action="#">
+          <div>
+            <md-input-container>
+              <label>Nombre</label>
+              <input type="text" ng-model="brand.Name">
+            </md-input-container>
+          </div>
+          <div>
+            <md-input-container>
+              <label>URL</label>
+              <input type="text" ng-model="brand.Handle">
+            </md-input-container>
+          </div>
+          <!--
+          <div>
+            <md-input-container>
+              <label>Descripción</label>
+              <textarea ng-model="brand.Description"></textarea>
+            </md-input-container>
+          </div>
+        -->
+
+        </form>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+       Cancelar
+      </md-button>
+      <md-button ng-click="submit(brand)" style="margin-right:20px;">
+        Crear
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

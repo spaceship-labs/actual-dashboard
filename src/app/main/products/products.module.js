@@ -23,6 +23,10 @@
             'app.products.groups.create',
             'app.products.groups.edit',
 
+            'app.products.brands.list',
+            'app.products.brands.create',
+            'app.products.brands.edit',
+
 
         ])
         .config(config);
@@ -45,6 +49,11 @@
 
         msNavigationServiceProvider.saveItem('products.categories', {
             title: 'Categorias',
+            group: true
+        });
+
+        msNavigationServiceProvider.saveItem('products.brands', {
+            title: 'Marcas',
             group: true
         });
 
@@ -93,7 +102,10 @@
             state: 'app.products_groups_list'
         });
 
-
+        msNavigationServiceProvider.saveItem('products.brands.list', {
+            title: 'Marcas de productos',
+            state: 'app.products_brands_list'
+        });
 
 
     }

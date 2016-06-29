@@ -1,0 +1,43 @@
+<md-dialog class="form-dialog" aria-label="Crear marca"  ng-cloak>
+
+  <form name="createForm" ng-submit="create(createForm)" class="md-inline-form" novalidate>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Crear marca</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+
+      <div ng-show="isLoading" class="loading-wrapper" layout="row" layout-sm="column" layout-align="space-around">
+        <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+      </div>
+
+      <div ng-show="!isLoading" class="md-dialog-content">
+
+        <div class="input-element">
+          <label>Nombre*</label>
+          <div class="input-element-inner">
+            <input type="text" ng-model="brand.Name" required placeholder="Nombre*">
+          </div>
+        </div>
+
+        <div class="input-element">
+          <label>URL*</label>
+          <div class="input-element-inner">
+            <input type="text" ng-model="brand.Handle" required placeholder="URL*">
+          </div>
+        </div>
+
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+       Cancelar
+      </md-button>
+      <md-button ng-click="create(createForm)" class="md-raised md-primary action-button">
+        Guardar
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

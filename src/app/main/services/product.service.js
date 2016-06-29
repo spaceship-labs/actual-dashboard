@@ -51,6 +51,13 @@
 
         //Brands
         getBrands: getBrands,
+        getCustomBrands: getCustomBrands,
+        createCustomBrand: createCustomBrand,
+        findCustomBrands: findCustomBrands,
+        destroyCustomBrand: destroyCustomBrand,
+        updateCustomBrand: updateCustomBrand,
+        getCustomBrandById: getCustomBrandById,
+
 
         //Groups
         getGroupById: getGroupById,
@@ -195,6 +202,37 @@
 
       function getBrands(){
         var url = '/productbrand/getall';
+        return api.$http.post(url);
+      }
+
+      function getCustomBrands(){
+        var url = '/custombrand/getall';
+        return api.$http.post(url);
+      }
+
+      function findCustomBrands(page, params){
+        var p = page || 1;
+        var url = '/custombrand/find/' + p;
+        return api.$http.post(url, params);
+      }
+
+      function createCustomBrand(params){
+        var url = '/custombrand/create/';
+        return api.$http.post(url, params);
+      }
+
+      function updateCustomBrand(id, params){
+        var url = '/custombrand/update/'+id;
+        return api.$http.post(url, params);
+      }
+
+      function destroyCustomBrand(id){
+        var url = '/custombrand/destroy/'+id;
+        return api.$http.post(url);
+      }
+
+      function getCustomBrandById(id){
+        var url = '/custombrand/findbyid/'+id;
         return api.$http.post(url);
       }
 
