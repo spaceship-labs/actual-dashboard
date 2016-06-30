@@ -57,18 +57,8 @@
               $scope.dtInstance.DataTable.search($('.dataTables_filter input').val()).draw();
           })
 
-        })
-        /*
-        .withButtons([
-          {
-            extend: 'excel',
-            text: 'Exportar pagina',
-            filename: 'MyDT',
-            name: 'Productos',
-            extension: '.xlsx'
-          },
-        ])
-        */
+        });
+
 
       function serverData(sSource, aoData, fnCallback, oSettings) {
         console.log('en serverData');
@@ -94,6 +84,9 @@
         }else{
             query.page = page;
         }
+
+        console.log('sortingColumnName');
+        console.log(sortingColumnName);
 
         if($scope.orderBy && !sortingColumnName){
           query.orderby = $scope.orderBy;
@@ -180,7 +173,7 @@
                     html = full['Name'];
                   }
                   else{
-                    html = data;
+                    html = data || '';
                   }
                 }
 

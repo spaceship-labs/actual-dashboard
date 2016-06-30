@@ -924,6 +924,10 @@
           .then(function(newData) {
             productService.createCustomBrand(newData).then(function(res){
               console.log(res);
+              var createdBrand = res.data;
+              if(createdBrand && createdBrand.id){
+                vm.customBrands.push(res.data);
+              }
               dialogService.showDialog('Marca creada');
             });
           }, function() {
