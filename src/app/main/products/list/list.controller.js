@@ -40,7 +40,7 @@
           return col;
         }
 
-        vm.exportQuery = 'SELECT yesNofn(ItemCode) AS Codigo,';
+        vm.exportQuery = 'SELECT ItemCode AS Codigo,';
         vm.exportQuery += 'ItemName AS Nombre, Available AS Inventario, productBrand->ItmsGrpNam AS Marca,';
         vm.exportQuery += ' SA AS Sociedad, yesNofn(CheckedStructure) AS Estructura, yesNofn(CheckedDescription) AS Contenido,';
         vm.exportQuery += ' yesNofn(CheckedFeatures) AS Caracteristicas, yesNofn(CheckedPackage) AS Empaque,';
