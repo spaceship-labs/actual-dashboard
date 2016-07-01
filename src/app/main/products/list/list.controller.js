@@ -30,18 +30,34 @@
 
         ];
 
-        vm.exportQuery = 'SELECT ItemCode AS Codigo, ItemName AS Nombre, Available AS Inventario, productBrand->ItmsGrpNam AS Marca, SA AS Sociedad, CheckedStructure AS Estructura, CheckedDescription AS Contenido, CheckedFeatures AS Caracteristicas, CheckedPackage AS Empaque  INTO XLS("prods.xls",{headers:true}) FROM ?';
+        alasql.fn.yesNofn = function(col){
+          if(col){
+            return 'Si';
+
+          }else if(col == false || typeof col == undefined || col == null){
+            return 'No';
+          }
+          return col;
+        }
+
+        vm.exportQuery = 'SELECT yesNofn(ItemCode) AS Codigo,';
+        vm.exportQuery += 'ItemName AS Nombre, Available AS Inventario, productBrand->ItmsGrpNam AS Marca,';
+        vm.exportQuery += ' SA AS Sociedad, yesNofn(CheckedStructure) AS Estructura, yesNofn(CheckedDescription) AS Contenido,';
+        vm.exportQuery += ' yesNofn(CheckedFeatures) AS Caracteristicas, yesNofn(CheckedPackage) AS Empaque,';
+        vm.exportQuery += ' yesNofn(icon_filename) AS Fotos, yesNofn(CheckedPhotos) AS Fotos_Revisadas';
+        vm.exportQuery += ' INTO XLS("prods.xls",{headers:true}) FROM ?';
+
         vm.exportColumns = [
-          'ItemCode',
-          'ItemName',
-          'Available',
-          'productBrand.ItmsGrpNam',
-          'SA',
-          'CheckedStructure',
-          'CheckedDescription',
-          'CheckedFeatures',
-          'CheckedPackage',
-          'CheckedPhotos'
+          {key:'ItemCode' },
+          {key:'ItemName' },
+          {key:'Available' },
+          {key:'productBrand.ItmsGrpNam' },
+          {key:'SA' },
+          {key:'CheckedStructure' },
+          {key:'CheckedDescription' },
+          {key:'CheckedFeatures' },
+          {key:'CheckedPackage' },
+          {key:'CheckedPhotos', yesNo: true}
         ];
 
         vm.sas = [

@@ -206,35 +206,7 @@
           auxQuery.getAll = true;
           $scope.apiResource($scope.page, auxQuery).then(function(result){
             var items = result.data.data;
-            var itemsFormatted = items.map(function(item){
-              $scope.exportColumns.forEach(function(col){
-                var columnParts = col.split('.');
-                if(columnParts.length > 1){
-                  if( item[columnParts[0]][columnParts[1]]== false){
-                    item[columnParts[0]][columnParts[1]]= 'No';
-                  }
-                  else if( item[columnParts[0]][columnParts[1]] == true ){
-                    item[columnParts[0]][columnParts[1]]= 'Si';
-                  }
-                  else if( typeof item[columnParts[0]][columnParts[1]] == 'undefined' ){
-                    item[columnParts[0]][columnParts[1]] = 'No';
-                  }
-                }else{
-                  if( item[columnParts[0]] == false){
-                    item[columnParts[0]] = 'No';
-                  }
-                  else if( item[columnParts[0]] == true ){
-                    item[columnParts[0]] = 'Si';
-                  }
-                  else if( typeof item[columnParts[0]] == 'undefined' ){
-                    item[columnParts[0]] = 'No';
-                  }
-                }
-              });
-              return item;
-            });
-            console.log(itemsFormatted)
-            alasql($scope.exportQuery ,[itemsFormatted]);
+            alasql($scope.exportQuery ,[items]);
             $('.export-button').text('Exportar registros');
             $scope.isExporting = false;
           });
