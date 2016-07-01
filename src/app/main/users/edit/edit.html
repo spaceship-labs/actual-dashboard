@@ -108,8 +108,8 @@
                   <p class="select-element-label"><label><strong>Vendedor(SAP)</strong></label></p>
                   <md-input-container>
                     <md-select class="select-element select-element-md" ng-model="vm.user.SlpCode">
-                      <md-option ng-repeat="seller in vm.sellers track by $index" value="{{seller.SlpCode}}">
-                        {{seller.SlpName + ' | ' + seller.SlpCode}}
+                      <md-option ng-repeat="seller in vm.sellers track by $index" value="{{seller.id}}">
+                        {{seller.SlpName + ' | ' + seller.id}}
                       </md-option>
                     </md-select>
                   </md-input-container>
