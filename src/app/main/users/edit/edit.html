@@ -29,7 +29,11 @@
 
             <form name="basicForm" flex="80" ng-submit="vm.sendForm($event)" class="md-inline-form" novalidate>
 
-              <section layout="row" layout-wrap layout-align="space-between start">
+              <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+                <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+              </div>
+
+              <section ng-show="!vm.isLoading" layout="row" layout-wrap layout-align="space-between start">
 
                 <div class="input-element" flex="30" flex-sm="100" flex-xs="100">
                   <label>Nombre*</label>
@@ -118,13 +122,108 @@
               </section>
 
               <section>
-                <p><label><strong>Modulos</p></label></p>
-                <div class="scroll-column">
-                  <div class="block-checkbox" ng-repeat="module in vm.modules">
-                    <md-checkbox  ng-model="data.cb1" aria-label="Checkbox 1">
-                      {{module.label}}
-                    </md-checkbox>
+                <h2><strong>Modulos</strong></h2>
+                <div layout="row" layout-wrap>
+
+                  <div flex="33">
+                    <p><label><strong>Usuarios</strong></label></p>
+                    <div class="scroll-column scroll-column-modules">
+                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'users'}">
+                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
+                          {{module.label}}
+                        </md-checkbox>
+                      </div>
+                    </div>
                   </div>
+
+                  <div flex="33">
+                    <p><label><strong>Productos</strong></label></p>
+                    <div class="scroll-column scroll-column-modules">
+                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'products'}">
+                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
+                          {{module.label}}
+                        </md-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div flex="33">
+                    <p><label><strong>Comisiones</strong></label></p>
+                    <div class="scroll-column scroll-column-modules">
+                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'comissions'}">
+                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
+                          {{module.label}}
+                        </md-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div flex="33">
+                    <p><label><strong>Configuración</strong></label></p>
+                    <div class="scroll-column scroll-column-modules">
+                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'config'}">
+                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
+                          {{module.label}}
+                        </md-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div flex="33">
+                    <p><label><strong>Oportunidades</strong></label></p>
+                    <div class="scroll-column scroll-column-modules">
+                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'leads'}">
+                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
+                          {{module.label}}
+                        </md-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div flex="33">
+                    <p><label><strong>Marcas</strong></label></p>
+                    <div class="scroll-column scroll-column-modules">
+                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'brands'}">
+                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
+                          {{module.label}}
+                        </md-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div flex="33">
+                    <p><label><strong>Categorias</strong></label></p>
+                    <div class="scroll-column scroll-column-modules">
+                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'categories'}">
+                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
+                          {{module.label}}
+                        </md-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div flex="33">
+                    <p><label><strong>Filtros</strong></label></p>
+                    <div class="scroll-column scroll-column-modules">
+                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'filters'}">
+                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
+                          {{module.label}}
+                        </md-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div flex="33">
+                    <p><label><strong>Agrupadores</strong></label></p>
+                    <div class="scroll-column scroll-column-modules">
+                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'groups'}">
+                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
+                          {{module.label}}
+                        </md-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </section>
 

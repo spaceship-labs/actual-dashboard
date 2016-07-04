@@ -24,6 +24,7 @@
                     return apiResolver.resolve('product.find@get');
                 }*/
             },
+            moduleName: 'list-invoices',
         });
     }
 

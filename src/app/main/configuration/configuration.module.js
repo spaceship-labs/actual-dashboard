@@ -13,16 +13,14 @@
     {
         // Navigation
         msNavigationServiceProvider.saveItem('configuration.import', {
-            title: 'Importar datos',
+            title: 'Importar imagenes SAP',
             state: 'app.configuration_import'
         });
-        /*
+
         msNavigationServiceProvider.saveItem('configuration', {
-            title : 'configuration',
+            title : 'Configuracion',
             group : false,
             weight: 2
         });
-
-*/
     }
 })();

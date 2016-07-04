@@ -7,7 +7,7 @@
         .run(runBlock);
 
     /** @ngInject */
-    function runBlock($rootScope, $location, localStorageService, $timeout, $state, jwtHelper)
+    function runBlock($rootScope, $location, localStorageService, $timeout, $state, jwtHelper, userService)
     {
         // Activate loading indicator
         var stateChangeStartEvent = $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams)
@@ -18,13 +18,13 @@
 
             //Check if token is expired
             if(_token){
-                var expiration = jwtHelper.getTokenExpirationDate(_token);
-                console.log(expiration);
-                if(expiration <= new Date() && !toState.isPublic){
-                  event.preventDefault();
-                  $state.go('app.auth_login');
-                  //$location.path('/auth/login')
-                }
+              var expiration = jwtHelper.getTokenExpirationDate(_token);
+              console.log(expiration);
+              if(expiration <= new Date() && !toState.isPublic){
+                event.preventDefault();
+                $state.go('app.auth_login');
+                //$location.path('/auth/login')
+              }
             }
 
             if(!_token && !toState.isPublic){
@@ -32,22 +32,48 @@
               $state.go('app.auth_login');
               //$location.path('/auth/login')
             }
-            else if(_token && toState.accessList){
-              if(toState.accessList.length > 0){
-                for(var i= 0; i<toState.accessList.length;i++){
-                  if(_user.userType == toState.accessList[i] || _user.isAdmin){
-                    return true;
+
+            else if(_token && toState.moduleName && toState.name != 'app.accesdenied'){
+
+              userService.getUser(_user.id).then(function(res){
+                _user = res.data.data;
+                if( _user.accessList && _user.accessList.indexOf(toState.moduleName) >= 0 ){
+                  console.log('esta autorizado a entrar a :'+ toState.moduleName);
+                  return true;
+                }else{
+                  console.log('no esta autorizado a entrar a :'+ toState.moduleName);
+                  event.preventDefault();
+                  $state.go('app.accesdenied');
+                }
+
+              });
+
+            }
+
+
+            else if(_token && toState.accessList && toState.name != 'app.accesdenied'){
+
+              userService.getUser(_user.id).then(function(res){
+                _user = res.data.data;
+
+                if(toState.accessList.length > 0){
+                  for(var i= 0; i<toState.accessList.length;i++){
+                    if(_user.userType == toState.accessList[i] || _user.isAdmin){
+                      return true;
+                    }
+                  }
+                  //'Handling redirect loop'
+                  if(fromState.name != 'app.accesdenied'){
+                    event.preventDefault();
+                    $state.go('app.accesdenied');
+                  }else{
+                    event.preventDefault();
+                    return;
                   }
                 }
-                //'Handling redirect loop'
-                if(fromState.name != 'app.products_list'){
-                  event.preventDefault();
-                  $state.go('app.products_list');
-                }else{
-                  event.preventDefault();
-                  return;
-                }
-              }
+
+              });
+
             }
 
             $rootScope.loadingProgress = true;

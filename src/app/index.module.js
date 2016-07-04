@@ -59,6 +59,9 @@
             //Configuracion
             'app.configuration',
 
+            //Pagina de accceso denegado
+            'app.accesdenied',
+
             //CUSTOM EXTERNAL MODULES
             'LocalStorageModule',
             'angular-jwt',

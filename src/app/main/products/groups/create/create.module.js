@@ -24,7 +24,8 @@
               */
             },
             bodyClass: 'edit',
-            accessList:['admin','content-editor']
+            accessList:['admin','content-editor'],
+            moduleName: 'create-groups',
         });
     }
 

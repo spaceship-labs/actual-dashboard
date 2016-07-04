@@ -19,6 +19,7 @@
             },
             resolve: {
             },
+            moduleName: 'list-users',
         });
     }
 

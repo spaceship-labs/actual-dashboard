@@ -18,7 +18,8 @@
                 }
             },
             accessList: ['admin'],
-            bodyClass: 'create'
+            bodyClass: 'create',
+            moduleName: 'create-users',
         });
     }
 

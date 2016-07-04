@@ -20,7 +20,8 @@
             resolve  : {
             },
             bodyClass: 'edit',
-            accessList:['admin']
+            accessList:['admin'],
+            moduleName: 'edit-users',
         });
     }
 

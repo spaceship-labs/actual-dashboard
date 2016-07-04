@@ -24,6 +24,7 @@
               */
             },
             bodyClass: 'edit',
+            moduleName: 'edit-products',
             accessList:['admin','content-editor']
         });
     }

@@ -50,21 +50,28 @@
           handle:'all'
         };
 
-        vm.appModules = [
-          {
-            label:'CONFIGURACIONES',
-            handle:'config',
-            subModules:[
-              {label:'Todas', handle:'config-all'},
-              {label:'Usuarios', handle:'config-users'},
-              {label:'Filtros', handle:'config-filters'},
-              {label:'Categorias', handle:'config-categories'},
-              {label:'Agrupadores', handle:'config-grouper'},
-              {label:'Metas Ventas', handle:'config-sales-goals'}
-            ]
-          },
-          {label: 'ARTICULOS', handle: 'articles'},
-          {label:'MARKETING', handle:'marketing'}
+        vm.modules = [
+          {key:'create-users', label:'Crear usuarios', section:'users'},
+          {key:'edit-users', label:'Editar usuarios', section:'users'},
+          {key:'list-users', label: 'Ver usuarios', section:'users'},
+          {key:'list-products', label:'Ver lista de productos', section:'products'},
+          {key:'edit-products', label:'Editar productos', section:'products'},
+          {key:'list-comissions', label:'Ver comisiones', section:'comissions'},
+          {key:'import-images', label:'Importar imagenes', section:'config'},
+          {key:'list-leads', label:'Ver oportunidades', section:'leads'},
+          {key:'create-brands', label:'Crear marcas', section:'brands'},
+          {key:'edit-brands', label:'Editar marcas', section:'brands'},
+          {key:'list-brands', label:'Ver marcas', section:'brands'},
+          {key:'create-categories', label:'Crear categorias', section:'categories'},
+          {key:'edit-categories', label:'Editar categorias', section:'categories'},
+          {key:'list-categories', label:'Ver categorias', section:'categories'},
+          {key:'create-filters', label:'Crear filtros', section:'filters'},
+          {key:'edit-filters', label:'Editar filtros', section:'filters'},
+          {key:'list-filters', label:'Ver filtros', section:'filters'},
+          {key:'create-groups', label:'Crear agrupadores', section:'groups'},
+          {key:'edit-groups', label:'Editar agrupadores', section:'groups'},
+          {key:'list-groups', label:'Ver agrupadores', section:'groups'},
+
         ];
 
         // Methods
@@ -84,6 +91,12 @@
         function sendForm(ev){
           console.log(vm.basicForm);
           if(vm.basicForm.password === vm.basicForm.confirmPassword){
+              vm.user.accessList = [];
+              vm.modules.forEach(function(module){
+                if(module.isActive){
+                  vm.user.accessList.push(module.key);
+                }
+              });
               vm.isLoading = true;
               userService.create(vm.user)
                 .then(

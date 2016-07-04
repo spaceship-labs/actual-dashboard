@@ -51,6 +51,7 @@
 
         function showErrorMessage(message, errors, parent, ev){
           var parentCon = angular.element('body');
+          errors = errors || [];
           if(parent){
             parentCon = angular.element(parent);
           }

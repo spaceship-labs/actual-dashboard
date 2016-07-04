@@ -378,6 +378,11 @@ table.dataTable thead th{
   margin: 5px 0
 }
 
+.scroll-column-modules{
+  overflow: visible;
+  max-height: none;
+  margin: 10px 0;
+}
 
 /*
 wysiwyg-edit .tinyeditor .tinyeditor-header .tinyeditor-buttons-group .tinyeditor-control{background-image:url(images/icons.png);background-position-x:0}
