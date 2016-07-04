@@ -31,6 +31,14 @@
           {name:'Marketing', id:6, handle:'marketing'}
         ];
 
+        vm.modules = [
+          {key:'create-users', label:'Crear usuarios'},
+          {key:'edit-users', label:'Editar usuarios'},
+          {key:'list-users', label: 'Ver usuarios'},
+          {key:'list-products', label:'Ver lista de productos'},
+          {key:'edit-products', label:'Editar productos'}
+        ];
+
         vm.companies = [
           {label:'Actual Studio', handle:'Actual Studio'},
           {label:'Actual Home', handle:'Actual Home'},

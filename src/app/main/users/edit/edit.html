@@ -117,6 +117,17 @@
 
               </section>
 
+              <section>
+                <p><label><strong>Modulos</p></label></p>
+                <div class="scroll-column">
+                  <div class="block-checkbox" ng-repeat="module in vm.modules">
+                    <md-checkbox  ng-model="data.cb1" aria-label="Checkbox 1">
+                      {{module.label}}
+                    </md-checkbox>
+                  </div>
+                </div>
+              </section>
+
               <p><a target="_blank" href="/auth/forgot-password">Haz click aqui para cambiar la contraseña</a></p>
 
               <div>

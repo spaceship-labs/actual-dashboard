@@ -121,17 +121,11 @@
         <!--COLOR-->
 
         <div class="input-element">
-          <label>Color detallado*</label>
+          <label>Color detallado</label>
           <div class="input-element-inner">
-            <input type="text" ng-model="vm.product.DetailedColor" name="Color_detallado" required placeholder="Color detallado *">
+            <input type="text" ng-model="vm.product.DetailedColor" name="Color_detallado" placeholder="Color detallado *">
           </div>
           <p class="input-hint"><strong>SAP:</strong> {{vm.product.U_COLOR}}</p>
-          <div ng-messages="featuresForm.Color_detallado.$error" ng-show="featuresForm.Color_detallado.$touched"
-               role="alert">
-              <div ng-message="required">
-                  <span>Este campo es requerido.</span>
-              </div>
-          </div>
         </div>
 
         <!--END COLOR-->

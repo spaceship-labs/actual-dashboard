@@ -212,9 +212,11 @@
 
           }else{
             var errors = [];
-            form.$error.required.forEach(function(err){
-              errors.push(err.$name);
-            });
+            if(form.$error.required){
+              form.$error.required.forEach(function(err){
+                errors.push(err.$name);
+              });
+            }
             dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }
@@ -237,9 +239,12 @@
             });
           }else{
             var errors = [];
-            form.$error.required.forEach(function(err){
-              errors.push(err.$name);
-            });
+            console.log(form);
+            if(form.$error.required){
+              form.$error.required.forEach(function(err){
+                errors.push(err.$name);
+              });
+            }
             dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }
@@ -265,9 +270,11 @@
             });
           }else{
             var errors = [];
-            form.$error.required.forEach(function(err){
-              errors.push(err.$name);
-            });
+            if(form.$error.required){
+              form.$error.required.forEach(function(err){
+                errors.push(err.$name);
+              });
+            }
             dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }
@@ -311,9 +318,11 @@
             });
           }else{
             var errors = [];
-            form.$error.required.forEach(function(err){
-              errors.push(err.$name);
-            });
+            if(form.$error.required){
+              form.$error.required.forEach(function(err){
+                errors.push(err.$name);
+              });
+            }
             dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }
@@ -333,9 +342,11 @@
             });
           }else{
             var errors = [];
-            form.$error.required.forEach(function(err){
-              errors.push(err.$name);
-            });
+            if(form.$error.required){
+              form.$error.required.forEach(function(err){
+                errors.push(err.$name);
+              });
+            }
             dialogService.showErrorMessage('Campos incompletos', errors);
           }
         }

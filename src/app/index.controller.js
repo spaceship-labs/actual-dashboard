@@ -55,7 +55,7 @@
           //toolbar: 'undo redo',
           //toolbar: 'undo redo | bold italic ',
           //toolbar: 'undo redo',
-          limitChars: 400,
+          limitChars: 4000,
           //menu: false,
           //toolbar: false,
           browser_spellcheck: true
