@@ -85,6 +85,7 @@
 
           userService.getSellers().then(function(res){
             vm.sellers = res.data;
+            vm.sellers.unshift({id:null, SlpName:'Ninguno'});
             //console.log(vm.sellers);
           });
 
@@ -93,30 +94,42 @@
         /**
          * Send form
          */
-        function sendForm(ev){
-          var params = vm.user;
-          params.accessList = [];
-          vm.modules.forEach(function(module){
-            if(module.isActive){
-              params.accessList.push(module.key);
-            }
-          });
-          vm.isLoading = true;
-          userService.update(vm.user.id, params)
-            .then(
-              function(res){
-                //showDialog('Datos guardados',ev);
-                dialogService.showDialog('Datos guardados');
-                // Clear the form data
-                vm.formWizard = {};
-                vm.isLoading = false;
-              },
-              function(errUpdate){
-                console.log(errUpdate);
-                dialogService.showErrorMessage('Hubo un error');
-                vm.isLoading = false;
+        function sendForm(form){
+          if(form.$valid){
+            var params = vm.user;
+            params.accessList = [];
+            vm.modules.forEach(function(module){
+              if(module.isActive){
+                params.accessList.push(module.key);
               }
-          );
+            });
+            vm.isLoading = true;
+            userService.update(vm.user.id, params)
+              .then(
+                function(res){
+                  //showDialog('Datos guardados',ev);
+                  dialogService.showDialog('Datos guardados');
+                  // Clear the form data
+                  vm.formWizard = {};
+                  vm.isLoading = false;
+                },
+                function(errUpdate){
+                  console.log(errUpdate);
+                  dialogService.showErrorMessage('Hubo un error');
+                  vm.isLoading = false;
+                }
+            );
+
+          }else{
+            var errors = [];
+            if(form.$error.required){
+              form.$error.required.forEach(function(err){
+                errors.push(err.$name);
+              });
+            }
+            dialogService.showErrorMessage('Campos incompletos', errors);
+          }
+
 
         }
 

@@ -20,20 +20,20 @@
             <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
               <h3>EDITAR USUARIO</h3>
               <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
-                  ng-click="vm.sendForm($event)" ng-disabled="basicForm.$invalid || basicForm.$pristine || vm.isLoading">
+                 ng-click="vm.sendForm(basicForm)">
                   Guardar
               </md-button>
             </div>
           </md-toolbar>
           <md-content class="md-padding">
 
-            <form name="basicForm" flex="80" ng-submit="vm.sendForm($event)" class="md-inline-form" novalidate>
+            <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+            </div>
 
-              <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
-                <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
-              </div>
+            <form ng-show="!vm.isLoading" name="basicForm" flex="80" ng-submit="vm.sendForm(basicForm)" class="md-inline-form" novalidate>
 
-              <section ng-show="!vm.isLoading" layout="row" layout-wrap layout-align="space-between start">
+              <section  layout="row" layout-wrap layout-align="space-between start">
 
                 <div class="input-element" flex="30" flex-sm="100" flex-xs="100">
                   <label>Nombre*</label>
@@ -112,8 +112,9 @@
                   <p class="select-element-label"><label><strong>Vendedor(SAP)</strong></label></p>
                   <md-input-container>
                     <md-select class="select-element select-element-md" ng-model="vm.user.SlpCode">
-                      <md-option ng-repeat="seller in vm.sellers track by $index" value="{{seller.id}}">
-                        {{seller.SlpName + ' | ' + seller.id}}
+                      <md-option ng-repeat="seller in vm.sellers track by $index" ng-value="seller.id">
+                        <span>{{seller.SlpName}}</span>
+                        <span ng-if="seller.id">| {{seller.id}}</span>
                       </md-option>
                     </md-select>
                   </md-input-container>
@@ -231,7 +232,7 @@
 
               <div>
                 <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
-                           ng-disabled="basicForm.$invalid || basicForm.$pristine || vm.isLoading">
+                           ng-click="vm.sendForm(basicForm)">
                     Guardar
                 </md-button>
               </div>

@@ -81,36 +81,46 @@
 
         userService.getSellers().then(function(res){
           vm.sellers = res.data;
-          console.log(vm.sellers);
+          vm.sellers.unshift({id:null, SlpName:'Ninguno'});
         });
 
 
         /**
          * Send form
          */
-        function sendForm(ev){
+        function sendForm(form){
           console.log(vm.basicForm);
-          if(vm.basicForm.password === vm.basicForm.confirmPassword){
-              vm.user.accessList = [];
-              vm.modules.forEach(function(module){
-                if(module.isActive){
-                  vm.user.accessList.push(module.key);
-                }
-              });
-              vm.isLoading = true;
-              userService.create(vm.user)
-                .then(
-                  function(res){
-                    console.log(res);
-                    vm.isLoading = false;
-                    dialogService.showDialog('Datos guardados');
-                  },
-                  function(err){
-                    console.log(err);
-                    vm.isLoading = false;
-                    dialogService.showDialog('Error, intenta de nuevo');
+          if(form.$valid){
+            if(vm.basicForm.password === vm.basicForm.confirmPassword){
+                vm.user.accessList = [];
+                vm.modules.forEach(function(module){
+                  if(module.isActive){
+                    vm.user.accessList.push(module.key);
                   }
-                );
+                });
+                vm.isLoading = true;
+                userService.create(vm.user)
+                  .then(
+                    function(res){
+                      console.log(res);
+                      vm.isLoading = false;
+                      dialogService.showDialog('Datos guardados');
+                    },
+                    function(err){
+                      console.log(err);
+                      vm.isLoading = false;
+                      dialogService.showDialog('Error, intenta de nuevo');
+                    }
+                  );
+            }
+          }else{
+            var errors = [];
+            if(form.$error.required){
+              form.$error.required.forEach(function(err){
+                errors.push(err.$name);
+              });
+            }
+            dialogService.showErrorMessage('Campos incompletos', errors);
           }
 
             // Clear the form data
