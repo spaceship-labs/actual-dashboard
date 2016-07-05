@@ -451,7 +451,14 @@
                     }
                   })
                 });
-                //Fixes values order missmatch
+
+                //If values are not in the order list
+                filter.Values.forEach(function(val){
+                  if( idsList.indexOf(val.id) < 0 ){
+                    newArr.push(val);
+                  }
+                });
+
                 if(newArr.length > 0){
                   filter.Values = newArr;
                 }
@@ -489,7 +496,7 @@
 
             //Checking if a file was not in the orderedList
             baseArr.forEach(function(file){
-              if( !_.where(orderedList, {id: file.id}) ){
+              if( idsList.indexOf(file.id) < 0 ){
                 orderedList.push(file);
               }
             });

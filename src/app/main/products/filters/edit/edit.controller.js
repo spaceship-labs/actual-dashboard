@@ -63,12 +63,23 @@
                   }
                 })
               });
+
+              //If values are not in the order list
+              vm.filter.Values.forEach(function(val){
+                if( idsList.indexOf(val.id) < 0 ){
+                  console.log('No estaba en la lista : ' + val.Name);
+                  newArr.push(val);
+                }
+              });
+
               console.log(newArr);
               //Fixes values order missmatch
               if(newArr.length > 0){
                 vm.filter.Values = newArr;
               }
             }
+
+
           }
         }
 
