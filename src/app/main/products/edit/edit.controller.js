@@ -462,8 +462,12 @@
 
         function getImagesOrder(){
           vm.product.ImagesOrder =  [];
+          var auxImages = [];
           vm.product.files.forEach(function(file){
-            vm.product.ImagesOrder.push(file.id);
+            if(auxImages.indexOf(file) < 0){
+              auxImages.push(file);
+              vm.product.ImagesOrder.push(file.id);
+            }
           });
         }
 

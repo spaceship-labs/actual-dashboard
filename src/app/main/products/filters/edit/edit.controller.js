@@ -99,8 +99,12 @@
 
         function getValuesOrder(){
           vm.filter.ValuesOrder =  [];
+          var auxValues = [];
           vm.filter.Values.forEach(function(val){
-            vm.filter.ValuesOrder.push(val.id);
+            if(auxValues.indexOf(val) < 0){
+              auxValues.push(val);
+              vm.filter.ValuesOrder.push(val.id);
+            }
           });
         }
 
