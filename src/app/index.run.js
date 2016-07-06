@@ -34,7 +34,7 @@
             }
 
             else if(_token && toState.moduleName && toState.name != 'app.accesdenied'){
-
+              //console.log(_token);
               userService.getUser(_user.id).then(function(res){
                 _user = res.data.data;
                 if( _user.accessList && _user.accessList.indexOf(toState.moduleName) >= 0 ){

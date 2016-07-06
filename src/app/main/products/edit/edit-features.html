@@ -15,7 +15,7 @@
         <div layout="row" layout-wrap layout-align="start start">
           <div ng-if="vm.loadedFilters" ng-repeat="filter in vm.normalFilters | orderBy: 'IsMultiple' track by $index" class="filter-column" flex="33" flex-xs="100">
 
-            <div ng-if="filter.IsMultiple && filter.Name != 'Color paleta' " class="scroll-column">
+            <div ng-if="filter.IsMultiple && filter.id != vm.colorFilterId " class="scroll-column">
               <p ng-if="filter.IsMultiple" class="select-element-label">
                 <label><strong>{{filter.Name}}</strong></label>
               </p>
@@ -33,7 +33,7 @@
 
             </div>
 
-            <div ng-if="!filter.IsMultiple && filter.Name != 'Color paleta' ">
+            <div ng-if="!filter.IsMultiple && filter.id != vm.colorFilterId ">
               <p class="select-element-label"><label><strong>{{filter.Name}}</strong></label></p>
               <md-input-container>
                 <md-select class="select-element select-element-md2" placeholder="{{filter.Name}}" ng-model="filter.selectedValue">
@@ -59,7 +59,7 @@
 
           <div ng-if="vm.loadedFilters" ng-repeat="filter in vm.variantFilters | orderBy: 'IsMultiple' track by $index" class="filter-column" flex="33" flex-xs="100">
 
-            <div ng-if="filter.IsMultiple && filter.Name != 'Color paleta' " class="scroll-column">
+            <div ng-if="filter.IsMultiple && filter.id != vm.colorFilterId " class="scroll-column">
               <p ng-if="filter.IsMultiple" class="select-element-label">
                 <label><strong>{{filter.Name}}</strong></label>
               </p>
@@ -77,7 +77,7 @@
 
             </div>
 
-            <div ng-if="!filter.IsMultiple && filter.Name != 'Color paleta' ">
+            <div ng-if="!filter.IsMultiple && filter.id != vm.colorFilterId ">
               <p class="select-element-label"><label><strong>{{filter.Name}}</strong></label></p>
               <md-input-container>
                 <md-select class="select-element select-element-md2" placeholder="{{filter.Name}}" ng-model="filter.selectedValue">
@@ -89,7 +89,7 @@
               </md-input-container>
             </div>
 
-            <div ng-if="filter.Name == 'Color paleta' " class="colorpicker-sp-wrapper">
+            <div ng-if="filter.id == vm.colorFilterId " class="colorpicker-sp-wrapper">
               <label><strong>Color</strong></label>
               <div layout="row" layout-wrap class="colorpicker-sp md-whiteframe-1dp">
                 <a

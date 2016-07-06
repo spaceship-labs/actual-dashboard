@@ -55,6 +55,7 @@
 
         vm.counterColors = 0;
         vm.colorFilter = false;
+        vm.colorFilterId = '5743703aef7d5e62e508e22d';
 
         vm.normalFilters = [];
         vm.variantFilters = [];
