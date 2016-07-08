@@ -23,7 +23,9 @@
               </md-button>
               <md-menu-content width="3">
                 <md-menu-item class="md-indent" ng-repeat="notification in vm.notifications">
-                  <p>{{notification.message}}</p>
+                  <md-button ng-href="users/edit/{{notification.user.id}}">
+                    {{notification.message}}
+                  </md-button>
                 </md-menu-item>
             </md-menu>
             <md-menu md-position-mode="left bottom">
