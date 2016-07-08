@@ -7,7 +7,7 @@
         .controller('UsersEditController', UsersEditController);
 
     /** @ngInject */
-    function UsersEditController($mdDialog, $stateParams, userService, dialogService){
+    function UsersEditController($mdDialog, $stateParams, userService, api, dialogService){
         var vm = this;
 
         // Data
@@ -62,6 +62,8 @@
           {label:'Actual Group', handle:'Actual Group'},
         ];
 
+        vm.notifications = [];
+
         vm.isLoading = false;
 
         // Methods
@@ -87,6 +89,14 @@
             vm.sellers = res.data;
             vm.sellers.unshift({id:null, SlpName:'Ninguno'});
             //console.log(vm.sellers);
+          });
+
+          api.$http.get('/logging/find', {user: $stateParams.id}).then(function(res){
+            vm.notifications = res.data.map(function(notification) {
+              return Object.assign(notification, {
+                createdAt: moment(notification.createdAt).fromNow()
+              });
+            });
           });
 
         }
