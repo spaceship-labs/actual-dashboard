@@ -7,9 +7,10 @@
         .controller('ToolbarController', ToolbarController);
 
     /** @ngInject */
-    function ToolbarController($rootScope, $scope, $mdSidenav, $translate, $mdToast)
+    function ToolbarController($rootScope, $scope, $mdSidenav, $translate, $mdToast, api)
     {
         var vm = this;
+        vm.notifications = [];
 
         // Data
         $rootScope.global = {
@@ -86,6 +87,11 @@
 
             // Get the selected language directly from angular-translate module setting
             vm.selectedLanguage = vm.languages[$translate.preferredLanguage()];
+            api.$http.get('/logging/find').then(function(res){
+              vm.notifications = res.data;
+            });
+
+
         }
 
 
