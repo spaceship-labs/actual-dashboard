@@ -22,6 +22,8 @@
               console.log(expiration);
               if(expiration <= new Date() && !toState.isPublic){
                 event.preventDefault();
+                localStorageService.remove('user');
+                localStorageService.remove('token');
                 $state.go('app.auth_login');
                 //$location.path('/auth/login')
               }
@@ -37,6 +39,11 @@
               //console.log(_token);
               userService.getUser(_user.id).then(function(res){
                 _user = res.data.data;
+                if(!_user.id){
+                  localStorageService.remove('user');
+                  localStorageService.remove('token');
+                  $state.go('app.auth_login');
+                }
                 if( _user.accessList && _user.accessList.indexOf(toState.moduleName) >= 0 ){
                   console.log('esta autorizado a entrar a :'+ toState.moduleName);
                   return true;
@@ -55,6 +62,12 @@
 
               userService.getUser(_user.id).then(function(res){
                 _user = res.data.data;
+
+                if(!_user.id){
+                  localStorageService.remove('user');
+                  localStorageService.remove('token');
+                  $state.go('app.auth_login');
+                }
 
                 if(toState.accessList.length > 0){
                   for(var i= 0; i<toState.accessList.length;i++){

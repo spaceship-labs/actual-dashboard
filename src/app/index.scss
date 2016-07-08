@@ -545,3 +545,26 @@ label.mce-charactercount {
 }
 
 .no-paddingtop{padding-top: 0;}
+
+
+.logs-widget{
+  border: 2px solid black;
+}
+.logs-widget h2{
+  padding: 10px;
+  color: #fff;
+  background: #000;
+  margin: 0;
+}
+.logs-widget md-content{
+  padding: 10px;
+  overflow: auto;
+  max-height: 200px;
+}
+
+.logs-widget md-list-item{
+  border-bottom: 1px solid #929191;
+  min-height: 0!important;
+}
+.logs-widget md-list-item:last-child{border-bottom: 0;}
+.logs-widget .md-list-item-text{margin:4px 0!important;}

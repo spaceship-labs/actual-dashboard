@@ -229,17 +229,19 @@
                   </div>
                 </div>
                 <div flex="35">
-                  <h2><strong>Ultíma actividad</strong></h2>
-                  <md-content>
-                    <md-list flex>
-                      <md-list-item class="md-3-line" ng-repeat="notification in vm.notifications">
-                        <div class="md-list-item-text" layout="column">
-                          <h4>{{notification.message}}</h4>
-                          <p>{{notification.createdAt}}</p>
-                        </div>
-                      </md-list-item>
-                    </md-list>
-                  </md-content>
+                  <div class="logs-widget">
+                    <h2><strong>Ultíma actividad</strong></h2>
+                    <md-content>
+                      <md-list flex>
+                        <md-list-item class="md-3-line" ng-repeat="notification in vm.notifications">
+                          <div class="md-list-item-text" layout="column">
+                            <h4>{{notification.message}}</h4>
+                            <p>{{notification.createdAt}}</p>
+                          </div>
+                        </md-list-item>
+                      </md-list>
+                    </md-content>
+                  </div>
                 </div>
               </section>
 
