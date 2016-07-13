@@ -59,6 +59,9 @@
             //Configuracion
             'app.configuration',
 
+            //Marketing
+            'app.marketing',
+
             //Pagina de accceso denegado
             'app.accesdenied',
 
@@ -70,6 +73,7 @@
             'textAngular',
             'dndLists',
             'ngMaterialDatePicker',
-            'ui.tinymce'
+            'ui.tinymce',
+            'pikaday'
         ]);
 })();

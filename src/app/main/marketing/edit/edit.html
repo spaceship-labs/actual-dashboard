@@ -1,0 +1,56 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <!-- HEADER -->
+    <!--
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="title">Usuarios</div>
+        </div>
+    </div>
+    -->
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <div class="page-layout simple fullwidth">
+
+        <section class="md-whiteframe-z1">
+          <md-toolbar class="demo-toolbar md-primary">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+              <h3>EDITAR PROMOCIÓN</h3>
+              <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
+                 ng-click="vm.sendForm(basicForm)">
+                  Guardar
+              </md-button>
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+
+            <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+            </div>
+
+            <form ng-show="!vm.isLoading" name="basicForm" flex="80" ng-submit="vm.sendForm(basicForm)" class="md-inline-form" novalidate>
+
+              <div>
+                <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
+                           ng-click="vm.sendForm(basicForm)">
+                    Guardar
+                </md-button>
+              </div>
+
+
+            </form>
+
+          </md-content>
+
+          <!--<div form-helper flex="80"></div>-->
+        </section>
+
+
+    </div>
+    <!-- / CONTENT -->
+  </div>
+
+</div>

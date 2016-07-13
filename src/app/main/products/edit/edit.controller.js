@@ -198,7 +198,8 @@
               productBrand: selectedBrandSAP,
               ItmsGrpCod: vm.product.ItmsGrpCod,
               CustomBrand: vm.product.CustomBrand,
-              CheckedStructure: vm.product.CheckedStructure
+              CheckedStructure: vm.product.CheckedStructure,
+              freeSale: vm.product.freeSale
             };
             vm.displays.forEach(function(display){
               params[display.handle] = vm.product[display.handle];

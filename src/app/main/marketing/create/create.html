@@ -1,0 +1,99 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <div class="content">
+
+
+      <div class="page-layout simple fullwidth">
+
+        <section class="md-whiteframe-z1">
+          <md-toolbar class="demo-toolbar md-primary">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+              <h3>REGISTRAR PROMOCIÓN</h3>
+
+              <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
+                        ng-click="vm.sendForm(basicForm)">
+                  Registrar
+              </md-button>
+
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+
+
+            <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+            </div>
+
+            <form name="basicForm" ng-show="!vm.isLoading" ng-submit="vm.sendForm(basicForm)" class="md-inline-form" novalidate>
+
+
+              <section layout="row" layout-align="space-between start" layout-wrap>
+                <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
+                  <label>Nombre*</label>
+                  <div class="input-element-inner">
+                    <input type="text" name="Nombre" ng-model="vm.group.Name" required placeholder="Nombre*">
+                  </div>
+                </div>
+
+                <div flex="45" flex-sm="100" flex-xs="100">
+                  <p class="select-element-label"><label><strong>Tipo de promoción*</strong></label></p>
+                  <md-input-container>
+                    <md-select class="select-element" placeholder="Tipo" name="Tipo_agrupador" required ng-model="vm.group.Type">
+                      <md-option ng-repeat="type in vm.types track by $index" value="{{type.handle}}">
+                        {{type.label}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+                </div>
+              </section>
+
+              <section layout="row" layout-align="space-between end" layout-wrap>
+                <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
+                  <label>Fecha de inicio*</label>
+                  <div class="input-element-inner">
+                    <input type="text" pikaday="vm.myPicker" date="vm.promotion.startDate" on-select="ctrl.onPikadaySelect(pikaday)" readonly required>
+                  </div>
+                </div>
+
+                <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
+                  <label>Fecha de vencimiento*</label>
+                  <div class="input-element-inner">
+                    <input type="text" pikaday="vm.myPicker" date="vm.promotion.endDate" on-select="ctrl.onPikadaySelect(pikaday)" readonly required>
+                  </div>
+                </div>
+              </section>
+
+              <section>
+                <div>
+                  <p class="select-element-label"><label><strong>Tiendas aplicables</strong></label></p>
+                  <md-input-container>
+                    <md-select class="select-element" placeholder="Tipo" name="Tipo_agrupador" required ng-model="vm.group.Type">
+                      <md-option ng-repeat="type in vm.types track by $index" value="{{type.handle}}">
+                        {{type.label}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+                </div>
+              </section>
+
+
+              <div>
+                <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
+                           ng-click="vm.sendForm(basicForm)">
+                    Crear
+                </md-button>
+              </div>
+
+            </form>
+
+          </md-content>
+
+          <!--<div form-helper flex="80"></div>-->
+        </section>
+
+
+    </div>
+    <!-- / CONTENT -->
+  </div>
+
+</div>

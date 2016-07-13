@@ -52,6 +52,9 @@
           {key:'create-groups', label:'Crear agrupadores', section:'groups'},
           {key:'edit-groups', label:'Editar agrupadores', section:'groups'},
           {key:'list-groups', label:'Ver agrupadores', section:'groups'},
+          {key:'create-marketing', label:'Crear promociones', section:'marketing'},
+          {key:'edit-marketing', label:'Editar promociones', section:'marketing'},
+          {key:'list-marketing', label:'Ver promociones', section:'marketing'},
 
         ];
 

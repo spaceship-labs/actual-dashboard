@@ -160,6 +160,17 @@
                       </div>
                     </div>
 
+                  <div flex="33">
+                    <p><label><strong>Marketing</strong></label></p>
+                    <div class="scroll-column scroll-column-modules">
+                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'marketing'}">
+                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
+                          {{module.label}}
+                        </md-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
                     <div flex="33">
                       <p><label><strong>Configuración</strong></label></p>
                       <div class="scroll-column scroll-column-modules">
