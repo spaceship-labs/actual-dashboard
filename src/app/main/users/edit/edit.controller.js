@@ -8,7 +8,8 @@
 
     /** @ngInject */
     function UsersEditController($mdDialog, $stateParams, userService, api, dialogService){
-        var vm = this;
+        var vm      = this;
+        var sending = false;
 
         // Data
         //vm.user = User.data;
@@ -58,6 +59,8 @@
 
         ];
 
+        vm.permissions = [];
+
         vm.companies = [
           {label:'Actual Studio', handle:'Actual Studio'},
           {label:'Actual Home', handle:'Actual Home'},
@@ -80,7 +83,6 @@
         function init(){
           userService.getUser($stateParams.id).then(function(res){
             vm.user = res.data.data;
-            console.log(vm.user);
             vm.modules.forEach(function(module){
               if(vm.user.accessList && vm.user.accessList.indexOf(module.key) >= 0){
                 module.isActive = true;
@@ -102,31 +104,50 @@
             });
           });
 
+          api.$http.get('/permission/find').then(function(res) {
+            vm.permissions = res.data;
+          });
+
         }
 
         /**
          * Send form
          */
         function sendForm(form){
+          if (sending) {
+            return;
+          }
+          sending = true;
           if(form.$valid){
             var params = vm.user;
-            params.accessList = [];
-            vm.modules.forEach(function(module){
+            params.accessList  = vm.modules.reduce(function(acum, module){
               if(module.isActive){
-                params.accessList.push(module.key);
+                return acum.concat(module.key);
               }
+              return acum;
+            }, []);
+            params.permissions = params.accessList.map(function(name) {
+              var permission= vm.permissions.find(function(permission) {
+                return permission.name == name;
+              });
+              return permission && permission.id;
+            });
+            params.permissions = params.permissions.filter(function(per){
+              return per;
             });
             vm.isLoading = true;
             userService.update(vm.user.id, params)
               .then(
                 function(res){
                   //showDialog('Datos guardados',ev);
+                  sending = false;
                   dialogService.showDialog('Datos guardados');
                   // Clear the form data
                   vm.formWizard = {};
                   vm.isLoading = false;
                 },
                 function(errUpdate){
+                  sending = false;
                   console.log(errUpdate);
                   dialogService.showErrorMessage('Hubo un error');
                   vm.isLoading = false;
@@ -135,6 +156,7 @@
 
           }else{
             var errors = [];
+            sending = false;
             if(form.$error.required){
               form.$error.required.forEach(function(err){
                 errors.push(err.$name);

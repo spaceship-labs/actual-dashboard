@@ -244,7 +244,10 @@
                     <h2><strong>Ultíma actividad</strong></h2>
                     <md-content>
                       <md-list flex>
-                        <md-list-item class="md-3-line" ng-repeat="notification in vm.notifications">
+                        <md-list-item
+                          class="md-3-line"
+                          ng-repeat="notification in vm.notifications"
+                        >
                           <div class="md-list-item-text" layout="column">
                             <h4>{{notification.message}}</h4>
                             <p>{{notification.createdAt}}</p>
@@ -256,11 +259,18 @@
                 </div>
               </section>
 
-              <p><a target="_blank" href="/auth/forgot-password">Haz click aqui para cambiar la contraseña</a></p>
+              <p>
+                <a target="_blank" href="/auth/forgot-password">
+                  Haz click aqui para cambiar la contraseña
+                </a>
+              </p>
 
               <div>
-                <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
-                           ng-click="vm.sendForm(basicForm)">
+                <md-button type="submit"
+                  class="md-raised md-accent action-button"
+                  aria-label="Guardar"
+                  ng-click="vm.sendForm(basicForm)"
+                >
                     Guardar
                 </md-button>
               </div>
