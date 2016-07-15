@@ -63,13 +63,8 @@
         ];
 
         vm.permissions = [];
+        vm.companies = [];
 
-        vm.companies = [
-          {label:'Actual Studio', handle:'Actual Studio'},
-          {label:'Actual Home', handle:'Actual Home'},
-          {label:'Actual Kids', handle:'Actual Kids'},
-          {label:'Actual Group', handle:'Actual Group'},
-        ];
 
         vm.notifications = [];
 
@@ -86,6 +81,7 @@
         function init(){
           userService.getUser($stateParams.id).then(function(res){
             vm.user = res.data.data;
+            vm.user.companies = (vm.user.companies && vm.user.companies[0] || []).id
             vm.modules.forEach(function(module){
               if(vm.user.accessList && vm.user.accessList.indexOf(module.key) >= 0){
                 module.isActive = true;
@@ -111,6 +107,9 @@
             vm.permissions = res.data;
           });
 
+          api.$http.get('/company/find').then(function(res) {
+            vm.companies = res.data;
+          });
         }
 
         /**
