@@ -293,7 +293,10 @@ wysiwyg-edit .tinyeditor .sizer{
   font-size: 12px;
 }
 .select-element .md-select-value .md-text{font-size: 12px;}
-
+.checkbox-element md-checkbox{
+  font-size: 12px;
+  margin: 0;
+}
 
 /*----------------/
   #ERROR FIELDS & SAP HINTS

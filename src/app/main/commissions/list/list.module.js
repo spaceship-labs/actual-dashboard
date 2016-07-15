@@ -24,7 +24,7 @@
                     return apiResolver.resolve('product.find@get');
                 }*/
             },
-            moduleName: 'list-comissions',
+            moduleName: 'list-commissions',
         });
     }
 

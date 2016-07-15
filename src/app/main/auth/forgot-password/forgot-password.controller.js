@@ -29,7 +29,7 @@
             vm.isLoading = false;
             if(res.data.success){
               vm.processCompleted = true;
-              vm.message = 'Tu contraseña se ha actualizado';
+              vm.message = 'Se ha enviado un enlace a tu email para reestablecer tu contraseña';
             }else{
               vm.message = 'Hubo un error, intenta de nuevo';
             }
