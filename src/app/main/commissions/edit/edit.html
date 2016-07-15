@@ -1,0 +1,226 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <!-- HEADER -->
+    <!--
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="title">Usuarios</div>
+        </div>
+    </div>
+    -->
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+
+      <div class="page-layout simple fullwidth">
+
+        <section class="md-whiteframe-z1">
+          <md-toolbar class="demo-toolbar md-primary">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+              <h3>EDITAR COMISIÓN</h3>
+
+              <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
+                        ng-click="vm.sendForm(basicForm)">
+                  EDITAR
+              </md-button>
+
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+
+
+            <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+            </div>
+
+            <form name="basicForm" ng-show="!vm.isLoading" ng-submit="vm.sendForm(basicForm)" class="md-inline-form" novalidate>
+
+              <section layout="row" layout-wrap layout-align="space-between start">
+
+                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
+                  <label>Nombre*</label>
+                  <div class="input-element-inner">
+                    <input type="text" ng-model="vm.commission.name" name="_name" required placeholder="Nombre*">
+                  </div>
+                </div>
+
+                <div class="input-element " flex="45" flex-xs="100">
+                  <p class="select-element-label"><label><strong>Tipo</strong></label></p>
+                  <md-input-container>
+                    <md-select class="select-element select-element-md" ng-model="vm.commission.type">
+                      <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
+                        {{role.name}}
+                      </md-option>
+                    </md-select>
+                  </md-input-container>
+                </div>
+
+              </section>
+
+              <section layout="row" layout-wrap layout-align="space-between start">
+
+                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
+                  <label>Vigencia - Inicio</label>
+                  <div class="input-element-inner">
+                    <input type="text" pikaday="vm.myPicker" date="vm.commission.startDate" on-select="ctrl.onPikadaySelect(pikaday)" readonly required>
+                  </div>
+                </div>
+
+                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
+                  <label>Vigencia - Fin</label>
+                  <div class="input-element-inner">
+                    <input type="text" pikaday="vm.myPicker" date="vm.commission.endDate" on-select="ctrl.onPikadaySelect(pikaday)" readonly required>
+                  </div>
+                </div>
+
+              </section>
+
+              <!--SELLER SECTION-->
+              <section ng-if="vm.commission.type == 'seller' ">
+                <div class="input-element">
+                  <label>%Comisión base</label>
+                  <div class="input-element-inner">
+                    <input type="text" ng-model="vm.commission.basePercent" name="basePercent" required placeholder="Comisión base">
+                  </div>
+                </div>
+
+                <br/>
+
+                <h2><strong>CUOTA PERSONAL</strong></h2>
+                <section layout="row" layout-align="space-between end">
+                  <div flex="45" class="input-element">
+                    <label>%Cumplimiento reto personal 1</label>
+                    <div class="input-element-inner">
+                      <input type="text" ng-model="vm.commission.personalGoal" name="basePercent" required placeholder="Cumplimiento reto personal 1">
+                    </div>
+                  </div>
+                  <div flex="45" class="input-element">
+                    <label>%Cumplimiento reto personal 1</label>
+                    <div class="input-element-inner">
+                      <input type="text" ng-model="vm.commission.personalGoal" name="basePercent" required placeholder="Cumplimiento reto personal 1">
+                    </div>
+                  </div>
+                </section>
+
+                <h2><strong>CUOTA TIENDA</strong></h2>
+                <section layout="row" layout-align="space-between end">
+                  <div flex="45" class="input-element">
+                    <label>%Cumplimiento reto tienda 1</label>
+                    <div class="input-element-inner">
+                      <input type="text" ng-model="vm.commission.personalGoal" name="basePercent" required placeholder="Cumplimiento reto personal 1">
+                    </div>
+                  </div>
+                  <div flex="45" class="input-element checkbox-element">
+                    <md-checkbox  ng-model="vm.commission.hasToCompleteGoal" aria-label="Checkbox 1">
+                      Vendedor debe cumplir reto personal 1
+                    </md-checkbox>
+                  </div>
+                </section>
+                <section layout="row" layout-align="space-between end">
+                  <div flex="45" class="input-element">
+                    <label>%Cumplimiento reto tienda 2</label>
+                    <div class="input-element-inner">
+                      <input type="text" ng-model="vm.commission.personalGoal" name="basePercent" required placeholder="Cumplimiento reto personal 1">
+                    </div>
+                  </div>
+                  <div flex="45" class="input-element checkbox-element">
+                    <md-checkbox  ng-model="vm.commission.hasToCompleteGoal2" aria-label="Checkbox 1">
+                      Vendedor debe cumplir reto personal 2
+                    </md-checkbox>
+                  </div>
+                </section>
+
+                <br>
+                <h2><strong>FORMAS DE PAGO VALIDAS</strong></h2>
+                <div class="input-element checkbox-element">
+                  <md-checkbox  ng-model="vm.commission.paymentByCreditCard" aria-label="Checkbox 1">
+                    Tarjeta de crédito
+                  </md-checkbox>
+                </div>
+                <div class="input-element checkbox-element">
+                  <md-checkbox  ng-model="vm.commission.paymentByCash" aria-label="Checkbox 1">
+                    Eféctivo
+                  </md-checkbox>
+                </div>
+                <div class="input-element checkbox-element">
+                  <md-checkbox  ng-model="vm.commission.paymentByTransfer" aria-label="Checkbox 1">
+                    Transferencia
+                  </md-checkbox>
+                </div>
+                <div class="input-element checkbox-element">
+                  <md-checkbox  ng-model="vm.commission.paymentByEWallet" aria-label="Checkbox 1">
+                    Monedero electrónico
+                  </md-checkbox>
+                </div>
+
+              </section>
+              <!--END SELLER SECTION-->
+
+              <!--MANAGER SECTION-->
+              <section ng-if="vm.commission.type == 'manager' ">
+                <section layout="row" layout-align="space-between end">
+                  <div flex="45" class="input-element">
+                    <label>%Cumplimiento reto 1</label>
+                    <div class="input-element-inner">
+                      <input type="text" ng-model="vm.commission.managerGoal" name="managerGoal" required placeholder="Cumplimiento reto personal 1">
+                    </div>
+                  </div>
+                  <div flex="45" class="input-element">
+                    <label>%Cumplimiento reto 2</label>
+                    <div class="input-element-inner">
+                      <input type="text" ng-model="vm.commission.managerGoal2" name="managerGoal2" required placeholder="Cumplimiento reto personal 1">
+                    </div>
+                  </div>
+                </section>
+
+              </section>
+              <!--END MANAGER SECTION-->
+
+              <!--BROKER SECTION-->
+              <section ng-if="vm.commission.type == 'broker' ">
+                <section layout="row" layout-align="space-between end">
+                  <div flex="30" class="input-element">
+                    <label>% Comisión por primeros 2 clientes</label>
+                    <div class="input-element-inner">
+                      <input type="text" ng-model="vm.commission.percentGroup1" name="basePercent" required placeholder="Cumplimiento reto personal 1">
+                    </div>
+                  </div>
+                  <div flex="30" class="input-element">
+                    <label>% Comisión por tercer y cuarto cliente</label>
+                    <div class="input-element-inner">
+                      <input type="text" ng-model="vm.commission.percentGroup2" name="basePercent" required placeholder="Cumplimiento reto personal 1">
+                    </div>
+                  </div>
+                  <div flex="30" class="input-element">
+                    <label>% Comisión por quinto y más clientes</label>
+                    <div class="input-element-inner">
+                      <input type="text" ng-model="vm.commission.percentGroup3" name="basePercent" required placeholder="Cumplimiento reto personal 1">
+                    </div>
+                  </div>
+                </section>
+
+              </section>
+              <!--END BROKER SECTION-->
+
+              <div>
+                <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
+                           ng-click="vm.sendForm(basicForm)">
+                    Registrar
+                </md-button>
+              </div>
+
+            </form>
+
+          </md-content>
+
+          <!--<div form-helper flex="80"></div>-->
+        </section>
+
+
+    </div>
+    <!-- / CONTENT -->
+  </div>
+
+</div>

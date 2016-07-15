@@ -192,17 +192,6 @@
                   </div>
 
                   <div flex="33">
-                    <p><label><strong>Comisiones</strong></label></p>
-                    <div class="scroll-column scroll-column-modules">
-                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'comissions'}">
-                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
-                          {{module.label}}
-                        </md-checkbox>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div flex="33">
                     <p><label><strong>Marketing</strong></label></p>
                     <div class="scroll-column scroll-column-modules">
                       <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'marketing'}">
@@ -272,6 +261,17 @@
                     <p><label><strong>Agrupadores</strong></label></p>
                     <div class="scroll-column scroll-column-modules">
                       <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'groups'}">
+                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
+                          {{module.label}}
+                        </md-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div flex="33">
+                    <p><label><strong>Comisiones</strong></label></p>
+                    <div class="scroll-column scroll-column-modules">
+                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'commissions'}">
                         <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
                           {{module.label}}
                         </md-checkbox>

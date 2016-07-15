@@ -5,6 +5,8 @@
     angular
         .module('app.commissions', [
             'app.commissions.list',
+            'app.commissions.create',
+            'app.commissions.edit'
         ])
         .config(config);
 
@@ -12,7 +14,7 @@
     function config(msNavigationServiceProvider)
     {
         // Navigation
-        /*
+
         msNavigationServiceProvider.saveItem('commissions', {
             title : 'Comisiones',
             group : false,
@@ -23,6 +25,13 @@
             title: 'Lista de Comisiones',
             state: 'app.commissions_list'
         });
-        */
+
+        msNavigationServiceProvider.saveItem('commissions.create', {
+            title: 'Crear comisión',
+            state: 'app.commissions_create'
+        });
+
+
+
     }
 })();

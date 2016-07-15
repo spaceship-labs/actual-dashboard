@@ -29,7 +29,8 @@
           {name:'Broker', id:3, handle:'broker'},
           {name: 'Editor de contenido', id:4, handle:'content-editor'},
           {name:'Contabilidad', id:5, handle:'contability'},
-          {name:'Marketing', id:6, handle:'marketing'}
+          {name:'Marketing', id:6, handle:'marketing'},
+          {name:'Gerente', id:7, handle:'manager'}
         ];
 
         vm.modules = [
@@ -38,7 +39,6 @@
           {key:'list-users', label: 'Ver usuarios', section:'users'},
           {key:'list-products', label:'Ver lista de productos', section:'products'},
           {key:'edit-products', label:'Editar productos', section:'products'},
-          {key:'list-comissions', label:'Ver comisiones', section:'comissions'},
           {key:'import-images', label:'Importar imagenes', section:'config'},
           {key:'list-leads', label:'Ver oportunidades', section:'leads'},
           {key:'create-brands', label:'Crear marcas', section:'brands'},
@@ -56,6 +56,9 @@
           {key:'create-marketing', label:'Crear promociones', section:'marketing'},
           {key:'edit-marketing', label:'Editar promociones', section:'marketing'},
           {key:'list-marketing', label:'Ver promociones', section:'marketing'},
+          {key:'create-commissions', label:'Crear comisiones', section:'commissions'},
+          {key:'edit-commissions', label:'Editar comisiones', section:'commissions'},
+          {key:'list-commissions', label:'Ver comisiones', section:'commissions'},
 
         ];
 
