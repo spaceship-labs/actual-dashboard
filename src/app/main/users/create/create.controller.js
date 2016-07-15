@@ -7,7 +7,7 @@
         .controller('UsersCreateController', UsersCreateController);
 
     /** @ngInject */
-    function UsersCreateController(dialogService, userService){
+    function UsersCreateController(dialogService, userService, api){
         var vm = this;
 
         vm.toggleModule = toggleModule;
@@ -39,12 +39,6 @@
           {name:'Gerente', id:7, handle:'manager'}
         ];
 
-        vm.companies = [
-          {label:'Actual Studio', handle:'Actual Studio'},
-          {label:'Actual Home', handle:'Actual Home'},
-          {label:'Actual Kids', handle:'Actual Kids'},
-          {label:'Actual Group', handle:'Actual Group'},
-        ];
 
         vm.allAppModules = {
           label: 'TODOS',
@@ -88,6 +82,10 @@
         userService.getSellers().then(function(res){
           vm.sellers = res.data;
           vm.sellers.unshift({id:null, SlpName:'Ninguno'});
+        });
+
+        api.$http.get('/company/find').then(function(res){
+          vm.companies = res.data;
         });
 
 

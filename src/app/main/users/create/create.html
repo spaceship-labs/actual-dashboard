@@ -140,10 +140,9 @@
                 <div class="input-element" flex="30" flex-xs="100">
                   <p class="select-element-label"><label><strong>Tienda</strong></label></p>
                   <md-input-container>
-                    <md-select class="select-element select-element-md" ng-model="vm.user.company">
-
-                      <md-option ng-repeat="company in vm.companies track by $index" ng-value="company.handle">
-                        {{company.label}}
+                    <md-select class="select-element select-element-md" ng-model="vm.user.companies">
+                      <md-option ng-repeat="company in vm.companies track by $index" ng-value="company.id">
+                        {{company.seriesName}}
                       </md-option>
                     </md-select>
                   </md-input-container>
