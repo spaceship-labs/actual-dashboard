@@ -71,8 +71,23 @@
         vm.isLoading = false;
 
         // Methods
-        vm.sendForm = sendForm;
-        vm.init = init;
+        vm.sendForm          = sendForm;
+        vm.toggleCompany     = toggleCompany;
+        vm.isCompanySelected = isCompanySelected;
+        vm.init              = init;
+
+        function isCompanySelected(id) {
+          return vm.user.companies.indexOf(id) !== -1;
+        }
+        function toggleCompany(id) {
+          if (isCompanySelected(id)) {
+            vm.user.companies = vm.user.companies.find(function(comp){
+              return comp != id;
+            });
+          } else  {
+            vm.user.companies = vm.user.companies.concat(id);
+          }
+        }
 
         vm.init();
 
@@ -81,7 +96,7 @@
         function init(){
           userService.getUser($stateParams.id).then(function(res){
             vm.user = res.data.data;
-            vm.user.companies = (vm.user.companies && vm.user.companies[0] || []).id
+            vm.user.companies = vm.user.companies.map(function(company) {return company.id;});
             vm.modules.forEach(function(module){
               if(vm.user.accessList && vm.user.accessList.indexOf(module.key) >= 0){
                 module.isActive = true;

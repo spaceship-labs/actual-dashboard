@@ -94,19 +94,6 @@
                   </md-input-container>
                 </div>
 
-                <!--Tienda-->
-                <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
-                  <p class="select-element-label"><label><strong>Tienda*</strong></label></p>
-                  <md-input-container>
-                    <md-select class="select-element select-element-lg" ng-model="vm.user.companies">
-
-                      <md-option ng-repeat="company in vm.companies track by $index" ng-value="company.id">
-                        {{company.seriesName}}
-                      </md-option>
-                    </md-select>
-                  </md-input-container>
-                </div>
-                <!--Tienda-->
 
                 <div  class="input-element " flex="30" flex-xs="100">
                   <p class="select-element-label"><label><strong>Vendedor(SAP)</strong></label></p>
@@ -119,6 +106,22 @@
                     </md-select>
                   </md-input-container>
                 </div>
+                <!--Tienda-->
+                <div class="input-element" flex="45" flex-sm="100" flex-xs="100" layout>
+                  <p class="select-element-label"><label><strong>Tiendas</strong></label></p>
+                  <div flex="100" layout layout-wrap>
+                    <md-checkbox
+                      ng-repeat="company in vm.companies track by $index"
+                      ng-click="vm.toggleCompany(company.id)"
+                      ng-checked="vm.isCompanySelected(company.id)"
+                      flex="30"
+                    >
+                      {{company.seriesName}}
+                    </md-checkbox>
+                  </div>
+                </div>
+                <!--Tienda-->
+
 
               </section>
 
