@@ -106,15 +106,16 @@
                     </md-select>
                   </md-input-container>
                 </div>
+
                 <!--Tienda-->
                 <div class="input-element" flex="45" flex-sm="100" flex-xs="100" layout>
                   <p class="select-element-label"><label><strong>Tiendas</strong></label></p>
-                  <div flex="100" layout layout-wrap>
+                  <div class="scroll-column">
                     <md-checkbox
+                      class="block-checkbox"
                       ng-repeat="company in vm.companies track by $index"
                       ng-click="vm.toggleCompany(company.id)"
                       ng-checked="vm.isCompanySelected(company.id)"
-                      flex="30"
                     >
                       {{company.seriesName}}
                     </md-checkbox>
