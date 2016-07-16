@@ -17,6 +17,7 @@
         update: update,
         removeIcon: removeIcon,
         getProductsbySuppCatNum: getProductsbySuppCatNum,
+        advancedSearch: advancedSearch,
 
         //Categories
         createCategory: createCategory,
@@ -94,6 +95,11 @@
 
       function search(params){
         var url = '/product/search/';
+        return api.$http.post(url, params);
+      }
+
+      function advancedSearch(params){
+        var url = '/product/advancedsearch';
         return api.$http.post(url, params);
       }
 

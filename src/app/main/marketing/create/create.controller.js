@@ -18,8 +18,18 @@
         vm.queryGroups = queryGroups;
         vm.selectedGroupChange = selectedGroupChange;
         vm.removeGroup = removeGroup;
+        vm.searchProds = searchProds;
+        vm.formatCategoryGroups = formatCategoryGroups;
+        vm.formatSelectedFilterValues = formatSelectedFilterValues;
+        vm.groupSelectedCategories = groupSelectedCategories;
 
         vm.groups = [];
+        vm.selectedCategories = [];
+        vm.search = {
+          groups:[],
+          limit: 999999
+        };
+        vm.products = [];
 
         vm.groupTypes = {
           'variations': 'Agrupador Variaciones',
@@ -53,8 +63,40 @@
           productService.getCategoriesGroups().then(function(res){
             console.log(res);
             vm.categoriesGroups = res.data;
+            vm.formatCategoryGroups();
           });
         }
+
+        function formatCategoryGroups(){
+          for(var i=0;i<vm.categoriesGroups.length;i++){
+            vm.selectedCategories[i] = [];
+          }
+        }
+
+        function groupSelectedCategories(){
+          vm.search.categories = [];
+          for(var i=0; i<vm.categoriesGroups.length; i++){
+            vm.search.categories = vm.search.categories.concat(vm.selectedCategories[i]);
+          }
+          console.log(vm.search.categories);
+        }
+
+
+        function formatSelectedFilterValues(){
+          vm.search.filtervalues = [];
+          vm.filters.forEach(function(filter){
+            if(filter.IsMultiple && filter.selectedValues){
+              vm.search.filtervalues = vm.search.filtervalues.concat(filter.selectedValues);
+            }
+            else if(filter.selectedValue){
+              var val = filter.Values[filter.selectedValue];
+              if(val){
+                vm.search.filtervalues.push( val.id );
+              }
+            }
+          });
+        }
+
 
         function sortFiltersValues(){
           vm.filters.forEach(function(filter){
@@ -93,7 +135,6 @@
             vm.filters = res.data;
             vm.sortFiltersValues();
             vm.loadedFilters = true;
-
           });
         }
 
@@ -124,15 +165,29 @@
           if(item && item.id){
             vm.selectedGroup = null;
             vm.searchGroupText = null;
-            vm.groups.push(item);
-            //$mdAutocomplete.clear();
+            vm.search.groups.push(item);
           }
-          //vm.selectedProduct = undefined;
-          //vm.searchText = '';
         }
 
         function removeGroup(index){
-          vm.groups.splice(index, 1);
+          vm.search.groups.splice(index, 1);
+        }
+
+        function searchProds(){
+          vm.groupSelectedCategories();
+          vm.formatSelectedFilterValues();
+          vm.isLoadingProducts = true;
+          var params = angular.copy(vm.search);
+          params.groups = params.groups.map(function(g){return g.id});
+          productService.advancedSearch(params).then(function(res){
+            if(res.data){
+              vm.products = res.data.products.map(function(prod){
+                prod.isActive = true;
+                return prod;
+              });
+            }
+            vm.isLoadingProducts = false;
+          });
         }
 
         $scope.$watch('vm.promotion.Name', function(newVal, oldVal){
