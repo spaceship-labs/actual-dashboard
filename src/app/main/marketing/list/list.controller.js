@@ -7,21 +7,21 @@
         .controller('MarketingListController', MarketingListController);
 
     /** @ngInject */
-    function MarketingListController(api, userService)
+    function MarketingListController(api, promoService)
     {
         var vm = this;
 
         // Data
         vm.columns = [
             {key:'Edit', label:'Editar', editUrl:'/marketing/edit/', propId: 'id'},
-            {key:'email', label:'Email', actionUrl:'/marketing/edit/'},
-            {key:'firstName', label:'Nombre'},
-            {key:'lastName', label:'Apellidos'},
-            {key:'userType', label: 'Rol'}
+            {key:'name', label:'Nombre', actionUrl:'/marketing/edit/'},
+            {key:'code', label:'Código'},
+            {key:'startDate', label:'Empieza', date:true},
+            {key:'endDate', label: 'Termina', date:true}
         ];
 
         //vm.apiResource = api.user.find.get;
-        vm.apiResource = userService.getList;
+        vm.apiResource = promoService.find;
         // Methods
 
         //////////

@@ -9,6 +9,10 @@
     function promoService($http,localStorageService, api){
 
       var service = {
+        create: create,
+        update: update,
+        destroy: destroy,
+        find: find
       };
 
       return service;
@@ -26,6 +30,11 @@
       function destroy(id){
         var url = '/promotion/destroy/' + id;
         return api.$http.post(url);
+      }
+
+      function find(page,params){
+        var url = '/promotion/find/' + page;
+        return api.$http.post(url, params);
       }
 
 

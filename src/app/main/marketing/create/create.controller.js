@@ -3,60 +3,65 @@
     'use strict';
 
     angular
-        .module('app.marketing.edit')
+        .module('app.marketing.create')
         .controller('MarketingCreateController', MarketingCreateController);
 
     /** @ngInject */
-    function MarketingCreateController($scope, $q,commonService, productService){
+    function MarketingCreateController($scope, $q,commonService, productService, promoService, api, dialogService){
         var vm = this;
 
-        vm.init = init;
-        vm.loadCategories = loadCategories;
-        vm.loadFilters = loadFilters;
-        vm.sortFiltersValues = sortFiltersValues;
-        vm.loadCustomBrands = loadCustomBrands;
-        vm.queryGroups = queryGroups;
-        vm.selectedGroupChange = selectedGroupChange;
-        vm.removeGroup = removeGroup;
-        vm.searchProds = searchProds;
-        vm.formatCategoryGroups = formatCategoryGroups;
-        vm.formatSelectedFilterValues = formatSelectedFilterValues;
-        vm.groupSelectedCategories = groupSelectedCategories;
+        angular.extend(vm, {
+          groups: [],
+          selectedCategories: [],
+          search: {
+            groups:[],
+            limit: 999999
+          },
+          showFilters: false,
+          products: [],
+          groupTypes: {
+            'variations': 'Agrupador Variaciones',
+            'environments': 'Agrupador Ambientes',
+            'packages': 'Agrupador Paquetes',
+            'relations': 'Agrupador Relaciones'
+          },
+          displays: [
+            {label:'Ventas Offline', handle:'OnOffline'},
+            {label:'Actual Studio (actualstudio.com) ', handle:'OnStudio'},
+            {label:'Actual Home (actualhome.com)', handle:'OnHome'},
+            {label:'Actual Kids (actualkids.com)', handle:'OnKids'},
+            {label:'Amueble.com', handle:'OnAmueble'},
+          ],
+          init: init,
+          create: create,
+          formatCategoryGroups: formatCategoryGroups,
+          formatSelectedFilterValues: formatSelectedFilterValues,
+          groupSelectedCategories: groupSelectedCategories,
+          loadCompanies: loadCompanies,
+          loadCategories: loadCategories,
+          loadCustomBrands: loadCustomBrands,
+          loadFilters: loadFilters,
+          onSelectEndDate: onSelectEndDate,
+          onSelectStartDate: onSelectStartDate,
+          queryGroups: queryGroups,
+          removeGroup: removeGroup,
+          searchProds: searchProds,
+          selectedGroupChange: selectedGroupChange,
+          sortFiltersValues: sortFiltersValues,
+        });
 
-        vm.groups = [];
-        vm.selectedCategories = [];
-        vm.search = {
-          groups:[],
-          limit: 999999
-        };
-        vm.products = [];
-
-        vm.groupTypes = {
-          'variations': 'Agrupador Variaciones',
-          'environments': 'Agrupador Ambientes',
-          'packages': 'Agrupador Paquetes',
-          'relations': 'Agrupador Relaciones'
-        };
-
-        vm.stores = [
-          {label:'Actual Studio', handle:'Actual Studio'},
-          {label:'Actual Home', handle:'Actual Home'},
-          {label:'Actual Kids', handle:'Actual Kids'},
-          {label:'Actual Group', handle:'Actual Group'},
-        ];
-
-        vm.displays = [
-          {label:'Ventas Offline', handle:'OnOffline'},
-          {label:'Actual Studio (actualstudio.com) ', handle:'OnStudio'},
-          {label:'Actual Home (actualhome.com)', handle:'OnHome'},
-          {label:'Actual Kids (actualkids.com)', handle:'OnKids'},
-          {label:'Amueble.com', handle:'OnAmueble'},
-        ];
 
         function init(){
           vm.loadCategories();
           vm.loadFilters();
           vm.loadCustomBrands();
+          vm.loadCompanies();
+        }
+
+        function loadCompanies(){
+          api.$http.get('/company/find').then(function(res){
+            vm.companies = res.data;
+          });
         }
 
         function loadCategories(){
@@ -85,14 +90,11 @@
         function formatSelectedFilterValues(){
           vm.search.filtervalues = [];
           vm.filters.forEach(function(filter){
-            if(filter.IsMultiple && filter.selectedValues){
+            if(filter.selectedValues){
+              filter.selectedValues.filter(function(sv){
+                return sv && sv!=null;
+              });
               vm.search.filtervalues = vm.search.filtervalues.concat(filter.selectedValues);
-            }
-            else if(filter.selectedValue){
-              var val = filter.Values[filter.selectedValue];
-              if(val){
-                vm.search.filtervalues.push( val.id );
-              }
             }
           });
         }
@@ -179,6 +181,7 @@
           vm.isLoadingProducts = true;
           var params = angular.copy(vm.search);
           params.groups = params.groups.map(function(g){return g.id});
+          params.noImages = true;
           productService.advancedSearch(params).then(function(res){
             if(res.data){
               vm.products = res.data.products.map(function(prod){
@@ -190,9 +193,47 @@
           });
         }
 
-        $scope.$watch('vm.promotion.Name', function(newVal, oldVal){
+        function onSelectStartDate(pikaday){
+          vm.promotion.startDate = pikaday._d;
+        }
+
+        function onSelectEndDate(pikaday){
+          vm.promotion.endDate = pikaday._d;
+        }
+
+        function create(form){
+          if(form.$valid){
+            vm.isLoading = true;
+            var params = {
+              Categories  : vm.search.categories,
+              FilterValues: vm.search.filtervalues,
+              CustomBrands: vm.search.customBrands,
+              Groups      : vm.search.groups,
+              OnStudio    : vm.search.OnStudio,
+              OnHome      : vm.search.OnHome,
+              OnKids      : vm.search.OnKids,
+              OnAmueble   : vm.search.OnAmueble,
+              Products    : vm.products
+            };
+            angular.extend(params, vm.promotion);
+            console.log('params',params);
+            promoService.create(params)
+              .then(function(res){
+                console.log(res.data);
+                dialogService.showDialog('Datos guardados');
+                vm.isLoading = false;
+              })
+              .catch(function(err){
+                console.log(err);
+                dialogService.showDialog('Error, revisa los datos');
+                vm.isLoading = false;
+              });
+          }
+        }
+
+        $scope.$watch('vm.promotion.name', function(newVal, oldVal){
           if(newVal != oldVal){
-            vm.promotion.Handle = commonService.formatHandle(newVal);
+            vm.promotion.code = commonService.formatHandle(newVal);
           }
         });
 

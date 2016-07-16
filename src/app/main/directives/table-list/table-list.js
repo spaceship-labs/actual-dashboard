@@ -6,7 +6,7 @@
         .module('app.directives')
         .directive('tableList', tableList);
 
-    var controller = function($scope, $rootScope , $timeout, DTOptionsBuilder, DTColumnBuilder, dialogService, $compile){
+    var controller = function($scope, $rootScope , $timeout, DTOptionsBuilder, DTColumnBuilder, dialogService, $compile, $filter){
       $scope.dtInstance = {};
       $scope.isExporting = false;
 
@@ -143,6 +143,12 @@
                 if(column.yesNo){
                   data = data ? 'Si' : 'No';
                 }
+                if(column.date){
+                  data = $filter('date')(data, 'dd/MM/yyyy');
+                }
+                if(column.currency){
+                  data = $filter('currency')(data);
+                }
 
                 if(column.destroy){
                   var id = (column.propId) ? column.propId : 'id';
@@ -214,7 +220,7 @@
       }
 
     };
-    controller.$inject = ['$scope','$rootScope', '$timeout','DTOptionsBuilder','DTColumnBuilder','dialogService','$compile'];
+    controller.$inject = ['$scope','$rootScope', '$timeout','DTOptionsBuilder','DTColumnBuilder','dialogService','$compile','$filter'];
 
     /** @ngInject */
     function tableList(){
