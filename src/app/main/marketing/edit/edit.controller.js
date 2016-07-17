@@ -178,13 +178,13 @@
             params.groups = params.groups.map(function(g){return g.id});
             params.noImages = true;
             productService.advancedSearch(params).then(function(res){
+              vm.isLoadingProducts = false;
               if(res.data){
                 vm.products = res.data.products.map(function(prod){
                   prod.isActive = true;
                   return prod;
                 });
               }
-              vm.isLoadingProducts = false;
             });
           }
         }
