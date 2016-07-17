@@ -15,6 +15,12 @@
 .pointer-cursor{
   cursor:pointer;
 }
+.comma-separated:after{
+  content:', ';
+}
+.comma-separated:last-child:after{
+  display: none;
+}
 
 #new-search{
   padding: 9px;

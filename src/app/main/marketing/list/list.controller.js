@@ -17,7 +17,8 @@
             {key:'name', label:'Nombre', actionUrl:'/marketing/edit/'},
             {key:'code', label:'Código'},
             {key:'startDate', label:'Empieza', date:true},
-            {key:'endDate', label: 'Termina', date:true}
+            {key:'endDate', label: 'Termina', date:true},
+            {key:'discountPg1', label:'Descuento G.P 1'}
         ];
 
         //vm.apiResource = api.user.find.get;

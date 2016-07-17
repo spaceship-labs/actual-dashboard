@@ -12,7 +12,8 @@
         create: create,
         update: update,
         destroy: destroy,
-        find: find
+        find: find,
+        findById: findById
       };
 
       return service;
@@ -35,6 +36,11 @@
       function find(page,params){
         var url = '/promotion/find/' + page;
         return api.$http.post(url, params);
+      }
+
+      function findById(id){
+        var url = '/promotion/findbyid/' + id;
+        return api.$http.post(url);
       }
 
 

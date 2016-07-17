@@ -9,9 +9,11 @@
     /** @ngInject */
     function config($httpProvider, localStorageServiceProvider, $urlRouterProvider,pikadayConfigProvider){
 
+
       pikadayConfigProvider.setConfig({
         minDate: new Date()
       });
+
 
       $urlRouterProvider.when('/', ['$state','$match', '$location', function ($state, $match, $location) {
         $location.path('/products');

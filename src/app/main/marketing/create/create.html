@@ -71,6 +71,24 @@
 
               </section>
 
+              <!--DISCOUNTS-->
+              <section layout="row" layout-align="space-between center">
+                <div ng-repeat="pg in vm.paymentGroups" class="input-element" flex="15" flex-sm="100" flex-xs="100">
+                  <label>{{pg.label}} %</label>
+                  <div class="input-element-inner">
+                    <input
+                      ng-disabled="$index > 0"
+                      type="number"
+                      name="{{pg.label}}"
+                      ng-model="pg.discount"
+                      required
+                      min="0"
+                      >
+                  </div>
+                </div>
+              </section>
+              <!--END DISCOUNTS-->
+
               <!--SEARCH FILTERS-->
               <h1>
                 <strong>Filtros de productos:</strong>
@@ -238,7 +256,7 @@
               <section class="promo-products">
                 <h2>
                   <strong>Productos con esta promocion
-                    <span ng-if="!vm.isLoadingProducts">({{vm.products.length}})</span>:
+                    <span ng-if="!vm.isLoadingProducts">({{vm.products.length - vm.getExcludedNum()}})</span>:
                   </strong>
                 </h2>
                 <div ng-show="vm.isLoadingProducts" layout="row" layout-sm="column" layout-align="space-around">

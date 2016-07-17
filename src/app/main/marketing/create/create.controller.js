@@ -7,14 +7,17 @@
         .controller('MarketingCreateController', MarketingCreateController);
 
     /** @ngInject */
-    function MarketingCreateController($scope, $q,commonService, productService, promoService, api, dialogService){
+    function MarketingCreateController($scope, $q,commonService, productService, promoService, api, dialogService, categoriesService, fvService){
         var vm = this;
 
         angular.extend(vm, {
+          promotion: {},
           groups: [],
           selectedCategories: [],
           search: {
             groups:[],
+            categories:[],
+            filtervalues:[],
             limit: 999999
           },
           showFilters: false,
@@ -32,11 +35,15 @@
             {label:'Actual Kids (actualkids.com)', handle:'OnKids'},
             {label:'Amueble.com', handle:'OnAmueble'},
           ],
+          paymentGroups:[
+            {label:'Descuento grupo pago 1', discount:0},
+            {label:'Descuento grupo pago 2', discount:0},
+            {label:'Descuento grupo pago 3', discount:0},
+            {label:'Descuento grupo pago 4', discount:0},
+            {label:'Descuento grupo pago 5', discount:0},
+          ],
           init: init,
           create: create,
-          formatCategoryGroups: formatCategoryGroups,
-          formatSelectedFilterValues: formatSelectedFilterValues,
-          groupSelectedCategories: groupSelectedCategories,
           loadCompanies: loadCompanies,
           loadCategories: loadCategories,
           loadCustomBrands: loadCustomBrands,
@@ -47,7 +54,7 @@
           removeGroup: removeGroup,
           searchProds: searchProds,
           selectedGroupChange: selectedGroupChange,
-          sortFiltersValues: sortFiltersValues,
+          getExcludedNum: getExcludedNum
         });
 
 
@@ -58,6 +65,18 @@
           vm.loadCompanies();
         }
 
+        $scope.$watch('vm.paymentGroups[0].discount', function(newVal,oldVal){
+          if(newVal != oldVal && !isNaN(newVal)){
+            var baseDiscount = newVal;
+            vm.paymentGroups.forEach(function(pg, i){
+              if(i != 0){
+                var dis =  (baseDiscount - (i*5));
+                if(dis >= 0) pg.discount = dis;
+              }
+            })
+          }
+        });
+
         function loadCompanies(){
           api.$http.get('/company/find').then(function(res){
             vm.companies = res.data;
@@ -66,68 +85,10 @@
 
         function loadCategories(){
           productService.getCategoriesGroups().then(function(res){
-            console.log(res);
             vm.categoriesGroups = res.data;
-            vm.formatCategoryGroups();
-          });
-        }
-
-        function formatCategoryGroups(){
-          for(var i=0;i<vm.categoriesGroups.length;i++){
-            vm.selectedCategories[i] = [];
-          }
-        }
-
-        function groupSelectedCategories(){
-          vm.search.categories = [];
-          for(var i=0; i<vm.categoriesGroups.length; i++){
-            vm.search.categories = vm.search.categories.concat(vm.selectedCategories[i]);
-          }
-          console.log(vm.search.categories);
-        }
-
-
-        function formatSelectedFilterValues(){
-          vm.search.filtervalues = [];
-          vm.filters.forEach(function(filter){
-            if(filter.selectedValues){
-              filter.selectedValues.filter(function(sv){
-                return sv && sv!=null;
-              });
-              vm.search.filtervalues = vm.search.filtervalues.concat(filter.selectedValues);
-            }
-          });
-        }
-
-
-        function sortFiltersValues(){
-          vm.filters.forEach(function(filter){
-            if(filter.ValuesOrder){
-              var idsList = filter.ValuesOrder.split(',');
-
-              if(idsList.length > 0 && filter.ValuesOrder){
-                var baseArr = angular.copy(filter.Values);
-                var newArr = [];
-                idsList.forEach(function(id){
-                  baseArr.forEach(function(val){
-                    if(val.id == id){
-                      newArr.push(val);
-                    }
-                  })
-                });
-
-                //If values are not in the order list
-                filter.Values.forEach(function(val){
-                  if( idsList.indexOf(val.id) < 0 ){
-                    newArr.push(val);
-                  }
-                });
-
-                if(newArr.length > 0){
-                  filter.Values = newArr;
-                }
-              }
-            }
+            vm.selectedCategories = categoriesService.createSelectedArrays(vm.categoriesGroups, vm.selectedCategories);
+          }).catch(function(err){
+            console.log(err);
           });
         }
 
@@ -135,7 +96,7 @@
         function loadFilters(){
           productService.getAllFilters().then(function(res){
             vm.filters = res.data;
-            vm.sortFiltersValues();
+            vm.filters = fvService.sortFV(vm.filters);
             vm.loadedFilters = true;
           });
         }
@@ -176,21 +137,23 @@
         }
 
         function searchProds(){
-          vm.groupSelectedCategories();
-          vm.formatSelectedFilterValues();
-          vm.isLoadingProducts = true;
-          var params = angular.copy(vm.search);
-          params.groups = params.groups.map(function(g){return g.id});
-          params.noImages = true;
-          productService.advancedSearch(params).then(function(res){
-            if(res.data){
-              vm.products = res.data.products.map(function(prod){
-                prod.isActive = true;
-                return prod;
-              });
-            }
-            vm.isLoadingProducts = false;
-          });
+          if(!vm.isLoadingProducts){
+            vm.search.categories = categoriesService.getSelectedCategories(vm.categoriesGroups, vm.selectedCategories);
+            vm.search.filtervalues = fvService.getSelectedFV(vm.filters, {multiples:true});
+            vm.isLoadingProducts = true;
+            var params = angular.copy(vm.search);
+            params.groups = params.groups.map(function(g){return g.id});
+            params.noImages = true;
+            productService.advancedSearch(params).then(function(res){
+              if(res.data){
+                vm.products = res.data.products.map(function(prod){
+                  prod.isActive = true;
+                  return prod;
+                });
+              }
+              vm.isLoadingProducts = false;
+            });
+          }
         }
 
         function onSelectStartDate(pikaday){
@@ -201,26 +164,50 @@
           vm.promotion.endDate = pikaday._d;
         }
 
+        function getExcludedNum(){
+          return _.where(vm.products, {isActive: false}).length;
+        }
+
         function create(form){
           if(form.$valid){
+            console.log('create');
             vm.isLoading = true;
+            vm.excluded = _.reduce(vm.products, function(excluded, prod){
+              if(!prod.isActive) excluded.push({id:prod.id,ItemCode:prod.ItemCode});
+              return excluded;
+            },[]);
+            var groups = _.reduce(vm.search.groups,function(gs, g){
+              gs.push(g.id);
+              return gs;
+            }, []);
+            var products = _.reduce(vm.products,function(prods, p){
+              if(p.isActive) prods.push(p.id);
+              return prods;
+            }, []);
             var params = {
               Categories  : vm.search.categories,
               FilterValues: vm.search.filtervalues,
               CustomBrands: vm.search.customBrands,
-              Groups      : vm.search.groups,
+              Groups      : groups,
               OnStudio    : vm.search.OnStudio,
               OnHome      : vm.search.OnHome,
               OnKids      : vm.search.OnKids,
               OnAmueble   : vm.search.OnAmueble,
-              Products    : vm.products
+              Products    : products,
+              excludedProducts: vm.excluded,
+              discountPg1 : vm.paymentGroups[0].discount,
+              discountPg2 : vm.paymentGroups[1].discount,
+              discountPg3 : vm.paymentGroups[2].discount,
+              discountPg4 : vm.paymentGroups[3].discount,
+              discountPg5 : vm.paymentGroups[4].discount,
             };
             angular.extend(params, vm.promotion);
             console.log('params',params);
+            vm.isLoading = false;
             promoService.create(params)
               .then(function(res){
                 console.log(res.data);
-                dialogService.showDialog('Datos guardados');
+                dialogService.showDialog('Promoción creada');
                 vm.isLoading = false;
               })
               .catch(function(err){

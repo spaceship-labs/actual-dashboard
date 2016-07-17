@@ -11,7 +11,7 @@
               <h3>EDITAR PROMOCIÓN</h3>
 
               <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
-                        ng-click="vm.create(createForm)">
+                        ng-click="vm.update(updateForm)">
                   Editar
               </md-button>
 
@@ -24,32 +24,37 @@
               <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
             </div>
 
-            <form name="createForm" ng-show="!vm.isLoading" ng-submit="vm.create(createForm)" class="md-inline-form" novalidate>
+            <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
 
               <section layout="row" layout-align="space-between start" layout-wrap>
                 <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
                   <label>Nombre*</label>
                   <div class="input-element-inner">
-                    <input type="text" name="Nombre" ng-model="vm.promotion.Name" required placeholder="Nombre*">
+                    <input type="text" name="Nombre" ng-model="vm.promotion.name" required placeholder="Nombre*">
                   </div>
                 </div>
 
                 <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
                   <label>Codigo*</label>
                   <div class="input-element-inner">
-                    <input type="text" name="Nombre" ng-model="vm.promotion.Code" required placeholder="Nombre*">
+                    <input type="text" name="Nombre" ng-model="vm.promotion.code" required placeholder="Nombre*">
                   </div>
                 </div>
 
                 <div flex="45" flex-sm="100" flex-xs="100">
                   <p class="select-element-label"><label><strong>Tienda</strong></label></p>
                   <md-input-container class="checkboxes-dropdown-wrap">
-                    <md-select class="checkboxes-dropdown select-element" ng-model="vm.promotion.Companies"
+                    <md-select class="checkboxes-dropdown select-element" ng-model="vm.selectedCompanies"
                        data-md-container-class="selectdemoSelectHeader"
                        multiple
                     >
                       <md-optgroup label="Tiendas">
-                        <md-option ng-value="store.id" ng-repeat="store in vm.companies">{{store.seriesName}}</md-option>
+                        <md-option
+                          ng-value="store.id"
+                          ng-selected="vm.objIndexOf(vm.promotion.Companies, {id:store.id})"
+                          ng-repeat="store in vm.companies">
+                          {{store.seriesName}}
+                        </md-option>
                       </md-optgroup>
                     </md-select>
                   </md-input-container>
@@ -58,18 +63,36 @@
                 <div class="input-element" flex="25" flex-sm="100" flex-xs="100">
                   <label>Fecha de inicio*</label>
                   <div class="input-element-inner">
-                    <input type="text" pikaday="vm.myPicker" date="vm.promotion.startDate" on-select="vm.onSelectStartDate(pikaday)" readonly required>
+                    <input ng-if="vm.promotion" type="text" pikaday="vm.myPicker" set-default-date="true" default-date="{{vm.promotion.startDate}}" on-select="vm.onSelectStartDate(pikaday)" readonly required>
                   </div>
                 </div>
 
                 <div class="input-element" flex="25" flex-sm="100" flex-xs="100">
                   <label>Fecha de vencimiento*</label>
                   <div class="input-element-inner">
-                    <input type="text" pikaday="vm.myPicker" date="vm.promotion.endDate" on-select="vm.onSelectEndDate(pikaday)" readonly required>
+                    <input ng-if="vm.promotion" type="text" pikaday="vm.myPicker" set-default-date="true" default-date="{{vm.promotion.endDate}}" on-select="vm.onSelectEndDate(pikaday)" readonly required>
                   </div>
                 </div>
 
               </section>
+
+              <!--DISCOUNTS-->
+              <section layout="row" layout-align="space-between center">
+                <div ng-repeat="pg in vm.paymentGroups" class="input-element" flex="15" flex-sm="100" flex-xs="100">
+                  <label>{{pg.label}} %</label>
+                  <div class="input-element-inner">
+                    <input
+                      ng-disabled="$index > 0"
+                      type="number"
+                      name="{{pg.label}}"
+                      ng-model="pg.discount"
+                      required
+                      min="0"
+                      >
+                  </div>
+                </div>
+              </section>
+              <!--END DISCOUNTS-->
 
               <!--SEARCH FILTERS-->
               <h1>
@@ -106,8 +129,13 @@
                              multiple
                           >
                             <md-optgroup label="Categorias">
-                              <md-option ng-value="category.id" ng-repeat="category in group |
-                                filter:searchTerm">{{category.Name}}</md-option>
+                              <md-option
+                                ng-value="category.id"
+                                ng-selected="vm.objIndexOf(vm.promotion.Categories, {id:category.id})"
+                                ng-repeat="category in group |
+                                filter:searchTerm">
+                                {{category.Name}}
+                              </md-option>
                             </md-optgroup>
                           </md-select>
                         </md-input-container>
@@ -133,8 +161,13 @@
                              multiple
                           >
                             <md-optgroup label="Valores">
-                              <md-option ng-value="value.id" ng-repeat="value in filter.Values |
-                                filter:searchTerm track by $index">{{value.Name}}</md-option>
+                              <md-option
+                                ng-value="value.id"
+                                ng-selected="vm.objIndexOf(vm.promotion.FilterValues, {id:value.id})"
+                                ng-repeat="value in filter.Values |
+                                filter:searchTerm track by $index">
+                                {{value.Name}}
+                              </md-option>
                             </md-optgroup>
                           </md-select>
                         </md-input-container>
@@ -158,8 +191,14 @@
                          multiple
                       >
                         <md-optgroup label="Valores">
-                          <md-option ng-value="brand.id" ng-repeat="brand in vm.customBrands |
-                            filter:searchTerm track by $index">{{brand.Name}}</md-option>
+                          <md-option
+                            ng-value="brand.id"
+                            ng-selected="vm.objIndexOf(vm.promotion.CustomBrands, {id:brand.id})"
+                            ng-repeat="brand in vm.customBrands |
+                            filter:searchTerm track by $index"
+                            >
+                            {{brand.Name}}
+                          </md-option>
                         </md-optgroup>
                       </md-select>
                     </md-input-container>
@@ -170,7 +209,11 @@
                 <div>
                   <h2><strong>Pagina Display</strong></h2>
                   <div>
-                    <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="display in vm.displays" ng-model="vm.search[display.handle]">{{display.label}}</md-checkbox>
+                    <md-checkbox
+                      class="spaced-checkbox block-checkbox"
+                      ng-repeat="display in vm.displays"
+                      ng-checked="vm.promotion[display.handle]"
+                      ng-model="vm.search[display.handle]">{{display.label}}</md-checkbox>
                   </div>
                 </div>
                 <!--END DISPLAYS-->
@@ -237,8 +280,14 @@
 
               <section class="promo-products">
                 <h2>
-                  <strong>Productos con esta promocion
-                    <span ng-if="!vm.isLoadingProducts">({{vm.products.length}})</span>:
+                  <strong>
+                    Productos con esta promocion
+                    <span ng-if="!vm.isLoadingProducts">
+                      ({{vm.products.length - vm.getExcludedNum()}})
+                    </span>:
+                    <span ng-if="vm.promotion.excludedProducts.length > 0 && !vm.searchDone">
+                      | Excluidos: <span class="comma-separated" ng-repeat="excluded in vm.promotion.excludedProducts">{{excluded.ItemCode}}</span>
+                    </span>
                   </strong>
                 </h2>
                 <div ng-show="vm.isLoadingProducts" layout="row" layout-sm="column" layout-align="space-around">
@@ -246,7 +295,10 @@
                 </div>
 
                 <div ng-show="!vm.isLoadingProducts" class="scroll-column">
-                    <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="product in vm.products track by $index" ng-model="product.isActive">
+                    <md-checkbox
+                      class="spaced-checkbox block-checkbox"
+                      ng-repeat="product in vm.products track by $index"
+                      ng-model="product.isActive">
                       {{product.ItemCode}} | {{ product.Name || product.ItemName}}
                     </md-checkbox>
                 </div>
