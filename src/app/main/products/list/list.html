@@ -98,6 +98,17 @@
               </md-input-container>
             </div>
 
+            <div class="select-element-wrapper" flex flex-xs="100" flex-sm="100">
+              <p class="select-element-label"><label><strong>A. Vendible</strong></label></p>
+              <md-input-container class="no-margin">
+                <md-select class="select-element" placeholder="A. Vendible" ng-model="vm.filters.Active">
+                  <md-option ng-repeat="option in vm.activeOptions" value="{{option.value}}">
+                    {{option.label}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+
             <md-button class="md-raised md-primary action-button" ng-click="vm.applyFilters()">Filtrar</md-button>
 
           </section>

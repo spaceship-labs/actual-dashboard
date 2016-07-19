@@ -27,6 +27,7 @@
             {key:'CheckedFeatures', label:'Caracteristicas', yesNo: true},
             {key:'CheckedPackage', label:'Empaque', yesNo: true},
             {key:'CheckedPhotos', label:'Fotos', yesNo: true},
+            //{key:'Active', label:'A. Vendible'},
 
         ];
 
@@ -44,7 +45,7 @@
         vm.exportQuery += 'ItemName AS Nombre, Available AS Inventario, productBrand->ItmsGrpNam AS Marca,';
         vm.exportQuery += ' SA AS Sociedad, yesNofn(CheckedStructure) AS Estructura, yesNofn(CheckedDescription) AS Contenido,';
         vm.exportQuery += ' yesNofn(CheckedFeatures) AS Caracteristicas, yesNofn(CheckedPackage) AS Empaque,';
-        vm.exportQuery += ' yesNofn(icon_filename) AS Fotos, yesNofn(CheckedPhotos) AS Fotos_Revisadas';
+        vm.exportQuery += ' yesNofn(icon_filename) AS Fotos, yesNofn(CheckedPhotos) AS Fotos_Revisadas, Active AS Almacen_Vendible';
         vm.exportQuery += ' INTO XLS("prods.xls",{headers:true}) FROM ?';
 
         vm.exportColumns = [
@@ -84,13 +85,20 @@
           {label:'No', value:false}
         ];
 
+        vm.activeOptions = [
+          {label:'Todos', value:'none'},
+          {label:'Si', value:'Y'},
+          {label:'No', value:'N'}
+        ]
+
         vm.filters = {
           SA: 'none',
           CheckedStructure: 'none',
           CheckedDescription: 'none',
           CheckedFeatures: 'none',
           CheckedPackage: 'none',
-          CheckedPhotos: 'none'
+          CheckedPhotos: 'none',
+          Active: 'Y'
         };
 
         function applyFilters(){
@@ -107,8 +115,9 @@
           vm.finalFilters = aux;
           $rootScope.$broadcast('reloadTable', true);
         }
-
         vm.apiResource = productService.getListNoImages;
+
+        vm.applyFilters();
 
         // Methods
         //////////
