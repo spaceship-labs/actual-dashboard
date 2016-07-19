@@ -22,6 +22,19 @@
   display: none;
 }
 
+.title-checkbox md-checkbox{
+  margin: 0;
+}
+.payment-group-item{
+  margin: 10px 0;
+}
+.payment-group-item ul{
+  margin: 5px 0 0;
+}
+.payment-group-item ul li{
+  font-size: 12px;
+}
+
 #new-search{
   padding: 9px;
   vertical-align: middle;
@@ -248,6 +261,15 @@ div.dataTables_filter label{float: left;}
   height: 36px;
   */
   height: 28px;
+}
+
+.select-element md-select.ng-invalid.ng-tuched,
+.input-element .input-element-inner input[type="text"].ng-invalid.ng-tuched,
+.input-element .input-element-inner input[type="email"].ng-invalid.ng-tuched,
+.input-element .input-element-inner input[type="number"].ng-invalid.ng-tuched,
+.input-element .input-element-inner input[type="password"].ng-invalid.ng-tuched,
+.input-element .input-element-inner textarea.ng-invalid.ng-tuched{
+  border:1px solid red;
 }
 
 .select-element-md{

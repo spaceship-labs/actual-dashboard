@@ -59,6 +59,9 @@
           {key:'create-commissions', label:'Crear comisiones', section:'commissions'},
           {key:'edit-commissions', label:'Editar comisiones', section:'commissions'},
           {key:'list-commissions', label:'Ver comisiones', section:'commissions'},
+          {key:'create-paymentmethods', label:'Crear vigencias de metodos de pago', section:'paymentmethods'},
+          {key:'edit-paymentmethods', label:'Editar vigencias de metodos de pago', section:'paymentmethods'},
+          {key:'list-paymentmethods', label:'Ver vigencias de metodos de pago', section:'paymentmethods'},
 
         ];
 

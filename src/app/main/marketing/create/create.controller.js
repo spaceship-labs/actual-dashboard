@@ -44,6 +44,8 @@
           ],
           init: init,
           create: create,
+          combineDateTime: combineDateTime,
+          getExcludedNum: getExcludedNum,
           loadCompanies: loadCompanies,
           loadCategories: loadCategories,
           loadCustomBrands: loadCustomBrands,
@@ -54,7 +56,6 @@
           removeGroup: removeGroup,
           searchProds: searchProds,
           selectedGroupChange: selectedGroupChange,
-          getExcludedNum: getExcludedNum
         });
 
 
@@ -158,10 +159,23 @@
 
         function onSelectStartDate(pikaday){
           vm.promotion.startDate = pikaday._d;
+          vm.myPickerEndDate.setMinDate(vm.promotion.startDate);
+        }
+
+        function combineDateTime(date, time){
+          var date = moment(date);
+          time = moment(time);
+          date = date.set({
+             'hour' : time.get('hour'),
+             'minute'  : time.get('minute'),
+             'second' : time.get('second')
+          });
+          return date.toDate();
         }
 
         function onSelectEndDate(pikaday){
           vm.promotion.endDate = pikaday._d;
+          vm.myPickerStartDate.setMaxDate(vm.promotion.endDate);
         }
 
         function getExcludedNum(){
@@ -184,6 +198,8 @@
               if(p.isActive) prods.push(p.id);
               return prods;
             }, []);
+            vm.promotion.startDate = vm.combineDateTime(vm.promotion.startDate,vm.startTime);
+            vm.promotion.endDate = vm.combineDateTime(vm.promotion.endDate,vm.endTime);
             var params = {
               Categories  : vm.search.categories,
               FilterValues: vm.search.filtervalues,
@@ -215,6 +231,8 @@
                 dialogService.showDialog('Error, revisa los datos');
                 vm.isLoading = false;
               });
+          }else{
+            dialogService.showDialog('Revisa los datos incompletos');
           }
         }
 

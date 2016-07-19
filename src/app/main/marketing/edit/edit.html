@@ -62,15 +62,25 @@
 
                 <div class="input-element" flex="25" flex-sm="100" flex-xs="100">
                   <label>Fecha de inicio*</label>
-                  <div class="input-element-inner">
-                    <input ng-if="vm.promotion" type="text" pikaday="vm.myPicker" set-default-date="true" default-date="{{vm.promotion.startDate}}" on-select="vm.onSelectStartDate(pikaday)" readonly required>
+                  <div layout="row">
+                    <div flex="60" class="input-element-inner">
+                      <input ng-if="vm.promotion" type="text" pikaday="vm.myPickerStartDate" set-default-date="true" default-date="{{vm.promotion.startDate}}" on-select="vm.onSelectStartDate(pikaday)" readonly required>
+                    </div>
+                    <div flex="40" class="input-element-inner">
+                      <input type="text" ui-timepicker ui-timepicker="vm.timePickerOptions"  ng-model="vm.startTime" placeholder="Hora" required>
+                    </div>
                   </div>
                 </div>
 
                 <div class="input-element" flex="25" flex-sm="100" flex-xs="100">
                   <label>Fecha de vencimiento*</label>
-                  <div class="input-element-inner">
-                    <input ng-if="vm.promotion" type="text" pikaday="vm.myPicker" set-default-date="true" default-date="{{vm.promotion.endDate}}" on-select="vm.onSelectEndDate(pikaday)" readonly required>
+                  <div layout="row">
+                    <div flex="60" class="input-element-inner">
+                      <input ng-if="vm.promotion" type="text" pikaday="vm.myPickerEndDate" set-default-date="true" default-date="{{vm.promotion.endDate}}" on-select="vm.onSelectEndDate(pikaday)" readonly required>
+                    </div>
+                    <div flex="40" class="input-element-inner">
+                      <input type="text" ui-timepicker ui-timepicker="vm.timePickerOptions"  ng-model="vm.endTime" placeholder="Hora" required>
+                    </div>
                   </div>
                 </div>
 

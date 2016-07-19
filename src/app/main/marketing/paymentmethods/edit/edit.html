@@ -1,0 +1,88 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <div class="content">
+
+
+      <div class="page-layout simple fullwidth">
+
+        <section class="md-whiteframe-z1">
+          <md-toolbar class="demo-toolbar md-primary">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+              <h3>EDITAR VIGENCIA</h3>
+
+              <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
+                        ng-click="vm.update(updateForm)">
+                  Editar
+              </md-button>
+
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+
+
+            <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+            </div>
+
+            <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
+
+              <section layout="row" layout-align="space-between center">
+                <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
+                  <label>Fecha de inicio*</label>
+                  <div layout="row">
+                    <div flex="60" class="input-element-inner">
+                      <input ng-if="vm.pmPeriod" type="text" pikaday="vm.myPickerStartDate" on-select="vm.onSelectStartDate(pikaday)" readonly required placeholder="Fecha" set-default-date="true" default-date="{{vm.pmPeriod.startDate}}">
+                    </div>
+                    <div flex="40" class="input-element-inner">
+                      <input type="text" ui-timepicker ui-timepicker="vm.timePickerOptions"  ng-model="vm.startTime" placeholder="Hora" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
+                  <label>Fecha de vencimiento*</label>
+                  <div layout="row">
+                    <div flex="60" class="input-element-inner">
+                      <input ng-if="vm.pmPeriod" type="text" pikaday="vm.myPickerEndDate" on-select="vm.onSelectEndDate(pikaday)" readonly required placeholder="Fecha" set-default-date="true" default-date="{{vm.pmPeriod.endDate}}">
+                    </div>
+                    <div flex="40" class="input-element-inner">
+                      <input type="text" ui-timepicker ui-timepicker="vm.timePickerOptions"  ng-model="vm.endTime" placeholder="Hora" required>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div ng-repeat="pg in vm.paymentGroups track by $index" class="payment-group-item">
+                <div class="title-checkbox">
+                  <md-checkbox  ng-model="pg.isActive" aria-label="Checkbox 1">
+                    {{pg.label}}
+                  </md-checkbox>
+                </div>
+                <ul>
+                  <li ng-repeat="method in pg.methods">{{method}}</li>
+                </ul>
+              </div>
+
+              <div>
+                <md-button
+                  type="submit"
+                  class="md-raised md-accent action-button"
+                  aria-label="Guardar"
+                >
+                    Editar
+                </md-button>
+              </div>
+
+            </form>
+
+          </md-content>
+
+          <!--<div form-helper flex="80"></div>-->
+        </section>
+
+
+    </div>
+    <!-- / CONTENT -->
+  </div>
+
+</div>

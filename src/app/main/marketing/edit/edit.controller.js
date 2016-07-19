@@ -7,10 +7,12 @@
         .controller('MarketingEditController', MarketingEditController);
 
     /** @ngInject */
-    function MarketingEditController($scope, $q, $stateParams ,commonService, productService, promoService, api, dialogService, categoriesService, fvService){
+    function MarketingEditController($scope, $q, $stateParams, $timeout ,commonService, productService, promoService, api, dialogService, categoriesService, fvService){
         var vm = this;
 
         angular.extend(vm, {
+          myPickerEndDate: {},
+          myPickerStartDate: {},
           groups: [],
           selectedCategories: [],
           selectedCompanies: [],
@@ -43,20 +45,21 @@
             {label:'Descuento grupo pago 5', discount:0},
           ],
           init: init,
-          update: update,
-          loadCompanies: loadCompanies,
+          combineDateTime: combineDateTime,
+          getExcludedNum: getExcludedNum,
           loadCategories: loadCategories,
+          loadCompanies: loadCompanies,
           loadCustomBrands: loadCustomBrands,
           loadFilters: loadFilters,
+          objIndexOf: objIndexOf,
           onSelectEndDate: onSelectEndDate,
           onSelectStartDate: onSelectStartDate,
           queryGroups: queryGroups,
           removeGroup: removeGroup,
           searchProds: searchProds,
           selectedGroupChange: selectedGroupChange,
-          objIndexOf: objIndexOf,
-          getExcludedNum: getExcludedNum,
-          setPromoDiscounts: setPromoDiscounts
+          setPromoDiscounts: setPromoDiscounts,
+          update: update,
         });
 
         $scope.$watch('vm.paymentGroups[0].discount', function(newVal,oldVal){
@@ -70,6 +73,17 @@
             })
           }
         });
+
+        function combineDateTime(date, time){
+          var date = moment(date);
+          time = moment(time);
+          date = date.set({
+             'hour' : time.get('hour'),
+             'minute'  : time.get('minute'),
+             'second' : time.get('second')
+          });
+          return date.toDate();
+        }
 
         function objIndexOf(arr, query){
           return _.findWhere(arr, query);
@@ -91,8 +105,10 @@
           vm.isLoading = true;
           promoService.findById($stateParams.id).then(function(res){
             vm.promotion = res.data;
-            vm.promotion.startDate = vm.promotion.startDate;
-            vm.promotion.endDate = vm.promotion.endDate;
+            console.log(vm.promotion);
+            vm.startTime = new Date(angular.copy(vm.promotion.startDate));
+            vm.endTime = new Date(angular.copy(vm.promotion.endDate));
+
             vm.search.groups = vm.promotion.Groups;
             vm.products = vm.promotion.Products;
             vm.products = vm.products.map(function(prod){
@@ -101,6 +117,13 @@
             });
             vm.setPromoDiscounts(vm.promotion);
             vm.isLoading = false;
+
+            $timeout(function(){
+              console.log(vm.promotion);
+              vm.myPickerEndDate.setMinDate(new Date(vm.promotion.startDate) );
+              vm.myPickerStartDate.setMaxDate( new Date(vm.promotion.endDate) );
+            },1000);
+
           }).catch(function(err){
             console.log(err);
           })
@@ -191,10 +214,12 @@
 
         function onSelectStartDate(pikaday){
           vm.promotion.startDate = pikaday._d;
+          vm.myPickerEndDate.setMinDate(vm.promotion.startDate);
         }
 
         function onSelectEndDate(pikaday){
           vm.promotion.endDate = pikaday._d;
+          vm.myPickerStartDate.setMaxDate(vm.promotion.endDate);
         }
 
         function update(form){
@@ -212,6 +237,8 @@
               if(p.isActive) prods.push(p.id);
               return prods;
             }, []);
+            vm.promotion.startDate = vm.combineDateTime(vm.promotion.startDate,vm.startTime);
+            vm.promotion.endDate = vm.combineDateTime(vm.promotion.endDate,vm.endTime);
             var params = {
               name        : vm.promotion.name,
               code        : vm.promotion.code,
@@ -247,6 +274,8 @@
                 dialogService.showDialog('Error, revisa los datos');
                 vm.isLoading = false;
               });
+          }else{
+            dialogService.showDialog('Revisa los datos incompletos');
           }
         }
 

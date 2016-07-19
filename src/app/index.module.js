@@ -50,9 +50,6 @@
             //Invoices
             'app.invoices',
 
-            //Promos
-            'app.promos',
-
             //Ventas
             'app.sales',
 
@@ -74,6 +71,7 @@
             'dndLists',
             'ngMaterialDatePicker',
             'ui.tinymce',
-            'pikaday'
+            'pikaday',
+            'ui.timepicker'
         ]);
 })();

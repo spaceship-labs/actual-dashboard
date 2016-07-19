@@ -16,6 +16,9 @@
       return service;
 
       function formatHandle (str) {
+        if(!str){
+          return '';
+        }
 
         str = str.replace(/\s+/g, '-').toLowerCase();;
 
