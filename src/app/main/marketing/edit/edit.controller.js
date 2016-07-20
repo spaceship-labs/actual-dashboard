@@ -239,6 +239,8 @@
             }, []);
             vm.promotion.startDate = vm.combineDateTime(vm.promotion.startDate,vm.startTime);
             vm.promotion.endDate = vm.combineDateTime(vm.promotion.endDate,vm.endTime);
+            vm.search.categories = categoriesService.getSelectedCategories(vm.categoriesGroups, vm.selectedCategories);
+            vm.search.filtervalues = fvService.getSelectedFV(vm.filters, {multiples:true});
             var params = {
               name        : vm.promotion.name,
               code        : vm.promotion.code,
