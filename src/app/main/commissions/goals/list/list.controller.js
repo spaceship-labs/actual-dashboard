@@ -4,7 +4,7 @@
 
     angular
         .module('app.commissions.goals.list')
-        .controller('CommissionsGoalsListController', CommissionsListController);
+        .controller('CommissionsGoalsListController', CommissionsGoalsListController);
 
     /** @ngInject */
     function CommissionsGoalsListController(DTOptionsBuilder, DTColumnBuilder, api, $q)
