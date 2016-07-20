@@ -1,0 +1,35 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="breadcrumb" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
+                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
+                <span class="parent">Tables</span>
+            </div>
+            <div class="title">Comissions</div>
+        </div>
+
+        <div layout="row" layout-align="start center">
+            <md-button class="md-raised reference-button"
+                       href="https://l-lin.github.io/angular-datatables"
+                       target="_blank">
+                <md-icon md-font-icon="icon-link"></md-icon>
+                <span>Reference</span>
+            </md-button>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <div class="white-bg md-whiteframe-4dp">
+            <div table-list columns="vm.columns" api-resource="vm.apiResource"></div>
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

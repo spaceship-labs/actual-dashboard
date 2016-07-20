@@ -6,7 +6,13 @@
         .module('app.commissions', [
             'app.commissions.list',
             'app.commissions.create',
-            'app.commissions.edit'
+            'app.commissions.edit',
+
+            //METAS
+            'app.commissions.goals.list',
+            'app.commissions.goals.create',
+            'app.commissions.goals.edit'
+
         ])
         .config(config);
 
@@ -31,6 +37,22 @@
             state: 'app.commissions_create'
         });
 
+
+        msNavigationServiceProvider.saveItem('commissions.goals', {
+            title : 'Comisiones',
+            group : false,
+            weight: 2
+        });
+
+        msNavigationServiceProvider.saveItem('commissions.goals.list', {
+            title: 'Lista de metas',
+            state: 'app.commissions_goals_list'
+        });
+
+        msNavigationServiceProvider.saveItem('commissions.goals.create', {
+            title: 'Crear meta',
+            state: 'app.commissions_goals_create'
+        });
 
 
     }

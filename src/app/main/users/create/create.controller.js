@@ -74,6 +74,9 @@
           {key:'create-paymentmethods', label:'Crear vigencias de metodos de pago', section:'paymentmethods'},
           {key:'edit-paymentmethods', label:'Editar vigencias de metodos de pago', section:'paymentmethods'},
           {key:'list-paymentmethods', label:'Ver vigencias de metodos de pago', section:'paymentmethods'},
+          {key:'create-goals', label:'Crear metas', section:'commissions'},
+          {key:'edit-goals', label:'Editar metas', section:'commissions'},
+          {key:'list-goals', label:'Ver metas', section:'commissions'},
 
         ];
 
