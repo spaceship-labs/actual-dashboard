@@ -200,6 +200,12 @@
             }, []);
             vm.promotion.startDate = vm.combineDateTime(vm.promotion.startDate,vm.startTime);
             vm.promotion.endDate = vm.combineDateTime(vm.promotion.endDate,vm.endTime);
+
+            if(!vm.promotion.hasLM){
+              delete vm.promotion.pushMoneyUnit;
+              delete vm.promotion.pushMoneyUnitType;
+            }
+
             var params = {
               Categories  : vm.search.categories,
               FilterValues: vm.search.filtervalues,

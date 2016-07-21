@@ -246,6 +246,7 @@
               code        : vm.promotion.code,
               startDate   : vm.promotion.startDate,
               endDate     : vm.promotion.endDate,
+              hasLM       : vm.promotion.hasLM,
               Companies   : vm.selectedCompanies,
               Categories  : vm.search.categories,
               FilterValues: vm.search.filtervalues,
@@ -263,6 +264,12 @@
               discountPg4 : vm.paymentGroups[3].discount,
               discountPg5 : vm.paymentGroups[4].discount,
             };
+
+            if(vm.promotion.hasLM){
+              params.pushMoneyUnit = vm.promotion.pushMoneyUnit;
+              params.pushMoneyUnitType = vm.promotion.pushMoneyUnitType;
+            }
+
             //angular.extend(params, vm.promotion);
             console.log('params',params);
             promoService.update(vm.promotion.id, params)
