@@ -39,7 +39,7 @@
 
 
         msNavigationServiceProvider.saveItem('commissions.goals', {
-            title : 'Comisiones',
+            title : 'Metas',
             group : false,
             weight: 2
         });

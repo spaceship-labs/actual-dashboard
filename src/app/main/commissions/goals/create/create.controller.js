@@ -8,12 +8,17 @@
 
     /** @ngInject */
     function CommissionsGoalsCreateController(dialogService, userService){
-        var vm = this;
+        var vm   = this;
+        vm.roles = [];
 
-        vm.roles = [
-          {name:'Vendedor', id:2, handle:'seller'},
-          {name:'Broker', id:3, handle:'broker'},
-          {name:'Gerente', id:7, handle:'manager'}
-        ];
+        activate();
+
+        function activate() {
+          vm.roles = [
+            {name:'Vendedor', id:2, handle:'seller'},
+            {name:'Broker', id:3, handle:'broker'},
+            {name:'Gerente', id:7, handle:'manager'}
+          ];
+        }
     }
 })();
