@@ -45,7 +45,6 @@
         return api.$http.post(url);
       }
 
-
       /*
       function getUsersSap(){
         var url = '/usersap/get';

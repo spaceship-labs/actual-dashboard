@@ -7,18 +7,28 @@
         .controller('CommissionsGoalsCreateController', CommissionsGoalsCreateController);
 
     /** @ngInject */
-    function CommissionsGoalsCreateController(dialogService, userService){
-        var vm   = this;
-        vm.roles = [];
+    function CommissionsGoalsCreateController(dialogService, userService, roleService, goalService){
+        var vm         = this;
+        vm.roles       = [];
+        vm.sendingForm = false;
+        vm.sendForm    = sendForm;
 
         activate();
 
         function activate() {
-          vm.roles = [
-            {name:'Vendedor', id:2, handle:'seller'},
-            {name:'Broker', id:3, handle:'broker'},
-            {name:'Gerente', id:7, handle:'manager'}
-          ];
+          roleService.getRoles().then(function(res) {
+            vm.roles = res.data;
+          });
+        }
+
+        function sendForm() {
+          if (vm.sendingForm) {
+            return;
+          }
+          vm.sendingForm = true;
+          goalService.create(vm.goal).then(function(res){
+            vm.sendingForm = false;
+          });
         }
     }
 })();

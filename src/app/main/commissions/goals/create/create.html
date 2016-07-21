@@ -34,7 +34,7 @@
                   <p class="select-element-label"><label><strong>Se aplica a*</strong></label></p>
                   <md-input-container>
                     <md-select class="select-element select-element-md" ng-model="vm.goal.role">
-                      <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
+                      <md-option ng-repeat="role in vm.roles track by role.id" ng-value="role.id">
                         {{role.name}}
                       </md-option>
                     </md-select>
@@ -48,14 +48,14 @@
                       name="_name"
                       required
                       placeholder="$"
-                      ng-model="vm.goal.amount"
+                      ng-model="vm.goal.ammount"
                     >
                   </div>
                 </div>
               </section>
               <div>
                 <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
-                  ng-click="vm.sendForm(basicForm)"
+                  ng-click="vm.sendForm()"
                 >
                     CREAR
                 </md-button>
