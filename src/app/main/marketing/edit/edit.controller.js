@@ -101,9 +101,11 @@
         }
 
         function setPromoDiscounts(promo){
-          var keys = ['discountPg1','discountPg2','discountPg3','discountPg4','discountPg5'];
+          var keysD = ['discountPg1','discountPg2','discountPg3','discountPg4','discountPg5'];
+          var keysT = ['discountTextPg1','discountTextPg2','discountTextPg3','discountTextPg4','discountTextPg5'];
           vm.paymentGroups = vm.paymentGroups.map(function(pg, index){
-            pg.discount = promo[keys[index]] || 0;
+            pg.discount = promo[keysD[index]] || 0;
+            pg.text =promo[keysT[index]];
             return pg;
           });
         }

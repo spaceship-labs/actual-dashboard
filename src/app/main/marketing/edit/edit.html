@@ -104,6 +104,22 @@
               </section>
               <!--END DISCOUNTS-->
 
+              <!--DISCOUNTS TEXTS-->
+              <section layout="row" layout-align="space-between center">
+                <div ng-repeat="pg in vm.paymentGroups" class="input-element" flex="15" flex-sm="100" flex-xs="100">
+                  <label>Etiqueta - {{pg.label}}</label>
+                  <div class="input-element-inner">
+                    <input
+                      type="text"
+                      name="{{pg.label}}"
+                      ng-model="pg.text"
+                      required
+                      >
+                  </div>
+                </div>
+              </section>
+              <!--END DISCOUNTS TEXTS-->
+
               <!--LENTO MOVIMIENTO  AND PUSH MONEY-->
               <section layout="row" layout-align="start center">
                 <div flex="25">
