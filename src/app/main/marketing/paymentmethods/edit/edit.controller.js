@@ -7,7 +7,7 @@
         .controller('MarketingPMEditController', MarketingPMEditController);
 
     /** @ngInject */
-    function MarketingPMEditController($scope, $q, $stateParams, $timeout ,commonService, pmPeriodService){
+    function MarketingPMEditController($scope, $q, $stateParams, $timeout ,commonService, pmPeriodService, dialogService){
         var vm = this;
 
         angular.extend(vm,{
@@ -47,7 +47,7 @@
           onSelectEndDate: onSelectEndDate,
           combineDateTime: combineDateTime,
           formatGroupsOnCreate: formatGroupsOnCreate,
-          create: create,
+          update: update,
           init: init
         });
 
@@ -100,15 +100,15 @@
           })
         }
 
-        function create(form){
+        function update(form){
           if(form.$valid){
             vm.formatGroupsOnCreate();
             vm.pmPeriod.startDate = vm.combineDateTime(vm.pmPeriod.startDate,vm.startTime);
             vm.pmPeriod.endDate = vm.combineDateTime(vm.pmPeriod.endDate,vm.endTime);
             vm.isLoading = true;
             console.log(vm.pmPeriod);
-            pmPeriodService.create(vm.pmPeriod).then(function(res){
-              dialogService.showDialog('Vigencia registrada');
+            pmPeriodService.update(vm.pmPeriod.id,vm.pmPeriod).then(function(res){
+              dialogService.showDialog('Vigencia actualizada');
               vm.isLoading = false;
             }).catch(function(err){
               console.log(err);
