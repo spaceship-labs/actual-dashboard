@@ -7,14 +7,14 @@
         .controller('CommissionsGoalsListController', CommissionsGoalsListController);
 
     /** @ngInject */
-    function CommissionsGoalsListController(DTOptionsBuilder, DTColumnBuilder, api, $q)
+    function CommissionsGoalsListController($q, DTOptionsBuilder, DTColumnBuilder, api, goalService)
     {
         var vm = this;
         // Data
         vm.columns = [
             {key:'id', label:'ID'},
             {key:'name', label:'nombre'},
-            {key:'role', label:'rol'},
+            {key:'role.name', label:'rol'},
             {key:'ammount', label:'cuota'},
         ];
 
