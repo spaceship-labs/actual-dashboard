@@ -128,7 +128,7 @@
                 <div class="input-element " flex="30" flex-xs="100">
                   <p class="select-element-label"><label><strong>Rol</strong></label></p>
                   <md-input-container>
-                    <md-select class="select-element select-element-md" ng-model="vm.user.userType">
+                    <md-select class="select-element select-element-md" ng-model="vm.user.role">
                       <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
                         {{role.name}}
                       </md-option>

@@ -13,15 +13,12 @@
         // Data
         vm.columns = [
             {key:'id', label:'ID'},
-            {key:'OpprId', label:'OpprId'},
-            {key:'CardCode', label:'CardCode'},
-            {key:'OpenDate', label:'OpenDate'},
-            {key:'Status', label:'Status'},
-            {key:'CardName', label:'CardName'},
-
+            {key:'name', label:'nombre'},
+            {key:'role', label:'rol'},
+            {key:'ammount', label:'cuota'},
         ];
 
-        vm.apiResource = api.lead.find.get;
+        vm.apiResource = goalService.getList;
 
         // Methods
 

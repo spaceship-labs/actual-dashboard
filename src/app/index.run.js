@@ -71,7 +71,7 @@
 
                 if(toState.accessList.length > 0){
                   for(var i= 0; i<toState.accessList.length;i++){
-                    if(_user.userType == toState.accessList[i] || _user.isAdmin){
+                    if(_user.role.name == toState.accessList[i] || _user.role.name == 'admin'){
                       return true;
                     }
                   }
