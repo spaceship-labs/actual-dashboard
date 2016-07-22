@@ -231,7 +231,9 @@
                 <!--END FILTERS-->
 
                 <!--CUSTOM BRAND FILTER-->
-                  <div>
+                <div layout="row">
+
+                  <div flex="33">
                     <p class="select-element-label"><label><strong>Marcas</strong></label></p>
                     <md-input-container class="checkboxes-dropdown-wrap">
                       <md-select class="checkboxes-dropdown select-element select-element-md2" ng-model="vm.search.customBrands"
@@ -251,6 +253,19 @@
                       </md-select>
                     </md-input-container>
                   </div>
+
+                  <div class="select-element-wrapper" flex="33">
+                    <p class="select-element-label"><label><strong>Sociedad</strong></label></p>
+                    <md-input-container class="no-margin">
+                      <md-select class="select-element" placeholder="Sociedad" ng-model="vm.search.SA">
+                        <md-option ng-selected="sa.value == vm.product.SA" ng-repeat="sa in vm.sas" ng-value="sa.value">
+                          {{sa.label}}
+                        </md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+
+                </div>
                 <!--END CUSTOM BRAND-->
 
                 <!--DISPLAYS-->

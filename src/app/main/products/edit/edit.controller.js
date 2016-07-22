@@ -134,6 +134,12 @@
 
         ];
 
+        vm.sas = {
+          '001': 'Studio',
+          '002': 'Home',
+          '003': 'Ambas'
+        };
+
         vm.selectedCategories = [];
 
         vm.init();

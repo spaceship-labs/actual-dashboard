@@ -20,7 +20,8 @@
             groups:[],
             categories:[],
             filtervalues:[],
-            limit: 999999
+            limit: 999999,
+            SA:false
           },
           showFilters: false,
           products: [],
@@ -38,11 +39,17 @@
             {label:'Amueble.com', handle:'OnAmueble'},
           ],
           paymentGroups:[
-            {label:'Descuento grupo pago 1', discount:0},
-            {label:'Descuento grupo pago 2', discount:0},
-            {label:'Descuento grupo pago 3', discount:0},
-            {label:'Descuento grupo pago 4', discount:0},
-            {label:'Descuento grupo pago 5', discount:0},
+            {label:'Descuento grupo pago 1', discount:0, text:'Pago único'},
+            {label:'Descuento grupo pago 2', discount:0, text:'3 Meses sin intereses'},
+            {label:'Descuento grupo pago 3', discount:0, text:'6 y 9 Meses sin intereses'},
+            {label:'Descuento grupo pago 4', discount:0, text:'12 meses sin intereses'},
+            {label:'Descuento grupo pago 5', discount:0, text:'18 meses sin intereses'},
+          ],
+          sas: [
+            {label:'Ninguno', value:'none'},
+            {label:'Actual Studio', value:'Actual Studio'},
+            {label:'Actual Home', value:'Actual Home'},
+            {label:'Actual Kids', value:'Actual Kids'},
           ],
           init: init,
           combineDateTime: combineDateTime,
@@ -110,6 +117,7 @@
             vm.endTime = new Date(angular.copy(vm.promotion.endDate));
 
             vm.search.groups = vm.promotion.Groups;
+            vm.search.SA = vm.promotion.SA;
             vm.products = vm.promotion.Products;
             vm.products = vm.products.map(function(prod){
               prod.isActive = true;
@@ -256,6 +264,7 @@
               OnHome      : vm.search.OnHome,
               OnKids      : vm.search.OnKids,
               OnAmueble   : vm.search.OnAmueble,
+              SA   : vm.search.SA,
               Products    : products,
               excludedProducts: vm.excluded,
               discountPg1 : vm.paymentGroups[0].discount,
@@ -263,6 +272,12 @@
               discountPg3 : vm.paymentGroups[2].discount,
               discountPg4 : vm.paymentGroups[3].discount,
               discountPg5 : vm.paymentGroups[4].discount,
+
+              discountTextPg1 : vm.paymentGroups[0].text,
+              discountTextPg2 : vm.paymentGroups[1].text,
+              discountTextPg3 : vm.paymentGroups[2].text,
+              discountTextPg4 : vm.paymentGroups[3].text,
+              discountTextPg5 : vm.paymentGroups[4].text,
             };
 
             if(vm.promotion.hasLM){
