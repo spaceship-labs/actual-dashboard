@@ -19,7 +19,7 @@
               <p class="select-element-label"><label><strong>Sociedad</strong></label></p>
               <md-input-container class="no-margin">
                 <md-select class="select-element" placeholder="Sociedad" ng-model="vm.filters.SA">
-                  <md-option ng-repeat="sa in vm.sas" value="{{sa.value}}">
+                  <md-option ng-repeat="sa in vm.sas" ng-value="sa.value">
                     {{sa.label}}
                   </md-option>
                 </md-select>
@@ -114,7 +114,7 @@
           </section>
 
 
-          <div table-list columns="vm.columns" filters="vm.finalFilters" order-by="OnHand DESC" api-resource="vm.apiResource" export-query="vm.exportQuery" export-columns="vm.exportColumns"></div>
+          <div table-list columns="vm.columns" filters="vm.finalFilters" order-by="OnHand DESC" api-resource="vm.apiResource" export-query="vm.exportQuery"></div>
         </div>
 
     </div>
