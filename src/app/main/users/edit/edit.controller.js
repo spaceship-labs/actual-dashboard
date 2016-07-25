@@ -40,6 +40,7 @@
           {key:'list-products', label:'Ver lista de productos', section:'products'},
           {key:'edit-products', label:'Editar productos', section:'products'},
           {key:'import-images', label:'Importar imagenes', section:'config'},
+          {key:'config-sites', label:'Configuración del sitio', section:'config'},
           {key:'list-leads', label:'Ver oportunidades', section:'leads'},
           {key:'create-brands', label:'Crear marcas', section:'brands'},
           {key:'edit-brands', label:'Editar marcas', section:'brands'},

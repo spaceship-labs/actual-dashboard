@@ -5,6 +5,7 @@
     angular
         .module('app.configuration', [
             'app.configuration.import',
+            'app.configuration.sites',
         ])
         .config(config);
 
@@ -15,6 +16,11 @@
         msNavigationServiceProvider.saveItem('configuration.import', {
             title: 'Importar imagenes SAP',
             state: 'app.configuration_import'
+        });
+
+        msNavigationServiceProvider.saveItem('configuration.sites', {
+            title: 'Configuración de sitio',
+            state: 'app.configuration_sites'
         });
 
         msNavigationServiceProvider.saveItem('configuration', {

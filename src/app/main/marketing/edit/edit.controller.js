@@ -21,7 +21,7 @@
             categories:[],
             filtervalues:[],
             limit: 999999,
-            SA:false
+            U_Empresa:false
           },
           showFilters: false,
           products: [],
@@ -45,12 +45,23 @@
             {label:'Descuento grupo pago 4', discount:0, text:'12 meses sin intereses'},
             {label:'Descuento grupo pago 5', discount:0, text:'18 meses sin intereses'},
           ],
+
+        //SA's from SAP
+          sas: [
+            {label:'Todas', value:false},
+            {label:'Actual Studio | 001', value:'001'},
+            {label:'Actual Home | 002', value:'002'},
+            {label:'Ambas | 003', value:'003'}
+            //{label:'Actual Kids', value:'003'},
+          ],
+          /*
           sas: [
             {label:'Ninguno', value:'none'},
             {label:'Actual Studio', value:'Actual Studio'},
             {label:'Actual Home', value:'Actual Home'},
             {label:'Actual Kids', value:'Actual Kids'},
           ],
+          */
           init: init,
           combineDateTime: combineDateTime,
           getExcludedNum: getExcludedNum,
@@ -119,7 +130,8 @@
             vm.endTime = new Date(angular.copy(vm.promotion.endDate));
 
             vm.search.groups = vm.promotion.Groups;
-            vm.search.SA = vm.promotion.SA;
+            //vm.search.SA = vm.promotion.SA;
+            vm.search.U_Empresa = vm.promotion.U_Empresa;
             vm.products = vm.promotion.Products;
             vm.products = vm.products.map(function(prod){
               prod.isActive = true;
@@ -266,7 +278,8 @@
               OnHome      : vm.search.OnHome,
               OnKids      : vm.search.OnKids,
               OnAmueble   : vm.search.OnAmueble,
-              SA   : vm.search.SA,
+              //SA   : vm.search.SA,
+              U_Empresa   : vm.search.U_Empresa,
               Products    : products,
               excludedProducts: vm.excluded,
               discountPg1 : vm.paymentGroups[0].discount,

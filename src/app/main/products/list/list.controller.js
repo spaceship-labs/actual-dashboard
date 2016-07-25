@@ -19,9 +19,9 @@
             {key:'ItemCode', label:'Código', actionUrl:'/products/edit/', propId: 'ItemCode'},
             {key:'Available', label:'Inventario'},
             {key:'ItemName', label:'Nombre'},
-            {key: 'SA', label: 'Sociedad'},
+            //{key: 'SA', label: 'Sociedad'},
             //{key:'productBrand.ItmsGrpNam', label:'Marca'},
-            //{key:'nameSA', label:'Sociedad'},
+            {key:'nameSA', label:'Sociedad'},
             {key:'CustomBrand.Name', label:'Marca'},
             {key:'CheckedStructure', label:'Estructura', yesNo: true},
             {key:'CheckedDescription', label:'Contenido', yesNo: true},
@@ -44,29 +44,29 @@
 
         vm.exportQuery = 'SELECT ItemCode AS Codigo,';
         vm.exportQuery += 'ItemName AS Nombre, Available AS Inventario, productBrand->ItmsGrpNam AS Marca,';
-        vm.exportQuery += ' SA AS Sociedad, yesNofn(CheckedStructure) AS Estructura, yesNofn(CheckedDescription) AS Contenido,';
-        //vm.exportQuery += ' nameSA AS Sociedad, yesNofn(CheckedStructure) AS Estructura, yesNofn(CheckedDescription) AS Contenido,';
+        //vm.exportQuery += ' SA AS Sociedad, yesNofn(CheckedStructure) AS Estructura, yesNofn(CheckedDescription) AS Contenido,';
+        vm.exportQuery += ' nameSA AS Sociedad, yesNofn(CheckedStructure) AS Estructura, yesNofn(CheckedDescription) AS Contenido,';
         vm.exportQuery += ' yesNofn(CheckedFeatures) AS Caracteristicas, yesNofn(CheckedPackage) AS Empaque,';
         vm.exportQuery += ' yesNofn(icon_filename) AS Fotos, yesNofn(CheckedPhotos) AS Fotos_Revisadas, Active AS Almacen_Vendible';
         vm.exportQuery += ' INTO XLS("prods.xls",{headers:true}) FROM ?';
 
+        /*
         vm.sas = [
           {label:'Ninguno', value:'none'},
           {label:'Actual Studio', value:'Actual Studio'},
           {label:'Actual Home', value:'Actual Home'},
           {label:'Actual Kids', value:'Actual Kids'},
         ];
+        */
 
-        /*
         //SA's from SAP
-        vm.sasded = [
+        vm.sas = [
           {label:'Ninguno', value:'none'},
           {label:'Actual Studio | 001', value:'001'},
           {label:'Actual Home | 002', value:'002'},
           {label:'Ambas | 003', value:'003'}
           //{label:'Actual Kids', value:'003'},
         ];
-        */
 
         /*
         productService.getBrands().then(function(res){
@@ -92,8 +92,8 @@
         ]
 
         vm.filters = {
-          SA: 'none',
-          //U_Empresa: 'none',
+          //SA: 'none',
+          U_Empresa: 'none',
           CheckedStructure: 'none',
           CheckedDescription: 'none',
           CheckedFeatures: 'none',
