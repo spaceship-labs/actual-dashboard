@@ -15,9 +15,13 @@
         return api.$http.post(url, {goal: goal});
       }
 
-      function getList() {
+      function getList(page, params) {
         var url = '/goal/find/';
-        return api.$http.get(url);
+        params.page = page;
+        if (!params.filters) {
+          delete params.filters;
+        }
+        return api.$http.get(url, params);
       }
     }
 })();
