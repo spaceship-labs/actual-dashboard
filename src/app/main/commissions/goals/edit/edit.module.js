@@ -14,7 +14,7 @@
             views    : {
                 'content@app': {
                     templateUrl: 'app/main/commissions/goals/edit/edit.html',
-                    controller : 'CommissionsEditController as vm'
+                    controller : 'CommissionsGoalsEditController as vm'
                 }
             },
             resolve  : {

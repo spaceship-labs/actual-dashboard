@@ -17,10 +17,10 @@
         var vm = this;
         // Data
         vm.columns = [
-            {key:'id', label:'ID'},
+            {key:'Edit', label:'Editar', editUrl:'/commissions/goals/edit/', propId: 'id'},
             {key:'name', label:'nombre'},
             {key:'role.name', label:'rol'},
-            {key:'ammount', label:'cuota'},
+            {key:'ammount', label:'cuota', currency: true},
         ];
 
         vm.apiResource = goalService.getList;
