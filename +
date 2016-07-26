@@ -20,11 +20,9 @@
           <md-toolbar class="demo-toolbar md-primary">
             <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
               <h3>CREAR COMISIÓN</h3>
-              <md-button type="submit"
-                class="md-raised md-accent action-button"
-                aria-label="Guardar"
-                ng-click="vm.sendForm(basicForm)"
-              >
+
+              <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
+                        ng-click="vm.sendForm(basicForm)">
                   CREAR
               </md-button>
 
@@ -50,7 +48,7 @@
                   <p class="select-element-label"><label><strong>Se le paga a</strong></label></p>
                   <md-input-container>
                     <md-select class="select-element select-element-md" ng-model="vm.commission.type" name="_role" required>
-                      <md-option ng-repeat="role in vm.roles track by role.id">
+                      <md-option ng-repeat="role in vm.roles track by id" ng-value="{{role.handle}}">
                       {{role.name}}
                       </md-option>
                     </md-select>
@@ -87,6 +85,7 @@
 
 
               <div>
+                {{basicForm.$error}}
                 <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
                            ng-click="vm.sendForm(basicForm.$valid)">
                     CREAR

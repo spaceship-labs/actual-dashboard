@@ -8,6 +8,7 @@
       return {
         create: create,
         update: update,
+        find: find,
         findById: findById,
         getList: getList
       };
@@ -23,12 +24,17 @@
       }
 
       function getList(page, params) {
-        var url = '/goal/find/';
+        var url = '/goal/search/';
         params.page = page;
         if (!params.filters) {
           delete params.filters;
         }
         return api.$http.get(url, params);
+      }
+
+      function find() {
+        var url = '/goal/find/';
+        return api.$http.get(url);
       }
 
       function findById(id) {
