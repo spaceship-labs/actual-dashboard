@@ -80,6 +80,7 @@
           update: update,
         });
 
+        /*
         $scope.$watch('vm.paymentGroups[0].discount', function(newVal,oldVal){
           if(newVal != oldVal && !isNaN(newVal)){
             var baseDiscount = newVal;
@@ -91,6 +92,7 @@
             })
           }
         });
+        */
 
         function combineDateTime(date, time){
           var date = moment(date);
