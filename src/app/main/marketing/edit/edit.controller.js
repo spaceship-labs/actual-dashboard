@@ -63,7 +63,6 @@
           ],
           */
           init: init,
-          combineDateTime: combineDateTime,
           getExcludedNum: getExcludedNum,
           loadCategories: loadCategories,
           loadCompanies: loadCompanies,
@@ -94,16 +93,6 @@
         });
         */
 
-        function combineDateTime(date, time){
-          var date = moment(date);
-          time = moment(time);
-          date = date.set({
-             'hour' : time.get('hour'),
-             'minute'  : time.get('minute'),
-             'second' : time.get('second')
-          });
-          return date.toDate();
-        }
 
         function objIndexOf(arr, query){
           return _.findWhere(arr, query);
@@ -261,8 +250,8 @@
               if(p.isActive) prods.push(p.id);
               return prods;
             }, []);
-            vm.promotion.startDate = vm.combineDateTime(vm.promotion.startDate,vm.startTime);
-            vm.promotion.endDate = vm.combineDateTime(vm.promotion.endDate,vm.endTime);
+            vm.promotion.startDate = commonService.combineDateTime(vm.promotion.startDate,vm.startTime);
+            vm.promotion.endDate = commonService.combineDateTime(vm.promotion.endDate,vm.endTime,59);
             vm.search.categories = categoriesService.getSelectedCategories(vm.categoriesGroups, vm.selectedCategories);
             vm.search.filtervalues = fvService.getSelectedFV(vm.filters, {multiples:true});
             var params = {

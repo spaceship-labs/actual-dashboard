@@ -57,7 +57,6 @@
           ],*/
           init: init,
           create: create,
-          combineDateTime: combineDateTime,
           getExcludedNum: getExcludedNum,
           loadCompanies: loadCompanies,
           loadCategories: loadCategories,
@@ -175,17 +174,6 @@
           vm.myPickerEndDate.setMinDate(vm.promotion.startDate);
         }
 
-        function combineDateTime(date, time){
-          var date = moment(date);
-          time = moment(time);
-          date = date.set({
-             'hour' : time.get('hour'),
-             'minute'  : time.get('minute'),
-             'second' : time.get('second')
-          });
-          return date.toDate();
-        }
-
         function onSelectEndDate(pikaday){
           vm.promotion.endDate = pikaday._d;
           vm.myPickerStartDate.setMaxDate(vm.promotion.endDate);
@@ -211,8 +199,8 @@
               if(p.isActive) prods.push(p.id);
               return prods;
             }, []);
-            vm.promotion.startDate = vm.combineDateTime(vm.promotion.startDate,vm.startTime);
-            vm.promotion.endDate = vm.combineDateTime(vm.promotion.endDate,vm.endTime);
+            vm.promotion.startDate = commonService.combineDateTime(vm.promotion.startDate,vm.startTime);
+            vm.promotion.endDate = commonService.combineDateTime(vm.promotion.endDate,vm.endTime, 59);
 
             if(!vm.promotion.hasLM){
               delete vm.promotion.pushMoneyUnit;
