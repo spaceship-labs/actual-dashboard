@@ -50,45 +50,81 @@
                   <p class="select-element-label"><label><strong>Se le paga a</strong></label></p>
                   <md-input-container>
                     <md-select class="select-element select-element-md" ng-model="vm.commission.type" name="_role" required>
-                      <md-option ng-repeat="role in vm.roles track by role.id">
+                      <md-option ng-repeat="role in vm.roles track by role.id" ng-value="role.id">
                       {{role.name}}
                       </md-option>
                     </md-select>
                   </md-input-container>
                 </div>
-
               </section>
 
               <section layout="row" layout-wrap layout-align="space-between start">
-                <div class="input-element" flex="100" flex-sm="100" flex-xs="100"
-                  layout
-                  ng-show="vm.goals.length!=0"
-                >
-                  <p class="select-element-label"><label><strong>Retos que deben cumplirse</strong></label></p>
-                  <div class="scroll-column">
-                    <md-checkbox
-                      class="block-checkbox"
-                      ng-repeat="goal in vm.goals track by goal.id"
-                      ng-click="vm.toggleGoal(goal.id)"
-                      ng-checked="vm.isGoalSelected(goal.id)"
-                      name="_goals"
+                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
+                  <label>Si el vendedor vende más de </label>
+                  <div class="input-element-inner">
+                    <input
+                      name="_individual"
+                      type="number"
+                      min="0"
+                      placeholder="meta individual"
+                      ng-model="vm.commission.individualGoal"
+                      required
                     >
-                      {{goal.role.name}} - {{goal.name}}
-                    </md-checkbox>
                   </div>
                 </div>
-                <div class="input-element" flex="100" flex-sm="100" flex-xs="100"
-                  ng-show="vm.goals.length==0"
-                  layout
-                >
-                  <p class="select-element-label"><label><strong>No existen retos - Deben crearse retos</strong></label></p>
+
+                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
+                  <label>Si la tienda vende más de </label>
+                  <div class="input-element-inner">
+                    <input
+                      name="_store"
+                      type="number"
+                      min="0"
+                      placeholder="meta de la tienda"
+                      ng-model="vm.commission.storeGoal"
+                      required
+                    >
+                  </div>
                 </div>
               </section>
 
+              <section layout="row" layout-wrap layout-align="space-between start">
+                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
+                  <label>Porcentaje de ventas individuales a pagar</label>
+                  <div class="input-element-inner">
+                    <input
+                      name="_store"
+                      type="number"
+                      min="0"
+                      placeholder="meta de la tienda"
+                      ng-model="vm.commission.individualRate"
+                      required
+                    >
+                  </div>
+                </div>
+                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
+                  <label>Porcentaje de ventas de la tienda a pagar</label>
+                  <div class="input-element-inner">
+                    <input
+                      name="_store"
+                      type="number"
+                      min="0"
+                      placeholder="meta de la tienda"
+                      ng-model="vm.commission.storeRate"
+                      required
+                    >
+                  </div>
+                </div>
+
+              </section>
 
               <div>
-                <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
-                           ng-click="vm.sendForm(basicForm.$valid)">
+                <md-button
+                  type="submit"
+                  class="md-raised md-accent action-button"
+                  aria-label="Guardar"
+                  ng-click="vm.sendForm(basicForm.$valid)"
+                >
                     CREAR
                 </md-button>
               </div>

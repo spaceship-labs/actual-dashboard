@@ -2,9 +2,9 @@
     'use strict';
     angular
         .module('app.services')
-        .factory('goalService', goalService);
+        .factory('commissionService', commissionService);
 
-    function goalService($http, $q, api){
+    function commissionService($http, $q, api){
       return {
         create: create,
         update: update,
@@ -13,18 +13,18 @@
         getList: getList
       };
 
-      function create(goal) {
-        var url = '/goal/create/';
-        return api.$http.post(url, {goal: goal});
+      function create(commission) {
+        var url = '/commission/create/';
+        return api.$http.post(url, {commission: commission});
       }
 
       function update(params) {
-        var url = '/goal/update/';
+        var url = '/commission/update/';
         return api.$http.get(url, params);
       }
 
       function getList(page, params) {
-        var url = '/goal/search/';
+        var url = '/commission/search/';
         params.page = page;
         if (!params.filters) {
           delete params.filters;
@@ -33,12 +33,12 @@
       }
 
       function find() {
-        var url = '/goal/find/';
+        var url = '/commission/find/';
         return api.$http.get(url);
       }
 
       function findById(id) {
-        var url = '/goal/findById/' + id;
+        var url = '/commission/findById/' + id;
         return api.$http.get(url).then(function(res){
           return res.data;
         });

@@ -4,24 +4,23 @@
 
     angular
         .module('app.commissions.edit')
-        .controller('CommissionsCreateController', CommissionsCreateController);
+        .controller(
+          'CommissionsCreateController',
+          CommissionsCreateController
+        );
 
-    /** @ngInject */
       function CommissionsCreateController(
+        $scope,
+        $mdDialog,
         dialogService,
         userService,
         roleService,
-        goalService
+        commissionService
       ){
         var vm            = this;
         vm.roles          = [];
-        vm.goals          = [];
         vm.isLoading      = false;
-        vm.commission     = {
-          goals: []
-        };
-        vm.toggleGoal     = toggleGoal;
-        vm.isGoalSelected = isGoalSelected;
+        vm.commission     = {};
         vm.sendForm       = sendForm;
         activate();
 
@@ -29,32 +28,46 @@
           roleService.getRoles().then(function(res) {
             vm.roles = res.data;
           });
-          goalService.find().then(function(res){
-            vm.goals = res.data;
-          });
-        }
-
-        function toggleGoal(id) {
-          if (isGoalSelected(id)) {
-            vm.commission.goals = vm.commission.goals.find(function(goal){
-              return goal != id;
-            });
-          } else  {
-            vm.commission.goals =  vm.commission.goals.concat(id);
-          }
-        }
-
-        function isGoalSelected(id) {
-          return vm.commission.goals.indexOf(id) !== -1;
         }
 
         function sendForm(valid) {
-          alert(valid);
           if (!valid || vm.isLoading) {
             return;
           }
-          vm.isLoading = true;
+          commissionService
+            .create(vm.commission)
+            .then(function(res){
+              showConfirm();
+              $scope
+                .basicForm
+                .$submitted = false;
+              vm.commission = {};
+              vm.isLoading  = false;
+            }).
+            catch(function(err) {
+              showError();
+              vm.isLoading = false;
+            });
         }
+
+        function showConfirm(){
+          var alert = $mdDialog.alert({
+            title: 'Comisión',
+            textContent: 'Datos guardados exitosamente',
+            ok: 'Close'
+          });
+          $mdDialog.show(alert);
+        }
+
+        function showError() {
+           var alert = $mdDialog.alert({
+            title: 'Comisión',
+            textContent: 'Hubo un problema, reintente más tarde',
+            ok: 'Close'
+          });
+          $mdDialog.show(alert);
+        }
+
 
     }
 })();
