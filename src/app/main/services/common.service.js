@@ -9,11 +9,23 @@
     function commonService(){
 
       var service = {
+        combineDateTime: combineDateTime,
         formatHandle: formatHandle,
         getCountriesList: getCountriesList
       };
 
       return service;
+
+      function combineDateTime(date, time, seconds){
+        var date = moment(date);
+        time = moment(time);
+        date = date.set({
+           'hour' : time.get('hour'),
+           'minute'  : time.get('minute'),
+           'second' : seconds || time.get('second')
+        });
+        return date.toDate();
+      }
 
       function formatHandle (str) {
         if(!str){

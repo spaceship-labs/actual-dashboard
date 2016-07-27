@@ -92,8 +92,8 @@
                   <label>{{pg.label}} %</label>
                   <div class="input-element-inner">
                     <input
-                      ng-disabled="$index > 0"
                       type="number"
+                      max="{{vm.paymentGroups[0].discount}}"
                       name="{{pg.label}}"
                       ng-model="pg.discount"
                       required

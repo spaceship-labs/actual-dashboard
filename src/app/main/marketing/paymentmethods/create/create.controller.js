@@ -46,7 +46,6 @@
           ],
           onSelectStartDate: onSelectStartDate,
           onSelectEndDate: onSelectEndDate,
-          combineDateTime: combineDateTime,
           formatGroupsOnCreate: formatGroupsOnCreate,
           create: create
         });
@@ -54,17 +53,6 @@
         function onSelectStartDate(pikaday){
           vm.pmPeriod.startDate = pikaday._d;
           vm.myPickerEndDate.setMinDate(vm.pmPeriod.startDate);
-        }
-
-        function combineDateTime(date, time){
-          var date = moment(date);
-          time = moment(time);
-          date = date.set({
-             'hour' : time.get('hour'),
-             'minute'  : time.get('minute'),
-             'second' : time.get('second')
-          });
-          return date.toDate();
         }
 
 
@@ -82,8 +70,8 @@
         function create(form){
           if(form.$valid){
             vm.formatGroupsOnCreate();
-            vm.pmPeriod.startDate = vm.combineDateTime(vm.pmPeriod.startDate,vm.startTime);
-            vm.pmPeriod.endDate = vm.combineDateTime(vm.pmPeriod.endDate,vm.endTime);
+            vm.pmPeriod.startDate = commonService.combineDateTime(vm.pmPeriod.startDate,vm.startTime);
+            vm.pmPeriod.endDate = commonService.combineDateTime(vm.pmPeriod.endDate,vm.endTime,59);
             vm.isLoading = true;
             console.log(vm.pmPeriod);
             pmPeriodService.create(vm.pmPeriod).then(function(res){
