@@ -14,7 +14,7 @@
             views: {
                 'content@app': {
                     templateUrl: 'app/main/commissions/goals/list/list.html',
-                    controller : 'CommissionsListController as vm'
+                    controller : 'CommissionsGoalsListController as vm'
                 }
             },
             resolve: {

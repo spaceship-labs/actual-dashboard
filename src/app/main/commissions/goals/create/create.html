@@ -17,27 +17,28 @@
             </div>
           </md-toolbar>
           <md-content class="md-padding">
-            {{vm.goal}}
             <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
               <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
             </div>
-            <form name="basicForm" ng-show="!vm.isLoading" ng-submit="vm.sendForm(basicForm)" class="md-inline-form" novalidate>
+            <form name="basicForm" ng-show="!vm.isLoading" ng-submit="vm.sendForm(basicForm.$valid)" class="md-inline-form" novalidate>
               <section layout="row" layout-wrap layout-align="space-between start">
                 <div class="input-element" flex-xs="100" flex-sm="100" flex="30">
                   <label>Nombre*</label>
                   <div class="input-element-inner">
-                    <input type="text" ng-model="vm.goal.name" name="_name" required placeholder="Nombre*">
+                    <input type="text" ng-model="vm.goal.name" name="_name" required placeholder="Nombre*" required>
+                    <p ng-show="basicForm.$submitted && basicForm._name.$error.required" class="form-error">El nombre es obligatorio.</p>
                   </div>
                 </div>
 
                 <div class="input-element" flex="30" flex-xs="100">
                   <p class="select-element-label"><label><strong>Se aplica a*</strong></label></p>
                   <md-input-container>
-                    <md-select class="select-element select-element-md" ng-model="vm.goal.role">
+                    <md-select class="select-element select-element-md" ng-model="vm.goal.role" name="_role"required>
                       <md-option ng-repeat="role in vm.roles track by role.id" ng-value="role.id">
                         {{role.name}}
                       </md-option>
                     </md-select>
+                    <p ng-show="basicForm.$submitted && basicForm._role.$error.required" class="form-error">El rol es obligatorio.</p>
                   </md-input-container>
                 </div>
                 <div class="input-element" flex-xs="100" flex-sm="100" flex="30">
@@ -45,11 +46,12 @@
                   <div class="input-element-inner">
                     <input
                       type="number"
-                      name="_name"
+                      name="_ammount"
                       required
                       placeholder="$"
                       ng-model="vm.goal.ammount"
                     >
+                    <p ng-show="basicForm.$submitted && basicForm._ammount.$error.required" class="form-error">El monto es requerido</p>
                   </div>
                 </div>
               </section>

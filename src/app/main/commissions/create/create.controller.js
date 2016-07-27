@@ -7,13 +7,54 @@
         .controller('CommissionsCreateController', CommissionsCreateController);
 
     /** @ngInject */
-    function CommissionsCreateController(dialogService, userService){
-        var vm = this;
+      function CommissionsCreateController(
+        dialogService,
+        userService,
+        roleService,
+        goalService
+      ){
+        var vm            = this;
+        vm.roles          = [];
+        vm.goals          = [];
+        vm.isLoading      = false;
+        vm.commission     = {
+          goals: []
+        };
+        vm.toggleGoal     = toggleGoal;
+        vm.isGoalSelected = isGoalSelected;
+        vm.sendForm       = sendForm;
+        activate();
 
-        vm.roles = [
-          {name:'Vendedor', id:2, handle:'seller'},
-          {name:'Broker', id:3, handle:'broker'},
-          {name:'Gerente', id:7, handle:'manager'}
-        ];
+        function activate() {
+          roleService.getRoles().then(function(res) {
+            vm.roles = res.data;
+          });
+          goalService.find().then(function(res){
+            vm.goals = res.data;
+          });
+        }
+
+        function toggleGoal(id) {
+          if (isGoalSelected(id)) {
+            vm.commission.goals = vm.commission.goals.find(function(goal){
+              return goal != id;
+            });
+          } else  {
+            vm.commission.goals =  vm.commission.goals.concat(id);
+          }
+        }
+
+        function isGoalSelected(id) {
+          return vm.commission.goals.indexOf(id) !== -1;
+        }
+
+        function sendForm(valid) {
+          alert(valid);
+          if (!valid || vm.isLoading) {
+            return;
+          }
+          vm.isLoading = true;
+        }
+
     }
 })();
