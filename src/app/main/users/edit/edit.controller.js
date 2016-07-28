@@ -88,7 +88,7 @@
         }
         function toggleCompany(id) {
           if (isCompanySelected(id)) {
-            vm.user.companies = vm.user.companies.find(function(comp){
+            vm.user.companies = vm.user.companies.filter(function(comp){
               return comp != id;
             });
           } else  {
@@ -103,7 +103,8 @@
         function init(){
           userService.getUser($stateParams.id).then(function(res){
             vm.user = res.data.data;
-            vm.user.companies = vm.user.companies.map(function(company) {return company.id;});
+            vm.user.companies   = vm.user.companies.map(function(company) {return company.id;});
+            vm.user.companyMain = vm.user.companyMain.id;
             vm.modules.forEach(function(module){
               if(vm.user.accessList && vm.user.accessList.indexOf(module.key) >= 0){
                 module.isActive = true;
