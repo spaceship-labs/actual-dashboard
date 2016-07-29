@@ -22,6 +22,23 @@
             </md-toolbar>
             <md-content class="md-padding">
 
+                <section ng-show="!vm.isLoadingProducts">
+                  <p>Sincronizar productos</p>
+                  <md-button
+                    class="md-raised md-primary action-button"
+                    ng-click="vm.syncProducts()">
+                    Sincronizar
+                  </md-button>
+                </section>
+                <section ng-show="vm.isLoadingProducts">
+                  <div  layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+                  </div>
+                  <p>Sincronizando productos</p>
+                </section>
+
+
+              <!--
               <form action ng-submit="vm.importImagesSap()">
 
                 <div class="input-element">
@@ -45,6 +62,7 @@
                 </section>
 
               </form>
+              -->
 
             </md-content>
           </section>

@@ -18,7 +18,21 @@
         // Methods
         //////////
         vm.importImagesSap = importImagesSap;
+        vm.syncProducts = syncProducts;
 
+
+        function syncProducts(){
+          var url = '/sync/products';
+          vm.isLoadingProducts = true;
+          console.log('syncProducts');
+          api.$http.post(url).then(function(res){
+            console.log(res);
+            vm.isLoadingProducts = false;
+          }).catch(function(err){
+            console.log(err);
+            vm.isLoadingProducts = false;
+          });
+        }
 
         function importImagesSap(){
           if(!vm.isImportingImages){
