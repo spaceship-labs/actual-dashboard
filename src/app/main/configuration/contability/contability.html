@@ -1,0 +1,60 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="title">Configuración</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <div class="white-bg md-whiteframe-4dp">
+
+
+          <section class="md-whiteframe-z1">
+            <md-toolbar class="demo-toolbar md-primary">
+              <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <h3>Configuración contabilidad</h3>
+              </div>
+            </md-toolbar>
+            <md-content class="md-padding">
+
+              <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+                <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+              </div>
+
+              <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)">
+
+                <div class="input-element">
+                  <label>Tipo de cambio (dolares a pesos mxn)</label>
+                  <div class="input-element-inner">
+                    <input
+                      type="text"
+                      ng-model="vm.site.exchangeRate"
+                      name="Tipo de cambio"
+                      required placeholder="Tipo de cambio*" >
+                  </div>
+                </div>
+
+
+                <md-button class="md-raised md-primary action-button" type="submit">
+                  Guardar
+                </md-button>
+
+              </form>
+
+            </md-content>
+          </section>
+
+
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+
+

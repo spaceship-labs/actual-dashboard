@@ -41,6 +41,7 @@
           {key:'edit-products', label:'Editar productos', section:'products'},
           {key:'import-images', label:'Importar imagenes', section:'config'},
           {key:'config-sites', label:'Configuración del sitio', section:'config'},
+          {key:'config-contability', label:'Configuración de contabilidad', section:'config'},
           {key:'list-leads', label:'Ver oportunidades', section:'leads'},
           {key:'create-brands', label:'Crear marcas', section:'brands'},
           {key:'edit-brands', label:'Editar marcas', section:'brands'},
@@ -104,7 +105,9 @@
           userService.getUser($stateParams.id).then(function(res){
             vm.user = res.data.data;
             vm.user.companies   = vm.user.companies.map(function(company) {return company.id;});
-            vm.user.companyMain = vm.user.companyMain.id;
+            if(vm.user.companyMain){
+              vm.user.companyMain = vm.user.companyMain.id;
+            }
             vm.modules.forEach(function(module){
               if(vm.user.accessList && vm.user.accessList.indexOf(module.key) >= 0){
                 module.isActive = true;
