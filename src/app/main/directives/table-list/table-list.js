@@ -149,6 +149,9 @@
                 if(column.currency){
                   data = $filter('currency')(data);
                 }
+                if(column.rate){
+                  data = $filter('number')(data) + '%';
+                }
 
                 if(column.destroy){
                   var id = (column.propId) ? column.propId : 'id';

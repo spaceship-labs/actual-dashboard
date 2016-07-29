@@ -17,7 +17,8 @@
 
         // Data
         vm.user = {
-          modules: []
+          modules: [],
+          companies: []
         };
         vm.basicForm = {};
         vm.formWizard = {};
@@ -83,6 +84,24 @@
 
         // Methods
         vm.sendForm = sendForm;
+        vm.toggleCompany     = toggleCompany;
+        vm.isCompanySelected = isCompanySelected;
+
+        function isCompanySelected(id) {
+          return vm.user.companies.indexOf(id) !== -1;
+        }
+
+        function toggleCompany(id) {
+          if (isCompanySelected(id)) {
+            vm.user.companies = vm.user.companies.filter(function(comp){
+              return comp != id;
+            });
+          } else  {
+            vm.user.companies = vm.user.companies.concat(id);
+          }
+        }
+
+
 
         //////////
 

@@ -136,18 +136,6 @@
                   </md-input-container>
                 </div>
 
-                <!--Tienda-->
-                <div class="input-element" flex="30" flex-xs="100">
-                  <p class="select-element-label"><label><strong>Tienda</strong></label></p>
-                  <md-input-container>
-                    <md-select class="select-element select-element-md" ng-model="vm.user.companies">
-                      <md-option ng-repeat="company in vm.companies track by $index" ng-value="company.id">
-                        {{company.WhsName}}
-                      </md-option>
-                    </md-select>
-                  </md-input-container>
-                </div>
-                <!--Tienda-->
 
                 <div  class="input-element " flex="30" flex-xs="100">
                   <p class="select-element-label"><label><strong>Vendedor(SAP)</strong></label></p>
@@ -159,6 +147,40 @@
                       </md-option>
                     </md-select>
                   </md-input-container>
+                </div>
+
+              </section>
+
+              <section layout="row" layout-wrap layout-align="space-between start">
+                <div class="input-element" flex="45" flex-sm="100" flex-xs="100" layout>
+                  <p class="select-element-label"><label><strong>Tiendas</strong></label></p>
+                  <div class="scroll-column">
+                    <md-checkbox
+                      class="block-checkbox"
+                      ng-repeat="company in vm.companies track by $index"
+                      ng-click="vm.toggleCompany(company.id)"
+                      ng-checked="vm.isCompanySelected(company.id)"
+                    >
+                      {{company.WhsName}}
+                    </md-checkbox>
+                  </div>
+                </div>
+
+                <div class="input-element" flex="45" flex-sm="100" flex-xs="100" layout>
+                  <p class="select-element-label"><label><strong>Tienda principal</strong></label></p>
+                  <div class="scroll-column">
+                    <md-radio-group ng-model="vm.user.companyMain" layout layout-wrap>
+                      <md-radio-button
+                        class="block-checkbox"
+                        ng-repeat="company in vm.companies"
+                        ng-if="vm.isCompanySelected(company.id)"
+                        ng-value="company.id"
+                        flex="100"
+                      >
+                        {{company.WhsName}}
+                      </md-radio-button>
+                    </md-radio-group>
+                  </div>
                 </div>
 
               </section>

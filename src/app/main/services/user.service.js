@@ -31,7 +31,7 @@
 
       function update(id, params){
         var url = '/user/update/' + id;
-        return api.$http.post(url,params);
+        return api.$http.post(url, params);
       }
 
       function create(params){

@@ -7,21 +7,26 @@
         .controller('CommissionsListController', CommissionsListController);
 
     /** @ngInject */
-    function CommissionsListController(DTOptionsBuilder, DTColumnBuilder, api, $q)
-    {
+      function CommissionsListController(
+        DTOptionsBuilder,
+        DTColumnBuilder,
+        api,
+        $q,
+        commissionService
+      ){
         var vm = this;
         // Data
         vm.columns = [
-            {key:'id', label:'ID'},
-            {key:'OpprId', label:'OpprId'},
-            {key:'CardCode', label:'CardCode'},
-            {key:'OpenDate', label:'OpenDate'},
-            {key:'Status', label:'Status'},
-            {key:'CardName', label:'CardName'},
-
+            {key:'Edit', label:'Editar', editUrl:'/commissions/edit/', propId: 'id'},
+            {key: 'name', label: 'Nombre'},
+            {key: 'individualGoal', label: 'Meta individual', currency: true},
+            {key: 'storeGoal', label: 'Meta de la tienda', currency: true},
+            {key: 'individualRate', label: 'Comisión individual', rate: true},
+            {key: 'storeRate', label: 'Comisión de la tienda', rate: true},
+            {key: 'type.name', label: 'Tipo de usuario'}
         ];
 
-        vm.apiResource = api.lead.find.get;
+        vm.apiResource = commissionService.getList;
 
         // Methods
 
