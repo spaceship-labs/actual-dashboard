@@ -13,7 +13,7 @@
         getUser: getUser,
         update: update,
         create: create,
-        getSellers: getSellers
+        getSellers: getSellersUnselected
       };
 
       return service;
@@ -45,14 +45,9 @@
         return api.$http.post(url);
       }
 
-      /*
-      function getUsersSap(){
-        var url = '/usersap/get';
-        return api.$http.get(url);
+      function getSellersUnselected(){
+        var url = '/seller/getallunselected/';
+        return api.$http.post(url);
       }
-      */
-
     }
-
-
 })();

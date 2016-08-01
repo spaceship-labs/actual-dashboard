@@ -118,7 +118,6 @@
           userService.getSellers().then(function(res){
             vm.sellers = res.data;
             vm.sellers.unshift({id:null, SlpName:'Ninguno'});
-            //console.log(vm.sellers);
           });
 
           api.$http.get('/logging/find', {user: $stateParams.id}).then(function(res){
