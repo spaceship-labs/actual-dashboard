@@ -27,7 +27,7 @@
             'app.services',
 
             // Sample
-            'app.sample',
+            //'app.sample',
 
             // Pages
             'app.pages',
@@ -42,16 +42,16 @@
             'app.users',
 
             // leads
-            'app.leads',
+            //'app.leads',
 
             //Commissions
             'app.commissions',
 
             //Invoices
-            'app.invoices',
+            //'app.invoices',
 
             //Ventas
-            'app.sales',
+            //'app.sales',
 
             //Configuracion
             'app.configuration',
