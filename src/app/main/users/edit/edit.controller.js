@@ -112,12 +112,14 @@
               if(vm.user.accessList && vm.user.accessList.indexOf(module.key) >= 0){
                 module.isActive = true;
               }
-            })
-          });
-
-          userService.getSellers().then(function(res){
-            vm.sellers = res.data;
-            vm.sellers.unshift({id:null, SlpName:'Ninguno'});
+            });
+            return vm.user;
+          }).then(function(user){
+            userService.getSellers().then(function(res){
+              vm.sellers   = res.data.concat(user.SlpCode);
+              vm.sellers.unshift({id:null, SlpName:'Ninguno'});
+              user.SlpCode = user.SlpCode.id;
+            });
           });
 
           api.$http.get('/logging/find', {user: $stateParams.id}).then(function(res){

@@ -95,7 +95,9 @@
                   <p class="select-element-label"><label><strong>Vendedor(SAP)</strong></label></p>
                   <md-input-container>
                     <md-select class="select-element select-element-md" ng-model="vm.user.SlpCode">
-                      <md-option ng-repeat="seller in vm.sellers track by $index" ng-value="seller.id">
+                      <md-option
+                        ng-repeat="seller in vm.sellers track by $index"
+                        ng-value="seller.id" ng-selected="seller.id == vm.user.SlpCode">
                         <span>{{seller.SlpName}}</span>
                         <span ng-if="seller.id">| {{seller.id}}</span>
                       </md-option>
