@@ -77,7 +77,7 @@
             pmPeriodService.create(vm.pmPeriod).then(function(res){
               var result = res.data;
               if(result.overlaps){
-                dialogService.showDialog('Fecha de vigencia invalida');
+                dialogService.showDialog('Fecha de vigencia invalida, ya hay registros en ese rango de fechas');
                 vm.isLoading = false;
               }else{
                 dialogService.showDialog('Vigencia registrada');

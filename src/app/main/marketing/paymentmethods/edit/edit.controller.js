@@ -97,8 +97,15 @@
             vm.isLoading = true;
             console.log(vm.pmPeriod);
             pmPeriodService.update(vm.pmPeriod.id,vm.pmPeriod).then(function(res){
-              dialogService.showDialog('Vigencia actualizada');
-              vm.isLoading = false;
+              var result = res.data;
+              if(result.overlaps){
+                dialogService.showDialog('Fecha de vigencia invalida, ya hay registros en ese rango de fechas');
+                vm.isLoading = false;
+              }else{
+                dialogService.showDialog('Vigencia registrada');
+                vm.isLoading = false;
+              }
+
             }).catch(function(err){
               console.log(err);
               dialogService.showDialog('Error, revisa los datos');

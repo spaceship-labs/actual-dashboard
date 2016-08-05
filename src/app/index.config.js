@@ -11,7 +11,7 @@
 
 
       pikadayConfigProvider.setConfig({
-        minDate: new Date()
+        //minDate: new Date()
       });
 
 
