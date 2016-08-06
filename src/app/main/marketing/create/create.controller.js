@@ -18,8 +18,9 @@
             groups:[],
             categories:[],
             filtervalues:[],
+            sas: [],
             limit: 999999,
-            U_Empresa: false
+            //U_Empresa: false
           },
           showFilters: false,
           products: [],
@@ -44,7 +45,7 @@
             {label:'Descuento grupo pago 5', discount:0, text:'18 meses sin intereses'},
           ],
           sas: [
-            {label:'Ninguno', value:false},
+            //{label:'Ninguno', value:false},
             {label:'Actual Studio | 001', value:'001'},
             {label:'Actual Home | 002', value:'002'},
             {label:'Ambas | 003', value:'003'}
@@ -157,6 +158,7 @@
             var params = angular.copy(vm.search);
             params.groups = params.groups.map(function(g){return g.id});
             params.noImages = true;
+            params.applyPopulate = false;
             productService.advancedSearch(params).then(function(res){
               vm.isLoadingProducts = false;
               if(res.data){
@@ -216,7 +218,8 @@
               OnHome      : vm.search.OnHome,
               OnKids      : vm.search.OnKids,
               OnAmueble   : vm.search.OnAmueble,
-              U_Empresa   : vm.search.U_Empresa,
+              sas         : vm.search.sas,
+              //U_Empresa   : vm.search.U_Empresa,
               Products    : products,
               excludedProducts: vm.excluded,
               discountPg1 : vm.paymentGroups[0].discount,
@@ -249,7 +252,7 @@
           }
         }
 
-        $scope.$watch('vm.promotion.name', function(newVal, oldVal){
+        $scope.$watch('vm.promotion.publicName', function(newVal, oldVal){
           if(newVal != oldVal){
             vm.promotion.code = commonService.formatHandle(newVal);
           }

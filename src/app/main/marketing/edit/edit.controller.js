@@ -20,6 +20,7 @@
             groups:[],
             categories:[],
             filtervalues:[],
+            sas: [],
             limit: 999999,
             U_Empresa:false
           },
@@ -48,7 +49,7 @@
 
         //SA's from SAP
           sas: [
-            {label:'Todas', value:false},
+            //{label:'Todas', value:false},
             {label:'Actual Studio | 001', value:'001'},
             {label:'Actual Home | 002', value:'002'},
             {label:'Ambas | 003', value:'003'}
@@ -122,7 +123,8 @@
 
             vm.search.groups = vm.promotion.Groups;
             //vm.search.SA = vm.promotion.SA;
-            vm.search.U_Empresa = vm.promotion.U_Empresa;
+            //vm.search.U_Empresa = vm.promotion.U_Empresa;
+            vm.search.sas = vm.promotion.sas;
             vm.products = vm.promotion.Products;
             vm.products = vm.products.map(function(prod){
               prod.isActive = true;
@@ -213,6 +215,7 @@
             var params = angular.copy(vm.search);
             params.groups = params.groups.map(function(g){return g.id});
             params.noImages = true;
+            params.applyPopulate = false;
             productService.advancedSearch(params).then(function(res){
               vm.isLoadingProducts = false;
               if(res.data){
@@ -255,6 +258,7 @@
             vm.search.categories = categoriesService.getSelectedCategories(vm.categoriesGroups, vm.selectedCategories);
             vm.search.filtervalues = fvService.getSelectedFV(vm.filters, {multiples:true});
             var params = {
+              publicName  : vm.promotion.publicName,
               name        : vm.promotion.name,
               code        : vm.promotion.code,
               startDate   : vm.promotion.startDate,
@@ -270,7 +274,8 @@
               OnKids      : vm.search.OnKids,
               OnAmueble   : vm.search.OnAmueble,
               //SA   : vm.search.SA,
-              U_Empresa   : vm.search.U_Empresa,
+              //U_Empresa   : vm.search.U_Empresa,
+              sas         : vm.search.sas,
               Products    : products,
               excludedProducts: vm.excluded,
               discountPg1 : vm.paymentGroups[0].discount,

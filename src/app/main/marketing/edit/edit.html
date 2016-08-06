@@ -27,10 +27,11 @@
             <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
 
               <section layout="row" layout-align="space-between start" layout-wrap>
+
                 <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
-                  <label>Nombre*</label>
+                  <label>Nombre público*</label>
                   <div class="input-element-inner">
-                    <input type="text" name="Nombre" ng-model="vm.promotion.name" required placeholder="Nombre*">
+                    <input type="text" name="Nombre" ng-model="vm.promotion.publicName" required placeholder="Nombre*">
                   </div>
                 </div>
 
@@ -38,6 +39,13 @@
                   <label>Codigo*</label>
                   <div class="input-element-inner">
                     <input type="text" name="Nombre" ng-model="vm.promotion.code" required placeholder="Nombre*">
+                  </div>
+                </div>
+
+                <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
+                  <label>Nombre interno*</label>
+                  <div class="input-element-inner">
+                    <input type="text" name="Nombre_interno" ng-model="vm.promotion.name" required placeholder="Nombre interno*">
                   </div>
                 </div>
 
@@ -246,9 +254,10 @@
                 </div>
                 <!--END FILTERS-->
 
-                <!--CUSTOM BRAND FILTER-->
+
                 <div layout="row">
 
+                  <!--CUSTOM BRAND FILTER-->
                   <div flex="33">
                     <p class="select-element-label"><label><strong>Marcas</strong></label></p>
                     <md-input-container class="checkboxes-dropdown-wrap">
@@ -269,20 +278,31 @@
                       </md-select>
                     </md-input-container>
                   </div>
+                  <!--END CUSTOM BRAND-->
 
+                  <!--SOCIEDADES FILTER-->
                   <div class="select-element-wrapper" flex="33">
                     <p class="select-element-label"><label><strong>Sociedad</strong></label></p>
-                    <md-input-container class="no-margin">
-                      <md-select class="select-element" placeholder="Sociedad" ng-model="vm.search.U_Empresa">
-                        <md-option ng-selected="sa.value == vm.product.U_Empresa" ng-repeat="sa in vm.sas" ng-value="sa.value">
-                          {{sa.label}}
-                        </md-option>
+                    <md-input-container class="checkboxes-dropdown-wrap">
+                      <md-select class="checkboxes-dropdown select-element select-element-md2" ng-model="vm.search.sas"
+                         data-md-container-class="selectdemoSelectHeader"
+                         multiple
+                      >
+                        <md-optgroup label="Sociedades">
+                          <md-option
+                            ng-value="sa.value"
+                            ng-repeat="sa in vm.sas |
+                            filter:searchTerm track by $index"
+                            >
+                            {{sa.label}}
+                          </md-option>
+                        </md-optgroup>
                       </md-select>
                     </md-input-container>
                   </div>
+                  <!--END SOCIEDADES FILTER-->
 
                 </div>
-                <!--END CUSTOM BRAND-->
 
                 <!--DISPLAYS-->
                 <div>
