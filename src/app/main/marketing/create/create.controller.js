@@ -38,11 +38,11 @@
             {label:'Amueble.com', handle:'OnAmueble'},
           ],
           paymentGroups:[
-            {label:'Descuento grupo pago 1', discount:0, text:'Pago único'},
-            {label:'Descuento grupo pago 2', discount:0, text:'3 Meses sin intereses'},
-            {label:'Descuento grupo pago 3', discount:0, text:'6 y 9 Meses sin intereses'},
-            {label:'Descuento grupo pago 4', discount:0, text:'12 meses sin intereses'},
-            {label:'Descuento grupo pago 5', discount:0, text:'18 meses sin intereses'},
+            {label:'Descuento grupo pago 1', discount:0, text:'Pago único', ewallet:0,ewalletType:'percentage'},
+            {label:'Descuento grupo pago 2', discount:0, text:'3 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
+            {label:'Descuento grupo pago 3', discount:0, text:'6 y 9 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
+            {label:'Descuento grupo pago 4', discount:0, text:'12 meses sin intereses', ewallet:0,ewalletType:'percentage'},
+            {label:'Descuento grupo pago 5', discount:0, text:'18 meses sin intereses', ewallet:0,ewalletType:'percentage'},
           ],
           sas: [
             //{label:'Ninguno', value:false},
@@ -222,16 +222,31 @@
               //U_Empresa   : vm.search.U_Empresa,
               Products    : products,
               excludedProducts: vm.excluded,
+
               discountPg1 : vm.paymentGroups[0].discount,
               discountPg2 : vm.paymentGroups[1].discount,
               discountPg3 : vm.paymentGroups[2].discount,
               discountPg4 : vm.paymentGroups[3].discount,
               discountPg5 : vm.paymentGroups[4].discount,
+
               discountTextPg1 : vm.paymentGroups[0].text,
               discountTextPg2 : vm.paymentGroups[1].text,
               discountTextPg3 : vm.paymentGroups[2].text,
               discountTextPg4 : vm.paymentGroups[3].text,
               discountTextPg5 : vm.paymentGroups[4].text,
+
+              ewalletPg1 : vm.paymentGroups[0].ewallet,
+              ewalletPg2 : vm.paymentGroups[1].ewallet,
+              ewalletPg3 : vm.paymentGroups[2].ewallet,
+              ewalletPg4 : vm.paymentGroups[3].ewallet,
+              ewalletPg5 : vm.paymentGroups[4].ewallet,
+
+              ewalletTypePg1 : vm.paymentGroups[0].ewalletType,
+              ewalletTypePg2 : vm.paymentGroups[1].ewalletType,
+              ewalletTypePg3 : vm.paymentGroups[2].ewalletType,
+              ewalletTypePg4 : vm.paymentGroups[3].ewalletType,
+              ewalletTypePg5 : vm.paymentGroups[4].ewalletType,
+
             };
             angular.extend(params, vm.promotion);
             console.log('params',params);

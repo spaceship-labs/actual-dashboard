@@ -40,11 +40,11 @@
             {label:'Amueble.com', handle:'OnAmueble'},
           ],
           paymentGroups:[
-            {label:'Descuento grupo pago 1', discount:0, text:'Pago único'},
-            {label:'Descuento grupo pago 2', discount:0, text:'3 Meses sin intereses'},
-            {label:'Descuento grupo pago 3', discount:0, text:'6 y 9 Meses sin intereses'},
-            {label:'Descuento grupo pago 4', discount:0, text:'12 meses sin intereses'},
-            {label:'Descuento grupo pago 5', discount:0, text:'18 meses sin intereses'},
+            {label:'Descuento grupo pago 1', discount:0, text:'Pago único', ewallet:0,ewalletType:'percentage'},
+            {label:'Descuento grupo pago 2', discount:0, text:'3 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
+            {label:'Descuento grupo pago 3', discount:0, text:'6 y 9 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
+            {label:'Descuento grupo pago 4', discount:0, text:'12 meses sin intereses', ewallet:0,ewalletType:'percentage'},
+            {label:'Descuento grupo pago 5', discount:0, text:'18 meses sin intereses', ewallet:0,ewalletType:'percentage'},
           ],
 
         //SA's from SAP
@@ -106,9 +106,13 @@
         function setPromoDiscounts(promo){
           var keysD = ['discountPg1','discountPg2','discountPg3','discountPg4','discountPg5'];
           var keysT = ['discountTextPg1','discountTextPg2','discountTextPg3','discountTextPg4','discountTextPg5'];
+          var keysEW = ['ewalletPg1','ewalletPg2','ewalletPg3','ewalletPg4','ewalletPg5'];
+          var keysEWType = ['ewalletTypePg1','ewalletTypePg2','ewalletTypePg3','ewalletTypePg4','ewalletTypePg5'];
           vm.paymentGroups = vm.paymentGroups.map(function(pg, index){
             pg.discount = promo[keysD[index]] || 0;
-            pg.text =promo[keysT[index]];
+            pg.text = promo[keysT[index]];
+            pg.ewallet = promo[keysEW[index]];
+            pg.ewalletType = promo[keysEWType[index]];
             return pg;
           });
         }
@@ -289,6 +293,18 @@
               discountTextPg3 : vm.paymentGroups[2].text,
               discountTextPg4 : vm.paymentGroups[3].text,
               discountTextPg5 : vm.paymentGroups[4].text,
+
+              ewalletPg1 : vm.paymentGroups[0].ewallet,
+              ewalletPg2 : vm.paymentGroups[1].ewallet,
+              ewalletPg3 : vm.paymentGroups[2].ewallet,
+              ewalletPg4 : vm.paymentGroups[3].ewallet,
+              ewalletPg5 : vm.paymentGroups[4].ewallet,
+
+              ewalletTypePg1 : vm.paymentGroups[0].ewalletType,
+              ewalletTypePg2 : vm.paymentGroups[1].ewalletType,
+              ewalletTypePg3 : vm.paymentGroups[2].ewalletType,
+              ewalletTypePg4 : vm.paymentGroups[3].ewalletType,
+              ewalletTypePg5 : vm.paymentGroups[4].ewalletType,
             };
 
             if(vm.promotion.hasLM){
