@@ -26,7 +26,11 @@
   margin: 0;
 }
 .payment-group-item{
-  margin: 10px 0;
+  margin: 0px 0;
+  padding: 10px 0;
+}
+.payment-group-item + .payment-group-item{
+  border-top: 1px solid #000;
 }
 .payment-group-item ul{
   margin: 5px 0 0;
@@ -611,4 +615,8 @@ label.mce-charactercount {
 
 .mkt-search-title{
   font-size: 20px;
+}
+.spaced-row{margin: 6px 0}
+.bottom-checkbox{
+  padding-left: 25px;
 }
