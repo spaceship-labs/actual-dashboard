@@ -46,7 +46,6 @@
               $scope
                 .basicForm
                 .$submitted = false;
-              vm.commission = {};
               vm.isLoading  = false;
             }).
             catch(function(err) {
