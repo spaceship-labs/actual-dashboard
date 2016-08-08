@@ -21,8 +21,8 @@
             {key: 'name', label: 'Nombre'},
             {key: 'individualGoal', label: 'Meta individual', currency: true},
             {key: 'storeGoal', label: 'Meta de la tienda', currency: true},
-            {key: 'individualRate', label: 'Comisión individual', rate: true},
-            {key: 'storeRate', label: 'Comisión de la tienda', rate: true},
+            {key: 'individualRate', label: 'Comisión individual', rate: true, isRateNormalized: true},
+            {key: 'storeRate', label: 'Comisión de la tienda', rate: true, isRateNormalized: true},
             {key: 'type.name', label: 'Tipo de usuario'}
         ];
 

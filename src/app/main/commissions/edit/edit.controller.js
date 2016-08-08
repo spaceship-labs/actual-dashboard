@@ -31,7 +31,10 @@
             vm.roles = res.data;
           });
           commissionService.findById(commission).then(function(commission){
-            vm.commission = commission;
+            vm.commission = Object.assign({}, commission, {
+              individualRate: commission.individualRate * 100,
+              storeRate: commission.storeRate * 100
+            });
           });
         }
 
@@ -39,8 +42,12 @@
           if (!valid || vm.isLoading) {
             return;
           }
+          var commission = Object.assign({},vm.commission, {
+              individualRate: vm.commission.individualRate / 100,
+              storeRate: vm.commission.storeRate / 100
+            });
           commissionService
-            .update(vm.commission)
+            .update(commission)
             .then(function(res){
               showConfirm();
               $scope
