@@ -1,0 +1,112 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <div class="content">
+
+
+      <div class="page-layout simple fullwidth">
+
+        <section class="md-whiteframe-z1">
+          <md-toolbar class="demo-toolbar md-primary">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+              <h3>EDITAR PAQUETE</h3>
+
+              <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
+                        ng-click="vm.update(updateForm)">
+                  Editar
+              </md-button>
+
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+
+
+            <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+            </div>
+
+            <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
+
+
+              <section class="products-package">
+                <div layout="row" class="table-header">
+                  <div flex class="table-header-item">Código de producto</div>
+                  <div flex class="table-header-item">Producto</div>
+                  <div flex class="table-header-item">Precio unitario</div>
+                  <div flex class="table-header-item">Articulos por paquete</div>
+                  <div flex class="table-header-item">Total</div>
+                  <div flex class="table-header-item">Descuento paquete</div>
+                  <div flex class="table-header-item">Tipo de descuento</div>
+                  <div flex class="table-header-item">Total con descuento</div>
+                </div>
+                <div
+                  class="product-item"
+                  layout="row"
+                  ng-repeat="product in vm.products"
+                >
+                  <div flex class="table-body-item">
+                    <a ng-href="/products/edit/{{product.ItemCode}}" target="_blank">
+                      {{product.ItemCode}}
+                    </a>
+                  </div>
+                  <div flex class="table-body-item">{{product.Name || product.ItemCode}}</div>
+                  <div flex class="table-body-item">{{product.Price | currency}}</div>
+                  <div flex class="table-body-item">
+                    <div class="input-element">
+                      <div class="input-element-inner">
+                        <input type="number" ng-model="product.packageInfo.quantity" min="1" required placeholder="Cantidad">
+                      </div>
+                    </div>
+                  </div>
+                  <div flex class="table-body-item">
+                    {{ (product.Price * product.packageInfo.quantity) | currency }}
+                  </div>
+                  <div flex class="table-body-item">
+                    <div class="input-element">
+                      <div class="input-element-inner">
+                        <input type="number" min="0" ng-model="product.packageInfo.discount" required placeholder="Descuento">
+                      </div>
+                    </div>
+                  </div>
+                  <div flex class="table-body-item">
+                    <div class="select-element-wrapper select-element-wrapper-nomargin" flex>
+                      <md-input-container>
+                        <md-select
+                          class="select-element"
+                          placeholder="Tipo"
+                          ng-model="product.packageInfo.discountType"
+                        >
+                          <md-option value="ammount">Cantidad</md-option>
+                          <md-option value="percentage">Porcentaje</md-option>
+                        </md-select>
+                      </md-input-container>
+                    </div>
+                  </div>
+                  <div flex class="table-body-item">
+                    {{ vm.calculateDiscount(product) | currency }}
+                  </div>
+                </div>
+              </section>
+
+              <div>
+                <md-button
+                  type="submit"
+                  class="md-raised md-accent action-button"
+                  aria-label="Guardar"
+                >
+                    Editar
+                </md-button>
+              </div>
+
+            </form>
+
+          </md-content>
+
+          <!--<div form-helper flex="80"></div>-->
+        </section>
+
+
+    </div>
+    <!-- / CONTENT -->
+  </div>
+
+</div>

@@ -7,7 +7,7 @@
         .controller('ProductGroupsEditController', ProductGroupsEditController);
 
     /** @ngInject */
-    function ProductGroupsEditController($scope, $stateParams, $q, Upload, productService, dialogService, commonService, api){
+    function ProductGroupsEditController($scope, $timeout, $stateParams, $q, Upload, productService, dialogService, commonService, api){
         var vm = this;
         vm.init = init;
         vm.queryProducts = queryProducts;
@@ -16,6 +16,8 @@
         vm.removeProductFromGroup = removeProductFromGroup;
         vm.updateIcon = updateIcon;
         vm.removeIcon = removeIcon;
+        vm.onSelectStartDate = onSelectStartDate;
+        vm.onSelectEndDate = onSelectEndDate;
         vm.isLoadingProducts = false;
         vm.isLoadingAvatar = false;
 
@@ -39,6 +41,13 @@
           productService.getGroupById($stateParams.id).then(function(res){
             console.log(res);
             vm.group = res.data;
+            vm.startTime = vm.group.startDate ? new Date(angular.copy(vm.group.startDate)) : new Date();
+            vm.endTime = vm.group.endDate ? new Date(angular.copy(vm.group.endDate)) : new Date();
+            $timeout(function(){
+              vm.myPickerEndDate.setMinDate(new Date(vm.group.startDate) );
+              vm.myPickerStartDate.setMaxDate( new Date(vm.group.endDate) );
+            },1000);
+
           });
         }
 
@@ -46,6 +55,10 @@
           console.log('update');
           if(form.$valid && vm.group.Products.length > 0){
             vm.isLoading = true;
+            if(vm.group.HasExpiration){
+              vm.group.startDate = commonService.combineDateTime(vm.group.startDate,vm.startTime);
+              vm.group.endDate = commonService.combineDateTime(vm.group.endDate,vm.endTime,59);
+            }
             productService.updateGroup(vm.group.id, vm.group).then(function(res){
               console.log(res);
               vm.isLoading = false;
@@ -91,10 +104,7 @@
               vm.isLoadingProducts = false;
               vm.group.Products.push(item);
             });
-            //$mdAutocomplete.clear();
           }
-          //vm.selectedProduct = undefined;
-          //vm.searchText = '';
         }
 
         function removeProductFromGroup(id, index){
@@ -152,6 +162,16 @@
               vm.group.icon_typebase = null;
             }
           });
+        }
+
+        function onSelectStartDate(pikaday){
+          vm.group.startDate = pikaday._d;
+          vm.myPickerEndDate.setMinDate(vm.group.startDate);
+        }
+
+        function onSelectEndDate(pikaday){
+          vm.group.endDate = pikaday._d;
+          vm.myPickerStartDate.setMaxDate(vm.group.endDate);
         }
 
 

@@ -11,7 +11,11 @@
             //Payment methods
             'app.marketing.pm.list',
             'app.marketing.pm.edit',
-            'app.marketing.pm.create'
+            'app.marketing.pm.create',
+
+            //Packages
+            'app.marketing.packages.list',
+            'app.marketing.packages.edit',
 
         ])
         .config(config);
@@ -52,6 +56,16 @@
         msNavigationServiceProvider.saveItem('marketing.pm.create', {
             title: 'Crear vigencia de formas pago',
             state: 'app.marketing_pm_create'
+        });
+
+        msNavigationServiceProvider.saveItem('marketing.packages', {
+            title: 'Paquetes',
+            group: true
+        });
+
+        msNavigationServiceProvider.saveItem('marketing.packages.list', {
+            title: 'Lista de paquetes',
+            state: 'app.marketing_packages_list'
         });
 
     }

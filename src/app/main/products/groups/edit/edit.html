@@ -54,25 +54,62 @@
                   </p>
                 </div>
 
-                <div ng-if="vm.group.HasExpiration" flex="30" flex-sm="100" flex-xs="100">
-                  <div class="input-element">
-                    <label>Vigencia | Empieza:</label>
-                    <div class="input-element-inner">
-                      <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
-                      placeholder="Empieza" min-date="date" ng-model="vm.group.StartsOn" lang="es" class=" md-input">
+                <div ng-if="vm.group.HasExpiration" class="input-element" flex="25" flex-sm="100" flex-xs="100">
+                  <label>Fecha de inicio*</label>
+                  <div layout="row">
+                    <div flex="60" class="input-element-inner">
+                      <input
+                        ng-if="vm.group"
+                        type="text"
+                        pikaday="vm.myPickerStartDate"
+                        set-default-date="true"
+                        default-date="{{vm.group.startDate}}"
+                        on-select="vm.onSelectStartDate(pikaday)"
+                        readonly
+                        required
+                      >
+                    </div>
+                    <div flex="40" class="input-element-inner">
+                      <input
+                        type="text"
+                        ui-timepicker
+                        ui-timepicker="vm.timePickerOptions"
+                        ng-model="vm.startTime"
+                        placeholder="Hora"
+                        required
+                      >
                     </div>
                   </div>
                 </div>
 
-                <div ng-if="vm.group.HasExpiration" flex="30" flex-sm="100" flex-xs="100">
-                  <div class="input-element">
-                    <label>Vigencia | Termina:</label>
-                    <div class="input-element-inner">
-                      <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
-                      placeholder="Termina" min-date="vm.group.StartsOn" ng-model="vm.group.EndsOn" lang="es" class=" md-input">
+                <div ng-if="vm.group.HasExpiration" class="input-element" flex="25" flex-sm="100" flex-xs="100">
+                  <label>Fecha de vencimiento* {{vm.group.endDate}}</label>
+                  <div layout="row">
+                    <div flex="60" class="input-element-inner">
+                      <input
+                        ng-if="vm.group"
+                        type="text"
+                        pikaday="vm.myPickerEndDate"
+                        set-default-date="true"
+                        default-date="{{vm.group.endDate}}"
+                        on-select="vm.onSelectEndDate(pikaday)"
+                        readonly
+                        required
+                      >
+                    </div>
+                    <div flex="40" class="input-element-inner">
+                      <input
+                        type="text"
+                        ui-timepicker
+                        ui-timepicker="vm.timePickerOptions"
+                        ng-model="vm.endTime"
+                        placeholder="Hora"
+                        required
+                      >
                     </div>
                   </div>
                 </div>
+
               </section>
 
 

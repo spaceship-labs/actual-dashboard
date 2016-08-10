@@ -14,6 +14,8 @@
         vm.queryProducts = queryProducts;
         vm.selectedItemChange = selectedItemChange;
         vm.removeProductFromGroup = removeProductFromGroup;
+        vm.onSelectStartDate = onSelectStartDate;
+        vm.onSelectEndDate = onSelectEndDate;
         vm.isLoading = false;
 
         vm.group = {
@@ -36,21 +38,37 @@
           moment.locale('es');
         }
 
+        function onSelectStartDate(pikaday){
+          vm.group.startDate = pikaday._d;
+          vm.myPickerEndDate.setMinDate(vm.group.startDate);
+        }
+
+        function onSelectEndDate(pikaday){
+          vm.group.endDate = pikaday._d;
+          vm.myPickerStartDate.setMaxDate(vm.group.endDate);
+        }
+
         function create(form){
           //if(form.$valid && vm.group.Products.length > 0){
           if(form.$valid){
             vm.isLoading = true;
 
             vm.group.Products = vm.group.Products.map(function(prod){
-              //return prod.ItemCode;
               return prod.id;
-            })
+            });
 
+            if(vm.group.HasExpiration){
+              vm.group.startDate = commonService.combineDateTime(vm.group.startDate,vm.startTime);
+              vm.group.endDate = commonService.combineDateTime(vm.group.endDate,vm.endTime,59);
+            }
+
+            console.log(vm.group);
             productService.createGroup(vm.group).then(function(res){
               vm.isLoading = false;
               dialogService.showDialog('Agrupador creado');
               $location.path('/products/groups');
             });
+
           }
           else{
             var errors = [];

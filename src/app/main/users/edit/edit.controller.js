@@ -58,6 +58,8 @@
           {key:'create-marketing', label:'Crear promociones', section:'marketing'},
           {key:'edit-marketing', label:'Editar promociones', section:'marketing'},
           {key:'list-marketing', label:'Ver promociones', section:'marketing'},
+          {key:'edit-packages', label:'Editar paquetes', section:'marketing'},
+          {key:'list-packages', label:'Ver paquetes', section:'marketing'},
           {key:'create-commissions', label:'Crear comisiones', section:'commissions'},
           {key:'edit-commissions', label:'Editar comisiones', section:'commissions'},
           {key:'list-commissions', label:'Ver comisiones', section:'commissions'},

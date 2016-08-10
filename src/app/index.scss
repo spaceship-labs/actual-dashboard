@@ -620,3 +620,11 @@ label.mce-charactercount {
 .bottom-checkbox{
   padding-left: 25px;
 }
+
+.products-package .product-item md-select{margin: 0}
+.products-package .table-header-item{font-weight: 700}
+.products-package .table-body-item,
+.products-package .table-header-item{padding: 10px;}
+.products-package .select-element-wrapper-nomargin md-input-container{
+  margin: 0;
+}
