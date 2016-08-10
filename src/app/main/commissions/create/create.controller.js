@@ -34,8 +34,12 @@
           if (!valid || vm.isLoading) {
             return;
           }
+          var commission = Object.assign({},vm.commission, {
+              individualRate: vm.commission.individualRate / 100,
+              storeRate: vm.commission.storeRate / 100
+            });
           commissionService
-            .create(vm.commission)
+            .create(commission)
             .then(function(res){
               showConfirm();
               $scope

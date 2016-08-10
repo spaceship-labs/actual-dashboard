@@ -20,7 +20,8 @@
 
       function update(params) {
         var url = '/commission/update/';
-        return api.$http.get(url, params);
+        console.log(params);
+        return api.$http.post(url, params);
       }
 
       function getList(page, params) {
