@@ -35,7 +35,7 @@
         function formatProducts(products){
           products = products.map(function(p){
             console.log(p);
-            p.packageInfo = p.PackagesInfo[0] || {};
+            p.packageInfo = p.packageInfo || {};
             p.packageInfo.discountType = p.packageInfo.discountType || 'percentage';
             p.packageInfo.discount = p.packageInfo.discount || 0;
             p.packageInfo.quantity = p.packageInfo.quantity || 1;
