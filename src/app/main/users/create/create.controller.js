@@ -95,12 +95,14 @@
         }
 
         function toggleCompany(id) {
-          if (isCompanySelected(id)) {
-            vm.user.companies = vm.user.companies.filter(function(comp){
-              return comp != id;
-            });
-          } else  {
-            vm.user.companies = vm.user.companies.concat(id);
+          if(vm.user){
+            if (isCompanySelected(id)) {
+              vm.user.companies = vm.user.companies.filter(function(comp){
+                return comp != id;
+              });
+            } else  {
+              vm.user.companies = vm.user.companies.concat(id);
+            }
           }
         }
 

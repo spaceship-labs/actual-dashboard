@@ -14,6 +14,13 @@
         vm.columns = [
             {key:'Edit', label:'Editar', editUrl:'/products/groups/edit/', propId: 'id'},
             {key:'Name', label:'Nombre',actionUrl:'/products/groups/edit/', propId: 'id'},
+            {
+              key:'Type',
+              label:'Tipo de agrupador',
+              mapper:{
+
+              }
+            },
             {key:'Delete',label:'Eliminar',destroy:true}
         ];
 

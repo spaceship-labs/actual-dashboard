@@ -87,15 +87,20 @@
         vm.init              = init;
 
         function isCompanySelected(id) {
+          if(!vm.user){
+            return false;
+          }
           return vm.user.companies.indexOf(id) !== -1;
         }
         function toggleCompany(id) {
-          if (isCompanySelected(id)) {
-            vm.user.companies = vm.user.companies.filter(function(comp){
-              return comp != id;
-            });
-          } else  {
-            vm.user.companies = vm.user.companies.concat(id);
+          if(vm.user){
+            if (isCompanySelected(id)) {
+              vm.user.companies = vm.user.companies.filter(function(comp){
+                return comp != id;
+              });
+            } else  {
+              vm.user.companies = vm.user.companies.concat(id);
+            }
           }
         }
 

@@ -149,6 +149,9 @@
                 if(column.defaultValue){
                   data = data ? data : column.defaultValue;
                 }
+                if(column.mapper){
+                  data = column.mapper[data] || data;
+                }
                 if(column.date){
                   data = $filter('date')(data, 'dd/MM/yyyy');
                 }
