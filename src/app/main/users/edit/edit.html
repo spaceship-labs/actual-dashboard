@@ -79,6 +79,40 @@
                 </div>
               </section>
 
+              <section  layout="row" layout-wrap layout-align="space-between start">
+
+                <div flex="40" class="input-element">
+                  <label><strong>Teléfono fijo <span class="hl-label">*</span></strong></label>
+                  <div layout="row" layout-align="space-between center">
+                      <div flex="30" class="input-element-inner">
+                        <input
+                          type="text"
+                          ng-model="vm.user.dialCode"
+                          ng-pattern="'[0-9]{3}'"
+                          placeholder="Lada"
+                          required>
+                      </div>
+                      <div flex="65" class="input-element-inner">
+                        <input type="text" placeholder="Número" ng-model="vm.user.phone" required>
+                      </div>
+                  </div>
+                </div>
+
+
+                <div flex="40" class="input-element">
+                  <label><strong>Teléfono celular <span class="hl-label">*</span></strong></label>
+                  <div layout="row" layout-align="space-between center">
+                      <div flex="30" class="input-element-inner">
+                        <input type="text" ng-pattern="'[0-9]{3}'" ng-model="vm.user.mobileDialCode" placeholder="Lada" required>
+                      </div>
+                      <div flex="65" class="input-element-inner">
+                        <input type="text" placeholder="Número" ng-model="vm.user.mobilePhone" required>
+                      </div>
+                  </div>
+                </div>
+
+              </section>
+
               <section layout="row" layout-wrap layout-align="start start">
                 <div class="input-element " flex="45" flex-sm="100" flex-xs="100">
                   <p class="select-element-label"><label><strong>Rol*</strong></label></p>

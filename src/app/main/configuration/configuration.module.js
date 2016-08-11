@@ -25,7 +25,7 @@
         });
 
         msNavigationServiceProvider.saveItem('configuration.contability', {
-            title: 'Configuración de coontabilidad',
+            title: 'Configuración de contabilidad',
             state: 'app.configuration_contability'
         });
 
