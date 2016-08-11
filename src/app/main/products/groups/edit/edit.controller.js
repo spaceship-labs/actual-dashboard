@@ -38,7 +38,9 @@
         //Methods
 
         function init(){
+          vm.isLoading = true;
           productService.getGroupById($stateParams.id).then(function(res){
+            vm.isLoading = false;
             console.log(res);
             vm.group = res.data;
             vm.startTime = vm.group.startDate ? new Date(angular.copy(vm.group.startDate)) : new Date();

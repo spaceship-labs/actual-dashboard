@@ -128,12 +128,14 @@
               <!--IMAGEN-->
               <p><strong>Imagen</strong></p>
               <div class="file-manager-thumbs" layout="row"   layout-align="space-between start" layout-wrap>
-                <span
+                <a
                   ng-if="vm.group.icon_filename && !vm.isLoadingAvatar"
+                  ng-href="{{vm.api.baseUrl}}/uploads/groups/{{vm.group.icon_filename}}"
+                  target="_blank"
                   class="file-manager-thumb"
                   >
-                  <img ngf-thumbnail="vm.api.baseUrl+'/uploads/groups/201x201'+vm.group.icon_filename || 'assets/images/group.png'">
-                </span>
+                  <img ngf-thumbnail="vm.api.baseUrl+'/uploads/groups/'+vm.group.icon_filename">
+                </a>
 
                 <span ng-if='vm.isLoadingAvatar' class='loader' >
                   <div layout="row" layout-sm="column" layout-align="space-around">

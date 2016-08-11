@@ -18,7 +18,10 @@
               key:'Type',
               label:'Tipo de agrupador',
               mapper:{
-
+                'variations':'Variaciones',
+                'environments': 'Ambientes',
+                'packages':'Paquetes',
+                'relations':'Relacionados'
               }
             },
             {key:'Delete',label:'Eliminar',destroy:true}
