@@ -12,7 +12,7 @@
 
               <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
                         ng-click="vm.update(updateForm)">
-                  Editar
+                  Guardar
               </md-button>
 
             </div>
@@ -41,6 +41,7 @@
                 <div
                   class="product-item"
                   layout="row"
+                  layout-align="center center"
                   ng-repeat="product in vm.products"
                 >
                   <div flex class="table-body-item">
@@ -85,6 +86,10 @@
                     {{ vm.calculateDiscount(product) | currency }}
                   </div>
                 </div>
+                <div class="products-package-total-price">
+                  <p><strong>Total: {{vm.calculateTotalDiscount() | currency}}</strong></p>
+                </div>
+
               </section>
 
               <div>
@@ -93,7 +98,7 @@
                   class="md-raised md-accent action-button"
                   aria-label="Guardar"
                 >
-                    Editar
+                    Guardar
                 </md-button>
               </div>
 

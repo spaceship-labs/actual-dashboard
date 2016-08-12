@@ -11,6 +11,7 @@
         var vm = this;
 
         angular.extend(vm,{
+          calculateTotalDiscount: calculateTotalDiscount,
           calculateDiscount: calculateDiscount,
           init: init,
           update: update,
@@ -18,6 +19,7 @@
         });
 
         function init(){
+          vm.isLoading = true;
           productService.getGroupById($stateParams.id).then(function(res){
             vm.packageGroup = res.data;
             return packageService.getProductsByPackage(vm.packageGroup.id);
@@ -26,6 +28,7 @@
             console.log(resProducts);
             vm.products = resProducts.data;
             vm.products = vm.formatProducts(vm.products);
+            vm.isLoading = false;
           })
           .catch(function(err){
             console.log(err);
@@ -85,6 +88,16 @@
             total = subtotal - (subtotal/100 * discount);
           }else{
             total = subtotal - discount;
+          }
+          return total;
+        }
+
+        function calculateTotalDiscount(){
+          var total = 0;
+          if(vm.products){
+            vm.products.forEach(function(p){
+              total += calculateDiscount(p);
+            });
           }
           return total;
         }

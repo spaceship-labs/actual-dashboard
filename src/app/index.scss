@@ -623,8 +623,28 @@ label.mce-charactercount {
 
 .products-package .product-item md-select{margin: 0}
 .products-package .table-header-item{font-weight: 700}
-.products-package .table-body-item,
-.products-package .table-header-item{padding: 10px;}
+
+.products-package .table-body-item{padding: 10px}
+
+.products-package .table-header-item{padding: 10px 11px;}
+
 .products-package .select-element-wrapper-nomargin md-input-container{
   margin: 0;
+}
+.products-package .table-header-item,
+.products-package .table-body-item{
+  font-size: 12px;
+}
+.products-package .table-header-item:first-child,
+.products-package .table-body-item:first-child{
+  padding-left: 0
+}
+.products-package .table-header-item,
+.products-package .table-body-item{text-align: right;}
+.products-package-total-price{
+  text-align: right;
+  font-size: 24px;
+}
+.products-package-total-price p{
+  font-size: 18px!important;
 }
