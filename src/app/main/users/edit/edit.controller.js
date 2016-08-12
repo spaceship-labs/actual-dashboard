@@ -23,15 +23,7 @@
             return {abbrev: state};
         });
 
-        vm.roles = [
-          {name:'Admin', id:1, handle:'admin'},
-          {name:'Vendedor', id:2, handle:'seller'},
-          {name:'Broker', id:3, handle:'broker'},
-          {name: 'Editor de contenido', id:4, handle:'content-editor'},
-          {name:'Contabilidad', id:5, handle:'contability'},
-          {name:'Marketing', id:6, handle:'marketing'},
-          {name:'Gerente', id:7, handle:'manager'}
-        ];
+        vm.roles = [];
 
         vm.modules = [
           {key:'create-users', label:'Crear usuarios', section:'users'},
@@ -110,8 +102,9 @@
 
         function init(){
           userService.getUser($stateParams.id).then(function(res){
-            vm.user = res.data.data;
-            vm.user.companies   = vm.user.companies.map(function(company) {return company.id;});
+            vm.user           = res.data.data;
+            vm.user.role      = (vm.user.role && vm.user.role.id) || vm.user.role;
+            vm.user.companies = vm.user.companies.map(function(company) {return company.id;});
             if(vm.user.companyMain){
               vm.user.companyMain = vm.user.companyMain.id;
             }
@@ -144,6 +137,11 @@
           api.$http.get('/company/find').then(function(res) {
             vm.companies = res.data;
           });
+
+          api.$http.get('/role/find').then(function(res) {
+            vm.roles = res.data;
+          });
+
         }
 
         /**

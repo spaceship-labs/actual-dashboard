@@ -9,7 +9,6 @@
     /** @ngInject */
     function UsersCreateController(dialogService, userService, api){
         var vm = this;
-
         vm.toggleModule = toggleModule;
         vm.toggleAllModules = toggleAllModules;
         vm.moduleExists = moduleExists;
@@ -30,16 +29,7 @@
             return {abbrev: state};
         });
 
-        vm.roles = [
-          {name:'Admin', id:1, handle:'admin'},
-          {name:'Vendedor', id:2, handle:'seller'},
-          {name:'Broker', id:3, handle:'broker'},
-          {name: 'Editor de contenido', id:4, handle:'content-editor'},
-          {name:'Contabilidad', id:5, handle:'contability'},
-          {name:'Marketing', id:6, handle:'marketing'},
-          {name:'Gerente', id:7, handle:'manager'}
-        ];
-
+        vm.roles = [];
 
         vm.allAppModules = {
           label: 'TODOS',
@@ -89,6 +79,7 @@
         vm.sendForm = sendForm;
         vm.toggleCompany     = toggleCompany;
         vm.isCompanySelected = isCompanySelected;
+        init();
 
         function isCompanySelected(id) {
           return vm.user.companies.indexOf(id) !== -1;
@@ -109,15 +100,20 @@
 
 
         //////////
+        function init() {
+          userService.getSellers().then(function(res){
+            vm.sellers = res.data;
+            vm.sellers.unshift({id:null, SlpName:'Ninguno'});
+          });
 
-        userService.getSellers().then(function(res){
-          vm.sellers = res.data;
-          vm.sellers.unshift({id:null, SlpName:'Ninguno'});
-        });
+          api.$http.get('/company/find').then(function(res){
+            vm.companies = res.data;
+          });
 
-        api.$http.get('/company/find').then(function(res){
-          vm.companies = res.data;
-        });
+          api.$http.get('/role/find').then(function(res) {
+            vm.roles = res.data;
+          });
+        }
 
 
         /**

@@ -31,7 +31,7 @@
               <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
             </div>
 
-            <form ng-show="!vm.isLoading" name="basicForm" flex="80" ng-submit="vm.sendForm(basicForm)" class="md-inline-form" novalidate>
+            <form ng-show="!vm.isLoading" name="basicForm" flex="80" class="md-inline-form" novalidate>
 
               <section  layout="row" layout-wrap layout-align="space-between start">
                 <div class="input-element" flex="30" flex-sm="100" flex-xs="100">
@@ -117,8 +117,8 @@
                 <div class="input-element " flex="45" flex-sm="100" flex-xs="100">
                   <p class="select-element-label"><label><strong>Rol*</strong></label></p>
                   <md-input-container>
-                    <md-select class="select-element select-element-lg" ng-model="vm.user.userType">
-                      <md-option ng-repeat="role in vm.roles track by $index" value="{{role.handle}}">
+                    <md-select class="select-element select-element-lg" ng-model="vm.user.role">
+                      <md-option ng-repeat="role in vm.roles" ng-value="role.id">
                         {{role.name}}
                       </md-option>
                     </md-select>
