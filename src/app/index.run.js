@@ -25,18 +25,15 @@
                 localStorageService.remove('user');
                 localStorageService.remove('token');
                 $state.go('app.auth_login');
-                //$location.path('/auth/login')
               }
             }
 
             if(!_token && !toState.isPublic){
               event.preventDefault();
               $state.go('app.auth_login');
-              //$location.path('/auth/login')
             }
 
             else if(_token && toState.moduleName && toState.name != 'app.accesdenied'){
-              //console.log(_token);
               userService.getUser(_user.id).then(function(res){
                 _user = res.data.data;
                 if(!_user.id){
@@ -45,7 +42,6 @@
                   $state.go('app.auth_login');
                 }
                 if( _user.accessList && _user.accessList.indexOf(toState.moduleName) >= 0 ){
-                  console.log('esta autorizado a entrar a :'+ toState.moduleName);
                   return true;
                 }else{
                   console.log('no esta autorizado a entrar a :'+ toState.moduleName);
