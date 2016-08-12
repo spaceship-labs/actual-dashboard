@@ -87,10 +87,12 @@
             <p class="select-element-label"><label><strong>Marca</strong></label></p>
             <p><a href="#" ng-click="vm.openBrandForm($event)">Crear nueva marca</a></p>
 
-            <md-input-container>
+            <md-input-container ng-if="vm.customBrands && vm.customBrands.length > 0">
               <md-select class="select-element select-element-md" ng-model="vm.product.CustomBrand">
 
-                <md-option ng-repeat="brand in vm.customBrands track by $index" ng-value="brand.id">
+                <md-option
+                  ng-repeat="brand in vm.customBrands | orderBy:'Name' track by $index"
+                  ng-value="brand.id">
                   {{brand.Name}}
                 </md-option>
               </md-select>
