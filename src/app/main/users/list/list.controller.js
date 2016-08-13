@@ -17,7 +17,7 @@
             {key:'email', label:'Email', actionUrl:'/users/edit/'},
             {key:'firstName', label:'Nombre'},
             {key:'lastName', label:'Apellidos'},
-            {key:'role[0].name', label: 'Rol'}
+            {key:'role.name', label: 'Rol'}
         ];
 
         //vm.apiResource = api.user.find.get;
