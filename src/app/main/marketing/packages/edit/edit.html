@@ -10,9 +10,9 @@
             <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
               <h3>EDITAR PAQUETE</h3>
 
-              <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
+              <md-button type="submit" class="md-raised md-accent action-button" aria-label="Actualizar"
                         ng-click="vm.update(updateForm)">
-                  Guardar
+                  Actualizar
               </md-button>
 
             </div>
@@ -26,7 +26,28 @@
 
             <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
 
+              <h1><strong>Tiendas aplicables</strong></h1>
+              <section>
+                <p class="select-element-label"><label><strong>Tienda</strong></label></p>
+                <md-input-container class="checkboxes-dropdown-wrap">
+                  <md-select class="checkboxes-dropdown select-element" ng-model="vm.selectedStores"
+                     data-md-container-class="selectdemoSelectHeader"
+                     multiple
+                  >
+                    <md-optgroup label="Tiendas">
+                      <md-option
+                        ng-value="store.id"
+                        ng-selected="vm.objIndexOf(vm.packageGroup.Stores, {id:store.id})"
+                        ng-repeat="store in vm.companies">
+                        {{store.WhsName}}
+                      </md-option>
+                    </md-optgroup>
+                  </md-select>
+                </md-input-container>
+              </section>
 
+
+              <h1><strong>Productos</strong></h1>
               <section class="products-package">
                 <div layout="row" class="table-header">
                   <div flex class="table-header-item">Código de producto</div>
@@ -96,9 +117,9 @@
                 <md-button
                   type="submit"
                   class="md-raised md-accent action-button"
-                  aria-label="Guardar"
+                  aria-label="Actualizar"
                 >
-                    Guardar
+                    Actualizar
                 </md-button>
               </div>
 

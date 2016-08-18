@@ -7,20 +7,27 @@
         .controller('MarketingPackagesditController', MarketingPackagesditController);
 
     /** @ngInject */
-    function MarketingPackagesditController($stateParams, productService, packageService, dialogService){
+    function MarketingPackagesditController(
+      $stateParams,
+      productService,
+      packageService,
+      dialogService,
+      api
+    ){
         var vm = this;
 
         angular.extend(vm,{
           calculateTotalDiscount: calculateTotalDiscount,
           calculateDiscount: calculateDiscount,
           init: init,
+          objIndexOf: objIndexOf,
           update: update,
           formatProducts: formatProducts
         });
 
         function init(){
           vm.isLoading = true;
-          productService.getGroupById($stateParams.id).then(function(res){
+          packageService.getDetailedPackage($stateParams.id).then(function(res){
             vm.packageGroup = res.data;
             return packageService.getProductsByPackage(vm.packageGroup.id);
           })
@@ -32,7 +39,14 @@
           })
           .catch(function(err){
             console.log(err);
-          })
+          });
+          loadCompanies();
+        }
+
+        function loadCompanies(){
+          api.$http.get('/company/find').then(function(res){
+            vm.companies = res.data;
+          });
         }
 
         function formatProducts(products){
@@ -58,17 +72,19 @@
                   productId: p.id
                 };
                 return pInfo;
-              })
+              }),
+              Stores: vm.selectedStores || []
             }
-            packageService.updatePackageProducts(params).then(function(res){
-              console.log(res);
-              vm.isLoading = false;
-              dialogService.showDialog('Paquete actualizado');
-            }).catch(function(err){
-              console.log(err);
-              vm.isLoading = false;
-              dialogService.showDialog('Hubo un error, revisa la información');
-            });
+            packageService.update(vm.packageGroup.id, params)
+              .then(function(res){
+                console.log(res);
+                vm.isLoading = false;
+                dialogService.showDialog('Paquete actualizado');
+              }).catch(function(err){
+                console.log(err);
+                vm.isLoading = false;
+                dialogService.showDialog('Hubo un error, revisa la información');
+              });
 
           }else{
             dialogService.showDialog('Información incompleta, revisa tus datos');
@@ -100,6 +116,10 @@
             });
           }
           return total;
+        }
+
+        function objIndexOf(arr, query){
+          return _.findWhere(arr, query);
         }
 
         vm.init();
