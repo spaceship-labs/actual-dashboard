@@ -129,6 +129,7 @@
             //vm.search.SA = vm.promotion.SA;
             //vm.search.U_Empresa = vm.promotion.U_Empresa;
             vm.search.sas = vm.promotion.sas;
+            vm.search.itemCode = vm.promotion.itemCode;
             vm.products = vm.promotion.Products;
             vm.products = vm.products.map(function(prod){
               prod.isActive = true;
@@ -277,6 +278,7 @@
               OnHome      : vm.search.OnHome,
               OnKids      : vm.search.OnKids,
               OnAmueble   : vm.search.OnAmueble,
+              itemCode    : vm.search.itemCode,
               //SA   : vm.search.SA,
               //U_Empresa   : vm.search.U_Empresa,
               sas         : vm.search.sas,

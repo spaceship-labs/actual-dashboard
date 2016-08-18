@@ -219,6 +219,7 @@
               OnKids      : vm.search.OnKids,
               OnAmueble   : vm.search.OnAmueble,
               sas         : vm.search.sas,
+              itemCode    : vm.search.itemCode,
               //U_Empresa   : vm.search.U_Empresa,
               Products    : products,
               excludedProducts: vm.excluded,

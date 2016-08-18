@@ -210,6 +210,20 @@
               </div>
 
               <section ng-show="vm.showFilters">
+
+                <!--ITEMCODE SEARCHER-->
+                <h2><strong>Búscar por código</strong></h2>
+                <section layout="row">
+                  <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
+                    <label>Código del producto</label>
+                    <div class="input-element-inner">
+                      <input type="text" name="itemcode" ng-model="vm.search.itemCode" required placeholder="Código del producto">
+                    </div>
+                  </div>
+                </section>
+                <hr>
+                <!--END ITEMCODE SEARCHER-->
+
                 <!--CATEGORY CHOOSER-->
                 <div>
                   <h2><strong>CATEGORIAS</strong></h2>
