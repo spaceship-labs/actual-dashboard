@@ -15,19 +15,35 @@
         dialogService,
         userService,
         roleService,
-        commissionService
+        commissionService,
+        companyService
       ){
-        var vm            = this;
-        vm.roles          = [];
-        vm.isLoading      = false;
-        vm.commission     = {};
-        vm.sendForm       = sendForm;
+        var vm        = this;
+        vm.isLoading  = false;
+        vm.companies  = [];
+        vm.commission = {};
+        vm.getSellers = getSellers;
+        vm.selectDate = selectDate;
+        vm.sendForm   = sendForm;
         activate();
 
         function activate() {
           roleService.getRoles().then(function(res) {
             vm.roles = res.data;
           });
+          companyService.getAllCompanies().then(function(companies) {
+            vm.companies = companies;
+          });
+        }
+
+        function getSellers(company) {
+          companyService.countSellers(company).then(function(sellers) {
+            vm.commission.sellers = sellers;
+          });
+        }
+
+        function selectDate(date) {
+          vm.commission.date = date._d;
         }
 
         function sendForm(valid) {
@@ -71,7 +87,5 @@
           });
           $mdDialog.show(alert);
         }
-
-
     }
 })();

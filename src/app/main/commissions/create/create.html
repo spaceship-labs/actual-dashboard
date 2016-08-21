@@ -1,21 +1,6 @@
 <div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
-
-    <!-- HEADER -->
-    <!--
-    <div class="header md-accent-bg" layout="row" layout-align="space-between">
-        <div layout="column" layout-align="center start">
-            <div class="title">Usuarios</div>
-        </div>
-    </div>
-    -->
-    <!-- / HEADER -->
-
-    <!-- CONTENT -->
     <div class="content">
-
-
       <div class="page-layout simple fullwidth">
-
         <section class="md-whiteframe-z1">
           <md-toolbar class="demo-toolbar md-primary">
             <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
@@ -31,92 +16,69 @@
             </div>
           </md-toolbar>
           <md-content class="md-padding">
-
-
             <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
               <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
             </div>
-
             <form name="basicForm" ng-show="!vm.isLoading"  class="md-inline-form" novalidate>
               <section layout="row" layout-wrap layout-align="space-between start">
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Nombre*</label>
-                  <div class="input-element-inner">
-                    <input type="text" ng-model="vm.commission.name" name="_name" required placeholder="Nombre*">
-                  </div>
-                </div>
-
-                <div class="input-element " flex="45" flex-xs="100">
-                  <p class="select-element-label"><label><strong>Se le paga a</strong></label></p>
+                <div class="input-element" flex="30" flex-xs="100">
+                  <p class="select-element-label"><label><strong>Tienda</strong></label></p>
                   <md-input-container>
-                    <md-select class="select-element select-element-md" ng-model="vm.commission.type" name="_role" required>
-                      <md-option ng-repeat="role in vm.roles track by role.id" ng-value="role.id">
-                      {{role.name}}
+                    <md-select
+                      class="select-element select-element-md"
+                      name="_company"
+                      ng-model="vm.commission.company"
+                      ng-change="vm.getSellers(vm.commission.company)"
+                      required
+                    >
+                      <md-option ng-repeat="company in vm.companies" ng-value="company.id">
+                        {{company.WhsName}}
                       </md-option>
                     </md-select>
                   </md-input-container>
                 </div>
-              </section>
-
-              <section layout="row" layout-wrap layout-align="space-between start">
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Si el vendedor vende más de </label>
+                <div class="input-element"  flex="15" flex-xs="100">
+                  <p class="select-element-label"><label><strong>Vendedores en Tienda</strong></label></p>
                   <div class="input-element-inner">
                     <input
-                      name="_individual"
                       type="number"
-                      min="0"
-                      placeholder="meta individual"
-                      ng-model="vm.commission.individualGoal"
+                      name="_sellers"
+                      disabled
                       required
+                      ng-model="vm.commission.sellers"
+                      ng-placeholder="Seleccione una tienda"
                     >
                   </div>
                 </div>
 
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Si la tienda vende más de </label>
+                <div class="input-element"  flex="15" flex-xs="100">
+                  <label>Meta de la tienda</label>
                   <div class="input-element-inner">
                     <input
-                      name="_store"
                       type="number"
-                      min="0"
-                      placeholder="meta de la tienda"
-                      ng-model="vm.commission.storeGoal"
-                      required
+                      name="_goal"
+                      ng-model="vm.commission.goal"
+                      ng-placeholder="Meta de la tienda"
                     >
                   </div>
                 </div>
-              </section>
 
-              <section layout="row" layout-wrap layout-align="space-between start">
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Porcentaje de ventas individuales a pagar</label>
+               <div class="input-element"  flex="15" flex-xs="100">
+                  <label>Fecha</label>
                   <div class="input-element-inner">
                     <input
-                      name="_store"
-                      type="number"
-                      min="0"
-                      placeholder="meta de la tienda"
-                      ng-model="vm.commission.individualRate"
-                      required
-                    >
-                  </div>
-                </div>
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Porcentaje de ventas de la tienda a pagar</label>
-                  <div class="input-element-inner">
-                    <input
-                      name="_store"
-                      type="number"
-                      min="0"
-                      placeholder="meta de la tienda"
-                      ng-model="vm.commission.storeRate"
+                      type="text"
+                      readonly
+                      pikaday="vm.myPickerStartDate"
+                      on-select="vm.selectDate(pikaday)"
+                      placeholder="Fecha"
                       required
                     >
                   </div>
                 </div>
 
               </section>
+
 
               <div>
                 <md-button
