@@ -8,7 +8,7 @@
               <md-button type="submit"
                 class="md-raised md-accent action-button"
                 aria-label="Guardar"
-                ng-click="vm.sendForm(basicForm)"
+                ng-click="vm.sendForm(basicForm.$valid)"
               >
                   CREAR
               </md-button>
@@ -27,8 +27,8 @@
                     <md-select
                       class="select-element select-element-md"
                       name="_company"
-                      ng-model="vm.commission.company"
-                      ng-change="vm.getSellers(vm.commission.company)"
+                      ng-model="vm.goal.company"
+                      ng-change="vm.getSellers(vm.goal.company)"
                       required
                     >
                       <md-option ng-repeat="company in vm.companies" ng-value="company.id">
@@ -37,6 +37,7 @@
                     </md-select>
                   </md-input-container>
                 </div>
+
                 <div class="input-element"  flex="15" flex-xs="100">
                   <p class="select-element-label"><label><strong>Vendedores en Tienda</strong></label></p>
                   <div class="input-element-inner">
@@ -45,7 +46,8 @@
                       name="_sellers"
                       disabled
                       required
-                      ng-model="vm.commission.sellers"
+                      ng-min="1"
+                      ng-model="vm.goal.sellers"
                       ng-placeholder="Seleccione una tienda"
                     >
                   </div>
@@ -57,7 +59,8 @@
                     <input
                       type="number"
                       name="_goal"
-                      ng-model="vm.commission.goal"
+                      required
+                      ng-model="vm.goal.goal"
                       ng-placeholder="Meta de la tienda"
                     >
                   </div>
@@ -68,18 +71,84 @@
                   <div class="input-element-inner">
                     <input
                       type="text"
-                      readonly
+                      name="_date"
+                      ng-model="vm.date"
                       pikaday="vm.myPickerStartDate"
+                      format="MM - YYYY"
                       on-select="vm.selectDate(pikaday)"
                       placeholder="Fecha"
                       required
+                      readonly
                     >
                   </div>
                 </div>
-
               </section>
-
-
+              <section layout="row" layout-wrap layout-align="space-between start" ng-if="vm.goal.goal && vm.goal.sellers">
+                <div flex="45" style="border:1px solid;">
+                  <table style="width:100%;font-size:14px">
+                    <caption>Comisiones vendedor (quincenales)</caption>
+                    <thead>
+                      <tr>
+                        <th>Meta Personal</th>
+                        <th>Meta Tienda </th>
+                        <th>Comisión a pagar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{0 | currency}}</td>
+                        <td>$0.00</td>
+                        <td>3%</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal / vm.goal.sellers / 2 | currency}}</td>
+                        <td>$0.00</td>
+                        <td>1%</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal * 1.25 / vm.goal.sellers / 2 | currency}}</td>
+                        <td>$0.00</td>
+                        <td>1%</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal / vm.goal.sellers / 2 | currency}}</td>
+                        <td>{{vm.goal.goal / 2 | currency}}</td>
+                        <td>0.5%</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal * 1.25 / vm.goal.sellers / 2 | currency}}</td>
+                        <td>{{vm.goal.goal * 1.25 / 2| currency}}</td>
+                        <td>0.5%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div flex="45" style="border:1px solid;">
+                  <table style="width:100%;font-size:14px">
+                    <caption>Comisiones gerente (mensuales)</caption>
+                    <thead>
+                      <tr>
+                        <th>Meta Tienda </th>
+                        <th>Comisión a pagar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{vm.goal.goal * 0.90 | currency }}</td>
+                        <td>0.5%</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal  | currency }}</td>
+                        <td>0.5%</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal * 1.25| currency }}</td>
+                        <td>1%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
               <div>
                 <md-button
                   type="submit"

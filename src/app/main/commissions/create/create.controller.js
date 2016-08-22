@@ -15,13 +15,12 @@
         dialogService,
         userService,
         roleService,
-        commissionService,
+        goalService,
         companyService
       ){
         var vm        = this;
         vm.isLoading  = false;
-        vm.companies  = [];
-        vm.commission = {};
+        vm.goal       = {};
         vm.getSellers = getSellers;
         vm.selectDate = selectDate;
         vm.sendForm   = sendForm;
@@ -38,30 +37,29 @@
 
         function getSellers(company) {
           companyService.countSellers(company).then(function(sellers) {
-            vm.commission.sellers = sellers;
+            vm.goal.sellers = sellers;
           });
         }
 
         function selectDate(date) {
-          vm.commission.date = date._d;
+          var date = new Date(date._d);
+          var y    = date.getFullYear();
+          var m    = date.getMonth();
+          vm.goal.date = new Date(y, m, 1);
         }
 
         function sendForm(valid) {
           if (!valid || vm.isLoading) {
             return;
           }
-          var commission = Object.assign({},vm.commission, {
-              individualRate: vm.commission.individualRate / 100,
-              storeRate: vm.commission.storeRate / 100
-            });
-          commissionService
-            .create(commission)
+          goalService
+            .create(vm.goal)
             .then(function(res){
               showConfirm();
               $scope
                 .basicForm
                 .$submitted = false;
-              vm.commission = {};
+              vm.goal       = {};
               vm.isLoading  = false;
             }).
             catch(function(err) {
