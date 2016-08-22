@@ -155,6 +155,25 @@
                 if(column.date){
                   data = $filter('date')(data, 'dd/MM/yyyy');
                 }
+                if(column.dateMonth){
+                  var months = [
+                    'Enero',
+                    'Febrero',
+                    'Marzo',
+                    'Abril',
+                    'Mayo',
+                    'Junio',
+                    'Agosto',
+                    'Septiembre',
+                    'Octubre',
+                    'Noviembre',
+                    'Diciembre'
+                  ];
+                  var date  = new Date(data);
+                  var month = date.getMonth() - 1;
+                  var year  = date.getFullYear();
+                  data = months[month] + ', ' + year;
+                }
                 if(column.currency){
                   data = $filter('currency')(data);
                 }
