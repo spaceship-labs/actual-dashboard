@@ -1,21 +1,6 @@
 <div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
-
-    <!-- HEADER -->
-    <!--
-    <div class="header md-accent-bg" layout="row" layout-align="space-between">
-        <div layout="column" layout-align="center start">
-            <div class="title">Usuarios</div>
-        </div>
-    </div>
-    -->
-    <!-- / HEADER -->
-
-    <!-- CONTENT -->
     <div class="content">
-
-
       <div class="page-layout simple fullwidth">
-
         <section class="md-whiteframe-z1">
           <md-toolbar class="demo-toolbar md-primary">
             <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
@@ -23,7 +8,7 @@
               <md-button type="submit"
                 class="md-raised md-accent action-button"
                 aria-label="Guardar"
-                ng-click="vm.sendForm(basicForm)"
+                ng-click="vm.sendForm(basicForm.$valid)"
               >
                   GUARDAR
               </md-button>
@@ -31,93 +16,141 @@
             </div>
           </md-toolbar>
           <md-content class="md-padding">
-
-
             <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
               <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
             </div>
-
             <form name="basicForm" ng-show="!vm.isLoading"  class="md-inline-form" novalidate>
               <section layout="row" layout-wrap layout-align="space-between start">
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Nombre*</label>
-                  <div class="input-element-inner">
-                    <input type="text" ng-model="vm.commission.name" name="_name" required placeholder="Nombre*">
-                  </div>
-                </div>
-
-                <div class="input-element " flex="45" flex-xs="100">
-                  <p class="select-element-label"><label><strong>Se le paga a</strong></label></p>
+                <div class="input-element" flex="30" flex-xs="100">
+                  <p class="select-element-label"><label><strong>Tienda</strong></label></p>
                   <md-input-container>
-                    <md-select class="select-element select-element-md" ng-model="vm.commission.type" name="_role" required>
-                      <md-option ng-repeat="role in vm.roles track by role.id" ng-value="role.id">
-                      {{role.name}}
+                    <md-select
+                      class="select-element select-element-md"
+                      name="_company"
+                      ng-model="vm.goal.company"
+                      ng-change="vm.getSellers(vm.goal.company)"
+                      required
+                    >
+                      <md-option ng-repeat="company in vm.companies" ng-value="company.id">
+                        {{company.WhsName}}
                       </md-option>
                     </md-select>
                   </md-input-container>
                 </div>
+
+                <div class="input-element"  flex="15" flex-xs="100">
+                  <p class="select-element-label"><label><strong>Vendedores en Tienda</strong></label></p>
+                  <div class="input-element-inner">
+                    <input
+                      type="number"
+                      name="_sellers"
+                      disabled
+                      required
+                      ng-min="1"
+                      ng-model="vm.goal.sellers"
+                      ng-placeholder="Seleccione una tienda"
+                    >
+                  </div>
+                </div>
+
+                <div class="input-element"  flex="15" flex-xs="100">
+                  <label>Meta de la tienda</label>
+                  <div class="input-element-inner">
+                    <input
+                      type="number"
+                      name="_goal"
+                      required
+                      ng-model="vm.goal.goal"
+                      ng-placeholder="Meta de la tienda"
+                    >
+                  </div>
+                </div>
+
+               <div class="input-element"  flex="15" flex-xs="100">
+                 <label>Fecha</label>
+                  <div class="input-element-inner">
+                    <input
+                      type="text"
+                      name="_date"
+                      ng-model="vm.date"
+                      pikaday="vm.startDate"
+                      format="MM - YYYY"
+                      on-select="vm.selectDate(pikaday)"
+                      placeholder="Fecha"
+                      set-default-date="true"
+                      default-date="{{vm.startDate}}"
+                      required
+                      readonly
+                    >
+                  </div>
+                </div>
               </section>
-
-              <section layout="row" layout-wrap layout-align="space-between start">
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Si el vendedor vende más de </label>
-                  <div class="input-element-inner">
-                    <input
-                      name="_individual"
-                      type="number"
-                      min="0"
-                      placeholder="meta individual"
-                      ng-model="vm.commission.individualGoal"
-                      required
-                    >
-                  </div>
+              <section layout="row" layout-wrap layout-align="space-between start" ng-if="vm.goal.goal && vm.goal.sellers">
+                <div flex="45" style="border:1px solid;">
+                  <table style="width:100%;font-size:14px">
+                    <caption>Comisiones vendedor (quincenales)</caption>
+                    <thead>
+                      <tr>
+                        <th>Meta Personal</th>
+                        <th>Meta Tienda </th>
+                        <th>Comisión a pagar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{0 | currency}}</td>
+                        <td>$0.00</td>
+                        <td>3%</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal / vm.goal.sellers / 2 | currency}}</td>
+                        <td>$0.00</td>
+                        <td>1%</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal * 1.25 / vm.goal.sellers / 2 | currency}}</td>
+                        <td>$0.00</td>
+                        <td>1%</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal / vm.goal.sellers / 2 | currency}}</td>
+                        <td>{{vm.goal.goal / 2 | currency}}</td>
+                        <td>0.5%</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal * 1.25 / vm.goal.sellers / 2 | currency}}</td>
+                        <td>{{vm.goal.goal * 1.25 / 2| currency}}</td>
+                        <td>0.5%</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Si la tienda vende más de </label>
-                  <div class="input-element-inner">
-                    <input
-                      name="_store"
-                      type="number"
-                      min="0"
-                      placeholder="meta de la tienda"
-                      ng-model="vm.commission.storeGoal"
-                      required
-                    >
-                  </div>
+                <div flex="45" style="border:1px solid;">
+                  <table style="width:100%;font-size:14px">
+                    <caption>Comisiones gerente (mensuales)</caption>
+                    <thead>
+                      <tr>
+                        <th>Meta Tienda </th>
+                        <th>Comisión a pagar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{vm.goal.goal * 0.90 | currency }}</td>
+                        <td>0.5%</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal  | currency }}</td>
+                        <td>0.5%</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal * 1.25| currency }}</td>
+                        <td>1%</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </section>
-
-              <section layout="row" layout-wrap layout-align="space-between start">
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Porcentaje de ventas individuales a pagar</label>
-                  <div class="input-element-inner">
-                    <input
-                      name="_store"
-                      type="number"
-                      min="0"
-                      placeholder="meta de la tienda"
-                      ng-model="vm.commission.individualRate"
-                      required
-                    >
-                  </div>
-                </div>
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Porcentaje de ventas de la tienda a pagar</label>
-                  <div class="input-element-inner">
-                    <input
-                      name="_store"
-                      type="number"
-                      min="0"
-                      placeholder="meta de la tienda"
-                      ng-model="vm.commission.storeRate"
-                      required
-                    >
-                  </div>
-                </div>
-
-              </section>
-
               <div>
                 <md-button
                   type="submit"

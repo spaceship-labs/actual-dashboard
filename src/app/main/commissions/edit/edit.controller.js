@@ -11,43 +11,59 @@
 
       function CommissionsEditController(
         $scope,
-        $stateParams,
         $mdDialog,
+        $stateParams,
         dialogService,
         userService,
         roleService,
-        commissionService
+        goalService,
+        companyService
       ){
-        var vm            = this;
-        vm.roles          = [];
-        vm.isLoading      = false;
-        vm.commission     = {};
-        vm.sendForm       = sendForm;
+        var vm        = this;
+        vm.isLoading  = false;
+        vm.goal       = {};
+        vm.getSellers = getSellers;
+        vm.selectDate = selectDate;
+        vm.sendForm   = sendForm;
         activate();
 
         function activate() {
-          var commission = $stateParams.id;
+          var goal = $stateParams.id;
           roleService.getRoles().then(function(res) {
             vm.roles = res.data;
           });
-          commissionService.findById(commission).then(function(commission){
-            vm.commission = Object.assign({}, commission, {
-              individualRate: commission.individualRate * 100,
-              storeRate: commission.storeRate * 100
-            });
+          companyService.getAllCompanies().then(function(companies) {
+            vm.companies = companies;
           });
+          goalService.findById(goal).then(function(goal){
+            var date = new Date(goal.date);
+            var d    = date.getDate();
+            var y    = date.getFullYear();
+            var m    = date.getMonth() + 1;
+            vm.startDate.setDate(date);
+            vm.goal  = goal;
+          });
+        }
+
+        function getSellers(company) {
+          companyService.countSellers(company).then(function(sellers) {
+            vm.goal.sellers = sellers;
+          });
+        }
+
+        function selectDate(date) {
+          var date = new Date(date._d);
+          var y    = date.getFullYear();
+          var m    = date.getMonth();
+          vm.goal.date = new Date(y, m, 1);
         }
 
         function sendForm(valid) {
           if (!valid || vm.isLoading) {
             return;
           }
-          var commission = Object.assign({},vm.commission, {
-              individualRate: vm.commission.individualRate / 100,
-              storeRate: vm.commission.storeRate / 100
-            });
-          commissionService
-            .update(commission)
+          goalService
+            .update(vm.goal)
             .then(function(res){
               showConfirm();
               $scope
@@ -78,7 +94,5 @@
           });
           $mdDialog.show(alert);
         }
-
-
     }
 })();
