@@ -90,35 +90,51 @@
                     <caption>Comisiones vendedor (quincenales)</caption>
                     <thead>
                       <tr>
-                        <th>Meta Personal</th>
-                        <th>Meta Tienda </th>
-                        <th>Comisión a pagar</th>
+                        <th colspan="4" style="text-align:center;border:1px solid;">A partir de</th>
+                        <th colspan="1" style="text-align:center;border:1px solid;">Se paga</th>
+                      </tr>
+                      <tr>
+                        <th>$ Meta Personal</th>
+                        <th>% Meta Personal</th>
+                        <th>$ Meta Tienda </th>
+                        <th>% Meta Tienda </th>
+                        <th>Comisión</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td>{{0 | currency}}</td>
-                        <td>$0.00</td>
+                        <td>0 %</td>
+                        <td>{{0 | currency}}</td>
+                        <td>0 %</td>
                         <td>3%</td>
                       </tr>
                       <tr>
                         <td>{{vm.goal.goal / vm.goal.sellers / 2 | currency}}</td>
-                        <td>$0.00</td>
+                        <td>100 %</td>
+                        <td>{{0 | currency}}</td>
+                        <td>0 %</td>
                         <td>1%</td>
                       </tr>
                       <tr>
                         <td>{{vm.goal.goal * 1.25 / vm.goal.sellers / 2 | currency}}</td>
-                        <td>$0.00</td>
+                        <td>125 %</td>
+                        <td>{{0 | currency}}</td>
+                        <td>0 %</td>
                         <td>1%</td>
                       </tr>
                       <tr>
                         <td>{{vm.goal.goal / vm.goal.sellers / 2 | currency}}</td>
+                        <td>100 %</td>
                         <td>{{vm.goal.goal / 2 | currency}}</td>
+                        <td>100 %</td>
                         <td>0.5%</td>
                       </tr>
                       <tr>
                         <td>{{vm.goal.goal * 1.25 / vm.goal.sellers / 2 | currency}}</td>
+                        <td>125 %</td>
                         <td>{{vm.goal.goal * 1.25 / 2| currency}}</td>
+                        <td>125 %</td>
                         <td>0.5%</td>
                       </tr>
                     </tbody>
@@ -126,24 +142,32 @@
                 </div>
                 <div flex="45" style="border:1px solid;">
                   <table style="width:100%;font-size:14px">
-                    <caption>Comisiones gerente (mensuales)</caption>
+                    <caption>Comisiones gerente (quincenales)</caption>
                     <thead>
                       <tr>
-                        <th>Meta Tienda </th>
-                        <th>Comisión a pagar</th>
+                        <th colspan="2" style="text-align:center;border:1px solid;">A partir de</th>
+                        <th colspan="1" style="text-align:center;border:1px solid;">Se paga</th>
+                      </tr>
+                      <tr>
+                        <th>$ Meta Tienda </th>
+                        <th>% Meta Tienda </th>
+                        <th>Comisión</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>{{vm.goal.goal * 0.90 | currency }}</td>
+                        <td>{{vm.goal.goal * 0.90 / 2 | currency }}</td>
+                        <td>90 %</td>
+                        <td>0.5 %</td>
+                      </tr>
+                      <tr>
+                        <td>{{vm.goal.goal / 2  | currency }}</td>
+                        <td>100 %</td>
                         <td>0.5%</td>
                       </tr>
                       <tr>
-                        <td>{{vm.goal.goal  | currency }}</td>
-                        <td>0.5%</td>
-                      </tr>
-                      <tr>
-                        <td>{{vm.goal.goal * 1.25| currency }}</td>
+                        <td>{{vm.goal.goal * 1.25 / 2| currency }}</td>
+                        <td>125 %</td>
                         <td>1%</td>
                       </tr>
                     </tbody>
