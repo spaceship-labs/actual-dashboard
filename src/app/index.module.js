@@ -72,6 +72,7 @@
             'ngMaterialDatePicker',
             'ui.tinymce',
             'pikaday',
-            'ui.timepicker'
+            'ui.timepicker',
+            'bcherny/formatAsCurrency'
         ]);
 })();
