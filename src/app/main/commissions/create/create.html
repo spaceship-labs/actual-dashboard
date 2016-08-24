@@ -1,21 +1,6 @@
 <div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
-
-    <!-- HEADER -->
-    <!--
-    <div class="header md-accent-bg" layout="row" layout-align="space-between">
-        <div layout="column" layout-align="center start">
-            <div class="title">Usuarios</div>
-        </div>
-    </div>
-    -->
-    <!-- / HEADER -->
-
-    <!-- CONTENT -->
     <div class="content">
-
-
       <div class="page-layout simple fullwidth">
-
         <section class="md-whiteframe-z1">
           <md-toolbar class="demo-toolbar md-primary">
             <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
@@ -23,7 +8,7 @@
               <md-button type="submit"
                 class="md-raised md-accent action-button"
                 aria-label="Guardar"
-                ng-click="vm.sendForm(basicForm)"
+                ng-click="vm.sendForm(basicForm.$valid)"
               >
                   CREAR
               </md-button>
@@ -31,92 +16,127 @@
             </div>
           </md-toolbar>
           <md-content class="md-padding">
-
-
             <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
               <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
             </div>
-
             <form name="basicForm" ng-show="!vm.isLoading"  class="md-inline-form" novalidate>
-              <section layout="row" layout-wrap layout-align="space-between start">
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Nombre*</label>
-                  <div class="input-element-inner">
-                    <input type="text" ng-model="vm.commission.name" name="_name" required placeholder="Nombre*">
-                  </div>
-                </div>
-
-                <div class="input-element " flex="45" flex-xs="100">
-                  <p class="select-element-label"><label><strong>Se le paga a</strong></label></p>
-                  <md-input-container>
-                    <md-select class="select-element select-element-md" ng-model="vm.commission.type" name="_role" required>
-                      <md-option ng-repeat="role in vm.roles track by role.id" ng-value="role.id">
-                      {{role.name}}
+              <section layout="row" layout-wrap layout-align="space-between start" ng-repeat="goal in vm.goals">
+                <div class="input-element" flex="15" flex-xs="100">
+                  <p class="select-element-label"><label><strong>Tienda</strong></label></p>
+                  <md-input-container class="company-select">
+                    <md-select
+                      class="select-element select-element-md"
+                      name="_company"
+                      ng-model="goal.company"
+                      ng-change="vm.getSellers($index, goal.company)"
+                      required
+                    >
+                      <md-option ng-repeat="company in vm.companies" ng-value="company.id">
+                        {{company.WhsName}}
                       </md-option>
                     </md-select>
                   </md-input-container>
                 </div>
+
+                <div class="input-element"  flex="15" flex-xs="100">
+                  <p class="select-element-label"><label><strong>Vendedores en Tienda</strong></label></p>
+                  <div class="input-element-inner">
+                    <input
+                      type="number"
+                      name="_sellers"
+                      disabled
+                      required
+                      ng-min="1"
+                      ng-model="goal.sellers"
+                      ng-placeholder="Seleccione una tienda"
+                    >
+                  </div>
+                </div>
+
+                <div class="input-element"  flex="15" flex-xs="100">
+                  <label>Meta de la tienda</label>
+                  <div class="input-element-inner">
+                    <input
+                      type="text"
+                      name="_goal"
+                      format-as-currency
+                      required
+                      ng-model="goal.goal"
+                      ng-placeholder="Meta de la tienda"
+                    >
+                  </div>
+                </div>
+
+                <div class="input-element"  flex="15" flex-xs="100">
+                  <p class="select-element-label"><label><strong>Vendedores proyecciones</strong></label></p>
+                  <div class="input-element-inner">
+                    <input
+                      type="number"
+                      name="_sellers"
+                      disabled
+                      required
+                      ng-min="1"
+                      ng-model="goal.sellersProject"
+                      ng-placeholder="Seleccione una tienda"
+                    >
+                  </div>
+                </div>
+
+                <div class="input-element"  flex="15" flex-xs="100">
+                  <label>Meta de proyecciones</label>
+                  <div class="input-element-inner">
+                    <input
+                      type="text"
+                      name="_goal"
+                      format-as-currency
+                      required
+                      ng-model="goal.goalProject"
+                      ng-placeholder="Meta de la tienda"
+                    >
+                  </div>
+                </div>
+
+
+               <div class="input-element"  flex="15" flex-xs="100">
+                  <label>Fecha</label>
+                  <div class="input-element-inner">
+                    <input
+                      type="text"
+                      name="_date"
+                      pikaday
+                      format="MM - YYYY"
+                      on-select="vm.selectDate($index, pikaday)"
+                      placeholder="Fecha"
+                      required
+                      readonly
+                    >
+                  </div>
+                </div>
+                <div layout layout-align="end center" layout-wrap class="options" flex="100">
+                  <md-button
+                    class="md-icon-button button-watch"
+                    ng-click="vm.showCommission(goal)"
+                  >
+                    <md-icon md-svg-src="assets/images/icons/watch.svg"></md-icon>
+                  </md-button>
+
+                  <md-button
+                    class="md-icon-button button-remove"
+                    ng-click="vm.removeEntry($index)"
+                  >
+                    <md-icon md-svg-src="assets/images/icons/remove.svg"></md-icon>
+                  </md-button>
+
+                </div>
               </section>
-
-              <section layout="row" layout-wrap layout-align="space-between start">
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Si el vendedor vende más de </label>
-                  <div class="input-element-inner">
-                    <input
-                      name="_individual"
-                      type="number"
-                      min="0"
-                      placeholder="meta individual"
-                      ng-model="vm.commission.individualGoal"
-                      required
-                    >
-                  </div>
-                </div>
-
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Si la tienda vende más de </label>
-                  <div class="input-element-inner">
-                    <input
-                      name="_store"
-                      type="number"
-                      min="0"
-                      placeholder="meta de la tienda"
-                      ng-model="vm.commission.storeGoal"
-                      required
-                    >
-                  </div>
-                </div>
-              </section>
-
-              <section layout="row" layout-wrap layout-align="space-between start">
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Porcentaje de ventas individuales a pagar</label>
-                  <div class="input-element-inner">
-                    <input
-                      name="_store"
-                      type="number"
-                      min="0"
-                      placeholder="meta de la tienda"
-                      ng-model="vm.commission.individualRate"
-                      required
-                    >
-                  </div>
-                </div>
-                <div class="input-element" flex-xs="100" flex-sm="100" flex="45">
-                  <label>Porcentaje de ventas de la tienda a pagar</label>
-                  <div class="input-element-inner">
-                    <input
-                      name="_store"
-                      type="number"
-                      min="0"
-                      placeholder="meta de la tienda"
-                      ng-model="vm.commission.storeRate"
-                      required
-                    >
-                  </div>
-                </div>
-
-              </section>
+              <div flex="100" layout layout-align="end center">
+                <md-button
+                  class="md-icon-button button-add"
+                  ng-click="vm.addEntry()"
+                >
+                   <md-icon md-svg-src="assets/images/icons/add.svg"></md-icon>
+                </md-button>
+              </div>
 
               <div>
                 <md-button

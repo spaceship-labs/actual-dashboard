@@ -1,21 +1,23 @@
-#edit {
-
-    .content {
-
-        .form-wrapper {
-
-        }
-
-        .form-data-wrapper {
-            margin-left: 16px;
-
-            .json-data-wrapper {
-                overflow: hidden;
-
-                pre {
-                    font-size: 16px;
-                }
-            }
-        }
-    }
+md-icon svg {
+  fill: inherit!important;
+}
+.button-watch {
+  color: blue!important;
+}
+.button-add{
+  color: green!important;
+}
+.button-remove{
+  color: red;
+}
+.select-element-md{
+  min-width:150px!important;
+  margin-top:-1px!important;
+  margin-bottom:0!important;
+}
+.options{
+  text-align:center;
+}
+.company-select{
+  margin-bottom:0!important;
 }

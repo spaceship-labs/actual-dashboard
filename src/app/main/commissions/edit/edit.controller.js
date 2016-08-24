@@ -11,43 +11,89 @@
 
       function CommissionsEditController(
         $scope,
-        $stateParams,
         $mdDialog,
+        $stateParams,
         dialogService,
         userService,
         roleService,
-        commissionService
+        goalService,
+        companyService
       ){
         var vm            = this;
-        vm.roles          = [];
         vm.isLoading      = false;
-        vm.commission     = {};
+        vm.goals          = [];
+        vm.commissions    = undefined;
+        vm.getSellers     = getSellers;
+        vm.selectDate     = selectDate;
         vm.sendForm       = sendForm;
+        vm.addEntry       = addEntry;
+        vm.removeEntry    = removeEntry;
+        vm.showCommission = showCommission;
         activate();
 
         function activate() {
-          var commission = $stateParams.id;
+          var goal = $stateParams.id;
           roleService.getRoles().then(function(res) {
             vm.roles = res.data;
           });
-          commissionService.findById(commission).then(function(commission){
-            vm.commission = Object.assign({}, commission, {
-              individualRate: commission.individualRate * 100,
-              storeRate: commission.storeRate * 100
-            });
+          companyService.getAllCompanies().then(function(companies) {
+            vm.companies = companies;
           });
+          goalService.findById(goal).then(function(goal){
+            var date = new Date(goal.date);
+            var d    = date.getDate();
+            var y    = date.getFullYear();
+            var m    = date.getMonth() + 1;
+            vm.date  = [m, y].join('-');
+            vm.goals = vm.goals.concat(goal);
+          });
+
+        }
+
+        function getSellers(index, company) {
+          companyService.countSellersGeneral(company).then(function(sellers) {
+            vm.goals[index].sellers = sellers;
+          });
+          companyService.countSellersProject(company).then(function(sellers) {
+            vm.goals[index].sellersProject = sellers;
+          });
+        }
+
+        function selectDate(index, date) {
+          var date = new Date(date._d);
+          var y    = date.getFullYear();
+          var m    = date.getMonth();
+          vm.goals[index].date = new Date(y, m, 1);
+        }
+
+        function addEntry() {
+          vm.goals = vm.goals.concat({});
+        }
+
+        function removeEntry(index) {
+          vm.goals = vm.goals.filter(function(entry, _index) {
+            return _index != index;
+          });
+        }
+
+        function showCommission(goal) {
+          var table = {
+            parent: angular.element(document.body),
+            templateUrl: 'app/main/commissions/create/dialogTable.html',
+            controller: function($scope) {
+              $scope.goal = goal;
+            },
+            clickOutsideToClose: true
+          };
+          $mdDialog.show(table);
         }
 
         function sendForm(valid) {
           if (!valid || vm.isLoading) {
             return;
           }
-          var commission = Object.assign({},vm.commission, {
-              individualRate: vm.commission.individualRate / 100,
-              storeRate: vm.commission.storeRate / 100
-            });
-          commissionService
-            .update(commission)
+          goalService
+            .update(vm.goals[0])
             .then(function(res){
               showConfirm();
               $scope
@@ -55,8 +101,9 @@
                 .$submitted = false;
               vm.isLoading  = false;
             }).
-            catch(function(err) {
-              showError();
+            catch(function(res) {
+              var err = res.data;
+              showError(err.originalError);
               vm.isLoading = false;
             });
         }
@@ -70,15 +117,14 @@
           $mdDialog.show(alert);
         }
 
-        function showError() {
+        function showError(err) {
            var alert = $mdDialog.alert({
             title: 'Comisión',
-            textContent: 'Hubo un problema, reintente más tarde',
+            textContent: err || 'Hubo un problema, reintente más tarde',
             ok: 'Close'
           });
           $mdDialog.show(alert);
         }
-
 
     }
 })();

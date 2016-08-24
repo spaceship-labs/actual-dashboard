@@ -12,21 +12,18 @@
         DTColumnBuilder,
         api,
         $q,
-        commissionService
+        goalService
       ){
         var vm = this;
         // Data
         vm.columns = [
-            {key:'Edit', label:'Editar', editUrl:'/commissions/edit/', propId: 'id'},
-            {key: 'name', label: 'Nombre'},
-            {key: 'individualGoal', label: 'Meta individual', currency: true},
-            {key: 'storeGoal', label: 'Meta de la tienda', currency: true},
-            {key: 'individualRate', label: 'Comisión individual', rate: true, isRateNormalized: true},
-            {key: 'storeRate', label: 'Comisión de la tienda', rate: true, isRateNormalized: true},
-            {key: 'type.name', label: 'Tipo de usuario'}
+            {key: 'Edit', label:'Editar', editUrl:'/commissions/edit/', propId: 'id'},
+            {key: 'company.WhsName', label: 'Tienda'},
+            {key: 'date', label: 'Fecha', dateMonth: true},
+            {key: 'goal', label: 'Meta', currency: true},
         ];
 
-        vm.apiResource = commissionService.getList;
+        vm.apiResource = goalService.getList;
 
         // Methods
 

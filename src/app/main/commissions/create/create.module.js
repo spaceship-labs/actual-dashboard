@@ -22,5 +22,4 @@
             moduleName: 'create-commissions',
         });
     }
-
 })();
