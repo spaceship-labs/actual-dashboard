@@ -82,7 +82,7 @@
             return;
           }
           goalService
-            .create(vm.goal)
+            .create(vm.goals)
             .then(function(res){
               showConfirm();
               $scope
