@@ -101,8 +101,9 @@
                 .$submitted = false;
               vm.isLoading  = false;
             }).
-            catch(function(err) {
-              showError();
+            catch(function(res) {
+              var err = res.data;
+              showError(err.originalError);
               vm.isLoading = false;
             });
         }
@@ -116,10 +117,10 @@
           $mdDialog.show(alert);
         }
 
-        function showError() {
+        function showError(err) {
            var alert = $mdDialog.alert({
             title: 'Comisión',
-            textContent: 'Hubo un problema, reintente más tarde',
+            textContent: err || 'Hubo un problema, reintente más tarde',
             ok: 'Close'
           });
           $mdDialog.show(alert);
