@@ -168,7 +168,6 @@
                   </md-input-container>
                 </div>
 
-
                 <div  class="input-element " flex="30" flex-xs="100">
                   <p class="select-element-label"><label><strong>Vendedor(SAP)</strong></label></p>
                   <md-input-container>
@@ -184,7 +183,7 @@
               </section>
 
               <section layout="row" layout-wrap layout-align="space-between start">
-                <div class="input-element" flex="45" flex-sm="100" flex-xs="100" layout>
+                <div class="input-element" flex="35" flex-sm="100" flex-xs="100" layout>
                   <p class="select-element-label"><label><strong>Tiendas</strong></label></p>
                   <div class="scroll-column">
                     <md-checkbox
@@ -198,7 +197,7 @@
                   </div>
                 </div>
 
-                <div class="input-element" flex="45" flex-sm="100" flex-xs="100" layout>
+                <div class="input-element" flex="35" flex-sm="100" flex-xs="100" layout>
                   <p class="select-element-label"><label><strong>Tienda principal</strong></label></p>
                   <div class="scroll-column">
                     <md-radio-group ng-model="vm.user.companyMain" layout layout-wrap>
@@ -214,6 +213,23 @@
                     </md-radio-group>
                   </div>
                 </div>
+
+                <div class="input-element"
+                  flex="10"
+                >
+                  <p class="select-element-label">
+                    <label><strong>Area de proyectos</strong></label>
+                  </p>
+                  <div>
+                    <md-checkbox
+                      class="block-checkbox"
+                      ng-model="vm.user.projectUser"
+                    >
+                      pertenece
+                    </md-checkbox>
+                  </div>
+                </div>
+
 
               </section>
 

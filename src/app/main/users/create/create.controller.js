@@ -120,7 +120,6 @@
          * Send form
          */
         function sendForm(form){
-          console.log(vm.basicForm);
           if(form.$valid){
             if(vm.basicForm.password === vm.basicForm.confirmPassword){
                 vm.user.accessList = [];
