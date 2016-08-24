@@ -9,7 +9,8 @@
     function companyService($http, $q, api){
       return {
         getAllCompanies: getAllCompanies,
-        countSellers: countSellers
+        countSellersGeneral: countSellersGeneral,
+        countSellersProject: countSellersProject
       };
 
       function getAllCompanies() {
@@ -19,8 +20,8 @@
         });
       }
 
-      function countSellers(company) {
-        var url    = '/company/countSellers';
+      function countSellersGeneral(company) {
+        var url    = '/company/countSellersGeneral';
         var params = {
           company: company
         };
@@ -28,5 +29,16 @@
           return res.data;
         });
       }
+
+      function countSellersProject(company) {
+        var url    = '/company/countSellersProject';
+        var params = {
+          company: company
+        };
+        return api.$http.get(url, params).then(function(res) {
+          return res.data;
+        });
+      }
+
     }
 })();
