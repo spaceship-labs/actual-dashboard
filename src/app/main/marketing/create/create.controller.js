@@ -87,7 +87,7 @@
                 var dis =  (baseDiscount - (i*5));
                 if(dis >= 0) pg.discount = dis;
               }
-            })
+            });
           }
         });
 

@@ -54,8 +54,20 @@
             console.log(p);
             p.packageInfo = p.packageInfo || {};
             p.packageInfo.discountType = p.packageInfo.discountType || 'percentage';
-            p.packageInfo.discount = p.packageInfo.discount || 0;
+            p.packageInfo.discount = p.packageInfo.discount || 25;
             p.packageInfo.quantity = p.packageInfo.quantity || 1;
+
+            var baseDiscount = p.packageInfo.discount;
+            var discountKeys = ['discountPg2','discountPg3','discountPg4','discountPg5'];
+            for(var i=0;i<discountKeys.length; i++){
+              var dis =  (baseDiscount - ( (i+1) *5));
+              if(dis >= 0){
+                //p.packageInfo[discountKeys[i]] =   dis;
+                p.packageInfo[discountKeys[i]] = p.packageInfo[discountKeys[i]] ||  dis;
+              }
+            }
+
+
             return p;
           });
           return products;
@@ -117,6 +129,7 @@
           }
           return total;
         }
+
 
         function objIndexOf(arr, query){
           return _.findWhere(arr, query);

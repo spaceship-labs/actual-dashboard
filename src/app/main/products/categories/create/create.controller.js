@@ -54,7 +54,6 @@
 
             $scope.setSelectedCategories();
             productService.createCategory($scope.category).then(function(res){
-              console.log(res);
               $scope.isLoading = false;
               $rootScope.$emit('reloadTable', true);
               dialogService.showMessageDialog('Categoria creada');
