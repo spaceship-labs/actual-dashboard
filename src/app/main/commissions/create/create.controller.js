@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.commissions.edit')
+        .module('app.commissions.create')
         .controller(
           'CommissionsCreateController',
           CommissionsCreateController
@@ -78,9 +78,13 @@
           var table = {
             parent: angular.element(document.body),
             templateUrl: 'app/main/commissions/create/dialogTable.html',
-            controller: function($scope) {
-              $scope.goal = goal;
-            },
+            controller: [
+              '$scope',
+              '$mdDialog',
+              function($scope, $mdDialog) {
+                $scope.goal = goal;
+              }
+            ],
             clickOutsideToClose: true
           };
           $mdDialog.show(table);
