@@ -9,6 +9,15 @@
           CommissionsCreateController
         );
 
+      CommissionsCreateController.$inject = [
+        '$scope',
+        '$mdDialog',
+        'dialogService',
+        'userService',
+        'roleService',
+        'goalService',
+        'companyService'
+      ];
       function CommissionsCreateController(
         $scope,
         $mdDialog,
