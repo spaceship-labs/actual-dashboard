@@ -55,8 +55,8 @@
                   <div flex class="table-header-item">Precio unitario</div>
                   <div flex class="table-header-item">Articulos por paquete</div>
                   <div flex class="table-header-item">Total</div>
-                  <div flex class="table-header-item">Descuento paquete</div>
-                  <div flex class="table-header-item">Tipo de descuento</div>
+                  <div flex class="table-header-item">Descuento paquete(%)</div>
+                  <!--<div flex class="table-header-item">Tipo de descuento</div>-->
                   <div flex class="table-header-item">Total con descuento</div>
                 </div>
                 <div
@@ -132,6 +132,7 @@
                     </section>
 
                   </div>
+                  <!--
                   <div flex class="table-body-item">
                     <div class="select-element-wrapper select-element-wrapper-nomargin" flex>
                       <md-input-container>
@@ -146,6 +147,7 @@
                       </md-input-container>
                     </div>
                   </div>
+                  -->
                   <div flex class="table-body-item">
                     {{ vm.calculateDiscount(product) | currency }}
                   </div>
