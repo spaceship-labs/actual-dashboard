@@ -44,9 +44,7 @@
                     <input
                       type="number"
                       name="_sellers"
-                      disabled
                       required
-                      ng-min="1"
                       ng-model="goal.sellers"
                       ng-placeholder="Seleccione una tienda"
                     >
@@ -68,14 +66,12 @@
                 </div>
 
                 <div class="input-element"  flex="15" flex-xs="100">
-                  <p class="select-element-label"><label><strong>Vendedores proyecciones</strong></label></p>
+                  <p class="select-element-label"><label><strong>Vendedores proyectos</strong></label></p>
                   <div class="input-element-inner">
                     <input
                       type="number"
                       name="_sellers"
-                      disabled
                       required
-                      ng-min="1"
                       ng-model="goal.sellersProject"
                       ng-placeholder="Seleccione una tienda"
                     >
@@ -84,7 +80,7 @@
 
 
                 <div class="input-element"  flex="15" flex-xs="100">
-                  <label>Meta de proyecciones</label>
+                  <label>Meta de proyectos</label>
                   <div class="input-element-inner">
                     <input
                       type="text"
@@ -118,27 +114,38 @@
                 </div>
                 <div layout layout-align="end center" layout-wrap class="options" flex="100">
                   <md-button
-                    class="md-icon-button button-watch"
+                    class="md-icon-button"
                     ng-click="vm.showCommission(goal)"
                   >
-                    <md-icon md-svg-src="assets/images/icons/watch.svg"></md-icon>
+                    <md-icon
+                      class="button-watch"
+                      md-svg-src="assets/images/icons/watch.svg"
+                    >
+                    </md-icon>
                   </md-button>
 
                   <md-button
-                    class="md-icon-button button-remove"
+                    class="md-icon-button"
                     ng-click="vm.removeEntry($index)"
                   >
-                    <md-icon md-svg-src="assets/images/icons/remove.svg"></md-icon>
+                    <md-icon
+                      class="button-remove"
+                      md-svg-src="assets/images/icons/remove.svg"
+                    >
+                    </md-icon>
                   </md-button>
-
                 </div>
               </section>
               <div flex="100" layout layout-align="end center">
                 <md-button
-                  class="md-icon-button button-add"
+                  class="md-icon-button"
                   ng-click="vm.addEntry()"
                 >
-                   <md-icon md-svg-src="assets/images/icons/add.svg"></md-icon>
+                  <md-icon
+                    class="button-add"
+                    md-svg-src="assets/images/icons/add.svg"
+                  >
+                   </md-icon>
                 </md-button>
               </div>
 
