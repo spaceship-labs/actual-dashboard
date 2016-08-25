@@ -104,7 +104,7 @@
           userService.getUser($stateParams.id).then(function(res){
             vm.user           = res.data.data;
             vm.user.role      = (vm.user.role && vm.user.role.id) || vm.user.role;
-            vm.user.Stores = vm.user.Stores.map(function(company) {return company.id;});
+            vm.user.Stores    = (vm.user.Stores || []).map(function(store) {return store.id;});
             if(vm.user.mainStore){
               vm.user.mainStore = vm.user.mainStore.id;
             }
