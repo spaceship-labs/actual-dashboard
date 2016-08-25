@@ -21,3 +21,18 @@ md-icon svg {
 .company-select{
   margin-bottom:0!important;
 }
+#commissionsDialog, #commissionsDialog md-content{
+  background:#F5F5F5;
+}
+#commissionsDialog h1{
+  color:white;
+  background:#CE2329;
+  text-align:center;
+}
+
+#commissionsDialog table caption {
+  font-size:18px;
+  background:black;
+  color:white;
+  font-weight: bold;
+}
