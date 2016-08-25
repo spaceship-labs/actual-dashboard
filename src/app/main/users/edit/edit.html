@@ -146,11 +146,11 @@
                   <div class="scroll-column">
                     <md-checkbox
                       class="block-checkbox"
-                      ng-repeat="company in vm.companies track by $index"
-                      ng-click="vm.toggleCompany(company.id)"
-                      ng-checked="vm.isCompanySelected(company.id)"
+                      ng-repeat="store in vm.stores track by $index"
+                      ng-click="vm.toggleStore(store.id)"
+                      ng-checked="vm.isStoreSelected(store.id)"
                     >
-                      {{company.WhsName}}
+                      {{store.name}}
                     </md-checkbox>
                   </div>
                 </div>
@@ -158,15 +158,15 @@
                 <div class="input-element" flex="35" flex-sm="100" flex-xs="100" layout>
                   <p class="select-element-label"><label><strong>Tienda principal</strong></label></p>
                   <div class="scroll-column">
-                    <md-radio-group ng-model="vm.user.companyMain" layout layout-wrap>
+                    <md-radio-group ng-model="vm.user.mainStore" layout layout-wrap>
                       <md-radio-button
                         class="block-checkbox"
-                        ng-repeat="company in vm.companies"
-                        ng-if="vm.isCompanySelected(company.id)"
-                        ng-value="company.id"
+                        ng-repeat="store in vm.stores"
+                        ng-if="vm.isStoreSelected(store.id)"
+                        ng-value="store.id"
                         flex="100"
                       >
-                        {{company.WhsName}}
+                        {{store.name}}
                       </md-radio-button>
                     </md-radio-group>
                   </div>

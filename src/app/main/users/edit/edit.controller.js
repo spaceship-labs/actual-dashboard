@@ -65,7 +65,7 @@
         ];
 
         vm.permissions = [];
-        vm.companies = [];
+        vm.stores = [];
 
 
         vm.notifications = [];
@@ -74,24 +74,24 @@
 
         // Methods
         vm.sendForm          = sendForm;
-        vm.toggleCompany     = toggleCompany;
-        vm.isCompanySelected = isCompanySelected;
+        vm.toggleStore     = toggleStore;
+        vm.isStoreSelected = isStoreSelected;
         vm.init              = init;
 
-        function isCompanySelected(id) {
+        function isStoreSelected(id) {
           if(!vm.user){
             return false;
           }
-          return vm.user.companies.indexOf(id) !== -1;
+          return vm.user.Stores.indexOf(id) !== -1;
         }
-        function toggleCompany(id) {
+        function toggleStore(id) {
           if(vm.user){
-            if (isCompanySelected(id)) {
-              vm.user.companies = vm.user.companies.filter(function(comp){
+            if (isStoreSelected(id)) {
+              vm.user.Stores = vm.user.Stores.filter(function(comp){
                 return comp != id;
               });
             } else  {
-              vm.user.companies = vm.user.companies.concat(id);
+              vm.user.Stores = vm.user.Stores.concat(id);
             }
           }
         }
@@ -104,9 +104,9 @@
           userService.getUser($stateParams.id).then(function(res){
             vm.user           = res.data.data;
             vm.user.role      = (vm.user.role && vm.user.role.id) || vm.user.role;
-            vm.user.companies = vm.user.companies.map(function(company) {return company.id;});
-            if(vm.user.companyMain){
-              vm.user.companyMain = vm.user.companyMain.id;
+            vm.user.Stores = vm.user.Stores.map(function(company) {return company.id;});
+            if(vm.user.mainStore){
+              vm.user.mainStore = vm.user.mainStore.id;
             }
             vm.modules.forEach(function(module){
               if(vm.user.accessList && vm.user.accessList.indexOf(module.key) >= 0){
@@ -134,8 +134,8 @@
             vm.permissions = res.data;
           });
 
-          api.$http.get('/company/find').then(function(res) {
-            vm.companies = res.data;
+          api.$http.get('/store/find').then(function(res) {
+            vm.stores = res.data;
           });
 
           api.$http.get('/role/find').then(function(res) {

@@ -15,7 +15,7 @@
           myPickerStartDate: {},
           groups: [],
           selectedCategories: [],
-          selectedCompanies: [],
+          selectedStores: [],
           search: {
             groups:[],
             categories:[],
@@ -66,7 +66,7 @@
           init: init,
           getExcludedNum: getExcludedNum,
           loadCategories: loadCategories,
-          loadCompanies: loadCompanies,
+          loadStores: loadStores,
           loadCustomBrands: loadCustomBrands,
           loadFilters: loadFilters,
           objIndexOf: objIndexOf,
@@ -150,12 +150,12 @@
           vm.loadCategories();
           vm.loadFilters();
           vm.loadCustomBrands();
-          vm.loadCompanies();
+          vm.loadStores();
         }
 
-        function loadCompanies(){
-          api.$http.get('/company/find').then(function(res){
-            vm.companies = res.data;
+        function loadStores(){
+          api.$http.get('/store/find').then(function(res){
+            vm.stores = res.data;
           });
         }
 
@@ -269,7 +269,7 @@
               startDate   : vm.promotion.startDate,
               endDate     : vm.promotion.endDate,
               hasLM       : vm.promotion.hasLM,
-              Companies   : vm.selectedCompanies,
+              Stores      : vm.selectedStores,
               Categories  : vm.search.categories,
               FilterValues: vm.search.filtervalues,
               CustomBrands: vm.search.customBrands,
@@ -328,6 +328,7 @@
                 vm.isLoading = false;
               });
           }else{
+            console.log(form);
             dialogService.showDialog('Revisa los datos incompletos');
           }
         }

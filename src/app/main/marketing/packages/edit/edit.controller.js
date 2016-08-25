@@ -40,12 +40,12 @@
           .catch(function(err){
             console.log(err);
           });
-          loadCompanies();
+          loadStores();
         }
 
-        function loadCompanies(){
-          api.$http.get('/company/find').then(function(res){
-            vm.companies = res.data;
+        function loadStores(){
+          api.$http.get('/store/find').then(function(res){
+            vm.stores = res.data;
           });
         }
 

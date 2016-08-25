@@ -59,7 +59,7 @@
           init: init,
           create: create,
           getExcludedNum: getExcludedNum,
-          loadCompanies: loadCompanies,
+          loadStores: loadStores,
           loadCategories: loadCategories,
           loadCustomBrands: loadCustomBrands,
           loadFilters: loadFilters,
@@ -76,7 +76,7 @@
           vm.loadCategories();
           vm.loadFilters();
           vm.loadCustomBrands();
-          vm.loadCompanies();
+          vm.loadStores();
         }
 
         $scope.$watch('vm.paymentGroups[0].discount', function(newVal,oldVal){
@@ -91,9 +91,9 @@
           }
         });
 
-        function loadCompanies(){
-          api.$http.get('/company/find').then(function(res){
-            vm.companies = res.data;
+        function loadStores(){
+          api.$http.get('/store/find').then(function(res){
+            vm.stores = res.data;
           });
         }
 

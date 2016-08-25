@@ -38,8 +38,8 @@
                       <md-option
                         ng-value="store.id"
                         ng-selected="vm.objIndexOf(vm.packageGroup.Stores, {id:store.id})"
-                        ng-repeat="store in vm.companies">
-                        {{store.WhsName}}
+                        ng-repeat="store in vm.stores">
+                        {{store.name}}
                       </md-option>
                     </md-optgroup>
                   </md-select>

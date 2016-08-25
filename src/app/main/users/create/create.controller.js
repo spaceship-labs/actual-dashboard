@@ -17,7 +17,7 @@
         // Data
         vm.user = {
           modules: [],
-          companies: []
+          Stores: []
         };
         vm.basicForm = {};
         vm.formWizard = {};
@@ -77,22 +77,22 @@
 
         // Methods
         vm.sendForm = sendForm;
-        vm.toggleCompany     = toggleCompany;
-        vm.isCompanySelected = isCompanySelected;
+        vm.toggleStore     = toggleStore;
+        vm.isStoreSelected = isStoreSelected;
         init();
 
-        function isCompanySelected(id) {
-          return vm.user.companies.indexOf(id) !== -1;
+        function isStoreSelected(id) {
+          return vm.user.Stores.indexOf(id) !== -1;
         }
 
-        function toggleCompany(id) {
+        function toggleStore(id) {
           if(vm.user){
-            if (isCompanySelected(id)) {
-              vm.user.companies = vm.user.companies.filter(function(comp){
+            if (isStoreSelected(id)) {
+              vm.user.Stores = vm.user.Stores.filter(function(comp){
                 return comp != id;
               });
             } else  {
-              vm.user.companies = vm.user.companies.concat(id);
+              vm.user.Stores = vm.user.Stores.concat(id);
             }
           }
         }
@@ -106,8 +106,8 @@
             vm.sellers.unshift({id:null, SlpName:'Ninguno'});
           });
 
-          api.$http.get('/company/find').then(function(res){
-            vm.companies = res.data;
+          api.$http.get('/store/find').then(function(res){
+            vm.stores = res.data;
           });
 
           api.$http.get('/role/find').then(function(res) {

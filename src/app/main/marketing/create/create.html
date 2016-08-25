@@ -52,12 +52,12 @@
                 <div flex="45" flex-sm="100" flex-xs="100">
                   <p class="select-element-label"><label><strong>Tienda</strong></label></p>
                   <md-input-container class="checkboxes-dropdown-wrap">
-                    <md-select class="checkboxes-dropdown select-element" ng-model="vm.promotion.Companies"
+                    <md-select class="checkboxes-dropdown select-element" ng-model="vm.promotion.Stores"
                        data-md-container-class="selectdemoSelectHeader"
                        multiple
                     >
                       <md-optgroup label="Tiendas">
-                        <md-option ng-value="store.id" ng-repeat="store in vm.companies">{{store.WhsName}}</md-option>
+                        <md-option ng-value="store.id" ng-repeat="store in vm.stores">{{store.name}}</md-option>
                       </md-optgroup>
                     </md-select>
                   </md-input-container>
