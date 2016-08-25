@@ -62,7 +62,7 @@
                 <div
                   class="product-item"
                   layout="row"
-                  layout-align="center center"
+                  layout-align="center start"
                   ng-repeat="product in vm.products"
                 >
                   <div flex class="table-body-item">
@@ -87,7 +87,50 @@
                       <div class="input-element-inner">
                         <input type="number" min="0" ng-model="product.packageInfo.discount" required placeholder="Descuento">
                       </div>
+
+                      <p>
+                        <a
+                          ng-click="product.showDiscounts = !product.showDiscounts"
+                          href="#"
+                        >
+                          Configurar grupos de pago
+                        </a>
+                      </p>
                     </div>
+
+                    <section ng-show="product.showDiscounts" class="discounts-groups">
+
+                      <div class="input-element">
+                        <label class="label-element">Grupo pago 2</label>
+                        <div class="input-element-inner">
+                          <input type="number" min="0" ng-model="product.packageInfo.discountPg2" required placeholder="Descuento">
+                        </div>
+                      </div>
+
+                      <div class="input-element">
+                        <label class="label-element">Grupo pago 3</label>
+                        <div class="input-element-inner">
+                          <input type="number" min="0" ng-model="product.packageInfo.discountPg3" required placeholder="Descuento">
+                        </div>
+                      </div>
+
+
+                      <div class="input-element">
+                        <label class="label-element">Grupo pago 4</label>
+                        <div class="input-element-inner">
+                          <input type="number" min="0" ng-model="product.packageInfo.discountPg4" required placeholder="Descuento">
+                        </div>
+                      </div>
+
+                      <div class="input-element">
+                        <label class="label-element">Grupo pago 5</label>
+                        <div class="input-element-inner">
+                          <input type="number" min="0" ng-model="product.packageInfo.discountPg5" required placeholder="Descuento">
+                        </div>
+                      </div>
+
+                    </section>
+
                   </div>
                   <div flex class="table-body-item">
                     <div class="select-element-wrapper select-element-wrapper-nomargin" flex>
