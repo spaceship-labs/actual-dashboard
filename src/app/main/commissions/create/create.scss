@@ -1,3 +1,11 @@
+.select-element md-select.ng-invalid.ng-dirty,
+.input-element .input-element-inner input[type="text"].ng-invalid.ng-dirty,
+.input-element .input-element-inner input[type="email"].ng-invalid.ng-dirty,
+.input-element .input-element-inner input[type="number"].ng-invalid.ng-dirty,
+.input-element .input-element-inner input[type="password"].ng-invalid.ng-dirty,
+.input-element .input-element-inner textarea.ng-invalid.ng-dirty{
+  border:2px solid red;
+}
 md-icon svg {
   fill: inherit!important;
 }
