@@ -16,7 +16,7 @@
         'userService',
         'roleService',
         'goalService',
-        'companyService'
+        'storeService'
       ];
       function CommissionsCreateController(
         $scope,
@@ -25,7 +25,7 @@
         userService,
         roleService,
         goalService,
-        companyService
+        storeService
       ){
         var vm            = this;
         vm.isLoading      = false;
@@ -43,17 +43,14 @@
           roleService.getRoles().then(function(res) {
             vm.roles = res.data;
           });
-          companyService.getAllCompanies().then(function(companies) {
-            vm.companies = companies;
+          storeService.getAllStores().then(function(stores) {
+            vm.stores = stores;
           });
         }
 
-        function getSellers(index, company) {
-          companyService.countSellersGeneral(company).then(function(sellers) {
+        function getSellers(index, store) {
+          storeService.countSellers(store).then(function(sellers) {
             vm.goals[index].sellers = sellers;
-          });
-          companyService.countSellersProject(company).then(function(sellers) {
-            vm.goals[index].sellersProject = sellers;
           });
         }
 

@@ -27,12 +27,12 @@
                     <md-select
                       class="select-element select-element-md"
                       name="_company"
-                      ng-model="goal.company"
-                      ng-change="vm.getSellers($index, goal.company)"
+                      ng-model="goal.store"
+                      ng-change="vm.getSellers($index, goal.store)"
                       required
                     >
-                      <md-option ng-repeat="company in vm.companies" ng-value="company.id">
-                        {{company.WhsName}}
+                      <md-option ng-repeat="store in vm.stores" ng-value="store.id">
+                        {{store.name}}
                       </md-option>
                     </md-select>
                   </md-input-container>
@@ -60,33 +60,6 @@
                       format-as-currency
                       required
                       ng-model="goal.goal"
-                      ng-placeholder="Meta de la tienda"
-                    >
-                  </div>
-                </div>
-
-                <div class="input-element"  flex="15" flex-xs="100">
-                  <p class="select-element-label"><label><strong>Vendedores proyectos</strong></label></p>
-                  <div class="input-element-inner">
-                    <input
-                      type="number"
-                      name="_sellers"
-                      required
-                      ng-model="goal.sellersProject"
-                      ng-placeholder="Seleccione una tienda"
-                    >
-                  </div>
-                </div>
-
-                <div class="input-element"  flex="15" flex-xs="100">
-                  <label>Meta de proyectos</label>
-                  <div class="input-element-inner">
-                    <input
-                      type="text"
-                      name="_goal"
-                      format-as-currency
-                      required
-                      ng-model="goal.goalProject"
                       ng-placeholder="Meta de la tienda"
                     >
                   </div>
