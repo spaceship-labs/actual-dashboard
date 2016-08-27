@@ -80,7 +80,7 @@
         }
 
         function wasCreatedEntry(entry) {
-          return !!vm.error.find(function(goal) {
+          return vm.error && !!vm.error.find(function(goal) {
             return goal.store == entry.store && equalDate(goal.date, entry.date);
           });
         }

@@ -4,13 +4,13 @@
         <section class="md-whiteframe-z1">
           <md-toolbar class="demo-toolbar md-primary">
             <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
-              <h3>CREAR COMISIÓN</h3>
+              <h3>MODIFICAR COMISIÓN</h3>
               <md-button type="submit"
                 class="md-raised md-accent action-button"
                 aria-label="Guardar"
                 ng-click="vm.sendForm(basicForm.$valid)"
               >
-                  CREAR
+                  GUARDAR
               </md-button>
 
             </div>
@@ -20,7 +20,13 @@
               <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
             </div>
             <form name="basicForm" ng-show="!vm.isLoading"  class="md-inline-form" novalidate>
-              <section layout="row" layout-wrap layout-align="space-between start" ng-repeat="goal in vm.goals">
+              <section
+                layout="row"
+                layout-wrap
+                layout-align="space-between start"
+                ng-repeat="goal in vm.goals"
+                ng-class="{invalid: vm.repeatedEntry(goal, $index) || vm.wasCreatedEntry(goal)}"
+              >
                 <div class="input-element" flex="15" flex-xs="100">
                   <p class="select-element-label"><label><strong>Tienda</strong></label></p>
                   <md-input-container class="company-select">
@@ -97,6 +103,7 @@
                   <md-button
                     class="md-icon-button"
                     ng-click="vm.removeEntry($index)"
+                    ng-if="vm.goals.length > 1"
                   >
                     <md-icon
                       class="button-remove"
@@ -107,10 +114,11 @@
 
                 </div>
               </section>
-              <div flex="100" layout layout-align="end center" ng-if="false">
+              <div flex="100" layout layout-align="end center">
                 <md-button
                   class="md-icon-button"
                   ng-click="vm.addEntry()"
+                  ng-if="false"
                 >
                   <md-icon
                     class="button-add"
@@ -127,7 +135,7 @@
                   aria-label="Guardar"
                   ng-click="vm.sendForm(basicForm.$valid)"
                 >
-                    CREAR
+                    GUARDAR
                 </md-button>
               </div>
 
