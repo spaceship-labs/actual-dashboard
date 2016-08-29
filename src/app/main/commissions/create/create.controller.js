@@ -16,7 +16,7 @@
         'userService',
         'roleService',
         'goalService',
-        'companyService'
+        'storeService'
       ];
       function CommissionsCreateController(
         $scope,
@@ -25,35 +25,34 @@
         userService,
         roleService,
         goalService,
-        companyService
+        storeService
       ){
-        var vm            = this;
-        vm.isLoading      = false;
-        vm.goals          = [{}];
-        vm.commissions    = undefined;
-        vm.getSellers     = getSellers;
-        vm.selectDate     = selectDate;
-        vm.sendForm       = sendForm;
-        vm.addEntry       = addEntry;
-        vm.removeEntry    = removeEntry;
-        vm.showCommission = showCommission;
+        var vm             = this;
+        vm.isLoading       = false;
+        vm.goals           = [{}];
+        vm.commissions     = undefined;
+        vm.repeatedEntry   = repeatedEntry;
+        vm.wasCreatedEntry = wasCreatedEntry;
+        vm.getSellers      = getSellers;
+        vm.selectDate      = selectDate;
+        vm.sendForm        = sendForm;
+        vm.addEntry        = addEntry;
+        vm.removeEntry     = removeEntry;
+        vm.showCommission  = showCommission;
         activate();
 
         function activate() {
           roleService.getRoles().then(function(res) {
             vm.roles = res.data;
           });
-          companyService.getAllCompanies().then(function(companies) {
-            vm.companies = companies;
+          storeService.getAllStores().then(function(stores) {
+            vm.stores = stores;
           });
         }
 
-        function getSellers(index, company) {
-          companyService.countSellersGeneral(company).then(function(sellers) {
+        function getSellers(index, store) {
+          storeService.countSellers(store).then(function(sellers) {
             vm.goals[index].sellers = sellers;
-          });
-          companyService.countSellersProject(company).then(function(sellers) {
-            vm.goals[index].sellersProject = sellers;
           });
         }
 
@@ -74,6 +73,30 @@
           });
         }
 
+        function repeatedEntry(entry, index) {
+          return !!vm.goals.find(function(goal, i) {
+            return index != i && goal.store == entry.store && equalDate(entry.date, goal.date);
+          });
+        }
+
+        function wasCreatedEntry(entry) {
+          return vm.error && !!vm.error.find(function(goal) {
+            return goal.store == entry.store && equalDate(goal.date, entry.date);
+          });
+        }
+
+        function anyGoalRepeated() {
+          return !!vm.goals.find(function(goal, index) {
+            return repeatedEntry(goal, index);
+          });
+        }
+
+        function equalDate(d1, d2) {
+          d1 = new Date(d1);
+          d2 = new Date(d2);
+          return d1.getTime() == d2.getTime();
+        }
+
         function showCommission(goal) {
           var table = {
             parent: angular.element(document.body),
@@ -91,7 +114,7 @@
         }
 
         function sendForm(valid) {
-          if (!valid || vm.isLoading) {
+          if (!valid || anyGoalRepeated() || vm.isLoading) {
             return;
           }
           goalService
@@ -105,7 +128,8 @@
               vm.isLoading  = false;
             }).
             catch(function(res) {
-              var err = res.data;
+              var err  = res.data;
+              vm.error = err.entries;
               showError(err.originalError);
               vm.isLoading = false;
             });

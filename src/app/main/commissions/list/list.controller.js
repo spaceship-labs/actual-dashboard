@@ -18,7 +18,7 @@
         // Data
         vm.columns = [
             {key: 'Edit', label:'Editar', editUrl:'/commissions/edit/', propId: 'id'},
-            {key: 'company.WhsName', label: 'Tienda'},
+            {key: 'store.name', label: 'Tienda'},
             {key: 'date', label: 'Fecha', dateMonth: true},
             {key: 'goal', label: 'Meta', currency: true},
         ];

@@ -9,6 +9,16 @@
           CommissionsEditController
         );
 
+      CommissionsEditController.$inject = [
+        '$scope',
+        '$mdDialog',
+        '$stateParams',
+        'dialogService',
+        'userService',
+        'roleService',
+        'goalService',
+        'storeService'
+      ];
       function CommissionsEditController(
         $scope,
         $mdDialog,
@@ -17,18 +27,20 @@
         userService,
         roleService,
         goalService,
-        companyService
+        storeService
       ){
-        var vm            = this;
-        vm.isLoading      = false;
-        vm.goals          = [];
-        vm.commissions    = undefined;
-        vm.getSellers     = getSellers;
-        vm.selectDate     = selectDate;
-        vm.sendForm       = sendForm;
-        vm.addEntry       = addEntry;
-        vm.removeEntry    = removeEntry;
-        vm.showCommission = showCommission;
+        var vm             = this;
+        vm.isLoading       = false;
+        vm.goals           = [];
+        vm.commissions     = undefined;
+        vm.repeatedEntry   = repeatedEntry;
+        vm.wasCreatedEntry = wasCreatedEntry;
+        vm.getSellers      = getSellers;
+        vm.selectDate      = selectDate;
+        vm.sendForm        = sendForm;
+        vm.addEntry        = addEntry;
+        vm.removeEntry     = removeEntry;
+        vm.showCommission  = showCommission;
         activate();
 
         function activate() {
@@ -36,26 +48,22 @@
           roleService.getRoles().then(function(res) {
             vm.roles = res.data;
           });
-          companyService.getAllCompanies().then(function(companies) {
-            vm.companies = companies;
+          storeService.getAllStores().then(function(stores) {
+            vm.stores = stores;
           });
           goalService.findById(goal).then(function(goal){
             var date = new Date(goal.date);
             var d    = date.getDate();
             var y    = date.getFullYear();
             var m    = date.getMonth() + 1;
-            vm.date  = [m, y].join('-');
+            vm._date  = [m, y].join('-');
             vm.goals = vm.goals.concat(goal);
           });
-
         }
 
-        function getSellers(index, company) {
-          companyService.countSellersGeneral(company).then(function(sellers) {
+        function getSellers(index, store) {
+          storeService.countSellers(store).then(function(sellers) {
             vm.goals[index].sellers = sellers;
-          });
-          companyService.countSellersProject(company).then(function(sellers) {
-            vm.goals[index].sellersProject = sellers;
           });
         }
 
@@ -76,20 +84,48 @@
           });
         }
 
+        function repeatedEntry(entry, index) {
+          return !!vm.goals.find(function(goal, i) {
+            return index != i && goal.store == entry.store && equalDate(entry.date, goal.date);
+          });
+        }
+
+        function wasCreatedEntry(entry) {
+          return vm.error &&  !!vm.error.find(function(goal) {
+            return goal.store == entry.store && equalDate(goal.date, entry.date);
+          });
+        }
+
+        function anyGoalRepeated() {
+          return !!vm.goals.find(function(goal, index) {
+            return repeatedEntry(goal, index);
+          });
+        }
+
+        function equalDate(d1, d2) {
+          d1 = new Date(d1);
+          d2 = new Date(d2);
+          return d1.getTime() == d2.getTime();
+        }
+
         function showCommission(goal) {
           var table = {
             parent: angular.element(document.body),
             templateUrl: 'app/main/commissions/create/dialogTable.html',
-            controller: function($scope) {
-              $scope.goal = goal;
-            },
+            controller: [
+              '$scope',
+              '$mdDialog',
+              function($scope, $mdDialog) {
+                $scope.goal = goal;
+              }
+            ],
             clickOutsideToClose: true
           };
           $mdDialog.show(table);
         }
 
         function sendForm(valid) {
-          if (!valid || vm.isLoading) {
+          if (!valid || anyGoalRepeated() || vm.isLoading) {
             return;
           }
           goalService
@@ -99,10 +135,12 @@
               $scope
                 .basicForm
                 .$submitted = false;
+              vm.goal       = {};
               vm.isLoading  = false;
             }).
             catch(function(res) {
-              var err = res.data;
+              var err  = res.data;
+              vm.error = err.entries;
               showError(err.originalError);
               vm.isLoading = false;
             });
@@ -125,6 +163,5 @@
           });
           $mdDialog.show(alert);
         }
-
     }
 })();

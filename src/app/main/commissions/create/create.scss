@@ -3,7 +3,8 @@
 .input-element .input-element-inner input[type="email"].ng-invalid.ng-dirty,
 .input-element .input-element-inner input[type="number"].ng-invalid.ng-dirty,
 .input-element .input-element-inner input[type="password"].ng-invalid.ng-dirty,
-.input-element .input-element-inner textarea.ng-invalid.ng-dirty{
+.input-element .input-element-inner textarea.ng-invalid.ng-dirty,
+section.invalid{
   border:2px solid red;
 }
 md-icon svg {
