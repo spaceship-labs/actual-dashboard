@@ -224,7 +224,8 @@
             productService.advancedSearch(params).then(function(res){
               vm.isLoadingProducts = false;
               if(res.data){
-                vm.products = res.data.products.map(function(prod){
+                var productsResponse = _.isArray(res.data.products) ? res.data.products : [];
+                vm.products = productsResponse.map(function(prod){
                   prod.isActive = true;
                   return prod;
                 });
