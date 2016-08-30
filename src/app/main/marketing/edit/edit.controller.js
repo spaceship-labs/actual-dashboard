@@ -11,11 +11,13 @@
         var vm = this;
 
         angular.extend(vm, {
-          myPickerEndDate: {},
-          myPickerStartDate: {},
-          groups: [],
-          selectedCategories: [],
-          selectedStores: [],
+          myPickerEndDate         : {},
+          myPickerStartDate       : {},
+          groups                  : [],
+          selectedCategories      : [],
+          selectedStores          : [],
+          products                : [],
+          showFilters             : false,
           search: {
             groups:[],
             categories:[],
@@ -24,8 +26,6 @@
             limit: 999999,
             U_Empresa:false
           },
-          showFilters: false,
-          products: [],
           groupTypes: {
             'variations': 'Agrupador Variaciones',
             'environments': 'Agrupador Ambientes',
@@ -55,45 +55,19 @@
             {label:'Ambas | 003', value:'003'}
             //{label:'Actual Kids', value:'003'},
           ],
-          /*
-          sas: [
-            {label:'Ninguno', value:'none'},
-            {label:'Actual Studio', value:'Actual Studio'},
-            {label:'Actual Home', value:'Actual Home'},
-            {label:'Actual Kids', value:'Actual Kids'},
-          ],
-          */
-          init: init,
-          getExcludedNum: getExcludedNum,
-          loadCategories: loadCategories,
-          loadStores: loadStores,
-          loadCustomBrands: loadCustomBrands,
-          loadFilters: loadFilters,
-          objIndexOf: objIndexOf,
-          onSelectEndDate: onSelectEndDate,
-          onSelectStartDate: onSelectStartDate,
-          queryGroups: queryGroups,
-          removeGroup: removeGroup,
-          searchProds: searchProds,
-          selectedGroupChange: selectedGroupChange,
-          setPromoDiscounts: setPromoDiscounts,
-          update: update,
+          getExcludedNum        : getExcludedNum,
+          objIndexOf            : objIndexOf,
+          onSelectEndDate       : onSelectEndDate,
+          onSelectStartDate     : onSelectStartDate,
+          queryGroups           : queryGroups,
+          removeGroup           : removeGroup,
+          searchProds           : searchProds,
+          selectedGroupChange   : selectedGroupChange,
+          setPromoDiscounts     : setPromoDiscounts,
+          selectAllCategories   : selectAllCategories,
+          unselectAllCategories : unselectAllCategories,
+          update                : update,
         });
-
-        /*
-        $scope.$watch('vm.paymentGroups[0].discount', function(newVal,oldVal){
-          if(newVal != oldVal && !isNaN(newVal)){
-            var baseDiscount = newVal;
-            vm.paymentGroups.forEach(function(pg, i){
-              if(i != 0){
-                var dis =  (baseDiscount - (i*5));
-                if(dis >= 0) pg.discount = dis;
-              }
-            })
-          }
-        });
-        */
-
 
         function objIndexOf(arr, query){
           return _.findWhere(arr, query);
@@ -147,10 +121,10 @@
           }).catch(function(err){
             console.log(err);
           })
-          vm.loadCategories();
-          vm.loadFilters();
-          vm.loadCustomBrands();
-          vm.loadStores();
+          loadCategories();
+          loadFilters();
+          loadCustomBrands();
+          loadStores();
         }
 
         function loadStores(){
@@ -161,8 +135,11 @@
 
         function loadCategories(){
           productService.getCategoriesGroups().then(function(res){
-            vm.categoriesGroups = res.data;
-            vm.selectedCategories = categoriesService.createSelectedArrays(vm.categoriesGroups, vm.selectedCategories);
+            vm.categoriesGroups   = res.data;
+            vm.selectedCategories = categoriesService.createSelectedArrays(
+              vm.categoriesGroups,
+              vm.selectedCategories
+            );
           }).catch(function(err){
             console.log(err);
           });
@@ -170,8 +147,8 @@
 
         function loadFilters(){
           productService.getAllFilters().then(function(res){
-            vm.filters = res.data;
-            vm.filters = fvService.sortFV(vm.filters);
+            vm.filters       = res.data;
+            vm.filters       = fvService.sortFV(vm.filters);
             vm.loadedFilters = true;
           });
         }
@@ -182,6 +159,22 @@
             vm.customBrands = res.data;
           });
         }
+
+        function selectAllCategories(){
+          var options = {selectAll: true};
+          vm.selectedCategories = categoriesService.createSelectedArrays(
+            vm.categoriesGroups, 
+            vm.selectedCategories,
+            options
+          );          
+        }     
+
+        function unselectAllCategories(){
+          vm.selectedCategories = categoriesService.createSelectedArrays(
+            vm.categoriesGroups, 
+            vm.selectedCategories
+          );          
+        }            
 
         function queryGroups(term){
           console.log(term);
@@ -214,13 +207,14 @@
         function searchProds(){
           if(!vm.isLoadingProducts){
             vm.searchDone = true;
-            vm.search.categories = categoriesService.getSelectedCategories(vm.categoriesGroups, vm.selectedCategories);
-            vm.search.filtervalues = fvService.getSelectedFV(vm.filters, {multiples:true});
-            vm.isLoadingProducts = true;
-            var params = angular.copy(vm.search);
-            params.groups = params.groups.map(function(g){return g.id});
-            params.noImages = true;
-            params.applyPopulate = false;
+            vm.search.categories          = categoriesService.getSelectedCategories(vm.categoriesGroups, vm.selectedCategories);
+            vm.search.filtervalues        = fvService.getSelectedFV(vm.filters, {multiples:true});
+            vm.search.excludedCategories  = categoriesService.getUnselectedCategories(vm.categoriesGroups, vm.search.categories);
+            var params                    = angular.copy(vm.search);
+            params.groups                 = params.groups.map(function(g){return g.id});
+            params.populatePromotions     = false;
+            params.populateImgs           = false;
+            vm.isLoadingProducts          = true;
             productService.advancedSearch(params).then(function(res){
               vm.isLoadingProducts = false;
               if(res.data){
@@ -264,50 +258,49 @@
             vm.search.categories = categoriesService.getSelectedCategories(vm.categoriesGroups, vm.selectedCategories);
             vm.search.filtervalues = fvService.getSelectedFV(vm.filters, {multiples:true});
             var params = {
-              publicName  : vm.promotion.publicName,
-              name        : vm.promotion.name,
-              code        : vm.promotion.code,
-              startDate   : vm.promotion.startDate,
-              endDate     : vm.promotion.endDate,
-              hasLM       : vm.promotion.hasLM,
-              Stores      : vm.selectedStores,
-              Categories  : vm.search.categories,
-              FilterValues: vm.search.filtervalues,
-              CustomBrands: vm.search.customBrands,
-              Groups      : groups,
-              OnStudio    : vm.search.OnStudio,
-              OnHome      : vm.search.OnHome,
-              OnKids      : vm.search.OnKids,
-              OnAmueble   : vm.search.OnAmueble,
-              itemCode    : vm.search.itemCode,
-              //SA   : vm.search.SA,
-              //U_Empresa   : vm.search.U_Empresa,
-              sas         : vm.search.sas,
-              Products    : products,
-              excludedProducts: vm.excluded,
-              discountPg1 : vm.paymentGroups[0].discount,
-              discountPg2 : vm.paymentGroups[1].discount,
-              discountPg3 : vm.paymentGroups[2].discount,
-              discountPg4 : vm.paymentGroups[3].discount,
-              discountPg5 : vm.paymentGroups[4].discount,
+              publicName        : vm.promotion.publicName,
+              name              : vm.promotion.name,
+              code              : vm.promotion.code,
+              startDate         : vm.promotion.startDate,
+              endDate           : vm.promotion.endDate,
+              hasLM             : vm.promotion.hasLM,
+              Stores            : vm.selectedStores,
+              Categories        : vm.search.categories,
+              FilterValues      : vm.search.filtervalues,
+              CustomBrands      : vm.search.customBrands,
+              Groups            : groups,
+              OnStudio          : vm.search.OnStudio,
+              OnHome            : vm.search.OnHome,
+              OnKids            : vm.search.OnKids,
+              OnAmueble         : vm.search.OnAmueble,
+              itemCode          : vm.search.itemCode,
+              sas               : vm.search.sas,
+              Products          : products,
+              excludedProducts  : vm.excluded,
+              excludedCategories: vm.search.excludedCategories,
+              discountPg1       : vm.paymentGroups[0].discount,
+              discountPg2       : vm.paymentGroups[1].discount,
+              discountPg3       : vm.paymentGroups[2].discount,
+              discountPg4       : vm.paymentGroups[3].discount,
+              discountPg5       : vm.paymentGroups[4].discount,
 
-              discountTextPg1 : vm.paymentGroups[0].text,
-              discountTextPg2 : vm.paymentGroups[1].text,
-              discountTextPg3 : vm.paymentGroups[2].text,
-              discountTextPg4 : vm.paymentGroups[3].text,
-              discountTextPg5 : vm.paymentGroups[4].text,
+              discountTextPg1   : vm.paymentGroups[0].text,
+              discountTextPg2   : vm.paymentGroups[1].text,
+              discountTextPg3   : vm.paymentGroups[2].text,
+              discountTextPg4   : vm.paymentGroups[3].text,
+              discountTextPg5   : vm.paymentGroups[4].text,
 
-              ewalletPg1 : vm.paymentGroups[0].ewallet,
-              ewalletPg2 : vm.paymentGroups[1].ewallet,
-              ewalletPg3 : vm.paymentGroups[2].ewallet,
-              ewalletPg4 : vm.paymentGroups[3].ewallet,
-              ewalletPg5 : vm.paymentGroups[4].ewallet,
+              ewalletPg1        : vm.paymentGroups[0].ewallet,
+              ewalletPg2        : vm.paymentGroups[1].ewallet,
+              ewalletPg3        : vm.paymentGroups[2].ewallet,
+              ewalletPg4        : vm.paymentGroups[3].ewallet,
+              ewalletPg5        : vm.paymentGroups[4].ewallet,
 
-              ewalletTypePg1 : vm.paymentGroups[0].ewalletType,
-              ewalletTypePg2 : vm.paymentGroups[1].ewalletType,
-              ewalletTypePg3 : vm.paymentGroups[2].ewalletType,
-              ewalletTypePg4 : vm.paymentGroups[3].ewalletType,
-              ewalletTypePg5 : vm.paymentGroups[4].ewalletType,
+              ewalletTypePg1    : vm.paymentGroups[0].ewalletType,
+              ewalletTypePg2    : vm.paymentGroups[1].ewalletType,
+              ewalletTypePg3    : vm.paymentGroups[2].ewalletType,
+              ewalletTypePg4    : vm.paymentGroups[3].ewalletType,
+              ewalletTypePg5    : vm.paymentGroups[4].ewalletType,
             };
 
             if(vm.promotion.hasLM){
@@ -315,8 +308,6 @@
               params.pushMoneyUnitType = vm.promotion.pushMoneyUnitType;
             }
 
-            //angular.extend(params, vm.promotion);
-            console.log('params',params);
             promoService.update(vm.promotion.id, params)
               .then(function(res){
                 console.log(res.data);
@@ -334,6 +325,6 @@
           }
         }
 
-        vm.init();
+        init();
     }
 })();

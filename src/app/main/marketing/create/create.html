@@ -227,20 +227,45 @@
                 <!--CATEGORY CHOOSER-->
                 <div>
                   <h2><strong>CATEGORIAS</strong></h2>
+
+                  <p>
+                    <a
+                      ng-click="vm.selectAllCategories()"
+                      href="#">
+                      Activar todas las categorias
+                    </a>  |                   
+                    <a
+                      ng-click="vm.unselectAllCategories()"
+                      href="#">
+                      Desactivar todas las categorias
+                    </a>                    
+                  </p>
+
                   <div layout="row" layout-align="space-between start" layout-wrap>
-                    <div ng-repeat="group in vm.categoriesGroups track by $index" flex="30" flex-sm="100" flex-xs="100">
+                    <div 
+                      ng-repeat="group in vm.categoriesGroups track by $index" 
+                      flex="30" 
+                      flex-sm="100" 
+                      flex-xs="100"
+                    >
                       <p ng-if="group.length > 0">
                         <label><strong>Categorias Nivel {{$index+1}}</strong></label>
                       </p>
                       <div class="scroll-column">
                         <md-input-container class="checkboxes-dropdown-wrap">
-                          <md-select class="checkboxes-dropdown select-element" ng-model="vm.selectedCategories[$index]"
-                             data-md-container-class="selectdemoSelectHeader"
-                             multiple
+                          <md-select 
+                            class="checkboxes-dropdown select-element" 
+                            ng-model="vm.selectedCategories[$index]"
+                            data-md-container-class="selectdemoSelectHeader"
+                            multiple
                           >
                             <md-optgroup label="Categorias">
-                              <md-option ng-value="category.id" ng-repeat="category in group |
-                                filter:searchTerm">{{category.Name}}</md-option>
+                              <md-option 
+                                ng-value="category.id" 
+                                ng-repeat="category in group | filter:searchTerm"
+                              >
+                                {{category.Name}}
+                              </md-option>
                             </md-optgroup>
                           </md-select>
                         </md-input-container>

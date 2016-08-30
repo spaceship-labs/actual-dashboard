@@ -50,33 +50,23 @@
             {label:'Actual Home | 002', value:'002'},
             {label:'Ambas | 003', value:'003'}
           ],
-          /*sas: [
-            {label:'Ninguno', value:'none'},
-            {label:'Actual Studio', value:'Actual Studio'},
-            {label:'Actual Home', value:'Actual Home'},
-            {label:'Actual Kids', value:'Actual Kids'},
-          ],*/
-          init: init,
-          create: create,
-          getExcludedNum: getExcludedNum,
-          loadStores: loadStores,
-          loadCategories: loadCategories,
-          loadCustomBrands: loadCustomBrands,
-          loadFilters: loadFilters,
-          onSelectEndDate: onSelectEndDate,
-          onSelectStartDate: onSelectStartDate,
-          queryGroups: queryGroups,
-          removeGroup: removeGroup,
-          searchProds: searchProds,
-          selectedGroupChange: selectedGroupChange,
+          create                   : create,
+          getExcludedNum           : getExcludedNum,
+          onSelectEndDate          : onSelectEndDate,
+          onSelectStartDate        : onSelectStartDate,
+          queryGroups              : queryGroups,
+          removeGroup              : removeGroup,
+          searchProds              : searchProds,
+          selectAllCategories      : selectAllCategories,
+          unselectAllCategories    : unselectAllCategories,          
+          selectedGroupChange      : selectedGroupChange,
         });
 
-
         function init(){
-          vm.loadCategories();
-          vm.loadFilters();
-          vm.loadCustomBrands();
-          vm.loadStores();
+          loadCategories();
+          loadFilters();
+          loadCustomBrands();
+          loadStores();
         }
 
         $scope.$watch('vm.paymentGroups[0].discount', function(newVal,oldVal){
@@ -100,11 +90,31 @@
         function loadCategories(){
           productService.getCategoriesGroups().then(function(res){
             vm.categoriesGroups = res.data;
-            vm.selectedCategories = categoriesService.createSelectedArrays(vm.categoriesGroups, vm.selectedCategories);
+            vm.selectedCategories = categoriesService.createSelectedArrays(
+              vm.categoriesGroups, 
+              vm.selectedCategories,
+              {selectAll: true}
+            );
           }).catch(function(err){
             console.log(err);
           });
         }
+
+        function selectAllCategories(){
+          var options = {selectAll: true};
+          vm.selectedCategories = categoriesService.createSelectedArrays(
+            vm.categoriesGroups, 
+            vm.selectedCategories,
+            options
+          );          
+        }     
+
+        function unselectAllCategories(){
+          vm.selectedCategories = categoriesService.createSelectedArrays(
+            vm.categoriesGroups, 
+            vm.selectedCategories
+          );          
+        }   
 
 
         function loadFilters(){
@@ -152,13 +162,14 @@
 
         function searchProds(){
           if(!vm.isLoadingProducts){
-            vm.search.categories = categoriesService.getSelectedCategories(vm.categoriesGroups, vm.selectedCategories);
-            vm.search.filtervalues = fvService.getSelectedFV(vm.filters, {multiples:true});
-            vm.isLoadingProducts = true;
-            var params = angular.copy(vm.search);
-            params.groups = params.groups.map(function(g){return g.id});
-            params.noImages = true;
-            params.applyPopulate = false;
+            vm.isLoadingProducts          = true;
+            vm.search.categories          = categoriesService.getSelectedCategories(vm.categoriesGroups, vm.selectedCategories);
+            vm.search.excludedCategories  = categoriesService.getUnselectedCategories(vm.categoriesGroups, vm.search.categories);            
+            vm.search.filtervalues        = fvService.getSelectedFV(vm.filters, {multiples:true});
+            var params                    = angular.copy(vm.search);
+            params.groups                 = params.groups.map(function(g){return g.id});
+            params.populateImgs           = false;
+            params.populatePromotions     = false;
             productService.advancedSearch(params).then(function(res){
               vm.isLoadingProducts = false;
               if(res.data){
@@ -274,6 +285,6 @@
           }
         });
 
-        vm.init();
+        init();
     }
 })();
