@@ -209,7 +209,6 @@
             vm.searchDone = true;
             vm.search.categories          = categoriesService.getSelectedCategories(vm.categoriesGroups, vm.selectedCategories);
             vm.search.filtervalues        = fvService.getSelectedFV(vm.filters, {multiples:true});
-            vm.search.excludedCategories  = categoriesService.getUnselectedCategories(vm.categoriesGroups, vm.search.categories);
             var params                    = angular.copy(vm.search);
             params.groups                 = params.groups.map(function(g){return g.id});
             params.populatePromotions     = false;
@@ -277,7 +276,6 @@
               sas               : vm.search.sas,
               Products          : products,
               excludedProducts  : vm.excluded,
-              excludedCategories: vm.search.excludedCategories,
               discountPg1       : vm.paymentGroups[0].discount,
               discountPg2       : vm.paymentGroups[1].discount,
               discountPg3       : vm.paymentGroups[2].discount,

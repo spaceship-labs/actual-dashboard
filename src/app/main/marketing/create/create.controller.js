@@ -164,7 +164,6 @@
           if(!vm.isLoadingProducts){
             vm.isLoadingProducts          = true;
             vm.search.categories          = categoriesService.getSelectedCategories(vm.categoriesGroups, vm.selectedCategories);
-            vm.search.excludedCategories  = categoriesService.getUnselectedCategories(vm.categoriesGroups, vm.search.categories);            
             vm.search.filtervalues        = fvService.getSelectedFV(vm.filters, {multiples:true});
             var params                    = angular.copy(vm.search);
             params.groups                 = params.groups.map(function(g){return g.id});
