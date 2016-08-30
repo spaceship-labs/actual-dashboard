@@ -19,13 +19,17 @@
             </p>
             <div class="scroll-column">
               <md-input-container class="checkboxes-dropdown-wrap">
-                <md-select class="checkboxes-dropdown select-element" ng-model="vm.selectedCategories[$index]"
-                   data-md-container-class="selectdemoSelectHeader"
-                   multiple
+                <md-select 
+                  class="checkboxes-dropdown select-element" ng-model="vm.selectedCategories[$index]"
+                  data-md-container-class="selectdemoSelectHeader"
+                  multiple
                 >
                   <md-optgroup label="Categorias">
-                    <md-option ng-value="category.id" ng-repeat="category in group |
-                      filter:searchTerm">{{category.Name}}</md-option>
+                    <md-option 
+                    ng-repeat="category in group | filter:searchTerm | orderBy: 'Name'"
+                    ng-value="category.id">
+                      {{category.Name}}
+                    </md-option>
                   </md-optgroup>
                 </md-select>
               </md-input-container>

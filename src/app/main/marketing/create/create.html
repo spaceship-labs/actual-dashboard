@@ -262,7 +262,7 @@
                             <md-optgroup label="Categorias">
                               <md-option 
                                 ng-value="category.id" 
-                                ng-repeat="category in group | filter:searchTerm"
+                                ng-repeat="category in group | filter:searchTerm | orderBy: 'Name'"
                               >
                                 {{category.Name}}
                               </md-option>
