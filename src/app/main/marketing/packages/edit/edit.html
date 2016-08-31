@@ -77,17 +77,17 @@
                   <div flex class="table-body-item">
                     <div class="input-element">
                       <div class="input-element-inner">
-                        <input type="number" ng-model="product.packageInfo.quantity" min="1" required placeholder="Cantidad">
+                        <input type="number" ng-model="product.packageRule.quantity" min="1" required placeholder="Cantidad">
                       </div>
                     </div>
                   </div>
                   <div flex class="table-body-item">
-                    {{ (product.Price * product.packageInfo.quantity) | currency }}
+                    {{ (product.Price * product.packageRule.quantity) | currency }}
                   </div>
                   <div flex class="table-body-item">
                     <div class="input-element">
                       <div class="input-element-inner">
-                        <input type="number" min="0" ng-model="product.packageInfo.discount" required placeholder="Descuento">
+                        <input type="number" min="0" ng-model="product.packageRule.discount" required placeholder="Descuento">
                       </div>
 
                       <p>
@@ -105,14 +105,14 @@
                       <div class="input-element">
                         <label class="label-element">Grupo pago 2</label>
                         <div class="input-element-inner">
-                          <input type="number" min="0" ng-model="product.packageInfo.discountPg2" required placeholder="Descuento">
+                          <input type="number" min="0" ng-model="product.packageRule.discountPg2" required placeholder="Descuento">
                         </div>
                       </div>
 
                       <div class="input-element">
                         <label class="label-element">Grupo pago 3</label>
                         <div class="input-element-inner">
-                          <input type="number" min="0" ng-model="product.packageInfo.discountPg3" required placeholder="Descuento">
+                          <input type="number" min="0" ng-model="product.packageRule.discountPg3" required placeholder="Descuento">
                         </div>
                       </div>
 
@@ -120,14 +120,14 @@
                       <div class="input-element">
                         <label class="label-element">Grupo pago 4</label>
                         <div class="input-element-inner">
-                          <input type="number" min="0" ng-model="product.packageInfo.discountPg4" required placeholder="Descuento">
+                          <input type="number" min="0" ng-model="product.packageRule.discountPg4" required placeholder="Descuento">
                         </div>
                       </div>
 
                       <div class="input-element">
                         <label class="label-element">Grupo pago 5</label>
                         <div class="input-element-inner">
-                          <input type="number" min="0" ng-model="product.packageInfo.discountPg5" required placeholder="Descuento">
+                          <input type="number" min="0" ng-model="product.packageRule.discountPg5" required placeholder="Descuento">
                         </div>
                       </div>
 
@@ -141,7 +141,7 @@
                         <md-select
                           class="select-element"
                           placeholder="Tipo"
-                          ng-model="product.packageInfo.discountType"
+                          ng-model="product.packageRule.discountType"
                         >
                           <md-option value="ammount">Cantidad</md-option>
                           <md-option value="percentage">Porcentaje</md-option>

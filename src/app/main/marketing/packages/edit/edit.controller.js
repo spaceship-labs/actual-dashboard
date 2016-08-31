@@ -52,18 +52,18 @@
         function formatProducts(products){
           products = products.map(function(p){
             console.log(p);
-            p.packageInfo = p.packageInfo || {};
-            p.packageInfo.discountType = p.packageInfo.discountType || 'percentage';
-            p.packageInfo.discount = p.packageInfo.discount || 25;
-            p.packageInfo.quantity = p.packageInfo.quantity || 1;
+            p.packageRule = p.packageRule || {};
+            p.packageRule.discountType = p.packageRule.discountType || 'percentage';
+            p.packageRule.discount = p.packageRule.discount || 25;
+            p.packageRule.quantity = p.packageRule.quantity || 1;
 
-            var baseDiscount = p.packageInfo.discount;
+            var baseDiscount = p.packageRule.discount;
             var discountKeys = ['discountPg2','discountPg3','discountPg4','discountPg5'];
             for(var i=0;i<discountKeys.length; i++){
               var dis =  (baseDiscount - ( (i+1) *5));
               if(dis >= 0){
-                //p.packageInfo[discountKeys[i]] =   dis;
-                p.packageInfo[discountKeys[i]] = p.packageInfo[discountKeys[i]] ||  dis;
+                //p.packageRule[discountKeys[i]] =   dis;
+                p.packageRule[discountKeys[i]] = p.packageRule[discountKeys[i]] ||  dis;
               }
             }
 
@@ -77,9 +77,9 @@
           if(form.$valid){
             vm.isLoading = true;
             var params = {
-              productsInfo: vm.products.map(function(p){
+              packageRules: vm.products.map(function(p){
                 var pInfo = {
-                  packageInfo: p.packageInfo,
+                  packageRule: p.packageRule,
                   packageId: vm.packageGroup.id,
                   productId: p.id
                 };
@@ -105,9 +105,9 @@
 
         function calculateDiscount(product){
           var unitPrice = product.Price;
-          var quantity = product.packageInfo.quantity;
-          var discount = product.packageInfo.discount;
-          var discountType = product.packageInfo.discountType;
+          var quantity = product.packageRule.quantity;
+          var discount = product.packageRule.discount;
+          var discountType = product.packageRule.discountType;
           var subtotal = quantity * unitPrice;
           var total = 0;
           discount = discount || 0;
