@@ -430,7 +430,10 @@
                 </div>
 
                 <div ng-show="!vm.isLoadingProducts" class="scroll-column">
-                    <md-checkbox class="spaced-checkbox block-checkbox" ng-repeat="product in vm.products track by $index" ng-model="product.isActive">
+                    <md-checkbox 
+                      class="spaced-checkbox block-checkbox" 
+                      ng-repeat="product in vm.products | orderBy:'ItemCode' track by $index" 
+                      ng-model="product.isActive">
                       {{product.ItemCode}} | {{ product.Name || product.ItemName}}
                     </md-checkbox>
                 </div>
