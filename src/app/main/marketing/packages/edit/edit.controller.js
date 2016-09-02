@@ -51,10 +51,8 @@
 
         function formatProducts(products){
           products = products.map(function(p){
-            console.log(p);
             p.packageRule = p.packageRule || {};
-            p.packageRule.discountType = p.packageRule.discountType || 'percentage';
-            p.packageRule.discount = p.packageRule.discount || 25;
+            p.packageRule.discountPg1 = p.packageRule.discountPg1 || 25;
             p.packageRule.quantity = p.packageRule.quantity || 1;
 
             var baseDiscount = p.packageRule.discount;
@@ -62,7 +60,6 @@
             for(var i=0;i<discountKeys.length; i++){
               var dis =  (baseDiscount - ( (i+1) *5));
               if(dis >= 0){
-                //p.packageRule[discountKeys[i]] =   dis;
                 p.packageRule[discountKeys[i]] = p.packageRule[discountKeys[i]] ||  dis;
               }
             }
