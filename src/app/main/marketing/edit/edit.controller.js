@@ -95,6 +95,8 @@
           vm.isLoading = true;
           promoService.findById($stateParams.id).then(function(res){
             vm.promotion = res.data;
+            vm.promotion.pushMoneyUnitType = vm.promotion.pushMoneyUnitType || 'ammount';
+            vm.promotion.pushMoneyUnit     = vm.promotion.pushMoneyUnit || 0;
             console.log(vm.promotion);
             vm.startTime = new Date(angular.copy(vm.promotion.startDate));
             vm.endTime = new Date(angular.copy(vm.promotion.endDate));

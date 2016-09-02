@@ -11,7 +11,10 @@
         var vm = this;
 
         angular.extend(vm, {
-          promotion: {},
+          promotion: {
+            pushMoneyUnit:0,
+            pushMoneyUnitType: 'ammount'
+          },
           groups: [],
           selectedCategories: [],
           search: {

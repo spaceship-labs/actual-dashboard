@@ -172,13 +172,14 @@
                   <label>Push money</label>
                   <div layout="row">
                     <div flex="40" class="input-element-inner">
-                      <input type="number" ng-model="vm.promotion.pushMoneyUnit">
+                      <input type="number" min="0" ng-model="vm.promotion.pushMoneyUnit">
                     </div>
                     <div flex="60">
                       <md-select
                         ng-if="vm.promotion.hasLM"
                         required
                         class="select-element"
+                        select="Monto/Porcentaje (Requerido)"
                         ng-model="vm.promotion.pushMoneyUnitType"
                       >
                         <md-option ng-value="'ammount'">

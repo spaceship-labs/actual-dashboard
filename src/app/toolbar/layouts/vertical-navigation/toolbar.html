@@ -17,7 +17,7 @@
 
     <div layout="row" layout-align="start center">
         <md-menu-bar id="user-menu">
-            <md-menu ng-if="vm.notifications.length != 0">
+            <md-menu md-position-mode="left bottom" ng-if="vm.notifications.length != 0">
               <md-button class="user-button" ng-click="$mdOpenMenu()">
                 Última actividad
               </md-button>
