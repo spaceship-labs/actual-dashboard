@@ -103,17 +103,11 @@
         function calculateDiscount(product){
           var unitPrice = product.Price;
           var quantity = product.packageRule.quantity;
-          var discount = product.packageRule.discount;
-          var discountType = product.packageRule.discountType;
+          var discount = product.packageRule.discountPg1;
           var subtotal = quantity * unitPrice;
           var total = 0;
           discount = discount || 0;
-          discountType = discountType || 'ammount';
-          if(discountType == 'percentage'){
-            total = subtotal - (subtotal/100 * discount);
-          }else{
-            total = subtotal - discount;
-          }
+          total = subtotal - (subtotal/100 * discount);
           return total;
         }
 
