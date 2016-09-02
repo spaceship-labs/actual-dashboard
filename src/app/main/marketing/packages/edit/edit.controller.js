@@ -100,10 +100,10 @@
           }
         }
 
-        function calculateDiscount(product){
+        function calculateDiscount(product ,discountPercent){
           var unitPrice = product.Price;
           var quantity = product.packageRule.quantity;
-          var discount = product.packageRule.discountPg1;
+          var discount = discountPercent;
           var subtotal = quantity * unitPrice;
           var total = 0;
           discount = discount || 0;
@@ -111,11 +111,11 @@
           return total;
         }
 
-        function calculateTotalDiscount(){
+        function calculateTotalDiscount(discountGroupKey){
           var total = 0;
           if(vm.products){
             vm.products.forEach(function(p){
-              total += calculateDiscount(p);
+              total += calculateDiscount(p, p.packageRule[discountGroupKey]);
             });
           }
           return total;

@@ -102,33 +102,49 @@
 
                     <section ng-show="product.showDiscounts" class="discounts-groups">
 
-                      <div class="input-element">
+                      <div class="input-element products-package-method-price">
                         <label class="label-element">Grupo pago 2</label>
                         <div class="input-element-inner">
                           <input type="number" min="0" ng-model="product.packageRule.discountPg2" required placeholder="Descuento">
                         </div>
+                        <p>
+                          <strong>Total con descuento: </strong>
+                          {{ vm.calculateDiscount(product, product.packageRule.discountPg2) | currency }}
+                        </p>
                       </div>
 
-                      <div class="input-element">
+                      <div class="input-element products-package-method-price">
                         <label class="label-element">Grupo pago 3</label>
                         <div class="input-element-inner">
                           <input type="number" min="0" ng-model="product.packageRule.discountPg3" required placeholder="Descuento">
                         </div>
+                        <p>
+                          <strong>Total con descuento: </strong>
+                          {{ vm.calculateDiscount(product, product.packageRule.discountPg3) | currency }}
+                        </p>
                       </div>
 
 
-                      <div class="input-element">
+                      <div class="input-element products-package-method-price">
                         <label class="label-element">Grupo pago 4</label>
                         <div class="input-element-inner">
                           <input type="number" min="0" ng-model="product.packageRule.discountPg4" required placeholder="Descuento">
                         </div>
+                        <p>
+                          <strong>Total con descuento: </strong>
+                          {{ vm.calculateDiscount(product, product.packageRule.discountPg4) | currency }}
+                        </p>                        
                       </div>
 
-                      <div class="input-element">
+                      <div class="input-element products-package-method-price">
                         <label class="label-element">Grupo pago 5</label>
                         <div class="input-element-inner">
                           <input type="number" min="0" ng-model="product.packageRule.discountPg5" required placeholder="Descuento">
                         </div>
+                        <p>
+                          <strong>Total con descuento: </strong>
+                          {{ vm.calculateDiscount(product, product.packageRule.discountPg5) | currency }}
+                        </p>                        
                       </div>
 
                     </section>
@@ -151,11 +167,44 @@
                   </div>
                   -->
                   <div flex class="table-body-item">
-                    {{ vm.calculateDiscount(product) | currency }}
+                    {{ vm.calculateDiscount(product, product.packageRule.discountPg1) | currency }}
                   </div>
                 </div>
                 <div class="products-package-total-price">
-                  <p><strong>Total: {{vm.calculateTotalDiscount() | currency}}</strong></p>
+                  <p>
+                    <strong>
+                    Total: {{vm.calculateTotalDiscount('discountPg1') | currency}}
+                    </strong>
+                  </p>
+                  <p>
+                    <a 
+                      href="#" 
+                      ng-click="vm.showAllTotals = !vm.showAllTotals">
+                      Mostrar totales por grupos de forma de pago
+                    </a>
+                  </p>
+                  <section ng-show="vm.showAllTotals">
+                    <p>
+                      <strong>
+                      Total grupo de pago 2: {{vm.calculateTotalDiscount('discountPg2') | currency}}
+                      </strong>
+                    </p>
+                    <p>
+                      <strong>
+                      Total grupo de pago 3: {{vm.calculateTotalDiscount('discountPg3') | currency}}
+                      </strong>
+                    </p>
+                    <p>
+                      <strong>
+                      Total grupo de pago 4: {{vm.calculateTotalDiscount('discountPg4') | currency}}
+                      </strong>
+                    </p>
+                    <p>
+                      <strong>
+                      Total grupo de pago 5: {{vm.calculateTotalDiscount('discountPg5') | currency}}
+                      </strong>
+                    </p>                                                            
+                  </section>
                 </div>
 
               </section>
