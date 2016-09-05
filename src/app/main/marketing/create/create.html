@@ -20,11 +20,19 @@
           <md-content class="md-padding">
 
 
-            <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+            <div 
+              ng-show="vm.isLoading" 
+              layout="row" 
+              layout-align="space-around">
               <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
             </div>
 
-            <form name="createForm" ng-show="!vm.isLoading" ng-submit="vm.create(createForm)" class="md-inline-form" novalidate>
+            <form 
+              name="createForm" 
+              ng-show="!vm.isLoading" 
+              ng-submit="vm.create(createForm)" 
+              class="md-inline-form" 
+              novalidate>
 
               <section layout="row" layout-align="space-between start" layout-wrap>
 
@@ -218,7 +226,11 @@
                   <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
                     <label>Código del producto</label>
                     <div class="input-element-inner">
-                      <input type="text" name="itemcode" ng-model="vm.search.itemCode" required placeholder="Código del producto">
+                      <input 
+                        type="text" 
+                        name="itemcode" 
+                        ng-model="vm.search.itemCode"  
+                        placeholder="Código del producto">
                     </div>
                   </div>
                 </section>

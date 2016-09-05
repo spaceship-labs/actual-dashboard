@@ -199,8 +199,8 @@
         }
 
         function create(form){
+          console.log('form',form);
           if(form.$valid){
-            console.log('create');
             vm.isLoading = true;
             vm.excluded = _.reduce(vm.products, function(excluded, prod){
               if(!prod.isActive) excluded.push({id:prod.id,ItemCode:prod.ItemCode});
