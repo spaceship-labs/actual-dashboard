@@ -23,6 +23,7 @@
             filtervalues:[],
             sas: [],
             limit: 999999,
+            filterByStore: false
             //U_Empresa: false
           },
           showFilters: false,
@@ -172,6 +173,7 @@
             params.groups                 = params.groups.map(function(g){return g.id});
             params.populateImgs           = false;
             params.populatePromotions     = false;
+            params.filterByStore          = false;            
             productService.advancedSearch(params).then(function(res){
               vm.isLoadingProducts = false;
               if(res.data){

@@ -24,7 +24,8 @@
             filtervalues:[],
             sas: [],
             limit: 999999,
-            U_Empresa:false
+            //U_Empresa:false,
+            filterByStore: false
           },
           groupTypes: {
             'variations': 'Agrupador Variaciones',
@@ -212,6 +213,7 @@
             vm.search.categories          = categoriesService.getSelectedCategories(vm.categoriesGroups, vm.selectedCategories);
             vm.search.filtervalues        = fvService.getSelectedFV(vm.filters, {multiples:true});
             var params                    = angular.copy(vm.search);
+            params.filterByStore          = false;
             params.groups                 = params.groups.map(function(g){return g.id});
             params.populatePromotions     = false;
             params.populateImgs           = false;
