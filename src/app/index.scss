@@ -659,3 +659,9 @@ label.mce-charactercount {
 .products-package-method-price:first-child{
   border-top: 2px solid #000;    
 }
+
+.mkt-view .md-chips{
+  box-shadow: 0 1px rgb(0,0,0)!important;
+  font-size: 12px;
+}
+.mkt-view md-chip{font-size: 12px;}

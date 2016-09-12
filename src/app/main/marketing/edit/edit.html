@@ -38,7 +38,7 @@
                 <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
                   <label>Codigo*</label>
                   <div class="input-element-inner">
-                    <input type="text" name="Nombre" ng-model="vm.promotion.code" required placeholder="Nombre*">
+                    <input type="text" name="Código" ng-model="vm.promotion.code" required placeholder="Nombre*">
                   </div>
                 </div>
 
@@ -219,8 +219,9 @@
                 <!--ITEMCODE SEARCHER-->
                 <h2><strong>Búscar por código</strong></h2>
                 <section layout="row">
-                  <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
+                  <div class="input-element" flex="100" flex-sm="100" flex-xs="100">
                     <label>Código del producto</label>
+                    <!--
                     <div class="input-element-inner">
                       <input
                         type="text"
@@ -228,9 +229,15 @@
                         ng-model="vm.search.itemCode"
                         placeholder="Código del producto">
                     </div>
+                    -->
+                    <md-chips 
+                      ng-model="vm.search.itemCode" 
+                      readonly="false" 
+                      md-removable="true">
+                    </md-chips>                    
                   </div>
                 </section>
-                <hr>
+                <!--<hr>-->
                 <!--END ITEMCODE SEARCHER-->
 
                 <!--CATEGORY CHOOSER-->

@@ -23,7 +23,8 @@
             filtervalues:[],
             sas: [],
             limit: 999999,
-            filterByStore: false
+            filterByStore: false,
+            itemCode: []
             //U_Empresa: false
           },
           showFilters: false,
