@@ -235,9 +235,10 @@
                         placeholder="Código del producto">
                       -->
                       <md-chips 
+                        ng-if="vm.search.itemCode"
                         ng-model="vm.search.itemCode" 
                         readonly="false" 
-                        placeholder="Ingresar código"
+                        placeholder="Ingresar código(s)"
                         md-removable="true">
                       </md-chips>
 
