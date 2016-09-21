@@ -31,8 +31,6 @@
 
         vm.selectColor = selectColor;
 
-        vm.loadBrands = loadBrands;
-        vm.loadCustomBrands = loadCustomBrands;
 
         vm.editSize = editSize;
         vm.addSize = addSize;
@@ -140,7 +138,7 @@
             vm.product = formatProduct(vm.product);
             loadCategories();
             loadFilters();
-            loadBrands();
+            //loadBrands();
             loadCustomBrands();
             sortImages();
             getRelatedProducts(vm.product.SuppCatNum);
