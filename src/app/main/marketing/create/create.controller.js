@@ -7,7 +7,17 @@
         .controller('MarketingCreateController', MarketingCreateController);
 
     /** @ngInject */
-    function MarketingCreateController($scope, $q,commonService, productService, promoService, api, dialogService, categoriesService, fvService){
+    function MarketingCreateController(
+      $scope, 
+      $q,
+      commonService, 
+      productService, 
+      promoService, 
+      api, 
+      dialogService, 
+      categoriesService, 
+      fvService
+    ){
         var vm = this;
 
         angular.extend(vm, {
@@ -29,32 +39,10 @@
           },
           showFilters: false,
           products: [],
-          groupTypes: {
-            'variations': 'Agrupador Variaciones',
-            'environments': 'Agrupador Ambientes',
-            'packages': 'Agrupador Paquetes',
-            'relations': 'Agrupador Relaciones'
-          },
-          displays: [
-            {label:'Ventas Offline', handle:'OnOffline'},
-            {label:'Actual Studio (actualstudio.com) ', handle:'OnStudio'},
-            {label:'Actual Home (actualhome.com)', handle:'OnHome'},
-            {label:'Actual Kids (actualkids.com)', handle:'OnKids'},
-            {label:'Amueble.com', handle:'OnAmueble'},
-          ],
-          paymentGroups:[
-            {label:'Descuento grupo pago 1', discount:0, text:'Pago único', ewallet:0,ewalletType:'percentage'},
-            {label:'Descuento grupo pago 2', discount:0, text:'3 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
-            {label:'Descuento grupo pago 3', discount:0, text:'6 y 9 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
-            {label:'Descuento grupo pago 4', discount:0, text:'12 meses sin intereses', ewallet:0,ewalletType:'percentage'},
-            {label:'Descuento grupo pago 5', discount:0, text:'18 meses sin intereses', ewallet:0,ewalletType:'percentage'},
-          ],
-          sas: [
-            //{label:'Ninguno', value:false},
-            {label:'Actual Studio | 001', value:'001'},
-            {label:'Actual Home | 002', value:'002'},
-            {label:'Ambas | 003', value:'003'}
-          ],
+          groupTypes: commonService.getGroupTypes(),
+          displays: commonService.getDisplays(),
+          paymentGroups: commonService.getPaymentGroups(),
+          sas: commonService.getSocieties(),
           create                   : create,
           getExcludedNum           : getExcludedNum,
           onSelectEndDate          : onSelectEndDate,

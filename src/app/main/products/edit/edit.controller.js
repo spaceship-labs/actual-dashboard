@@ -7,24 +7,29 @@
         .controller('ProductEditController', ProductEditController);
 
     /** @ngInject */
-    function ProductEditController(dialogService, commonService, $stateParams, $scope, productService,Upload, api, $http, $q, $mdDialog, $mdMedia){
+    function ProductEditController(
+      dialogService, 
+      commonService, 
+      $stateParams, 
+      $scope, 
+      productService,
+      categoriesService,
+      fvService,
+      Upload, 
+      api, 
+      $http, 
+      $q, 
+      $mdDialog, 
+      $mdMedia
+    ){
         var vm = this;
         vm.uploadFiles = uploadFiles;
         vm.removeFiles = removeFiles;
         vm.fileClass = fileClass;
         vm.updateIcon = updateIcon;
         vm.removeIcon = removeIcon;
-        vm.init = init;
-        vm.update = update;
 
-        vm.loadCategories = loadCategories;
-        vm.formatCategoryGroups = formatCategoryGroups;
-        vm.groupSelectedCategories = groupSelectedCategories;
         vm.selectColor = selectColor;
-        vm.loadFilters = loadFilters;
-        vm.formatFiltersValues = formatFiltersValues;
-        vm.formatSelectedFilterValues = formatSelectedFilterValues;
-        //vm.loadColors = loadColors;
 
         vm.loadBrands = loadBrands;
         vm.loadCustomBrands = loadCustomBrands;
@@ -33,9 +38,6 @@
         vm.addSize = addSize;
         vm.removeSize = removeSize;
         vm.openSizeForm = openSizeForm;
-        vm.sortFiltersValues = sortFiltersValues;
-        vm.getImagesOrder = getImagesOrder;
-        vm.sortImages = sortImages;
         vm.queryGroups = queryGroups;
         vm.selectedGroupChange = selectedGroupChange;
         vm.removeProductFromGroup = removeProductFromGroup;
@@ -83,12 +85,7 @@
           {value:'Requiere mucho ensamble', label:'Requiere mucho ensamble'},
         ];
 
-        vm.groupTypes = {
-          'variations': 'Agrupador Variaciones',
-          'environments': 'Agrupador Ambientes',
-          'packages': 'Agrupador Paquetes',
-          'relations': 'Agrupador Relaciones'
-        };
+        vm.groupTypes = commonService.getGroupTypes();
 
         vm.colors = [
           {label:'Rojo',value:'rojo',code:'#CC0000'},
@@ -105,14 +102,7 @@
           {label:'Cafe',value:'cafe',code:'#885418'},
         ];
 
-
-        vm.displays = [
-          {label:'Ventas Offline', handle:'OnOffline'},
-          {label:'Actual Studio (actualstudio.com) ', handle:'OnStudio'},
-          {label:'Actual Home (actualhome.com)', handle:'OnHome'},
-          {label:'Actual Kids (actualkids.com)', handle:'OnKids'},
-          {label:'Amueble.com', handle:'OnAmueble'},
-        ];
+        vm.displays = commonService.getDisplays();
 
         vm.companies = [
           {label:'Ninguno', handle:'Ninguno'},
@@ -133,48 +123,46 @@
           {label:'mayor a una hora', value:'>1hr'},
 
         ];
-
         vm.sas = {
           '001': 'Studio',
           '002': 'Home',
           '003': 'Ambas'
         };
-
         vm.selectedCategories = [];
-
-        vm.init();
+        
+        init();
 
         //Methods
 
         function init(){
           productService.getById($stateParams.id).then(function(res){
             vm.product = res.data.data;
-            if(!vm.product.Seats){
-              vm.product.Seats = 0;
-            }
-
-            if(!vm.product.Name){
-              vm.product.Name = vm.product.ItemName;
-            }
-
-            if(!vm.product.DetailedColor){
-              vm.product.DetailedColor = vm.product.U_COLOR;
-            }
-
-            vm.loadCategories();
-            vm.loadFilters();
-            //vm.loadColors();
-            vm.loadBrands();
-            vm.loadCustomBrands();
-            vm.sortImages();
+            vm.product = formatProduct(vm.product);
+            loadCategories();
+            loadFilters();
+            loadBrands();
+            loadCustomBrands();
+            sortImages();
+            getRelatedProducts(vm.product.SuppCatNum);
             vm.countries = commonService.getCountriesList();
-            vm.getRelatedProducts(vm.product.SuppCatNum);
           });
+        }
+
+        function formatProduct(product){
+          if(!product.Seats){
+            product.Seats = 0;
+          }
+          if(!product.Name){
+            product.Name = product.ItemName;
+          }
+          if(!product.DetailedColor){
+            product.DetailedColor = product.U_COLOR;
+          }          
+          return product;
         }
 
         function getRelatedProducts(SuppCatNum){
           productService.getProductsbySuppCatNum(SuppCatNum).then(function(res){
-            console.log(res);
             vm.relatedProducts = res.data;
           });
         }
@@ -188,19 +176,16 @@
         }
 
         function updateConfig(form){
-          console.log(form);
           if(form.$valid){
             vm.isLoading = true;
-            vm.groupSelectedCategories();
-
+            vm.product.Categories = categoriesService.getSelectedCategories(vm.categoriesGroups,vm.selectedCategories);
             var selectedBrandSAP = _.findWhere(vm.brands, { ItmsGrpCod: vm.product.ItmsGrpCod});
-            delete selectedBrandSAP.id;
-            console.log(selectedBrandSAP);
-
+            if(selectedBrandSAP){
+              delete selectedBrandSAP.id;
+            }
             var params = {
               Categories: vm.product.Categories,
               SA: vm.product.SA,
-              //Brand: vm.product.Brand,
               productBrand: selectedBrandSAP,
               ItmsGrpCod: vm.product.ItmsGrpCod,
               CustomBrand: vm.product.CustomBrand,
@@ -210,13 +195,16 @@
             vm.displays.forEach(function(display){
               params[display.handle] = vm.product[display.handle];
             });
-            console.log(params);
 
-            productService.update(vm.product.ItemCode, params).then(function(res){
-              vm.isLoading = false;
-              dialogService.showDialog('Datos actualizados');
-              console.log(res);
-            });
+            productService.update(vm.product.ItemCode, params)
+              .then(function(res){
+                vm.isLoading = false;
+                dialogService.showDialog('Datos actualizados');
+              })
+              .catch(function(err){
+                vm.isLoading = false;
+                dialogService.showDialog('Hubo un error, revisa la información e intenta de nuevo');                
+              });
 
           }else{
             var errors = [];
@@ -240,14 +228,17 @@
               Conservation: vm.product.Conservation,
               CheckedDescription: vm.product.CheckedDescription
             };
-            productService.update(vm.product.ItemCode, params).then(function(res){
-              vm.isLoading = false;
-              dialogService.showDialog('Datos actualizados');
-              console.log(res);
-            });
+            productService.update(vm.product.ItemCode, params)
+              .then(function(res){
+                vm.isLoading = false;
+                dialogService.showDialog('Datos actualizados');
+              })
+              .catch(function(err){
+                vm.isLoading = false;
+                dialogService.showDialog('Hubo un error, revisa la información e intenta de nuevo');                
+              });              
           }else{
             var errors = [];
-            console.log(form);
             if(form.$error.required){
               form.$error.required.forEach(function(err){
                 errors.push(err.$name);
@@ -260,7 +251,7 @@
         function updateFeatures(form){
           if(form.$valid){
             vm.isLoading = true;
-            vm.formatSelectedFilterValues();
+            formatSelectedFilterValues();
             var params = {
               FilterValues: vm.product.FilterValues,
               DetailedColor: vm.product.DetailedColor,
@@ -271,11 +262,15 @@
               MadeInCountry: vm.product.MadeInCountry,
               CheckedFeatures: vm.product.CheckedFeatures
             };
-            productService.update(vm.product.ItemCode, params).then(function(res){
-              vm.isLoading = false;
-              dialogService.showDialog('Datos actualizados');
-              console.log(res);
-            });
+            productService.update(vm.product.ItemCode, params)
+              .then(function(res){
+                vm.isLoading = false;
+                dialogService.showDialog('Datos actualizados');
+              })
+              .catch(function(err){
+                vm.isLoading = false;
+                dialogService.showDialog('Hubo un error, revisa la información e intenta de nuevo');                
+              });              
           }else{
             var errors = [];
             if(form.$error.required){
@@ -291,8 +286,6 @@
           if(form.$valid){
             vm.isLoading = true;
             var params = {
-              //Ensemble: vm.product.Ensemble,
-              //EnsembleTime: vm.product.EnsembleTime,
               PackageContent: vm.product.PackageContent,
               CommercialPieces: vm.product.CommercialPieces || null,
               DeliveryPieces: vm.product.DeliveryPieces || null,
@@ -306,7 +299,6 @@
               VolumeUnitMsr: vm.product.VolumeUnitMsr,
               Weight: vm.product.Weight || null,
               WeightUnitMsr: vm.product.WeightUnitMsr,
-
               ChairBackHeight: vm.product.ChairBackHeight || null,
               ChairBackHeightUnitMsr: vm.product.ChairBackHeightUnitMsr,
               SeatHeight: vm.product.SeatHeight || null,
@@ -315,15 +307,17 @@
               ArmRestHeightUnitMsr: vm.product.ArmRestHeightUnitMsr,
               Depth: vm.product.Depth || null,
               DepthUnitMsr: vm.product.DepthUnitMsr,
-
               CheckedPackage: vm.product.CheckedPackage
-
             };
-            productService.update(vm.product.ItemCode, params).then(function(res){
-              vm.isLoading = false;
-              dialogService.showDialog('Datos actualizados');
-              console.log(res);
-            });
+            productService.update(vm.product.ItemCode, params)
+              .then(function(res){
+                vm.isLoading = false;
+                dialogService.showDialog('Datos actualizados');
+              })
+              .catch(function(err){
+                vm.isLoading = false;
+                dialogService.showDialog('Hubo un error, revisa la información e intenta de nuevo');                
+              });              
           }else{
             var errors = [];
             if(form.$error.required){
@@ -339,15 +333,19 @@
           if(form.$valid){
             vm.isLoading = true;
             var params = {
-              //icon_description: vm.product.icon_description,
               Video: vm.product.Video,
               CheckedPhotos: vm.product.CheckedPhotos
             };
-            productService.update(vm.product.ItemCode, params).then(function(res){
-              vm.isLoading = false;
-              dialogService.showDialog('Datos actualizados');
-              console.log(res);
-            });
+            productService.update(vm.product.ItemCode, params)
+              .then(function(res){
+                vm.isLoading = false;
+                dialogService.showDialog('Datos actualizados');
+                console.log(res);
+              })
+              .catch(function(err){
+                vm.isLoading = false;
+                dialogService.showDialog('Hubo un error, revisa la información e intenta de nuevo');                
+              });              
           }else{
             var errors = [];
             if(form.$error.required){
@@ -359,121 +357,64 @@
           }
         }
 
-
-        //Update global (SIN USO POR EL MOMENTO)
-        function update(form){
-          if(form.$valid){
-            vm.isLoading = true;
-            vm.groupSelectedCategories();
-            vm.formatSelectedFilterValues();
-            vm.formatSelectedColors();
-            vm.getImagesOrder();
-            console.log(vm.product);
-            productService.update(vm.product.ItemCode, vm.product)
-              .then(function(res){
-                vm.isLoading = false;
-                dialogService.showDialog('Datos actualizados');
-                console.log(res);
-              });
-          }
-          else{
-            dialogService.showDialog('Campos incompletos');
-          }
-        }
-
-        function groupSelectedCategories(){
-          vm.product.Categories = [];
-          for(var i=0; i<vm.categoriesGroups.length; i++){
-            console.log('selectedCategories'+i , vm.selectedCategories[i]);
-            vm.product.Categories = vm.product.Categories.concat(vm.selectedCategories[i]);
-          }
-          console.log(vm.product.Categories);
-        }
-
-        function formatCategoryGroups(){
-          for(var i=0;i<vm.categoriesGroups.length;i++){
-            vm.selectedCategories[i] = [];
-
-            for(var j=0;j<vm.product.Categories.length;j++){
-              vm.categoriesGroups[i] = vm.categoriesGroups[i].map(function(category){
-                if(vm.product.Categories[j].id == category.id){
-                  vm.selectedCategories[i].push(category.id);
+        function assignSelectedCategories(categoriesGroups, productCategories){
+          var selectedCategories = [];
+          for(var i=0;i<categoriesGroups.length;i++){
+            selectedCategories[i] = [];
+            for(var j=0;j<productCategories.length;j++){
+              categoriesGroups[i] = categoriesGroups[i].map(function(category){
+                if(productCategories[j].id == category.id){
+                  selectedCategories[i].push(category.id);
                 }
                 return category;
               });
             }
           }
+          return selectedCategories;
         }
 
 
         function loadCategories(){
           productService.getCategoriesGroups().then(function(res){
-            console.log(res);
             vm.categoriesGroups = res.data;
-            vm.formatCategoryGroups();
+            vm.selectedCategories = assignSelectedCategories(
+              vm.categoriesGroups,
+              vm.product.Categories
+            );
           });
         }
 
-        function getSapBrand(brandCode){
-          var result = false;
-          vm.brands.forEach(function(brand){
-            if(brand.ItmsGrpCod == brandCode){
-              result = brand;
-            }
-          });
+        function getSapBrand(brands, brandCode){
+          var result = _.findWhere(brands,{ItmsGrpCod:brandCode});
           return result;
         }
 
         function loadBrands(){
           vm.brands = [];
-
-          productService.getBrands().then(function(res){
-            console.log(res);
-            vm.brands = res.data;
-            vm.productBrandSap = getSapBrand(vm.product.ItmsGrpCod);
-            console.log(vm.productBrandSap);
-          });
-
+          productService.getBrands()
+            .then(function(res){
+              vm.brands = res.data;
+              vm.productBrandSap = getSapBrand(
+                vm.brands,
+                vm.product.ItmsGrpCod
+              );
+            })
+            .catch(function(err){
+              console.log(err);
+            });
         }
 
         function loadCustomBrands(){
           vm.customBrands = [];
-          productService.getCustomBrands().then(function(res){
-            console.log(res);
-            vm.customBrands = res.data;
-          });
+          productService.getCustomBrands()
+            .then(function(res){
+              vm.customBrands = res.data;
+            })
+            .catch(function(err){
+              console.log(err);
+            })
         }
 
-        function sortFiltersValues(){
-          vm.filters.forEach(function(filter){
-            if(filter.ValuesOrder){
-              var idsList = filter.ValuesOrder.split(',');
-
-              if(idsList.length > 0 && filter.ValuesOrder){
-                var baseArr = angular.copy(filter.Values);
-                var newArr = [];
-                idsList.forEach(function(id){
-                  baseArr.forEach(function(val){
-                    if(val.id == id){
-                      newArr.push(val);
-                    }
-                  })
-                });
-
-                //If values are not in the order list
-                filter.Values.forEach(function(val){
-                  if( idsList.indexOf(val.id) < 0 ){
-                    newArr.push(val);
-                  }
-                });
-
-                if(newArr.length > 0){
-                  filter.Values = newArr;
-                }
-              }
-            }
-          });
-        }
 
         function getImagesOrder(){
           vm.product.ImagesOrder =  [];
@@ -516,12 +457,10 @@
 
         function loadFilters(){
           productService.getAllFilters().then(function(res){
-            //console.log(res);
             vm.filters = res.data;
-            vm.sortFiltersValues();
-            vm.formatFiltersValues();
+            vm.filters = fvService.sortFV(vm.filters);
+            formatFiltersValues();
             vm.loadedFilters = true;
-
           });
         }
 
@@ -560,7 +499,6 @@
         }
 
         function uploadFiles($files){
-          //console.log($files);
           vm.loading = [];
           vm.isLoadingFiles = true;
           var uid = Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -638,12 +576,10 @@
 
         function formatFiltersValues(){
           var variantFiltersHandles = ['tamano-blancos','forma','firmeza','color'];
-
           vm.filters.forEach(function(filter){
             filter.selectedValues = [];
             filter.Values.forEach(function(value ,indexValue){
               vm.product.FilterValues.forEach(function(productVal, index){
-
                 if(productVal.id == value.id){
                   if(filter.IsMultiple){
                       filter.selectedValues.push(productVal.id);
@@ -662,7 +598,6 @@
               vm.normalFilters.push(filter);
             }
 
-
             if(filter.Handle === 'color'){
               //vm.colorFilter = filter;
               vm.counterColors = filter.selectedValues.length;
@@ -674,17 +609,20 @@
         function removeIcon(){
           var params = {id: vm.product.ItemCode};
           vm.isLoadingAvatar = true;
-          productService.removeIcon(params).then(function(res){
-            console.log(res);
-            vm.isLoadingAvatar = false;
-            if(!res.data.icon_filename){
-              vm.product.icon_filename = null;
-              vm.product.icon_name = null;
-              vm.product.icon_size = null;
-              vm.product.icon_type = null;
-              vm.product.icon_typebase = null;
-            }
-          });
+          productService.removeIcon(params)
+            .then(function(res){
+              vm.isLoadingAvatar = false;
+              if(!res.data.icon_filename){
+                vm.product.icon_filename = null;
+                vm.product.icon_name = null;
+                vm.product.icon_size = null;
+                vm.product.icon_type = null;
+                vm.product.icon_typebase = null;
+              }
+            })
+            .catch(function(err){
+              console.log(err);
+            });
         }
 
         function formatSelectedFilterValues(){
@@ -711,14 +649,11 @@
               if(filter.selectedValue){
                 var val = filter.Values[filter.selectedValue];
                 if(val){
-                  //console.log('pushing value: ', val);
                   vm.product.FilterValues.push( val );
                 }
               }
             }
           });
-
-          //console.log(vm.product.FilterValues);
         }
 
         function toggleColor(colorId, filter){
@@ -772,7 +707,6 @@
             vm.searchGroupText = null;
             vm.isLoadingGroups = true;
             var params = {
-              //product: vm.product.ItemCode,
               product: vm.product.id,
               group: item.id
             };
@@ -781,10 +715,7 @@
               vm.isLoadingGroups = false;
               vm.product.Groups.push(item);
             });
-            //$mdAutocomplete.clear();
           }
-          //vm.selectedProduct = undefined;
-          //vm.searchText = '';
         }
 
         function removeProductFromGroup(groupId, index){
@@ -793,11 +724,14 @@
             product: vm.product.id,
             group: groupId
           };
-          productService.removeProductFromGroup(params).then(function(res){
-            console.log(res);
-            vm.product.Groups.splice(index, 1);
-            vm.isLoadingGroups = false;
-          });
+          productService.removeProductFromGroup(params)
+            .then(function(res){
+              vm.product.Groups.splice(index, 1);
+              vm.isLoadingGroups = false;
+            })
+            .catch(function(err){
+              console.log(err);
+            });
         }
 
 
@@ -822,24 +756,28 @@
         /*-------------------*/
 
         function addSize(size){
-          //console.log(vm.product.Sizes);
           vm.isLoadingSizes = true;
           size.ItemCode = vm.product.ItemCode;
-          productService.createSize(size).then(function(res){
-            //console.log(res);
-            vm.product.Sizes.push(res.data);
-            vm.isLoadingSizes = false;
-          });
+          productService.createSize(size)
+            .then(function(res){
+              vm.product.Sizes.push(res.data);
+              vm.isLoadingSizes = false;
+            })
+            .catch(function(err){
+              console.log(err);
+            })
         }
 
         function editSize(newData, size){
-          //console.log(size);
           vm.isLoadingSizes = true;
-          productService.updateSize(size.id, newData).then(function(res){
-            //console.log(res);
-            size = res.data;
-            vm.isLoadingSizes = false;
-          });
+          productService.updateSize(size.id, newData)
+            .then(function(res){
+              size = res.data;
+              vm.isLoadingSizes = false;
+            })
+            .catch(function(err){
+              console.log(err);
+            })
         }
 
         function removeSize($ev,sizeId, sizeIndex){
@@ -853,9 +791,11 @@
             isPromise,
             vm.isLoadingSizes
           ).then(function(res){
-            //console.log(res);
             vm.product.Sizes.splice(sizeIndex, 1);
-          });
+          })
+          .catch(function(err){
+            console.log(err);
+          })
         }
 
         function openSizeForm(ev, action, size) {
@@ -932,10 +872,7 @@
 
           $scope.types = [
             {label:'Agrupador Variaciones', handle:'variations'},
-            //{label:'Agrupador Ambientes', handle:'environments'},
-            //{label:'Agrupador Paquetes', handle:'packages'},
             {label:'Agrupador Relaciones', handle:'relations'},
-
           ];
         }
 
@@ -953,7 +890,6 @@
           })
           .then(function(newData) {
             productService.createCustomBrand(newData).then(function(res){
-              console.log(res);
               var createdBrand = res.data;
               if(createdBrand && createdBrand.id){
                 vm.customBrands.push(res.data);

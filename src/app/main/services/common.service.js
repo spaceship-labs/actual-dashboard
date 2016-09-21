@@ -9,12 +9,58 @@
     function commonService(){
 
       var service = {
-        combineDateTime: combineDateTime,
-        formatHandle: formatHandle,
-        getCountriesList: getCountriesList
+        combineDateTime : combineDateTime,
+        formatHandle    : formatHandle,
+        getCountriesList: getCountriesList,
+        getSocieties    : getSocieties,
+        getDisplays     : getDisplays,
+        getPaymentGroups: getPaymentGroups,
+        getGroupTypes   : getGroupTypes
       };
-
       return service;
+
+      function getGroupTypes(){
+        var groupTypes = {
+            'variations': 'Agrupador Variaciones',
+            'environments': 'Agrupador Ambientes',
+            'packages': 'Agrupador Paquetes',
+            'relations': 'Agrupador Relaciones'
+        };
+        return groupTypes;
+      }
+
+      function getSocieties(){
+        var sas = [
+          {label:'Ninguno', value:'none'},
+          {label:'Actual Studio', value:'001'},
+          {label:'Actual Home', value:'002'},
+          {label:'Ambas', value:'003'},
+          {label:'Actual Kids', value:'004'}
+        ];
+        return sas;        
+      }
+
+      function getPaymentGroups(){
+        var paymentGroups = [
+          {label:'Descuento grupo pago 1', discount:0, text:'Pago único', ewallet:0,ewalletType:'percentage'},
+          {label:'Descuento grupo pago 2', discount:0, text:'3 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
+          {label:'Descuento grupo pago 3', discount:0, text:'6 y 9 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
+          {label:'Descuento grupo pago 4', discount:0, text:'12 meses sin intereses', ewallet:0,ewalletType:'percentage'},
+          {label:'Descuento grupo pago 5', discount:0, text:'18 meses sin intereses', ewallet:0,ewalletType:'percentage'},
+        ];
+        return paymentGroups;
+      }
+
+      function getDisplays(){
+        var displays = [
+          {label:'Ventas Offline', handle:'OnOffline'},
+          {label:'Actual Studio (actualstudio.com) ', handle:'OnStudio'},
+          {label:'Actual Home (actualhome.com)', handle:'OnHome'},
+          {label:'Actual Kids (actualkids.com)', handle:'OnKids'},
+          {label:'Amueble.com', handle:'OnAmueble'},
+        ];
+        return displays;        
+      }
 
       function combineDateTime(date, time, seconds){
         var date = moment(date);

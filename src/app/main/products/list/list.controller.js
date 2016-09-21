@@ -7,20 +7,17 @@
         .controller('ProductsListController', ProductsListController);
 
     /** @ngInject */
-    function ProductsListController(productService, $rootScope, $scope)
+    function ProductsListController(productService, commonService, $rootScope, $scope)
     {
         var vm = this;
         vm.applyFilters = applyFilters;
         vm.finalFilters = {};
         // Data
         vm.columns = [
-            //{key:'id', label:'ID'},
             {key:'Edit', label:'Editar', editUrl:'/products/edit/', propId: 'ItemCode'},
             {key:'ItemCode', label:'Código', actionUrl:'/products/edit/', propId: 'ItemCode'},
             {key:'Available', label:'Inventario'},
             {key:'ItemName', label:'Nombre'},
-            //{key: 'SA', label: 'Sociedad'},
-            //{key:'productBrand.ItmsGrpNam', label:'Marca'},
             {key:'nameSA', label:'Sociedad'},
             {key:'CustomBrand.Name', label:'Marca'},
             {key:'CheckedStructure', label:'Estructura', yesNo: true},
@@ -29,7 +26,6 @@
             {key:'CheckedPackage', label:'Empaque', yesNo: true},
             {key:'CheckedPhotos', label:'Fotos', yesNo: true},
             //{key:'Active', label:'A. Vendible'},
-
         ];
 
         alasql.fn.yesNofn = function(col){
@@ -50,30 +46,9 @@
         vm.exportQuery += ' yesNofn(icon_filename) AS Fotos, yesNofn(CheckedPhotos) AS Fotos_Revisadas, Active AS Almacen_Vendible';
         vm.exportQuery += ' INTO XLS("prods.xls",{headers:true}) FROM ?';
 
-        /*
-        vm.sas = [
-          {label:'Ninguno', value:'none'},
-          {label:'Actual Studio', value:'Actual Studio'},
-          {label:'Actual Home', value:'Actual Home'},
-          {label:'Actual Kids', value:'Actual Kids'},
-        ];
-        */
-
         //SA's from SAP
-        vm.sas = [
-          {label:'Ninguno', value:'none'},
-          {label:'Actual Studio | 001', value:'001'},
-          {label:'Actual Home | 002', value:'002'},
-          {label:'Ambas | 003', value:'003'}
-          //{label:'Actual Kids', value:'003'},
-        ];
+        vm.sas = commonService.getSocieties();
 
-        /*
-        productService.getBrands().then(function(res){
-          vm.brands = res.data;
-          vm.brands.unshift({ItmsGrpCod:'none', ItmsGrpNam:'Todas'})
-        });
-        */
         productService.getCustomBrands().then(function(res){
           vm.brands = res.data;
           vm.brands.unshift({id:'none', Name:'Todas'})
@@ -119,9 +94,6 @@
         vm.apiResource = productService.getListNoImages;
 
         vm.applyFilters();
-
-        // Methods
-        //////////
     }
 
 })();

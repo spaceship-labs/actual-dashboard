@@ -59,31 +59,16 @@
         <!--SOCIEDAD-->
         <div class="editor-column" flex="30" flex-sm="100" flex-xs="100">
           <p class="select-element-label"><label><strong>Sociedad*</strong></label></p>
-          <!--
-          <md-input-container>
-            <md-select class="select-element" placeholder="Sociedad" name="Sociedad" required ng-model="vm.product.SA">
-              <md-option ng-repeat="company in vm.companies track by $index" value="{{company.handle}}">
-                {{company.handle}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          -->
           <p class="input-hint"><strong>SAP: </strong>{{vm.sas[vm.product.U_Empresa]}}</p>
         </div>
         <!--END SOCIEDAD-->
 
         <!--MARCA-->
         <div class="editor-column" flex="30" flex-sm="100" flex-xs="100">
-            <p class="select-element-label"><label><strong>Marca SAP</strong></label></p>
-            <md-input-container>
-              <md-select class="select-element select-element-md" ng-model="vm.product.ItmsGrpCod">
 
-                <md-option ng-repeat="brand in vm.brands track by $index" ng-value="brand.ItmsGrpCod">
-                  {{brand.ItmsGrpNam}}
-                </md-option>
-              </md-select>
-            </md-input-container>
-            <p class="input-hint"><strong>SAP:</strong>Marca: {{vm.productBrandSap.ItmsGrpNam}}</p>
+            <p class="input-hint">
+              <strong>SAP:</strong>Marca: {{vm.productBrandSap.ItmsGrpNam}}
+            </p>
 
 
             <!--MARCA APP-->
