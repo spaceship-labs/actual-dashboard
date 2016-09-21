@@ -10,8 +10,6 @@
     function UsersListController(api, userService)
     {
         var vm = this;
-
-        // Data
         vm.columns = [
             {key:'Edit', label:'Editar', editUrl:'/users/edit/', propId: 'id'},
             {key:'email', label:'Email', actionUrl:'/users/edit/'},
@@ -19,12 +17,7 @@
             {key:'lastName', label:'Apellidos'},
             {key:'role.name', label: 'Rol'}
         ];
-
-        //vm.apiResource = api.user.find.get;
         vm.apiResource = userService.getList;
-        // Methods
-
-        //////////
     }
 
 })();

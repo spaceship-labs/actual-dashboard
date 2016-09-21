@@ -10,17 +10,11 @@
     function MarketingPackagesListController(api, packageService)
     {
         var vm = this;
-
-        // Data
         vm.columns = [
             {key:'Edit', label:'Editar', editUrl:'/marketing/packages/edit/', propId: 'id'},
             {key:'Name', label:'Nombre',actionUrl:'/marketing/packages/edit/', propId: 'id'},
         ];
-
         vm.apiResource = packageService.getList;
-        // Methods
-
-        //////////
     }
 
 })();

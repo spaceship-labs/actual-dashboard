@@ -1,7 +1,5 @@
-(function ()
-{
+(function (){
     'use strict';
-
     angular
         .module('app.marketing.create')
         .controller('MarketingCreateController', MarketingCreateController);
@@ -35,7 +33,6 @@
             limit: 999999,
             filterByStore: false,
             itemCode: []
-            //U_Empresa: false
           },
           showFilters: false,
           products: [],
@@ -111,27 +108,33 @@
 
 
         function loadFilters(){
-          productService.getAllFilters().then(function(res){
-            vm.filters = res.data;
-            vm.filters = fvService.sortFV(vm.filters);
-            vm.loadedFilters = true;
-          });
+          productService.getAllFilters()
+            .then(function(res){
+              vm.filters = res.data;
+              vm.filters = fvService.sortFV(vm.filters);
+              vm.loadedFilters = true;
+            })
+            .catch(function(err){
+              console.log(err);
+            });
         }
 
         function loadCustomBrands(){
           vm.customBrands = [];
-          productService.getCustomBrands().then(function(res){
-            vm.customBrands = res.data;
-          });
+          productService.getCustomBrands()
+            .then(function(res){
+              vm.customBrands = res.data;
+            })
+            .catch(function(err){
+              console.log(err);
+            })
         }
 
         function queryGroups(term){
-          console.log(term);
           if(term != '' && term){
             var deferred = $q.defer();
             var params = {term: term, autocomplete: true};
             productService.searchGroups(params).then(function(res){
-              console.log(res);
               deferred.resolve(res.data.data);
             });
             return deferred.promise;
@@ -190,18 +193,17 @@
         }
 
         function create(form){
-          console.log('form',form);
           if(form.$valid){
             vm.isLoading = true;
             vm.excluded = _.reduce(vm.products, function(excluded, prod){
               if(!prod.isActive) excluded.push({id:prod.id,ItemCode:prod.ItemCode});
               return excluded;
             },[]);
-            var groups = _.reduce(vm.search.groups,function(gs, g){
+            var groupsIds = _.reduce(vm.search.groups,function(gs, g){
               gs.push(g.id);
               return gs;
             }, []);
-            var products = _.reduce(vm.products,function(prods, p){
+            var productsIds = _.reduce(vm.products,function(prods, p){
               if(p.isActive) prods.push(p.id);
               return prods;
             }, []);
@@ -217,7 +219,7 @@
               Categories  : vm.search.categories,
               FilterValues: vm.search.filtervalues,
               CustomBrands: vm.search.customBrands,
-              Groups      : groups,
+              Groups      : groupsIds,
               OnStudio    : vm.search.OnStudio,
               OnHome      : vm.search.OnHome,
               OnKids      : vm.search.OnKids,
@@ -225,7 +227,7 @@
               sas         : vm.search.sas,
               itemCode    : vm.search.itemCode,
               //U_Empresa   : vm.search.U_Empresa,
-              Products    : products,
+              Products    : productsIds,
               excludedProducts: vm.excluded,
 
               discountPg1 : vm.paymentGroups[0].discount,
@@ -254,11 +256,9 @@
 
             };
             angular.extend(params, vm.promotion);
-            console.log('params',params);
             vm.isLoading = false;
             promoService.create(params)
               .then(function(res){
-                console.log(res.data);
                 dialogService.showDialog('Promoción creada');
                 vm.isLoading = false;
               })
@@ -280,4 +280,5 @@
 
         init();
     }
+
 })();

@@ -1,44 +1,25 @@
-/*
-(function ()
-{
-    'use strict';
-
-    angular
-        .module('app.products.categories.create')
-        .controller('ProductCategoriesCreateController', ProductCategoriesCreateController);
-
-*/
-
     /** @ngInject */
     function ProductCategoriesCreateController($scope, $rootScope, $mdDialog, dialogService,productService, commonService){
-        $scope.init = init;
         $scope.create = create;
         $scope.toggleCategoryMain = toggleCategoryMain;
-        $scope.setSelectedCategories = setSelectedCategories;
         $scope.cancel = cancel;
-
         $scope.isLoading = false;
-
         $scope.category = {
           IsMain: true,
         };
         $scope.categoriesGroups = [];
 
-        $scope.init();
-
-        //Methods
+        init();
 
         function init(){
-          productService.getCategoriesGroups().then(function(res){
-            $scope.categoriesGroups = res.data;
-            $scope.selectedCategories = [];
-            console.log($scope.categoriesGroups.length);
-            /*
-            for(var i=0;$scope.categoriesGroups.length; i++){
-              $scope.selectedCategories[i] = [];
-            }
-            */
-          });
+          productService.getCategoriesGroups()
+            .then(function(res){
+              $scope.categoriesGroups = res.data;
+              $scope.selectedCategories = [];
+            })
+            .catch(function(err){
+              console.log('err',err);
+            })
         }
 
         function cancel(){
@@ -51,19 +32,21 @@
             if($scope.category.IsMain){
               $scope.category.CategoryLevel = 1;
             }
-
-            $scope.setSelectedCategories();
-            productService.createCategory($scope.category).then(function(res){
-              $scope.isLoading = false;
-              $rootScope.$emit('reloadTable', true);
-              dialogService.showMessageDialog('Categoria creada');
-              $mdDialog.hide();
-              //dialogService.showDialog('Categoria creada', '.form-dialog');
-            });
+            setSelectedCategories();
+            productService.createCategory($scope.category)
+              .then(function(res){
+                $scope.isLoading = false;
+                $rootScope.$emit('reloadTable', true);
+                dialogService.showMessageDialog('Categoria creada');
+                $mdDialog.hide();
+              })
+              .catch(function(err){
+                console.log('err',err);
+                dialogService.showMessageDialog('Hubo un error');                
+              })
           }
           else{
             dialogService.showMessageDialog('Campos incompletos');
-            //dialogService.showDialog('Campos incompletos', '.form-dialog');
           }
         }
 
@@ -79,7 +62,6 @@
         }
 
         function toggleCategoryMain(){
-          //If category was main
           if($scope.category.IsMain){
             $scope.category.CategoryLevel = 2;
           }
@@ -101,7 +83,3 @@
         });
 
     }
-
-/*
-})();
-*/

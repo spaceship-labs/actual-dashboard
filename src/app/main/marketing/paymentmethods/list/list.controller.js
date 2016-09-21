@@ -10,8 +10,6 @@
     function MarketingPMListController(api, pmPeriodService)
     {
         var vm = this;
-
-        // Data
         vm.columns = [
             {key:'Edit', label:'Editar', editUrl:'/marketing/pm/edit/', propId: 'id'},
             {key:'startDate', label:'Empieza', date:true},
@@ -22,12 +20,7 @@
             {key:'paymentGroup4', label:'G.P 4', yesNo: true},
             {key:'paymentGroup5', label:'G.P 5', yesNo: true}
         ];
-
-        //vm.apiResource = api.user.find.get;
         vm.apiResource = pmPeriodService.find;
-        // Methods
-
-        //////////
     }
 
 })();

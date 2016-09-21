@@ -7,11 +7,8 @@
         .controller('MarketingListController', MarketingListController);
 
     /** @ngInject */
-    function MarketingListController(api, promoService)
-    {
+    function MarketingListController(api, promoService){
         var vm = this;
-
-        // Data
         vm.columns = [
             {key:'Edit', label:'Editar', editUrl:'/marketing/edit/', propId: 'id'},
             {key:'name', label:'Nombre', actionUrl:'/marketing/edit/'},
@@ -22,11 +19,6 @@
             {key:'discountPg1', label:'Descuento G.P 1'}
         ];
 
-        //vm.apiResource = api.user.find.get;
         vm.apiResource = promoService.find;
-        // Methods
-
-        //////////
     }
-
 })();

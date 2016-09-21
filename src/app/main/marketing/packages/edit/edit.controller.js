@@ -49,22 +49,24 @@
           });
         }
 
+        function assignDiscountsToPackageRule(packageRule){
+          var baseDiscount = packageRule.discount;
+          var discountKeys = ['discountPg2','discountPg3','discountPg4','discountPg5'];
+          for(var i=0;i<discountKeys.length; i++){
+            var dis =  (baseDiscount - ( (i+1) *5));
+            if(dis >= 0){
+              packageRule[discountKeys[i]] = packageRule[discountKeys[i]] ||  dis;
+            }
+          }
+          return packageRule;
+        }
+
         function formatProducts(products){
           products = products.map(function(p){
             p.packageRule = p.packageRule || {};
             p.packageRule.discountPg1 = p.packageRule.discountPg1 || 25;
             p.packageRule.quantity = p.packageRule.quantity || 1;
-
-            var baseDiscount = p.packageRule.discount;
-            var discountKeys = ['discountPg2','discountPg3','discountPg4','discountPg5'];
-            for(var i=0;i<discountKeys.length; i++){
-              var dis =  (baseDiscount - ( (i+1) *5));
-              if(dis >= 0){
-                p.packageRule[discountKeys[i]] = p.packageRule[discountKeys[i]] ||  dis;
-              }
-            }
-
-
+            p.packageRule = assignDiscountsToPackageRule(p.packageRule);
             return p;
           });
           return products;
@@ -120,7 +122,6 @@
           }
           return total;
         }
-
 
         function objIndexOf(arr, query){
           return _.findWhere(arr, query);

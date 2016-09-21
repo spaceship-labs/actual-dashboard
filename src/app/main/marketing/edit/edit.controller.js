@@ -36,7 +36,6 @@
             filtervalues:[],
             sas: [],
             limit: 999999,
-            //U_Empresa:false,
             filterByStore: false
           },
           groupTypes: commonService.getGroupTypes(),
@@ -87,13 +86,10 @@
             vm.promotion = res.data;
             vm.promotion.pushMoneyUnitType = vm.promotion.pushMoneyUnitType || 'ammount';
             vm.promotion.pushMoneyUnit     = vm.promotion.pushMoneyUnit || 0;
-            console.log(vm.promotion);
             vm.startTime = new Date(angular.copy(vm.promotion.startDate));
             vm.endTime = new Date(angular.copy(vm.promotion.endDate));
 
             vm.search.groups = vm.promotion.Groups;
-            //vm.search.SA = vm.promotion.SA;
-            //vm.search.U_Empresa = vm.promotion.U_Empresa;
             vm.search.sas = vm.promotion.sas;
             vm.search.itemCode = vm.promotion.itemCode || [];
             vm.products = vm.promotion.Products;
@@ -105,7 +101,6 @@
             vm.isLoading = false;
 
             $timeout(function(){
-              console.log(vm.promotion);
               vm.myPickerEndDate.setMinDate(new Date(vm.promotion.startDate) );
               vm.myPickerStartDate.setMaxDate( new Date(vm.promotion.endDate) );
             },1000);
@@ -120,9 +115,13 @@
         }
 
         function loadStores(){
-          api.$http.get('/store/find').then(function(res){
-            vm.stores = res.data;
-          });
+          api.$http.get('/store/find')
+            .then(function(res){
+              vm.stores = res.data;
+            })
+            .catch(function(err){
+              console.log(err);
+            })
         }
 
         function loadCategories(){
@@ -138,18 +137,26 @@
         }
 
         function loadFilters(){
-          productService.getAllFilters().then(function(res){
-            vm.filters       = res.data;
-            vm.filters       = fvService.sortFV(vm.filters);
-            vm.loadedFilters = true;
-          });
+          productService.getAllFilters()
+            .then(function(res){
+              vm.filters       = res.data;
+              vm.filters       = fvService.sortFV(vm.filters);
+              vm.loadedFilters = true;
+            })
+            .catch(function(err){
+              console.log(err);
+            });
         }
 
         function loadCustomBrands(){
           vm.customBrands = [];
-          productService.getCustomBrands().then(function(res){
-            vm.customBrands = res.data;
-          });
+          productService.getCustomBrands()
+            .then(function(res){
+              vm.customBrands = res.data;
+            })
+            .catch(function(err){
+              console.log(err);
+            })
         }
 
         function selectAllCategories(){
@@ -169,12 +176,10 @@
         }            
 
         function queryGroups(term){
-          console.log(term);
           if(term != '' && term){
             var deferred = $q.defer();
             var params = {term: term, autocomplete: true};
             productService.searchGroups(params).then(function(res){
-              console.log(res);
               deferred.resolve(res.data.data);
             });
             return deferred.promise;
@@ -237,11 +242,11 @@
               if(!prod.isActive) excluded.push({id:prod.id,ItemCode:prod.ItemCode});
               return excluded;
             },[]);
-            var groups = _.reduce(vm.search.groups,function(gs, g){
+            var groupsIds = _.reduce(vm.search.groups,function(gs, g){
               gs.push(g.id);
               return gs;
             }, []);
-            var products = _.reduce(vm.products,function(prods, p){
+            var productsIds = _.reduce(vm.products,function(prods, p){
               if(p.isActive) prods.push(p.id);
               return prods;
             }, []);
@@ -260,14 +265,14 @@
               Categories        : vm.search.categories,
               FilterValues      : vm.search.filtervalues,
               CustomBrands      : vm.search.customBrands,
-              Groups            : groups,
+              Groups            : groupsIds,
               OnStudio          : vm.search.OnStudio,
               OnHome            : vm.search.OnHome,
               OnKids            : vm.search.OnKids,
               OnAmueble         : vm.search.OnAmueble,
               itemCode          : vm.search.itemCode,
               sas               : vm.search.sas,
-              Products          : products,
+              Products          : productsIds,
               excludedProducts  : vm.excluded,
               discountPg1       : vm.paymentGroups[0].discount,
               discountPg2       : vm.paymentGroups[1].discount,

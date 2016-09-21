@@ -10,7 +10,6 @@
     function ProductsBrandListController($scope,productService, $rootScope, $mdMedia,  $mdDialog)
     {
         var vm = this;
-        // Data
         vm.columns = [
             {key:'Edit', label:'Editar', editUrl:'/products/brands/edit/', propId: 'id'},
             {key: 'id', label:'ID'},
@@ -18,9 +17,10 @@
             {key:'Handle', label:'URL'},
             {key:'Delete',label:'Eliminar',destroy:true}
         ];
-
         vm.apiResource = productService.findCustomBrands;
         vm.destroyFn =  productService.destroyCustomBrand;
+        vm.openValueForm = openValueForm;
+        vm.createForm = createForm;
 
         $rootScope.$on('destroyingItemStart', function(ev, start){
           if(start){
@@ -34,9 +34,7 @@
           }
         });
 
-        // Methods
-        vm.openValueForm =  function(ev, id) {
-          console.log('edit brand');
+        function openValueForm(ev, id) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
           $mdDialog.show({
             controller: ProductBrandEditController,
@@ -56,7 +54,7 @@
           });
         };
 
-        vm.createForm =  function(ev) {
+        function createForm(ev) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
           $mdDialog.show({
             controller: ProductBrandCreateController,
@@ -72,7 +70,6 @@
             console.log('not oK')
           });
         };
-        //////////
     }
 
 })();
