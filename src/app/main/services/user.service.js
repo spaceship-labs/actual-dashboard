@@ -79,17 +79,15 @@
           {key:'list-marketing', label:'Ver promociones', section:'marketing'},
           {key:'edit-packages', label:'Editar paquetes', section:'marketing'},
           {key:'list-packages', label:'Ver paquetes', section:'marketing'},
+          {key:'reports-commissions', label:'Reportes de comisiones', section:'commissions'},
           {key:'create-commissions', label:'Crear comisiones', section:'commissions'},
           {key:'edit-commissions', label:'Editar comisiones', section:'commissions'},
           {key:'list-commissions', label:'Ver comisiones', section:'commissions'},
           {key:'create-paymentmethods', label:'Crear vigencias de metodos de pago', section:'paymentmethods'},
           {key:'edit-paymentmethods', label:'Editar vigencias de metodos de pago', section:'paymentmethods'},
           {key:'list-paymentmethods', label:'Ver vigencias de metodos de pago', section:'paymentmethods'},
-          {key:'create-goals', label:'Crear metas', section:'commissions'},
-          {key:'edit-goals', label:'Editar metas', section:'commissions'},
-          {key:'list-goals', label:'Ver metas', section:'commissions'},
-        ]; 
-        return modules;       
+        ];
+        return modules;
       }
     }
 })();

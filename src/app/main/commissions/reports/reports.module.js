@@ -3,18 +3,18 @@
     'use strict';
 
     angular
-        .module('app.commissions.list', [])
+        .module('app.commissions.reports', [])
         .config(config);
 
     /** @ngInject */
     function config($stateProvider)
     {
-        $stateProvider.state('app.commissions_list', {
-            url  : '/commissions/list',
+        $stateProvider.state('app.commissions_reports', {
+            url  : '/commissions',
             views: {
                 'content@app': {
-                    templateUrl: 'app/main/commissions/list/list.html',
-                    controller : 'CommissionsListController as vm'
+                    templateUrl: 'app/main/commissions/reports/reports.html',
+                    controller : 'CommissionsReportsController as vm'
                 }
             },
             resolve: {
@@ -24,7 +24,7 @@
                     return apiResolver.resolve('product.find@get');
                 }*/
             },
-            moduleName: 'list-commissions',
+            moduleName: 'reports-commissions',
         });
     }
 

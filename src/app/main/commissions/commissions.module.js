@@ -4,6 +4,7 @@
 
     angular
         .module('app.commissions', [
+            'app.commissions.reports',
             'app.commissions.list',
             'app.commissions.create',
             'app.commissions.edit',
@@ -13,12 +14,16 @@
     /** @ngInject */
     function config(msNavigationServiceProvider)
     {
-        // Navigation
 
         msNavigationServiceProvider.saveItem('commissions', {
             title : 'Comisiones',
             group : false,
             weight: 2
+        });
+
+        msNavigationServiceProvider.saveItem('commissions.reports', {
+            title: 'Reportes',
+            state: 'app.commissions_reports'
         });
 
         msNavigationServiceProvider.saveItem('commissions.list', {
