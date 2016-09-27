@@ -124,7 +124,8 @@
         vm.sas = {
           '001': 'Studio',
           '002': 'Home',
-          '003': 'Ambas'
+          '003': 'Ambas',
+          '004': 'Kids'
         };
         vm.selectedCategories = [];
         
