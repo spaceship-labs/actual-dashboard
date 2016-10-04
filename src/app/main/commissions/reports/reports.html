@@ -1,5 +1,4 @@
 <div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
-
     <!-- HEADER -->
     <div class="header md-accent-bg" layout="row" layout-align="space-between">
         <div layout="column" layout-align="center start">
@@ -8,28 +7,101 @@
                 <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
                 <span class="parent">Tables</span>
             </div>
-            <div class="title">Comissions</div>
-        </div>
-
-        <div layout="row" layout-align="start center">
-            <md-button class="md-raised reference-button"
-                       href="https://l-lin.github.io/angular-datatables"
-                       target="_blank">
-                <md-icon md-font-icon="icon-link"></md-icon>
-                <span>Reference</span>
-            </md-button>
+            <div class="title">Comisiones</div>
         </div>
     </div>
     <!-- / HEADER -->
 
     <!-- CONTENT -->
     <div class="content">
+      <div class="white-bg md-whiteframe-4dp">
+        <div layout layout-padding>
+          <md-input-container class="no-margin">
+            <md-select
+              class="select-element"
+              placeholder="Año"
+              ng-model="year"
+              ng-change = "vm.setFilterDate(year, month, period)"
+            >
+              <md-option
+                ng-repeat="year in vm.years"
+                value="{{year}}"
+              >
+                {{year}}
+              </md-option>
+            </md-select>
+          </md-input-container>
 
-        <div class="white-bg md-whiteframe-4dp">
-            <div table-list columns="vm.columns" api-resource="vm.apiResource"></div>
+          <md-input-container class="no-margin">
+            <md-select
+              class="select-element"
+              placeholder="Mes"
+              ng-model="month"
+              ng-change = "vm.setFilterDate(year, month, period)"
+            >
+              <md-option ng-repeat="month in vm.months" value="{{month[0]}}">
+                {{month[1]}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container class="no-margin">
+            <md-select
+              class="select-element"
+              placeholder="Periodo"
+              ng-model="period"
+              ng-change = "vm.setFilterDate(year, month, period)"
+            >
+              <md-option
+                ng-repeat="option in [[1, 'primera mitad'], [2, 'segunda mitad']]"
+                value="{{option[0]}}"
+              >
+                {{option[1]}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container class="no-margin">
+            <md-select
+              class="select-element"
+              placeholder="Todas las tiendas"
+              ng-model="vm.filters.store"
+              ng-change="vm.filters.user = undefined; vm.filters.store = vm.filters.store == -1 ? undefined : vm.filters.store"
+            >
+              <md-option value = -1>
+                Todas las tiendas
+              </md-option>
+              <md-option ng-repeat="option in vm.stores" value="{{option.id}}">
+                {{option.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container class="no-margin">
+            <md-select
+              class="select-element"
+              placeholder="Todos los usuarios"
+              ng-model="vm.filters.user"
+              ng-change="vm.filters.user = vm.filters.user == -1 ? undefined : vm.filters.user"
+            >
+              <md-option value = -1>
+                Todos los usuarios
+              </md-option>
+              <md-option ng-repeat="option in vm.users" value="{{option.id}}">
+                {{option.firstName + ' ' + option.lastName + ' - ' + option.role}}
+              </md-option>
+            </md-select>
+          </md-input-container>
         </div>
 
+        <div
+          table-list
+          filters="vm.filters"
+          columns="vm.columns"
+          api-resource="vm.apiResource"
+        >
+        </div>
+      </div>
     </div>
     <!-- / CONTENT -->
-
 </div>

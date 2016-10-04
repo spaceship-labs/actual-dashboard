@@ -9,7 +9,8 @@
     function storeService($http, $q, api){
       return {
         getAllStores: getAllStores,
-        countSellers: countSellers
+        countSellers: countSellers,
+        commissionables: commissionables
       };
 
       function getAllStores() {
@@ -24,6 +25,14 @@
         var params = {
           store: store
         };
+        return api.$http.get(url, params).then(function(res) {
+          return res.data;
+        });
+      }
+
+      function commissionables(store) {
+        var url    = '/store/getCommissionables';
+        var params = store ? {store: store} : {};
         return api.$http.get(url, params).then(function(res) {
           return res.data;
         });

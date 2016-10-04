@@ -139,7 +139,6 @@
             .renderWith(
               function renderCell(data, type, full, pos){
                 var html = '';
-
                 if(column.yesNo){
                   data = data ? 'Si' : 'No';
                 }
@@ -153,7 +152,7 @@
                   data = column.mapper[data] || data;
                 }
                 if(column.date){
-                  data = $filter('date')(data, 'dd/MM/yyyy');
+                  data = $filter('date')(data, 'dd/MMM/yyyy');
                 }
                 if(column.dateMonth){
                   var months = [
