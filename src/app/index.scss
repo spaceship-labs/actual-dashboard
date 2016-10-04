@@ -11,7 +11,12 @@
  */
 // injector
 // endinjector
-
+.icon-link.gray{
+  color:gray!important;
+}
+.icon-link{
+ color: #039be5 !important;
+}
 .pointer-cursor{
   cursor:pointer;
 }
@@ -654,10 +659,10 @@ label.mce-charactercount {
 .products-package-method-price{
   margin: 8px 0;
   padding: 4px 0;
-  border-bottom: 2px solid #000;  
+  border-bottom: 2px solid #000;
 }
 .products-package-method-price:first-child{
-  border-top: 2px solid #000;    
+  border-top: 2px solid #000;
 }
 
 .mkt-view .md-chips{

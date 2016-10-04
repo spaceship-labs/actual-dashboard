@@ -26,7 +26,9 @@
         setFilterDate($scope.year, $scope.month, $scope.period);
         vm.columns = [
             {key: 'folio', label: 'Folio'},
-            {key: 'datePayment', label: 'Fecha de pago', date: true},
+            {key: 'quotation', label: 'Oportunidad', seeUrl:'http://ventas.miactual.com/quotations/edit/', propId: 'quotation'},
+            {key: 'order', label: 'Orden', seeUrl:'http://ventas.miactual.com/checkout/order/', propId: 'order'},
+            {key: 'datePayment', label: 'Fecha de pago', date: true },
             {key: 'ammountPayment', label: 'Monto de pago', currency: true},
             {key: 'rate', label: 'Comisión', isRateNormalized: true, rate: true},
             {key: 'ammount', label: 'Monto de comisión', currency: true},
