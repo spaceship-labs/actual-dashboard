@@ -28,7 +28,6 @@
             title : 'Marketing',
             group : false,
             weight: 2,
-            state: 'app.marketing'
         });
 
         msNavigationServiceProvider.saveItem('marketing.list', {
