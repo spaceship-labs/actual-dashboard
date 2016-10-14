@@ -149,6 +149,7 @@
                   data = data ? data : column.defaultValue;
                 }
                 if(column.mapper){
+                  var data_b = data;
                   data = column.mapper[data] || data;
                 }
                 if(column.date){
@@ -206,6 +207,10 @@
                     var icon = '<md-icon md-font-icon="icon-link" class="icon icon-link gray md-font material-icons md-default-theme" aria-hidden="true"></md-icon>';
                     html = '<a>' + icon + '</a>';
                   }
+                }
+                else if(column.color) {
+                  data_b = column.color[data_b] || data_b;
+                  html = '<span style="color:' + data_b + ';">' + data + '</span>';
                 }
                 else{
                   if(column.actionUrl){

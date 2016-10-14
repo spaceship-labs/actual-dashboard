@@ -32,7 +32,7 @@
             {key: 'ammountPayment', label: 'Monto de pago', currency: true},
             {key: 'rate', label: 'Comisión', isRateNormalized: true, rate: true},
             {key: 'ammount', label: 'Monto de comisión', currency: true},
-            {key: 'status', label: 'Estatus',  mapper: {paid: 'pagada', pending: 'pendiente'}},
+            {key: 'status', label: 'Estatus',  mapper: {paid: 'pagada', pending: 'pendiente'}, color: {paid: 'green', pending: 'red'}},
             {key: 'user.name', label: 'Usuario'},
         ];
         vm.apiResource = commissionsService.getList;
