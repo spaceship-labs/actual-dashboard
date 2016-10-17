@@ -168,6 +168,61 @@
               delete filters[key];
             }
           }
+          commissionsService.all(filters).then(function(data) {
+            return data.map(function(ci) {
+              return [
+                ci.folio.toFixed(0),
+                ci.store.name,
+                ci.user.firstName + ' ' + ci.user.lastName,
+                moment(ci.datePayment).format('d/MMM/YYYY'),
+                ci.ammountPayment.toFixed(2),
+                ci.rate.toFixed(2),
+                ci.ammount.toFixed(2),
+              ];
+            });
+          })
+          .then(generatePdf);
+        }
+
+        function generatePdf(data) {
+          var body =  [
+            [
+              {text: 'Folio', style: 'header'},
+              {text: 'Tienda', style: 'header'},
+              {text: 'Usuario', style: 'header'},
+              {text: 'Fecha de pago', style: 'header'},
+              {text: 'Monto de pago', style: 'header'},
+              {text: 'Comisión', style: 'header'},
+              {text: 'Monto de comisión', style: 'header'},
+            ]
+          ].concat(data);
+          var docDefinition = {
+            content: [
+              {
+                text: 'Reporte de comisiones'
+              },
+              {
+                style: 'demoTable',
+                table: {
+                  widths: ['*', '*', '*', '*', '*', '*', '*'],
+                  body: body,
+                }
+              }
+            ],
+            styles: {
+              header: {
+                bold: true,
+                color: '#000',
+                fontSize: 11
+              },
+              demoTable: {
+                color: '#666',
+                fontSize: 10
+              }
+            }
+          };
+          pdfMake.createPdf(docDefinition).download();
+          //
         }
     }
 })();
