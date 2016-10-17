@@ -8,6 +8,7 @@
     return {
       getList: getList,
       runReport: runReport,
+      all: all
     };
 
     function getList(page, _params){
@@ -22,6 +23,12 @@
       var url = '/commission/report';
       var params = filters;
       return api.$http.post(url, params);
+    }
+
+    function all(filters) {
+      var url = '/commission/all';
+      var params = filters;
+      return api.$http.post(url, params).then(function(res){return res.data;});
     }
 
   }

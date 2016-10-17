@@ -97,10 +97,15 @@
             <md-button class="md-raised md-primary" ng-click="vm.runReport()">
               Iniciar reporte
             </md-button>
-            <md-button class="md-raised md-primary">
+            <md-button
+              class="md-raised md-primary"
+              ng-csv="vm.downloadExcel()"
+              csv-header="['Folio', 'Tienda', 'Usuario', 'Fecha de pago', 'Monto de pago', 'Comisión', 'Monto de comisión']"
+              filename="reportes.csv"
+            >
               Excel
             </md-button>
-            <md-button class="md-raised md-primary">
+            <md-button class="md-raised md-primary" ng-click="vm.downloadPDF()">
               PDF
             </md-button>
           </div>

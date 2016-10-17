@@ -53,6 +53,8 @@
         ].map(function(m, i) { return [i, m]; });
         vm.setFilterDate = setFilterDate;
         vm.runReport = runReport;
+        vm.downloadExcel = downloadExcel;
+        vm.downloadPDF = downloadPDF;
         init();
 
         function init() {
@@ -135,6 +137,37 @@
           commissionsService.runReport(filters).then(function() {
             $rootScope.$broadcast('reloadTable', true);
           });
+        }
+
+        function downloadExcel() {
+          var filters = Object.assign({}, vm.filters);
+          for (var key in filters) {
+            if (filters[key] == undefined) {
+              delete filters[key];
+            }
+          }
+          return commissionsService.all(filters).then(function(data) {
+            return data.map(function(ci) {
+              return {
+                folio: ci.folio,
+                store: ci.store.name,
+                user: ci.user.firstName + ' ' + ci.user.lastName,
+                payment: moment(ci.datePayment).format('d/MMM/YYYY'),
+                ammountPayment: ci.ammountPayment,
+                ammountRate: ci.rate,
+                ammount: ci.ammount,
+              };
+            });
+          });
+        }
+
+        function downloadPDF() {
+          var filters = Object.assign({}, vm.filters);
+          for (var key in filters) {
+            if (filters[key] == undefined) {
+              delete filters[key];
+            }
+          }
         }
     }
 })();
