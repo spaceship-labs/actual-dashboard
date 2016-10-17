@@ -6,7 +6,8 @@
 
   function commissionsService($http, $q, api) {
     return {
-      getList: getList
+      getList: getList,
+      runReport: runReport,
     };
 
     function getList(page, _params){
@@ -14,6 +15,12 @@
       var params = Object.assign({} ,_params, {
         page: page || 1
       });
+      return api.$http.post(url, params);
+    }
+
+    function runReport(filters) {
+      var url = '/commission/report';
+      var params = filters;
       return api.$http.post(url, params);
     }
 

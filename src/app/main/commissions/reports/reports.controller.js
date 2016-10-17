@@ -52,6 +52,7 @@
           'Diciembre'
         ].map(function(m, i) { return [i, m]; });
         vm.setFilterDate = setFilterDate;
+        vm.runReport = runReport;
         init();
 
         function init() {
@@ -122,6 +123,18 @@
         function setLastDay(date) {
           var date = new Date(date);
           return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        }
+
+        function runReport() {
+          var filters = Object.assign({}, vm.filters);
+          for (var key in filters) {
+            if (filters[key] == undefined) {
+              delete filters[key];
+            }
+          }
+          commissionsService.runReport(filters).then(function() {
+            $rootScope.$broadcast('reloadTable', true);
+          });
         }
     }
 })();
