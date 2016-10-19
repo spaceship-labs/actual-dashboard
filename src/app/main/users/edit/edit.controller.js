@@ -24,7 +24,6 @@
         vm.sendForm          = sendForm;
         vm.toggleStore     = toggleStore;
         vm.isStoreSelected = isStoreSelected;
-        vm.init              = init;
 
         function isStoreSelected(id) {
           if(!vm.user){
@@ -44,7 +43,7 @@
           }
         }
 
-        vm.init();
+        init();
 
         //////////
 

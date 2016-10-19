@@ -29,6 +29,7 @@
         vm.modules = userService.getAllModules();
         vm.sendForm    = sendForm;
         vm.toggleStore = toggleStore;
+        vm.isStoreSelected = isStoreSelected;        
         
         init();
 
