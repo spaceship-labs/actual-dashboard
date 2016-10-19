@@ -73,6 +73,7 @@
             'ui.tinymce',
             'pikaday',
             'ui.timepicker',
-            'bcherny/formatAsCurrency'
+            'bcherny/formatAsCurrency',
+            'ngCsv',
         ]);
 })();

@@ -52,6 +52,9 @@
           'Diciembre'
         ].map(function(m, i) { return [i, m]; });
         vm.setFilterDate = setFilterDate;
+        vm.runReport = runReport;
+        vm.downloadExcel = downloadExcel;
+        vm.downloadPDF = downloadPDF;
         init();
 
         function init() {
@@ -122,6 +125,104 @@
         function setLastDay(date) {
           var date = new Date(date);
           return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        }
+
+        function runReport() {
+          var filters = Object.assign({}, vm.filters);
+          for (var key in filters) {
+            if (filters[key] == undefined) {
+              delete filters[key];
+            }
+          }
+          commissionsService.runReport(filters).then(function() {
+            $rootScope.$broadcast('reloadTable', true);
+          });
+        }
+
+        function downloadExcel() {
+          var filters = Object.assign({}, vm.filters);
+          for (var key in filters) {
+            if (filters[key] == undefined) {
+              delete filters[key];
+            }
+          }
+          return commissionsService.all(filters).then(function(data) {
+            return data.map(function(ci) {
+              return {
+                folio: ci.folio,
+                store: ci.store.name,
+                user: ci.user.firstName + ' ' + ci.user.lastName,
+                payment: moment(ci.datePayment).format('d/MMM/YYYY'),
+                ammountPayment: ci.ammountPayment,
+                ammountRate: ci.rate,
+                ammount: ci.ammount,
+              };
+            });
+          });
+        }
+
+        function downloadPDF() {
+          var filters = Object.assign({}, vm.filters);
+          for (var key in filters) {
+            if (filters[key] == undefined) {
+              delete filters[key];
+            }
+          }
+          commissionsService.all(filters).then(function(data) {
+            return data.map(function(ci) {
+              return [
+                ci.folio.toFixed(0),
+                ci.store.name,
+                ci.user.firstName + ' ' + ci.user.lastName,
+                moment(ci.datePayment).format('d/MMM/YYYY'),
+                ci.ammountPayment.toFixed(2),
+                ci.rate.toFixed(2),
+                ci.ammount.toFixed(2),
+              ];
+            });
+          })
+          .then(generatePdf);
+        }
+
+        function generatePdf(data) {
+          var body =  [
+            [
+              {text: 'Folio', style: 'header'},
+              {text: 'Tienda', style: 'header'},
+              {text: 'Usuario', style: 'header'},
+              {text: 'Fecha de pago', style: 'header'},
+              {text: 'Monto de pago', style: 'header'},
+              {text: 'Comisión', style: 'header'},
+              {text: 'Monto de comisión', style: 'header'},
+            ]
+          ].concat(data);
+          var docDefinition = {
+            content: [
+              {
+                text: 'Reporte de comisiones'
+              },
+              {
+                style: 'demoTable',
+                table: {
+                  widths: ['*', '*', '*', '*', '*', '*', '*'],
+                  body: body,
+                }
+              }
+            ],
+            styles: {
+              header: {
+                bold: true,
+                color: '#000',
+                fontSize: 11
+              },
+              demoTable: {
+                color: '#666',
+                fontSize: 10
+              }
+            }
+          };
+          pdfMake.createPdf(docDefinition).download();
+          //
         }
     }
 })();
