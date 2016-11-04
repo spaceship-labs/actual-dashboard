@@ -220,18 +220,20 @@
 
                 <!--ITEMCODE SEARCHER-->
                 <h2><strong>Búscar por código</strong></h2>
+
+
+                <p>Importar desde excel (la columna de código de producto debera nombrarse "itemcode")</p>
+                <input 
+                  type="file" 
+                  accept=".xls,.xlsx,.ods" 
+                  excel-reader 
+                  output="vm.importDataXls" 
+                  data-buttonText="Seleccionar archivo xlsx"
+                />
+
                 <section layout="row">
                   <div class="input-element" flex="100" flex-sm="100" flex-xs="100">
                     <label>Código del producto</label>
-                    <!--
-                    <div class="input-element-inner">
-                      <input
-                        type="text"
-                        name="itemcode"
-                        ng-model="vm.search.itemCode"
-                        placeholder="Código del producto">
-                    </div>
-                    -->
                     <md-chips 
                       ng-if="vm.search.itemCode"
                       ng-model="vm.search.itemCode" 

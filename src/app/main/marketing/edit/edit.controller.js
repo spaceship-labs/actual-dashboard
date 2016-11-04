@@ -23,6 +23,7 @@
         var vm = this;
 
         angular.extend(vm, {
+          importDataXls: [],          
           myPickerEndDate         : {},
           myPickerStartDate       : {},
           groups                  : [],
@@ -56,6 +57,14 @@
           selectAllCategories   : selectAllCategories,
           unselectAllCategories : unselectAllCategories,
           update                : update,
+        });
+
+        $scope.$watch('vm.importDataXls', function(newVal, oldVal){
+          if(newVal != oldVal && angular.isArray(newVal)){
+            vm.search.itemCode = newVal.map(function(item){
+              return item.itemcode;
+            });
+          }
         });
 
         function objIndexOf(arr, query){

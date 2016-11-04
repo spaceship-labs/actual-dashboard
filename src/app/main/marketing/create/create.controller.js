@@ -19,6 +19,7 @@
         var vm = this;
 
         angular.extend(vm, {
+          importDataXls: [],
           promotion: {
             pushMoneyUnit:0,
             pushMoneyUnitType: 'ammount'
@@ -67,6 +68,14 @@
                 var dis =  (baseDiscount - (i*5));
                 if(dis >= 0) pg.discount = dis;
               }
+            });
+          }
+        });
+
+        $scope.$watch('vm.importDataXls', function(newVal, oldVal){
+          if(newVal != oldVal && angular.isArray(newVal)){
+            vm.search.itemCode = newVal.map(function(item){
+              return item.itemcode;
             });
           }
         });
