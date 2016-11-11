@@ -165,35 +165,6 @@
                     Lento movimiento
                   </md-checkbox>
                 </div>
-                <div
-                  ng-if="vm.promotion.hasLM"
-                  class="input-element"
-                  flex="25"
-                  flex-sm="100"
-                  flex-xs="100">
-                  <label>Push money</label>
-                  <div layout="row">
-                    <div flex="40" class="input-element-inner">
-                      <input type="number" min="0" ng-model="vm.promotion.pushMoneyUnit">
-                    </div>
-                    <div flex="60">
-                      <md-select
-                        ng-if="vm.promotion.hasLM"
-                        required
-                        class="select-element"
-                        select="Monto/Porcentaje (Requerido)"
-                        ng-model="vm.promotion.pushMoneyUnitType"
-                      >
-                        <md-option ng-value="'ammount'">
-                          Monto
-                        </md-option>
-                        <md-option ng-value="'percent'">
-                          Porcentaje
-                        </md-option>
-                      </md-select>
-                    </div>
-                  </div>
-                </div>
               </section>
               <!--END LENTO MOVIMIENTO  AND PUSH MONEY-->
 
