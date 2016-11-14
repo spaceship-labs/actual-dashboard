@@ -10,6 +10,7 @@
       function CommissionsReportsController(
         $rootScope,
         $scope,
+        $mdDialog,
         DTOptionsBuilder,
         DTColumnBuilder,
         api,
@@ -134,9 +135,21 @@
               delete filters[key];
             }
           }
-          commissionsService.runReport(filters).then(function() {
-            $rootScope.$broadcast('reloadTable', true);
-          });
+          commissionsService
+            .runReport(filters)
+            .then(function() {
+              $rootScope.$broadcast('reloadTable', true);
+            })
+            .catch(function(err){
+              var data = err.data.message;
+              $mdDialog.show(
+                $mdDialog.alert({
+                  title: 'Hubo un problema',
+                  textContent: data,
+                  ok: 'Close'
+                })
+              );
+            });
         }
 
         function downloadExcel() {
