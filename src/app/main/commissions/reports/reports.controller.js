@@ -10,6 +10,7 @@
       function CommissionsReportsController(
         $rootScope,
         $scope,
+        $filter,
         $mdDialog,
         DTOptionsBuilder,
         DTColumnBuilder,
@@ -166,9 +167,10 @@
                 store: ci.store.name,
                 user: ci.user.firstName + ' ' + ci.user.lastName,
                 payment: moment(ci.datePayment).format('d/MMM/YYYY'),
-                ammountPayment: ci.ammountPayment,
-                ammountRate: ci.rate,
-                ammount: ci.ammount,
+                ammountPayment: $filter('currency')(ci.ammountPayment),
+                ammountPaymentNoIVA: $filter('currency')(ci.ammountPayment / 1.16),
+                ammountRate: (ci.rate * 100).toFixed(2) + '%',
+                ammount: $filter('currency')(ci.ammount),
               };
             });
           });
@@ -188,9 +190,10 @@
                 ci.store.name,
                 ci.user.firstName + ' ' + ci.user.lastName,
                 moment(ci.datePayment).format('d/MMM/YYYY'),
-                ci.ammountPayment.toFixed(2),
-                ci.rate.toFixed(2),
-                ci.ammount.toFixed(2),
+                $filter('currency')(ci.ammountPayment),
+                $filter('currency')(ci.ammountPayment / 1.16),
+                (ci.rate * 100).toFixed(2) + '%',
+                $filter('currency')(ci.ammount),
               ];
             });
           })
@@ -203,8 +206,9 @@
               {text: 'Folio', style: 'header'},
               {text: 'Tienda', style: 'header'},
               {text: 'Usuario', style: 'header'},
-              {text: 'Fecha de pago', style: 'header'},
-              {text: 'Monto de pago', style: 'header'},
+              {text: 'Fecha de cobro', style: 'header'},
+              {text: 'Monto de cobro', style: 'header'},
+              {text: 'Monto de cobro sin IVA', style: 'header'},
               {text: 'Comisión', style: 'header'},
               {text: 'Monto de comisión', style: 'header'},
             ]
@@ -217,7 +221,7 @@
               {
                 style: 'demoTable',
                 table: {
-                  widths: ['*', '*', '*', '*', '*', '*', '*'],
+                  widths: ['*', '*', '*', '*', '*', '*', '*', '*'],
                   body: body,
                 }
               }
