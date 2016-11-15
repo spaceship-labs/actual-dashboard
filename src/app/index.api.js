@@ -16,16 +16,6 @@
         //api.baseUrl = 'http://localhost:1337';
         //api.baseUrl = 'http://localhost:1340';
 
-        /*
-        api.sample = $resource(api.baseUrl + 'sample/sample.json');
-        api.quickPanel = {
-            activities: $resource(api.baseUrl + 'quick-panel/activities.json'),
-            contacts  : $resource(api.baseUrl + 'quick-panel/contacts.json'),
-            events    : $resource(api.baseUrl + 'quick-panel/events.json'),
-            notes     : $resource(api.baseUrl + 'quick-panel/notes.json')
-        };
-        */
-
         api.$http = function(req) {
           var data = api.serialize(req);
           return $http(data);
