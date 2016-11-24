@@ -333,7 +333,8 @@
             vm.isLoading = true;
             var params = {
               Video: vm.product.Video,
-              CheckedPhotos: vm.product.CheckedPhotos
+              CheckedPhotos: vm.product.CheckedPhotos,
+              ImagesOrder: getImagesOrder(vm.product.files)
             };
             productService.update(vm.product.ItemCode, params)
               .then(function(res){
@@ -415,15 +416,14 @@
         }
 
 
-        function getImagesOrder(){
-          vm.product.ImagesOrder =  [];
+        function getImagesOrder(images){
           var auxImages = [];
-          vm.product.files.forEach(function(file){
-            if(auxImages.indexOf(file) < 0){
-              auxImages.push(file);
-              vm.product.ImagesOrder.push(file.id);
+          images.forEach(function(image){
+            if(auxImages.indexOf(image) < 0){
+              auxImages.push(image.id);
             }
           });
+          return auxImages;
         }
 
         function sortImages(){
