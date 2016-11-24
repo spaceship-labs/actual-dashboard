@@ -56,6 +56,7 @@
           {key:'create-users', label:'Crear usuarios', section:'users'},
           {key:'edit-users', label:'Editar usuarios', section:'users'},
           {key:'list-users', label: 'Ver usuarios', section:'users'},
+          {key:'close-quotations', label: 'Cerrar cotizaciones', section: 'quotations'},
           {key:'list-products', label:'Ver lista de productos', section:'products'},
           {key:'edit-products', label:'Editar productos', section:'products'},
           {key:'import-images', label:'Importar imagenes', section:'config'},

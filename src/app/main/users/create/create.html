@@ -342,6 +342,17 @@
                     </div>
                   </div>
 
+                  <div flex="33">
+                    <p><label><strong>Cotizaciones</strong></label></p>
+                    <div class="scroll-column scroll-column-modules">
+                      <div class="block-checkbox" ng-repeat="module in vm.modules | filter:{section:'quotations'}">
+                        <md-checkbox  ng-model="module.isActive" aria-label="Checkbox 1">
+                          {{module.label}}
+                        </md-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </section>
               <!--END MODULES CHOOSER-->
