@@ -9,28 +9,24 @@
     /** @ngInject */
     function LoginController($scope, authService){
 
-        var vm = this;
+      var vm = this;
+      vm.isLoading = false;
 
-        // Data
-        vm.isLoading = false;
+      vm.signIn = function(){
+        vm.isLoading = true;
 
-        // Methods
-
-        vm.signIn = function(){
-          vm.isLoading = true;
-
-          var formData = {
-            email: vm.form.email,
-            password: vm.form.password
-          };
-
-          authService.signIn(formData, $scope.successAuth, function(){
-            console.log('Invalid');
-            vm.isLoading = false;
-          });
-
+        var formData = {
+          email: vm.form.email,
+          password: vm.form.password
         };
 
-        //////////
+        authService.signIn(formData, $scope.successAuth, onSignInFail);
+      };
+
+      function onSignInFail(){
+        console.log('Login fail');
+        vm.isLoading = false;
+      }
+
     }
 })();
