@@ -183,9 +183,36 @@
       <br/>
       <div>
         <h2><strong>FreeSale</strong></h2>
-        <div>
-          <md-checkbox class="spaced-checkbox block-checkbox" ng-model="vm.product.freeSale">FreeSale</md-checkbox>
+        <div layout="row">
+          
+          <div flex="30">
+            <md-checkbox
+              class="spaced-checkbox block-checkbox" 
+              ng-model="vm.product.freeSale">FreeSale</md-checkbox>
+          </div>
+
+          <div flex="20" ng-if="vm.product.freeSale" class="input-element number-element">
+            <label>Inventario CEDIS Q.Roo</label>
+            <div class="input-element-inner">
+              <input 
+                type="number" 
+                ng-model="vm.product.freeSaleStock" 
+                >
+            </div>
+          </div>
+
+          <div flex="25" ng-if="vm.product.freeSale" class="input-element number-element">
+            <label>Dias de llegada al almacen</label>
+            <div class="input-element-inner">
+              <input 
+                type="number" 
+                ng-model="vm.product.freeSaleDeliveryDays" 
+                >
+            </div>
+          </div>
+
         </div>
+
       </div>
       <!--END FREESALE-->
 

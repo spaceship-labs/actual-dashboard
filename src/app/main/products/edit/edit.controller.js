@@ -189,8 +189,16 @@
               ItmsGrpCod: vm.product.ItmsGrpCod,
               CustomBrand: vm.product.CustomBrand,
               CheckedStructure: vm.product.CheckedStructure,
-              freeSale: vm.product.freeSale
+              freeSale: vm.product.freeSale,
             };
+            
+            if(params.freeSale){
+              angular.extend(params,{
+                freeSaleStock: vm.product.freeSaleStock,
+                freeSaleDeliveryDays: vm.product.freeSaleDeliveryDays
+              });
+            }
+
             vm.displays.forEach(function(display){
               params[display.handle] = vm.product[display.handle];
             });
