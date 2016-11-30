@@ -64,9 +64,16 @@
           }).then(function(user){
             console.log('user',user);
             userService.getSellers().then(function(res){
-              vm.sellers   = res.data.concat(user.SlpCode);
+              vm.sellers = res.data;
+              if(user.Seller){
+                vm.sellers   = res.data.concat(user.Seller);
+              }
               vm.sellers.unshift({id:null, SlpName:'Ninguno'});
-              user.SlpCode = user.SlpCode.id;
+              if(user.Seller){
+                user.Seller = user.Seller.id;
+              }else{
+                user.Seller = vm.sellers[0].id;
+              }
             });
           });
 

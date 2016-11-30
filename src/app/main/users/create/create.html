@@ -175,7 +175,9 @@
                   flex-xs="100">
                   <p class="select-element-label"><label><strong>Vendedor(SAP)</strong></label></p>
                   <md-input-container>
-                    <md-select class="select-element select-element-md" ng-model="vm.user.SlpCode">
+                    <md-select 
+                      class="select-element select-element-md" 
+                      ng-model="vm.user.Seller">
                       <md-option 
                         ng-repeat="seller in vm.sellers | orderBy:'SlpName' track by $index  " 
                         ng-value="seller.id">
