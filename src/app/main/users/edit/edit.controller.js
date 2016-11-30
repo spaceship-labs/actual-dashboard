@@ -62,6 +62,7 @@
             });
             return vm.user;
           }).then(function(user){
+            console.log('user',user);
             userService.getSellers().then(function(res){
               vm.sellers   = res.data.concat(user.SlpCode);
               vm.sellers.unshift({id:null, SlpName:'Ninguno'});

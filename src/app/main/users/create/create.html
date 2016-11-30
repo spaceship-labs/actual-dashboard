@@ -168,11 +168,17 @@
                   </md-input-container>
                 </div>
 
-                <div  class="input-element " flex="30" flex-xs="100">
+                <div 
+                  ng-if="vm.sellers" 
+                  class="input-element " 
+                  flex="30" 
+                  flex-xs="100">
                   <p class="select-element-label"><label><strong>Vendedor(SAP)</strong></label></p>
                   <md-input-container>
                     <md-select class="select-element select-element-md" ng-model="vm.user.SlpCode">
-                      <md-option ng-repeat="seller in vm.sellers track by $index" ng-value="seller.id">
+                      <md-option 
+                        ng-repeat="seller in vm.sellers | orderBy:'SlpName' track by $index  " 
+                        ng-value="seller.id">
                         <span>{{seller.SlpName}}</span>
                         <span ng-if="seller.id">| {{seller.id}}</span>
                       </md-option>
