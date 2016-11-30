@@ -65,7 +65,7 @@
             console.log('user',user);
             userService.getSellers().then(function(res){
               vm.sellers = res.data;
-              if(user.Seller){
+              if(user.Seller && user.Seller.SlpCode != -1){
                 vm.sellers   = res.data.concat(user.Seller);
               }
               vm.sellers.unshift({id:null, SlpName:'Ninguno'});
