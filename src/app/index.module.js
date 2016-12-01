@@ -66,8 +66,6 @@
             'LocalStorageModule',
             'angular-jwt',
             'bw.paging',
-            'ngWYSIWYG',
-            'textAngular',
             'dndLists',
             'ngMaterialDatePicker',
             'ui.tinymce',
