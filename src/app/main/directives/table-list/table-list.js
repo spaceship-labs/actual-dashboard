@@ -142,7 +142,7 @@
                 if(column.yesNo){
                   data = data ? 'Si' : 'No';
                 }
-                if(!data){
+                if(!data && data != 0){
                   data = data ? data : 'No asignado';
                 }
                 if(column.defaultValue){
