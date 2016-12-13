@@ -26,21 +26,44 @@
                 <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
               </div>
 
-              <form  ng-show="!vm.isLoading" name="updateForm" ng-submit="vm.update(updateForm)">
+              <section ng-show="!vm.isLoading">
+                
+                <div 
+                  ng-repeat="site in vm.sites track by $index"                 
+                  class="site-settings">
 
-                <div class="input-element textarea-element">
-                  <label>Texto detalles de la entrega*</label>
-                  <div class="input-element-inner">
-                    <textarea ui-tinymce="tinymceOptions" required  ng-model="vm.site.deliveryText"></textarea>
+                  <h2>{{site.name}}</h2>
+
+                  <div 
+                    ng-show="site.isLoading" 
+                    layout="row" 
+                    layout-sm="column" 
+                    layout-align="space-around">
+                    <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
                   </div>
+
+                  <form  
+                    ng-show="!site.isLoading"
+                    name="updateForm" 
+                    ng-submit="vm.update(updateForm, site)"
+                  >
+
+                    <div class="input-element textarea-element">
+                      <label>Texto detalles de la entrega*</label>
+                      <div class="input-element-inner">
+                        <textarea ui-tinymce="tinymceOptions" required  ng-model="site.deliveryText"></textarea>
+                      </div>
+                    </div>
+
+
+                    <md-button class="md-raised md-primary action-button" type="submit">
+                      Actualizar
+                    </md-button>
+
+                  </form>
                 </div>
 
-
-                <md-button class="md-raised md-primary action-button" type="submit">
-                  Actualizar
-                </md-button>
-
-              </form>
+              </section>
 
             </md-content>
           </section>

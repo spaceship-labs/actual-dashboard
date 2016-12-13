@@ -11,33 +11,39 @@
     {
         var vm = this;
         angular.extend(vm,{
-          init: init,
           update:update
         });
 
         function init(){
           vm.isLoading = true;
-          siteService.findByHandle('actual-group').then(function(res){
-            vm.isLoading = false;
-            vm.site = res.data;
-          });
+          siteService.getAll()
+            .then(function(res){
+              vm.isLoading = false;
+              vm.sites = res.data;
+            })
+            .catch(function(err){
+              console.log(err);
+              vm.isLoading = false;
+            });
         }
 
-        function update(form){
+        function update(form, site){
           if(form.$valid){
-            vm.isLoading = true;
-            siteService.update('actual-group', vm.site).then(function(res){
-              console.log(res);
-              vm.isLoading = false;
-              dialogService.showDialog('Datos actualizados');
-            }).catch(function(err){
-              vm.isLoading = false;
-              dialogService.showDialog('Hubo un error, revisa la información e intenta de nuevo');
-            });
+            site.isLoading = true;
+            siteService.update(site.handle, site)
+              .then(function(res){
+                console.log(res);
+                site.isLoading = false;
+                dialogService.showDialog('Datos actualizados');
+              })
+              .catch(function(err){
+                site.isLoading = false;
+                dialogService.showDialog('Hubo un error, revisa la información e intenta de nuevo');
+              });
           }
         }
 
-        vm.init();
+        init();
     }
 
 })();

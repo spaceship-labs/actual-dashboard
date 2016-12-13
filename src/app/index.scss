@@ -670,3 +670,12 @@ label.mce-charactercount {
   font-size: 12px;
 }
 .mkt-view md-chip{font-size: 12px;}
+
+
+.site-settings{
+  border-bottom: 1px solid #000;
+  padding: 10px 0;
+}
+.site-settings:last-child{
+  border-bottom: 0;
+}

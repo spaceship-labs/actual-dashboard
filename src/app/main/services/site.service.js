@@ -10,7 +10,8 @@
 
       var service = {
         update: update,
-        findByHandle: findByHandle
+        findByHandle: findByHandle,
+        getAll: getAll
       };
 
       return service;
@@ -23,6 +24,11 @@
       function update(handle, params){
         var url = '/site/update/' + handle;
         return api.$http.post(url,params);
+      }
+
+      function getAll(){
+        var url = '/sites';
+        return api.$http.post(url);
       }
 
     }
