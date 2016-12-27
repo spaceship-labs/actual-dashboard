@@ -36,6 +36,7 @@
             {key: 'ammount', label: 'Monto de comisión', currency: true},
             {key: 'status', label: 'Estatus',  mapper: {paid: 'pagada', pending: 'pendiente'}, color: {paid: 'green', pending: 'red'}},
             {key: 'user.name', label: 'Usuario'},
+            {key: 'role', label: 'Rol', mapper: {seller: 'Vendedor', 'store manager': 'Gerente'}},
         ];
         vm.apiResource = commissionsService.getList;
         vm.years  = range(new Date().getFullYear(), 1999, -1);
