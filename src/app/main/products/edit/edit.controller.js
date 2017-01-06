@@ -121,14 +121,12 @@
           {label:'mayor a una hora', value:'>1hr'},
 
         ];
-        vm.sas = {
-          '001': 'Studio',
-          '002': 'Home',
-          '003': 'Ambas',
-          '004': 'Kids'
-        };
+        vm.sas = commonService.getSocietiesHash();
         vm.selectedCategories = [];
         
+        var MATERIAL_FILTER_HANDLE = 'material';
+        var LOCATION_FILTER_HANDLE = 'ubicacion-uso'; 
+
         init();
 
         //Methods
@@ -606,11 +604,31 @@
             }
 
             if(filter.Handle === 'color'){
-              //vm.colorFilter = filter;
               vm.counterColors = filter.selectedValues.length;
             }
 
           });
+          vm.normalFilters = applyFiltersCustomOrder(vm.normalFilters);
+        }
+
+        function applyFiltersCustomOrder(filters){
+          var materialFilter;
+          var locationFilter;
+          for(var i=0;i<filters.length;i++){
+            if(filters[i].Handle === MATERIAL_FILTER_HANDLE){
+              materialFilter = angular.copy(filters[i]);
+            }
+            if(filters[i].Handle === LOCATION_FILTER_HANDLE){
+              locationFilter = angular.copy(filters[i]);
+            }
+          }
+          filters = filters.filter(function(f){
+            return f.Handle !== MATERIAL_FILTER_HANDLE &&  f.Handle !== LOCATION_FILTER_HANDLE;
+          });
+
+          filters.push(materialFilter);
+          filters.push(locationFilter);
+          return filters;
         }
 
         function removeIcon(){

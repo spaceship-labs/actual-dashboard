@@ -13,6 +13,7 @@
         formatHandle    : formatHandle,
         getCountriesList: getCountriesList,
         getSocieties    : getSocieties,
+        getSocietiesHash: getSocietiesHash,
         getDisplays     : getDisplays,
         getPaymentGroups: getPaymentGroups,
         getGroupTypes   : getGroupTypes,
@@ -80,6 +81,16 @@
           {label:'Actual Kids', value:'004'}
         ];
         return sas;        
+      }
+
+      function getSocietiesHash(){
+        var sasHash = {
+          '001': 'Studio',
+          '002': 'Home',
+          '003': 'Ambas',
+          '004': 'Kids'
+        };
+        return sasHash;        
       }
 
       function getPaymentGroups(){
