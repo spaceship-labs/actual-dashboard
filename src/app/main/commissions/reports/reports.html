@@ -100,8 +100,8 @@
             <md-button
               class="md-raised md-primary"
               ng-csv="vm.downloadExcel()"
-              csv-header="['Folio', 'Tienda', 'Usuario', 'Fecha de cobro', 'Monto de cobro', 'Monto de cobro sin IVA', 'Comisión', 'Monto de comisión']"
-              filename="reportes.csv"
+              csv-header="['Folio', 'Tienda', 'Usuario', 'Rol', 'Fecha de cobro', 'Monto de cobro', 'Monto de cobro sin IVA', 'Comisión', 'Monto de comisión']"
+              filename="{{vm.csvtitle}}"
             >
               Excel
             </md-button>

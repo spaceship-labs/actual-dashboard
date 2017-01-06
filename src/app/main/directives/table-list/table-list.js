@@ -163,14 +163,15 @@
                     'Abril',
                     'Mayo',
                     'Junio',
+                    'Julio',
                     'Agosto',
                     'Septiembre',
                     'Octubre',
                     'Noviembre',
-                    'Diciembre'
+                    'Diciembre',
                   ];
                   var date  = new Date(data);
-                  var month = date.getMonth() - 1;
+                  var month = date.getMonth();
                   var year  = date.getFullYear();
                   data = months[month] + ', ' + year;
                 }

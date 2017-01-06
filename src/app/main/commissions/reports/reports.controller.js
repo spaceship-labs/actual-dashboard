@@ -36,6 +36,7 @@
             {key: 'ammount', label: 'Monto de comisión', currency: true},
             {key: 'status', label: 'Estatus',  mapper: {paid: 'pagada', pending: 'pendiente'}, color: {paid: 'green', pending: 'red'}},
             {key: 'user.name', label: 'Usuario'},
+            {key: 'role', label: 'Rol', mapper: {seller: 'Vendedor', 'store manager': 'Gerente'}},
         ];
         vm.apiResource = commissionsService.getList;
         vm.years  = range(new Date().getFullYear(), 1999, -1);
@@ -154,6 +155,7 @@
         }
 
         function downloadExcel() {
+          vm.csvtitle = 'Reporte_de_comisiones-' + moment().format('') + '.csv';
           var filters = Object.assign({}, vm.filters);
           for (var key in filters) {
             if (filters[key] == undefined) {
@@ -162,10 +164,17 @@
           }
           return commissionsService.all(filters).then(function(data) {
             return data.map(function(ci) {
+              if (ci.role == 'seller') {
+                var role = 'Vendedor';
+              }
+              if (ci.role == 'store manager') {
+                var role = 'Gerente';
+              }
               return {
                 folio: ci.folio,
                 store: ci.store.name,
                 user: ci.user.firstName + ' ' + ci.user.lastName,
+                rol: role,
                 payment: moment(ci.datePayment).format('d/MMM/YYYY'),
                 ammountPayment: $filter('currency')(ci.ammountPayment),
                 ammountPaymentNoIVA: $filter('currency')(ci.ammountPayment / 1.16),
@@ -185,10 +194,17 @@
           }
           commissionsService.all(filters).then(function(data) {
             return data.map(function(ci) {
+              if (ci.role == 'seller') {
+                var role = 'Vendedor';
+              }
+              if (ci.role == 'store manager') {
+                var role = 'Gerente';
+              }
               return [
                 ci.folio.toFixed(0),
                 ci.store.name,
                 ci.user.firstName + ' ' + ci.user.lastName,
+                role,
                 moment(ci.datePayment).format('d/MMM/YYYY'),
                 $filter('currency')(ci.ammountPayment),
                 $filter('currency')(ci.ammountPayment / 1.16),
@@ -201,11 +217,13 @@
         }
 
         function generatePdf(data) {
+          var title = 'Reporte_de_comisiones-' + moment().format('');
           var body =  [
             [
               {text: 'Folio', style: 'header'},
               {text: 'Tienda', style: 'header'},
               {text: 'Usuario', style: 'header'},
+              {text: 'Rol', style: 'header'},
               {text: 'Fecha de cobro', style: 'header'},
               {text: 'Monto de cobro', style: 'header'},
               {text: 'Monto de cobro sin IVA', style: 'header'},
@@ -216,12 +234,12 @@
           var docDefinition = {
             content: [
               {
-                text: 'Reporte de comisiones'
+                text: title,
               },
               {
                 style: 'demoTable',
                 table: {
-                  widths: ['*', '*', '*', '*', '*', '*', '*', '*'],
+                  widths: ['*', '*', '*', '*', '*', '*', '*', '*', '*'],
                   body: body,
                 }
               }
@@ -238,7 +256,7 @@
               }
             }
           };
-          pdfMake.createPdf(docDefinition).download();
+          pdfMake.createPdf(docDefinition).download(title);
           //
         }
     }
