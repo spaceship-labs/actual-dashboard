@@ -73,5 +73,6 @@
             'ui.timepicker',
             'bcherny/formatAsCurrency',
             'ngCsv',
+            'envconfig',
         ]);
 })();

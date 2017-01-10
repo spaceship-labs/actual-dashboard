@@ -7,13 +7,11 @@
         .factory('api', apiService);
 
     /** @ngInject */
-    function apiService($resource, $http){
+    function apiService($resource, $http, ENV){
 
         var api = {};
-
-        // Base Url
-        api.baseUrl = 'http://actual-api.herokuapp.com';
-        //api.baseUrl = 'http://localhost:1337';
+        api.baseUrl = ENV.baseUrl;
+        console.log(api.baseUrl);
 
         api.$http = function(req) {
           var data = api.serialize(req);

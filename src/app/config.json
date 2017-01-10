@@ -1,0 +1,14 @@
+{
+  "dev": {
+    "baseUrl": "http://actual-api.herokuapp.com"
+  },
+  "sandbox": {
+    "baseUrl": "http://actual-api.herokuapp.com"
+  },
+  "demo": {
+    "baseUrl": "http://actual-api.herokuapp.com"
+  },
+  "production": {
+    "baseUrl": "http://actual-api.herokuapp.com"
+  }
+}
