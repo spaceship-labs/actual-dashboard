@@ -8,10 +8,12 @@
 
     /** @ngInject */
     function MarketingPackagesditController(
+      $scope,
       $stateParams,
       productService,
       packageService,
       dialogService,
+      commonService,
       api
     ){
         var vm = this;
@@ -22,7 +24,8 @@
           init: init,
           objIndexOf: objIndexOf,
           update: update,
-          formatProducts: formatProducts
+          formatProducts: formatProducts,
+          displays: commonService.getDisplays()
         });
 
         function init(){
@@ -72,6 +75,16 @@
           return products;
         }
 
+        function getSelectedDisplays(){
+          var selectedDisplaysHash = vm.displays.reduce(function(hash,display){
+            if(vm.packageGroup[display.handle]){
+              hash[display.handle] = true;
+            }
+            return hash;
+          },{});
+          return selectedDisplaysHash;
+        }
+
         function update(form){
           if(form.$valid){
             vm.isLoading = true;
@@ -84,8 +97,12 @@
                 };
                 return pInfo;
               }),
-              Stores: vm.selectedStores || []
-            }
+              Stores: vm.selectedStores || [],
+            };
+
+            var selectedDisplaysHash = getSelectedDisplays();
+            params = _.extend(params, selectedDisplaysHash);
+
             packageService.update(vm.packageGroup.id, params)
               .then(function(res){
                 console.log(res);
@@ -126,6 +143,21 @@
         function objIndexOf(arr, query){
           return _.findWhere(arr, query);
         }
+
+        function checkAllMark(display){
+          if(display){
+            vm.toggleAllDisplays = false;
+          }
+        }
+
+
+        $scope.$watch('vm.toggleAllDisplays', function(newVal, oldVal){
+          if(newVal != oldVal && newVal === true){
+            vm.displays.forEach(function(display){
+              vm.packageGroup[display.handle] = newVal;
+            });
+          }
+        });        
 
         vm.init();
     }

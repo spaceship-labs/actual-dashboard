@@ -48,6 +48,25 @@
                 </md-input-container>
               </section>
 
+              <!--DISPLAYS-->
+              <h1><strong>Página display</strong></h1>
+              <div class="editor-column" flex="30" flex-sm="100" flex-xs="100">
+                <h2><strong>Pagina Display</strong></h2>
+                <div>
+                  <md-checkbox class="spaced-checkbox block-checkbox" ng-model="vm.toggleAllDisplays">
+                    Todos
+                  </md-checkbox>
+
+                  <md-checkbox 
+                    class="spaced-checkbox block-checkbox" 
+                    ng-repeat="display in vm.displays" 
+                    ng-model="vm.packageGroup[display.handle]" 
+                    ng-click="vm.checkAllMark(display)"
+                    >{{display.label}}</md-checkbox>
+                </div>
+              </div>
+              <!--END DISPLAYS-->
+
 
               <h1><strong>Productos</strong></h1>
               <section class="products-package">

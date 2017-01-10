@@ -11,7 +11,7 @@
 
         var api = {};
         api.baseUrl = ENV.baseUrl;
-        console.log(api.baseUrl);
+        //api.baseUrl = 'http://localhost:1337';
 
         api.$http = function(req) {
           var data = api.serialize(req);
