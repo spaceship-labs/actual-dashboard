@@ -1,6 +1,6 @@
 {
   "dev": {
-    "baseUrl": "http://sandbox-actual-api.herokuapp.com"
+    "baseUrl": "http://localhost:1337"
   },
   "sandbox": {
     "baseUrl": "http://sandbox-actual-api.herokuapp.com"
