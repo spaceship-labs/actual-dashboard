@@ -527,7 +527,7 @@
                     vm.isLoadingFiles = false;
                     vm.product.files = resp.data;
                     //vm.product.ImagesOrder.push('new id');
-                    vm.sortImages();
+                    sortImages();
                   }, function (err) {
                     console.log(err);
                     vm.isLoadingFiles = false;
