@@ -21,8 +21,6 @@
         vm.isLoadingProducts = false;
         vm.isLoadingAvatar = false;
 
-        vm.updateIconMethod = '/productgroup/updateicon';
-        //vm.removeMethod = '/product/removefiles';
         vm.api = api;
 
 
@@ -125,45 +123,70 @@
         function updateIcon($file) {
           console.log($file);
           vm.isLoadingAvatar = true;
-          vm.uploadAvatar = Upload.upload({
-            url: api.baseUrl + vm.updateIconMethod,
-            data: {
-              id: vm.group.id,
-              file: $file
-            }
-          }).then(function (resp) {
-              console.log(resp);
-              if(resp.data.icon_filename){
-                vm.group.icon_filename = resp.data.icon_filename;
-                vm.group.icon_name = resp.data.icon_name;
-                vm.group.icon_size = resp.data.icon_size;
-                vm.group.icon_type = resp.data.icon_type;
-                vm.group.icon_typebase = resp.data.icon_typebase;
+          var updateIconMethod = '/productgroup/updateicon';
+
+          if($file){
+            vm.isLoadingAvatar = true;
+            vm.uploadAvatar = Upload.upload({
+              url: api.baseUrl + updateIconMethod,
+              data: {
+                id: vm.group.id,
+                file: $file
               }
-              vm.isLoadingAvatar = false;
-            }, function (err) {
-              console.log(err);
-              vm.isLoadingAvatar = false;
-            }, function (evt) {
-              var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-              console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-          });
+            }).then(
+              function (resp) {
+                console.log(resp);
+                if(resp.data.icon_filename){
+                  vm.group.icon_filename = resp.data.icon_filename;
+                  vm.group.icon_name = resp.data.icon_name;
+                  vm.group.icon_size = resp.data.icon_size;
+                  vm.group.icon_type = resp.data.icon_type;
+                  vm.group.icon_typebase = resp.data.icon_typebase;
+                  //dialogService.showDialog('Imagen agregada');
+                }else{
+                  dialogService.showDialog('Error al subir archivo, intente de nuevo');
+                }
+                vm.isLoadingAvatar = false;
+              }, 
+              function (err) {
+                console.log(err);
+                vm.isLoadingAvatar = false;
+                dialogService.showDialog('Error al subir archivo, intente de nuevo');
+              }, 
+              function (evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+              }
+            );
+          }else{
+            dialogService.showDialog('Error al subir archivo, intente de nuevo');
+          }
+
         }
 
         function removeIcon(){
           var params = {id: vm.group.id};
           vm.isLoadingAvatar = true;
-          productService.removeGroupIcon(params).then(function(res){
-            console.log(res);
-            vm.isLoadingAvatar = false;
-            if(!res.data.icon_filename){
-              vm.group.icon_filename = null;
-              vm.group.icon_name = null;
-              vm.group.icon_size = null;
-              vm.group.icon_type = null;
-              vm.group.icon_typebase = null;
-            }
-          });
+          productService.removeGroupIcon(params)
+            .then(function(res){
+              vm.isLoadingAvatar = false;
+              var response = res.data;
+              if(!response.icon_filename && response.id){
+                vm.group.icon_filename = null;
+                vm.group.icon_name = null;
+                vm.group.icon_size = null;
+                vm.group.icon_type = null;
+                vm.group.icon_typebase = null;
+                //dialogService.showDialog('Imagen eliminada');
+              }else{
+                $q.reject();
+              }
+            })
+            .catch(function(err){
+              console.log(err);
+              vm.isLoadingAvatar = false;
+              dialogService.showDialog('Hubo un error ' + (err.data || err) );
+            });
         }
 
         function onSelectStartDate(pikaday){

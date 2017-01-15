@@ -35,9 +35,14 @@
 
               </div>
 
-              <md-button ng-if="!vm.isLoadingAvatar" class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Subir</md-button>
+              <md-button 
+                ng-if="!vm.isLoadingAvatar" 
+                class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Subir</md-button>
 
-              <md-button ng-if="vm.product.icon_filename && !vm.isLoadingAvatar" class="file-manager-btn md-raised md-warn" ng-click="vm.removeIcon()">Remover imagen</md-button>
+              <md-button 
+                ng-if="vm.product.icon_filename && !vm.isLoadingAvatar" 
+                class="file-manager-btn md-raised md-warn" 
+                ng-click="vm.removeIcon()">Remover imagen</md-button>
 
               <md-button ng-if="vm.product.icon_filename && !vm.isLoadingAvatar" class="file-manager-btn md-raised md-primary action-button" >
                 <a class="download-btn" ng-href="{{vm.api.baseUrl+'/uploads/products/'+vm.product.icon_filename}}" download>
@@ -86,13 +91,21 @@
             ng-click='file.selected = !file.selected'
             ng-class="vm.fileClass(file)"
             dnd-effect-allowed="move">
-              <img ngf-thumbnail="vm.api.baseUrl+'/uploads/'+vm.dir+'/110x105'+file.filename || 'assets/images/product.png'">
+              <img ngf-thumbnail="vm.api.baseUrl+'/uploads/'+vm.dir+'/593x331'+file.filename || 'assets/images/product.png'">
           </li>
         </ul>
 
-        <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.uploadFiles($files)" multiple="multiple">Subir imagenes</md-button>
+        <md-button 
+          class="file-manager-btn md-raised md-primary" 
+          ngf-select="vm.uploadFiles($files)" 
+          ng-disabled="vm.isLoadingFiles"
+          multiple="multiple">Subir imagenes</md-button>
 
-        <md-button ng-if="vm.product.files.length > 0" class="md-raised md-warn" ng-click="vm.removeFiles()">Eliminar archivos seleccionados</md-button>
+        <md-button 
+          ng-if="vm.product.files.length > 0" 
+          class="md-raised md-warn" 
+          ng-click="vm.removeFiles()"
+          ng-disabled="vm.isLoadingFiles">Eliminar archivos seleccionados</md-button>
         <!--END IMAGENES EXTRA-->
 
         <!--VIDEO-->

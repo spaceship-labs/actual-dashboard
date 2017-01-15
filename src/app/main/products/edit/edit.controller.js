@@ -69,9 +69,6 @@
         // Data
         vm.loading = [];
         //vm.product = Product.data;
-        vm.updateIconMethod = '/product/updateicon';
-        vm.addMethod = '/product/addfiles';
-        vm.removeMethod = '/product/removefiles';
         vm.dir = 'products/gallery';
         vm.api = api;
         vm.relatedProducts = [];
@@ -471,15 +468,18 @@
 
         function updateIcon($file) {
           console.log($file);
+          var updateIconMethod = '/product/updateicon';
+
           if($file){
             vm.isLoadingAvatar = true;
             vm.uploadAvatar = Upload.upload({
-              url: api.baseUrl + vm.updateIconMethod,
+              url: api.baseUrl + updateIconMethod,
               data: {
                 id: vm.product.ItemCode,
                 file: $file
               }
-            }).then(function (resp) {
+            }).then(
+              function (resp) {
                 console.log(resp);
                 if(resp.data.icon_filename){
                   vm.product.icon_filename = resp.data.icon_filename;
@@ -487,19 +487,24 @@
                   vm.product.icon_size = resp.data.icon_size;
                   vm.product.icon_type = resp.data.icon_type;
                   vm.product.icon_typebase = resp.data.icon_typebase;
+                  //dialogService.showDialog('Imagen agregada');
                 }else{
-                  alert('Error al subir archivo, intente de nuevo');
+                  dialogService.showDialog('Error al subir archivo, intente de nuevo');
                 }
                 vm.isLoadingAvatar = false;
-              }, function (err) {
+              }, 
+              function (err) {
                 console.log(err);
                 vm.isLoadingAvatar = false;
-              }, function (evt) {
+                dialogService.showDialog('Error al subir archivo, intente de nuevo');
+              }, 
+              function (evt) {
                 var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                 console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-            });
+              }
+            );
           }else{
-            alert('Error al subir archivo, intente de nuevo');
+            dialogService.showDialog('Error al subir archivo, intente de nuevo');
           }
         }
 
@@ -507,36 +512,48 @@
           vm.loading = [];
           vm.isLoadingFiles = true;
           var uid = Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+          var addFilesMethod = '/product/addfiles';
 
           if($files && $files.length > 0){
 
             for(var i=0;i<$files.length;i++){
-              vm.loading.push($files[i]);
 
-              vm.upload = Upload.upload({
-                url: api.baseUrl + vm.addMethod,
-                data: {
-                  id: vm.product.ItemCode,
-                  uid:uid,
-                  index:0,
-                  file: $files[i]
-                },
-                }).then(function (resp) {
+              var dataParams = {
+                id: vm.product.ItemCode,
+                uid:uid,
+                index:0,
+                file: $files[i]
+              };
+              var uploadParams = {
+                url: api.baseUrl + addFilesMethod,
+                data: dataParams
+              };
+              vm.upload = Upload.upload(uploadParams)
+                .then(function (resp) {
                     console.log(resp);
+                    var product = resp.data;
+                    if(!product || !product.ItemCode){
+                      return $q.reject();
+                    }
                     vm.loading = [];
                     vm.isLoadingFiles = false;
-                    vm.product.files = resp.data;
+                    vm.product.files = product.files;
                     //vm.product.ImagesOrder.push('new id');
                     sortImages();
-                  }, function (err) {
+                    //dialogService.showDialog('Imagenes guardadas');
+                })
+                .catch(function (err) {
                     console.log(err);
+                    dialogService.showDialog('Hubo un error al subir las imagenes ' + (err || err.data));
                     vm.isLoadingFiles = false;
-                  }, function (evt) {
+                })
+                .finally(function(){}, function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
                 });
             }
-          }else{
+          }
+          else{
             vm.isLoadingFiles = false;
           }
         }
@@ -550,8 +567,9 @@
         }
 
         function removeFiles(){
-
+          var removeMethod = '/product/removefiles';
           var files = [];
+
           vm.product.files.forEach(function(file){
             if(file.selected){
               file.deleting = true;
@@ -562,20 +580,25 @@
           vm.product.removeFiles = files;
           vm.isLoadingFiles = true;
 
-          $http({method: 'POST', url: api.baseUrl + vm.removeMethod,data:vm.product}).then(
-            function (resp){
+          var params = {
+            method: 'POST', 
+            url: api.baseUrl + removeMethod,
+            data:vm.product
+          };
+
+          $http(params).then(function (resp){
               console.log(resp);
               vm.product.files = resp.data;
               vm.isLoadingFiles = false;
-            },
-            function(err){
+            })
+            .catch(function(err){
+              console.log('err', err);
+              dialogService.showDialog('Hubo un error al eliminar los archivos ' + (err.data || err) );
               vm.isLoadingFiles = false;
               vm.product.files.forEach(function(file){
                 if(file.selected) file.deleting = false;
               });
-            }
-          );
-
+            });
         }
 
 
@@ -637,16 +660,22 @@
           productService.removeIcon(params)
             .then(function(res){
               vm.isLoadingAvatar = false;
-              if(!res.data.icon_filename){
+              var response = res.data;
+              if(!response.icon_filename && response.ItemCode){
                 vm.product.icon_filename = null;
                 vm.product.icon_name = null;
                 vm.product.icon_size = null;
                 vm.product.icon_type = null;
                 vm.product.icon_typebase = null;
+                //dialogService.showDialog('Imagen eliminada');
+              }else{
+                $q.reject();
               }
             })
             .catch(function(err){
               console.log(err);
+              vm.isLoadingAvatar = false;
+              dialogService.showDialog('Hubo un error ' + (err.data || err) );
             });
         }
 
