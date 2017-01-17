@@ -9,6 +9,6 @@
     "baseUrl": "http://demo-actual-api.herokuapp.com"
   },
   "production": {
-    "baseUrl": "http://actual-api.herokuapp.com"
+    "baseUrl": "http://166.78.47.146"
   }
 }
