@@ -7,7 +7,13 @@
         .config(config);
 
     /** @ngInject */
-    function config($httpProvider, localStorageServiceProvider, $urlRouterProvider,pikadayConfigProvider){
+    function config(
+      $httpProvider, 
+      localStorageServiceProvider, 
+      $urlRouterProvider,
+      pikadayConfigProvider,
+      ENV
+    ){
 
 
       pikadayConfigProvider.setConfig({
@@ -19,7 +25,7 @@
         $location.path('/products');
       }]);
 
-      localStorageServiceProvider.setPrefix('actualDashboard');
+      localStorageServiceProvider.setPrefix(ENV.tokenPrefix + 'actualDashboard');
 
       //JWT TOKENS CONFIG
       $httpProvider.interceptors.push(['$q', '$location', 'localStorageService', function ($q, $location, localStorageService) {
