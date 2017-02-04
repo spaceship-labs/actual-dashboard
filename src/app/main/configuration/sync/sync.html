@@ -1,0 +1,76 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="title">Configuración</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <div class="white-bg md-whiteframe-4dp">
+
+
+          <section class="md-whiteframe-z1">
+            <md-toolbar class="demo-toolbar md-primary">
+              <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <h3>Configuración</h3>
+              </div>
+            </md-toolbar>
+            <md-content class="md-padding">
+
+                <form 
+                  name="syncForm" 
+                  ng-submit="vm.syncProduct()" 
+                  ng-show="!vm.isLoadingProducts"
+                >
+                  <h2><strong>Sincronizar producto</strong></h2>
+
+                  <div class="input-element">
+                    <label>ItemCode</label>
+                    <div class="input-element-inner">
+                      <input 
+                        type="text" 
+                        ng-model="vm.ItemCode" 
+                        name="ItemCode" 
+                        required 
+                        placeholder="ItemCode*">
+                    </div>
+                    <div ng-messages="syncForm.ItemCode.$error" ng-show="syncForm.ItemCode.$touched"
+                         role="alert">
+                        <div ng-message="required">
+                            <span>Este campo es requerido.</span>
+                        </div>
+                    </div>
+                  </div>
+
+                  <md-button
+                    class="md-raised md-primary action-button marginless-button"
+                    ng-click="vm.syncProduct()"
+                    >
+                    Sincronizar
+                  </md-button>
+                </form>
+
+                <section ng-show="vm.isLoadingProducts">
+                  <div  layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+                  </div>
+                  <p>Sincronizando productos</p>
+                </section>
+
+            </md-content>
+          </section>
+
+
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+
+

@@ -5,6 +5,7 @@
     angular
         .module('app.configuration', [
             'app.configuration.import',
+            'app.configuration.sync',
             'app.configuration.sites',
             'app.configuration.contability'
         ])
@@ -14,9 +15,16 @@
     function config(msNavigationServiceProvider)
     {
         // Navigation
+        /*
         msNavigationServiceProvider.saveItem('configuration.import', {
             title: 'Importar imagenes SAP',
             state: 'app.configuration_import'
+        });
+        */
+
+        msNavigationServiceProvider.saveItem('configuration.sync', {
+            title: 'Sincronizar productos',
+            state: 'app.configuration_sync'
         });
 
         msNavigationServiceProvider.saveItem('configuration.sites', {

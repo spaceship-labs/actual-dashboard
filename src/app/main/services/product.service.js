@@ -69,11 +69,18 @@
         addProductToGroup: addProductToGroup,
         removeProductFromGroup: removeProductFromGroup,
         searchGroups: searchGroups,
-        removeGroupIcon: removeGroupIcon
+        removeGroupIcon: removeGroupIcon,
+
+        syncProduct: syncProduct
 
       };
 
       return service;
+
+      function syncProduct(itemCode){
+        var url = '/product/sync/' + itemCode;
+        return api.$http.post(url);
+      }
 
       function getList(page, params){
         var p = page || 1;

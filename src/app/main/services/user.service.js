@@ -61,6 +61,7 @@
           {key:'edit-products', label:'Editar productos', section:'products'},
           {key:'import-images', label:'Importar imagenes', section:'config'},
           {key:'config-sites', label:'Configuración del sitio', section:'config'},
+          //{key:'config-sync', label:'Sinconizacion de productos', section:'config'},
           {key:'config-contability', label:'Configuración de contabilidad', section:'config'},
           {key:'list-leads', label:'Ver oportunidades', section:'leads'},
           {key:'create-brands', label:'Crear marcas', section:'brands'},
