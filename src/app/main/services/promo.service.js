@@ -13,7 +13,9 @@
         update: update,
         destroy: destroy,
         find: find,
-        findById: findById
+        findById: findById,
+        getPromotionProducts: getPromotionProducts,
+        searchPromotionProducts: searchPromotionProducts
       };
 
       return service;
@@ -43,6 +45,16 @@
         return api.$http.post(url);
       }
 
+      function getPromotionProducts(id){
+        var url = '/promotion/' + id + '/products';
+        return api.$http.get(url);
+      }
+
+
+      function searchPromotionProducts(params){
+        var url = '/promotion/searchproducts';
+        return api.$http.post(url,params);
+      }
 
 
     }

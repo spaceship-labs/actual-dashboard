@@ -50,25 +50,18 @@
                 </div>
 
                 <div flex="45" flex-sm="100" flex-xs="100">
-                  <p class="select-element-label">
-                    <label><strong>Tiendas</strong></label>
-                  </p>
+                  <p class="select-element-label"><label><strong>Sociedades</strong></label></p>
                   <md-input-container class="checkboxes-dropdown-wrap">
-                    <md-select class="checkboxes-dropdown select-element" ng-model="vm.selectedStores"
+                    <md-select class="checkboxes-dropdown select-element" ng-model="vm.promotion.sas"
                        data-md-container-class="selectdemoSelectHeader"
                        multiple
                     >
-                      <md-optgroup label="Tiendas">
-                        <md-option
-                          ng-value="store.id"
-                          ng-selected="vm.objIndexOf(vm.promotion.Stores, {id:store.id})"
-                          ng-repeat="store in vm.stores">
-                          {{store.name}}
-                        </md-option>
+                      <md-optgroup label="Sociedades">
+                        <md-option ng-value="sas.value" ng-repeat="sas in vm.sasPromos">{{sas.label}}</md-option>
                       </md-optgroup>
                     </md-select>
                   </md-input-container>
-                </div>
+                </div>               
 
                 <div class="input-element" flex="25" flex-sm="100" flex-xs="100">
                   <label>Fecha de inicio*</label>
@@ -168,293 +161,25 @@
               </section>
               <!--END LENTO MOVIMIENTO  AND PUSH MONEY-->
 
-              <!--SEARCH FILTERS-->
-              <h2 class="mkt-search-title">
-                <strong>Filtros de productos:</strong>
-                <a class="pointer-cursor" ng-click="vm.showFilters = !vm.showFilters">
-                  <span ng-if="!vm.showFilters">| Mostrar</span>
-                  <span ng-if="vm.showFilters"> | Ocultar</span>
-                </a>
-              </h2>
-
-              <div>
-                <md-button
-                  ng-show="vm.showFilters"
-                  class="md-raised md-accent action-button"
-                  aria-label="Buscar productos"
-                  ng-click="vm.searchProds()">
-                    Buscar productos
-                </md-button>
-              </div>
-
-              <section ng-show="vm.showFilters">
-
-                <!--ITEMCODE SEARCHER-->
-                <h2><strong>Búscar por código</strong></h2>
-
-
-                <p>Importar desde excel (la columna de código de producto debera nombrarse "itemcode")</p>
-                <input 
-                  type="file" 
-                  accept=".xls,.xlsx,.ods" 
-                  excel-reader 
-                  output="vm.importDataXls" 
-                  data-buttonText="Seleccionar archivo xlsx"
-                />
-
-                <section layout="row">
-                  <div class="input-element" flex="100" flex-sm="100" flex-xs="100">
-                    <label>Código del producto</label>
-                    <md-chips 
-                      ng-if="vm.search.itemCode"
-                      ng-model="vm.search.itemCode" 
-                      readonly="false"
-                      placeholder="Ingresar código(s)" 
-                      md-removable="true">
-                    </md-chips>                    
-                  </div>
-                </section>
-                <!--<hr>-->
-                <!--END ITEMCODE SEARCHER-->
-
-                <!--CATEGORY CHOOSER-->
-                <div>
-                  <h2><strong>CATEGORIAS</strong></h2>
-
-                  <p>
-                    <a
-                      ng-click="vm.selectAllCategories()"
-                      href="#">
-                      Activar todas las categorias
-                    </a>  
-                    |                   
-                    <a
-                      ng-click="vm.unselectAllCategories()"
-                      href="#">
-                      Desactivar todas las categorias
-                    </a>                    
-                  </p>
-
-                  <div layout="row" layout-align="space-between start" layout-wrap>
-                    <div 
-                      ng-repeat="group in vm.categoriesGroups track by $index" 
-                      flex="30" 
-                      flex-sm="100" 
-                      flex-xs="100"
-                    >
-                      <p ng-if="group.length > 0">
-                        <label><strong>Categorias Nivel {{$index+1}}</strong></label>
-                      </p>
-                      <div class="scroll-column">
-                        <md-input-container class="checkboxes-dropdown-wrap">
-                          <md-select 
-                            class="checkboxes-dropdown select-element" 
-                            ng-model="vm.selectedCategories[$index]"
-                            data-md-container-class="selectdemoSelectHeader"
-                            multiple
-                          >
-                            <md-optgroup label="Categorias">
-                              <md-option
-                                ng-value="category.id"
-                                ng-selected="vm.objIndexOf(vm.promotion.Categories, {id:category.id})"
-                                ng-repeat="category in group | filter:searchTerm | orderBy: 'Name'">
-                                {{category.Name}}
-                              </md-option>
-                            </md-optgroup>
-                          </md-select>
-                        </md-input-container>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!--END CATEGORY CHOOSER-->
-
-                <!--FILTERS-->
-                <div>
-                  <h2><strong>CARACTERISTICAS DE PRODUCTOS</strong></h2>
-                  <div layout="row" layout-wrap layout-align="start start">
-                    <div ng-repeat="filter in vm.filters | orderBy: 'IsMultiple' track by $index" class="filter-column" flex="33" flex-xs="100">
-
-                      <div class="scroll-column">
-                        <p class="select-element-label">
-                          <label><strong>{{filter.Name}}</strong></label>
-                        </p>
-                        <md-input-container class="checkboxes-dropdown-wrap">
-                          <md-select class="checkboxes-dropdown select-element select-element-md2" ng-model="filter.selectedValues"
-                             data-md-container-class="selectdemoSelectHeader"
-                             multiple
-                          >
-                            <md-optgroup label="Valores">
-                              <md-option
-                                ng-value="value.id"
-                                ng-selected="vm.objIndexOf(vm.promotion.FilterValues, {id:value.id})"
-                                ng-repeat="value in filter.Values |
-                                filter:searchTerm track by $index">
-                                {{value.Name}}
-                              </md-option>
-                            </md-optgroup>
-                          </md-select>
-                        </md-input-container>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-
-                </div>
-                <!--END FILTERS-->
-
-
-                <div layout="row">
-
-                  <!--CUSTOM BRAND FILTER-->
-                  <div flex="33">
-                    <p class="select-element-label"><label><strong>Marcas</strong></label></p>
-                    <md-input-container class="checkboxes-dropdown-wrap">
-                      <md-select class="checkboxes-dropdown select-element select-element-md2" ng-model="vm.search.customBrands"
-                         data-md-container-class="selectdemoSelectHeader"
-                         multiple
-                      >
-                        <md-optgroup label="Valores">
-                          <md-option
-                            ng-value="brand.id"
-                            ng-selected="vm.objIndexOf(vm.promotion.CustomBrands, {id:brand.id})"
-                            ng-repeat="brand in vm.customBrands |
-                            filter:searchTerm track by $index"
-                            >
-                            {{brand.Name}}
-                          </md-option>
-                        </md-optgroup>
-                      </md-select>
-                    </md-input-container>
-                  </div>
-                  <!--END CUSTOM BRAND-->
-
-                  <!--SOCIEDADES FILTER-->
-                  <div class="select-element-wrapper" flex="33">
-                    <p class="select-element-label"><label><strong>Sociedad</strong></label></p>
-                    <md-input-container class="checkboxes-dropdown-wrap">
-                      <md-select class="checkboxes-dropdown select-element select-element-md2" ng-model="vm.search.sas"
-                         data-md-container-class="selectdemoSelectHeader"
-                         multiple
-                      >
-                        <md-optgroup label="Sociedades">
-                          <md-option
-                            ng-value="sa.value"
-                            ng-repeat="sa in vm.sas |
-                            filter:searchTerm track by $index"
-                            >
-                            {{sa.label}}
-                          </md-option>
-                        </md-optgroup>
-                      </md-select>
-                    </md-input-container>
-                  </div>
-                  <!--END SOCIEDADES FILTER-->
-
-                </div>
-
-                <!--DISPLAYS-->
-                <div>
-                  <h2><strong>Pagina Display</strong></h2>
-                  <div>
-                    <md-checkbox
-                      class="spaced-checkbox block-checkbox"
-                      ng-repeat="display in vm.displays"
-                      ng-checked="vm.promotion[display.handle]"
-                      ng-model="vm.search[display.handle]">{{display.label}}</md-checkbox>
-                  </div>
-                </div>
-                <!--END DISPLAYS-->
-
-
-                <!--GROUP PRODUCTS-->
-                <div>
-                  <h2>
-                    <label><strong>AGRUPADORES</strong></label>
-                  </h2>
-                  <md-autocomplete
-                      md-no-cache="false"
-                      md-selected-item="vm.selectedGroup"
-                      md-search-text="vm.searchGroupText"
-                      md-items="item in vm.queryGroups(vm.searchGroupText)"
-                      md-selected-item-change="vm.selectedGroupChange(item)"
-                      md-item-text="item.Name + ' | ' + vm.groupTypes[item.Type]"
-                      md-min-length="0"
-                      placeholder="Buscar agrupador">
-                    <md-item-template>
-                      <span md-highlight-text="vm.searchGroupText" md-highlight-flags="^i">{{item.Name}} | {{vm.groupTypes[item.Type]}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                      No se encontro "{{vm.searchGroupText}}".
-                    </md-not-found>
-                  </md-autocomplete>
-
-
-                  <p ng-if="vm.search.groups.length <= 0">No hay agrupadores asignados a la busqueda</p>
-                  <div ng-show="vm.isLoadingGroups" layout="row" layout-sm="column" layout-align="space-around">
-                    <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
-                  </div>
-                  <ul ng-if="!vm.isLoadingGroups" class="draggable-list">
-                    <li
-                      ng-repeat="group in vm.search.groups"
-                      class="noright"
-                      layout="row"
-                      layout-align="space-between center"
-                      ng-class="{'selected-item': vm.selectedGroup === group}"
-                      dnd-effect-allowed="move">
-                      <p>{{group.Name}} | {{ vm.groupTypes[group.Type] }}</p>
-                      <div class="md-secondary">
-                        <md-button ng-click="vm.removeGroup($index)" class="md-raised md-warn">
-                          Remover
-                        </md-button>
-                      </div>
-                    </li>
-                  </ul>
-
-                </div>
-                <!--GROUP PRODUCTS-->
-
-              </section>
-              <!--END SEARCH FILTERS-->
-
-              <div>
-                <md-button
-                  class="md-raised md-accent action-button"
-                  aria-label="Buscar productos"
-                  ng-click="vm.searchProds()">
-                    Buscar productos
-                </md-button>
-              </div>
-
-              <section class="promo-products">
+              <section class="promo-products" ng-if="vm.promotion.sas && vm.promotion.sas.length > 0">
                 <h2>
-                  <strong>
-                    Productos con esta promocion
-                    <span ng-if="!vm.isLoadingProducts">
-                      ({{vm.products.length - vm.getExcludedNum()}})
-                    </span>:
-                    <span ng-if="vm.promotion.excludedProducts.length > 0 && !vm.searchDone">
-                      | Excluidos: <span class="comma-separated" ng-repeat="excluded in vm.promotion.excludedProducts">{{excluded.ItemCode}}</span>
-                    </span>
+                  <a href="#" ng-click="vm.loadProducts()"><strong>Ver productos con esta promoción</strong></a>
+
+                  <strong ng-if="vm.products && vm.products.length > 0 && !vm.isLoadingProducts"> | Productos con esta promocion
+                    <span>({{vm.products.length}})</span>:
                   </strong>
+                
                 </h2>
                 <div ng-show="vm.isLoadingProducts" layout="row" layout-sm="column" layout-align="space-around">
                   <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
                 </div>
 
-                <div 
-                  ng-show="!vm.isLoadingProducts && vm.products" 
-                  class="scroll-column"
-                >
-                    <md-checkbox
-                      class="spaced-checkbox block-checkbox"
-                      ng-repeat="product in vm.products | orderBy:'ItemCode' track by $index"
-                      ng-model="product.isActive">
-                      {{product.ItemCode}} | {{ product.Name || product.ItemName}}
-                    </md-checkbox>
+                <div ng-show="!vm.isLoadingProducts" class="scroll-column">
+                  <ul>
+                    <li ng-repeat="product in vm.products | orderBy:'ItemCode' track by $index" >
+                      {{product.ItemCode}} | {{product.ItemName}}
+                    </li>
+                  </ul>
                 </div>
               </section>
 

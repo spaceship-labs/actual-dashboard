@@ -17,7 +17,8 @@
         getDisplays     : getDisplays,
         getPaymentGroups: getPaymentGroups,
         getGroupTypes   : getGroupTypes,
-        getPopulatedPaymentGroups: getPopulatedPaymentGroups
+        getPopulatedPaymentGroups: getPopulatedPaymentGroups,
+        getSocietiesPromos: getSocietiesPromos
       };
       return service;
 
@@ -81,6 +82,16 @@
           {label:'Actual Kids', value:'004'}
         ];
         return sas;        
+      }
+
+      function getSocietiesPromos(){
+        var sasPromos = [
+          {label:'HOME', value:'HOME'},
+          {label:'STUDIO', value:'STUDIO'},
+          {label:'AMBAS', value:'AMBAS'},
+          {label:'KIDS', value:'KIDS'}
+        ];
+        return sasPromos;
       }
 
       function getSocietiesHash(){
