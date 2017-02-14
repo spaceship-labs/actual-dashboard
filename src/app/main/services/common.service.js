@@ -86,10 +86,10 @@
 
       function getSocietiesPromos(){
         var sasPromos = [
-          {label:'HOME', value:'HOME'},
-          {label:'STUDIO', value:'STUDIO'},
-          {label:'AMBAS', value:'AMBAS'},
-          {label:'KIDS', value:'KIDS'}
+          {label:'STUDIO', value:'001'},
+          {label:'HOME', value:'002'},
+          //{label:'AMBAS', value:'003'},
+          {label:'KIDS', value:'004'}
         ];
         return sasPromos;
       }

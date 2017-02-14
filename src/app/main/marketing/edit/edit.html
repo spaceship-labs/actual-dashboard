@@ -50,18 +50,17 @@
                 </div>
 
                 <div flex="45" flex-sm="100" flex-xs="100">
-                  <p class="select-element-label"><label><strong>Sociedades</strong></label></p>
+                  <p class="select-element-label"><label><strong>Sociedad</strong></label></p>
                   <md-input-container class="checkboxes-dropdown-wrap">
-                    <md-select class="checkboxes-dropdown select-element" ng-model="vm.promotion.sas"
-                       data-md-container-class="selectdemoSelectHeader"
-                       multiple
-                    >
-                      <md-optgroup label="Sociedades">
-                        <md-option ng-value="sas.value" ng-repeat="sas in vm.sasPromos">{{sas.label}}</md-option>
-                      </md-optgroup>
+                    <md-select class="select-element" ng-model="vm.promotion.sa">
+                      <md-option 
+                        ng-value="sa.value" 
+                        ng-repeat="sa in vm.sasPromos">
+                          {{sa.label}}
+                      </md-option>
                     </md-select>
                   </md-input-container>
-                </div>               
+                </div>   
 
                 <div class="input-element" flex="25" flex-sm="100" flex-xs="100">
                   <label>Fecha de inicio*</label>
@@ -154,11 +153,13 @@
               <!--LENTO MOVIMIENTO  AND PUSH MONEY-->
               <section layout="row" layout-align="start center">
 
+                <!--
                 <div flex="25">
                   <md-checkbox class="spaced-checkbox block-checkbox" ng-model="vm.promotion.hasPriority">
                     Venta especial
                   </md-checkbox>
                 </div>
+                -->
 
 
                 <div flex="25">
@@ -169,11 +170,11 @@
               </section>
               <!--END LENTO MOVIMIENTO  AND PUSH MONEY-->
 
-              <section class="promo-products" ng-if="vm.promotion.sas && vm.promotion.sas.length > 0">
+              <section class="promo-products" ng-if="vm.promotion.sa">
                 <h2>
                   <a href="#" ng-click="vm.loadProducts()"><strong>Ver productos con esta promoción</strong></a>
 
-                  <strong ng-if="vm.products && vm.products.length > 0 && !vm.isLoadingProducts"> | Productos con esta promocion
+                  <strong ng-if="vm.products && !vm.isLoadingProducts"> | Productos con esta promocion
                     <span>({{vm.products.length}})</span>:
                   </strong>
                 
@@ -185,7 +186,7 @@
                 <div ng-show="!vm.isLoadingProducts" class="scroll-column">
                   <ul>
                     <li ng-repeat="product in vm.products | orderBy:'ItemCode' track by $index" >
-                      {{product.ItemCode}} | {{product.ItemName}}
+                      {{product.ItemCode}} | {{product.Discount}}% | {{product.ItemName}}
                     </li>
                   </ul>
                 </div>

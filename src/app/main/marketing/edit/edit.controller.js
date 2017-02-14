@@ -46,7 +46,12 @@
 
         function loadProducts(){
           vm.isLoadingProducts = true;
-          promoService.searchPromotionProducts({sas:vm.promotion.sas})
+          var params = {
+            sa:vm.promotion.sa,
+            discount: vm.paymentGroups[0].discount
+          };
+          
+          promoService.searchPromotionProducts(params)
             .then(function(res){
               vm.isLoadingProducts = false;
               vm.products = res.data;
