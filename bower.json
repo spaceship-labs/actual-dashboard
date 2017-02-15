@@ -9,7 +9,7 @@
     "angular-chartist.js": "3.3.12",
     "angular-cookies": "1.4.8",
     "angular-google-maps": "2.2.1",
-    "angular-material": "master",
+    "angular-material": "1.0.1",
     "angular-messages": "1.4.8",
     "angular-nvd3": "1.0.5",
     "angular-resource": "1.4.8",
@@ -59,7 +59,7 @@
     "angular": "^1.4.8",
     "d3": "3.5.12",
     "angular-sanitize": "1.4.8",
-    "angular-material": "master",
+    "angular-material": "1.0.1",
     "moment": "^2.14.1"
   },
   "overrides": {
