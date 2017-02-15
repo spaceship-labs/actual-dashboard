@@ -1,6 +1,5 @@
     /** @ngInject */
     function ProductBrandCreateController($scope, $rootScope, $mdDialog, dialogService,productService, commonService){
-        $scope.init = init;
         $scope.create = create;
         $scope.cancel = cancel;
         $scope.isLoading = false;
