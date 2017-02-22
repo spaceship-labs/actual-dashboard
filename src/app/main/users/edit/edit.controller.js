@@ -137,7 +137,9 @@
                 function(errUpdate){
                   sending = false;
                   console.log(errUpdate);
-                  dialogService.showErrorMessage('Hubo un error');
+                  var error = errUpdate.data || errUpdate;
+                  error = error ? error.toString() : '';
+                  dialogService.showDialog('Hubo un error: ' + error );          
                   vm.isLoading = false;
                 }
             );

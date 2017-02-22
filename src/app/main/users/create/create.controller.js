@@ -86,7 +86,9 @@
                     function(err){
                       console.log(err);
                       vm.isLoading = false;
-                      dialogService.showDialog('Error, intenta de nuevo');
+                      var error = err.data || err;
+                      error = error ? error.toString() : '';
+                      dialogService.showDialog('Hubo un error: ' + error );          
                     }
                   );
             }
