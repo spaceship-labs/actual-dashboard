@@ -123,6 +123,7 @@
         
         var MATERIAL_FILTER_HANDLE = 'material';
         var LOCATION_FILTER_HANDLE = 'ubicacion-uso'; 
+        var STYLE_FILTER_HANDLE = 'estilo';
 
         init();
 
