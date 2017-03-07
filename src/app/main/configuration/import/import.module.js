@@ -10,7 +10,7 @@
     function config($stateProvider)
     {
         $stateProvider.state('app.configuration_import', {
-            //url  : '/configuration/import',
+            url  : '/configuration/import',
             views: {
                 'content@app': {
                     templateUrl: 'app/main/configuration/import/import.html',

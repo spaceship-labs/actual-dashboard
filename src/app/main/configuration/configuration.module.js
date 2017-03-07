@@ -15,12 +15,12 @@
     function config(msNavigationServiceProvider)
     {
         // Navigation
-        /*
+        
         msNavigationServiceProvider.saveItem('configuration.import', {
             title: 'Importar imagenes SAP',
             state: 'app.configuration_import'
         });
-        */
+        
 
         msNavigationServiceProvider.saveItem('configuration.sync', {
             title: 'Sincronizar productos',
