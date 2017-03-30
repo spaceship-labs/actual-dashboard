@@ -18,7 +18,8 @@
         getPaymentGroups: getPaymentGroups,
         getGroupTypes   : getGroupTypes,
         getPopulatedPaymentGroups: getPopulatedPaymentGroups,
-        getSocietiesPromos: getSocietiesPromos
+        getSocietiesPromos: getSocietiesPromos,
+        getDeliveryTypes: getDeliveryTypes
       };
       return service;
 
@@ -61,6 +62,14 @@
           },
         ];
         return populatedPaymentGroups;      
+      }
+
+      function getDeliveryTypes(){
+        var deliveryTypes = [
+          {label: 'Bigticket', value: 'bigticket'},
+          {label: 'Softline', value: 'softline'}
+        ];
+        return deliveryTypes;
       }
 
       function getGroupTypes(){

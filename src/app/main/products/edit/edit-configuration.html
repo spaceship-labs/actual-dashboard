@@ -216,6 +216,25 @@
       </div>
       <!--END FREESALE-->
 
+      <!--DELIVERY TYPE-->
+      <div>
+        <p class="select-element-label"><label><strong>Tipo de entrega</strong></label></p>
+
+        <md-input-container>
+          <md-select 
+            class="select-element select-element-md" 
+            ng-model="vm.product.deliveryType"
+          >
+            <md-option
+              ng-repeat="type in vm.deliveryTypes track by $index"
+              ng-value="type.value">
+              {{type.label}}
+            </md-option>
+          </md-select>
+        </md-input-container>        
+      </div>
+      <!--END DELIVERY TYPE-->
+
 
       <div layout="row" layout-align="end center">
         <md-button ng-click="vm.updateConfig(configForm)" class="md-raised md-primary action-button">Guardar</md-button>

@@ -120,6 +120,7 @@
         ];
         vm.sas = commonService.getSocietiesHash();
         vm.selectedCategories = [];
+        vm.deliveryTypes = commonService.getDeliveryTypes();
         
         var MATERIAL_FILTER_HANDLE = 'material';
         var LOCATION_FILTER_HANDLE = 'ubicacion-uso'; 
@@ -186,6 +187,7 @@
               CustomBrand: vm.product.CustomBrand,
               CheckedStructure: vm.product.CheckedStructure,
               freeSale: vm.product.freeSale,
+              deliveryType: vm.product.deliveryType
             };
             
             if(params.freeSale){
