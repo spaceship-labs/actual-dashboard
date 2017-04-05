@@ -4,7 +4,7 @@
     "tokenPrefix": "dev"
   },
   "sandbox": {
-    "baseUrl": "http://sandbox-actual-api.herokuapp.com",
+    "baseUrl": "http://166.78.47.146:8080",
     "tokenPrefix": "sandbox"    
   },
   "demo": {
