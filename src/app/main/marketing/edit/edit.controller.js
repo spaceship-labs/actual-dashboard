@@ -152,7 +152,7 @@
               params.pushMoneyUnitType = vm.promotion.pushMoneyUnitType;
             }
 
-            angular.extend(params, vm.promotion);
+            angular.extend(vm.promotion, params);
 
             promoService.update(vm.promotion.id, params)
               .then(function(res){

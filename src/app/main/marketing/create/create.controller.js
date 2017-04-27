@@ -117,7 +117,8 @@
               ewalletTypePg5 : vm.paymentGroups[4].ewalletType,
 
             };
-            angular.extend(params, vm.promotion);
+            angular.extend(vm.promotion, params);
+
             promoService.create(params)
               .then(function(res){
                 var createdPromo = res.data;
