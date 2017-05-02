@@ -119,7 +119,7 @@
             };
             angular.extend(vm.promotion, params);
 
-            promoService.create(params)
+            promoService.create(vm.promotion)
               .then(function(res){
                 var createdPromo = res.data;
                 dialogService.showDialog('Promoción creada');
