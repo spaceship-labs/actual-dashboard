@@ -154,7 +154,7 @@
 
             angular.extend(vm.promotion, params);
 
-            promoService.update(vm.promotion.id, params)
+            promoService.update(vm.promotion.id, vm.promotion)
               .then(function(res){
                 console.log(res.data);
                 dialogService.showDialog('Promoción actualizada');
