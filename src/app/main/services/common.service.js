@@ -63,8 +63,8 @@
             ewalletKey:'ewalletGroup5',
             methods:[
               '12 MSI con Banamex',
-              '13 MSI con Banamex',
-              '18 MSI con AMEX'
+              //'13 MSI con Banamex',
+              //'18 MSI con AMEX'
             ]
           },
         ];
@@ -126,7 +126,8 @@
           {label:'Descuento grupo pago 2', discount:0, text:'3 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
           {label:'Descuento grupo pago 3', discount:0, text:'3,6,9 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
           {label:'Descuento grupo pago 4', discount:0, text:'6,9,12 meses sin intereses', ewallet:0,ewalletType:'percentage'},
-          {label:'Descuento grupo pago 5', discount:0, text:'12, 13 meses sin intereses', ewallet:0,ewalletType:'percentage'},
+          {label:'Descuento grupo pago 5', discount:0, text:'12 meses sin intereses', ewallet:0,ewalletType:'percentage'},          
+          //{label:'Descuento grupo pago 5', discount:0, text:'12, 13 meses sin intereses', ewallet:0,ewalletType:'percentage'},
         ];
         return paymentGroups;
       }
