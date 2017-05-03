@@ -64,7 +64,7 @@
             methods:[
               '12 MSI con Banamex',
               '13 MSI con Banamex',
-              '18 MSI con AMEX, Banamex (Desactivado)'
+              '18 MSI con AMEX'
             ]
           },
         ];
