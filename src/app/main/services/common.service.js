@@ -35,15 +35,16 @@
             label:'Grupo pago 2',
             key:'paymentGroup2',
             ewalletKey:'ewalletGroup2',
-            methods:['3 MSI con AMEX, Banamex, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA']
+            methods:['3 MSI con AMEX, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA']
           },
           {
             label:'Grupo pago 3',
             key:'paymentGroup3',
             ewalletKey:'ewalletGroup3',
             methods:[
-              '6 MSI con AMEX, Banamex, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA',
-              '9 MSI con AMEX, Banamex, Santander, Bancomer'
+              '3 MSI con Banamex',
+              '6 MSI con AMEX, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA',
+              '9 MSI con AMEX, Santander, Bancomer'
             ]
           },
           {
@@ -51,14 +52,20 @@
             key:'paymentGroup4',
             ewalletKey:'ewalletGroup4',
             methods:[
-              '12 MSI con AMEX, Banamex, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA'
+              '6 MSI con Banamex',
+              '9 MSI con Banamex',              
+              '12 MSI con AMEX, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA'
             ]
           },
           {
             label:'Grupo pago 5',
             key:'paymentGroup5',
             ewalletKey:'ewalletGroup5',
-            methods:['18 MSI con AMEX, Banamex']
+            methods:[
+              '12 MSI con Banamex',
+              //'13 MSI con Banamex',
+              //'18 MSI con AMEX'
+            ]
           },
         ];
         return populatedPaymentGroups;      
@@ -117,9 +124,10 @@
         var paymentGroups = [
           {label:'Descuento grupo pago 1', discount:0, text:'Pago único', ewallet:0,ewalletType:'percentage'},
           {label:'Descuento grupo pago 2', discount:0, text:'3 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
-          {label:'Descuento grupo pago 3', discount:0, text:'6 y 9 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
-          {label:'Descuento grupo pago 4', discount:0, text:'12 meses sin intereses', ewallet:0,ewalletType:'percentage'},
-          {label:'Descuento grupo pago 5', discount:0, text:'18 meses sin intereses', ewallet:0,ewalletType:'percentage'},
+          {label:'Descuento grupo pago 3', discount:0, text:'3,6,9 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
+          {label:'Descuento grupo pago 4', discount:0, text:'6,9,12 meses sin intereses', ewallet:0,ewalletType:'percentage'},
+          {label:'Descuento grupo pago 5', discount:0, text:'12 meses sin intereses', ewallet:0,ewalletType:'percentage'},          
+          //{label:'Descuento grupo pago 5', discount:0, text:'12, 13 meses sin intereses', ewallet:0,ewalletType:'percentage'},
         ];
         return paymentGroups;
       }
