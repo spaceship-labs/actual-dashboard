@@ -17,6 +17,12 @@
             'app.marketing.packages.list',
             'app.marketing.packages.edit',
 
+            //Spotlight
+            'app.marketing.spotlight',
+
+            //Slowmovement
+            'app.marketing.slowmovement'
+
         ])
         .config(config);
 
@@ -29,6 +35,17 @@
             group : false,
             weight: 2,
         });
+
+
+        msNavigationServiceProvider.saveItem('marketing.spotlight', {
+            title: 'Productos destacados',
+            state: 'app.marketing_spotlight'
+        });            
+
+        msNavigationServiceProvider.saveItem('marketing.slowmovement', {
+            title: 'Productos de lento movimiento',
+            state: 'app.marketing_slowmovement'
+        });    
 
         msNavigationServiceProvider.saveItem('marketing.list', {
             title: 'Lista de promociones',
@@ -66,6 +83,7 @@
             title: 'Lista de paquetes',
             state: 'app.marketing_packages_list'
         });
+    
 
     }
 })();
