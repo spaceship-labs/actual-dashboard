@@ -38,12 +38,12 @@
 
 
         msNavigationServiceProvider.saveItem('marketing.spotlight', {
-            title: 'Productos destacados',
+            title: 'MiActual Recomienda',
             state: 'app.marketing_spotlight'
         });            
 
         msNavigationServiceProvider.saveItem('marketing.slowmovement', {
-            title: 'Productos de lento movimiento',
+            title: 'Oportunidades (LM)',
             state: 'app.marketing_slowmovement'
         });    
 
