@@ -35,7 +35,7 @@
             label:'Grupo pago 2',
             key:'paymentGroup2',
             ewalletKey:'ewalletGroup2',
-            methods:['3 MSI con AMEX, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA']
+            methods:['3 MSI con AMEX, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, Invex Banco, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA']
           },
           {
             label:'Grupo pago 3',
@@ -43,8 +43,8 @@
             ewalletKey:'ewalletGroup3',
             methods:[
               '3 MSI con Banamex',
-              '6 MSI con AMEX, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA',
-              '9 MSI con AMEX, Santander, Bancomer'
+              '6 MSI con AMEX, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, Invex Banco, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA',
+              '9 MSI con AMEX, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, Invex Banco, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA',
             ]
           },
           {
@@ -54,7 +54,7 @@
             methods:[
               '6 MSI con Banamex',
               '9 MSI con Banamex',              
-              '12 MSI con AMEX, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA'
+              '12 MSI con AMEX, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, Invex Banco, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA'
             ]
           },
           {
