@@ -52,11 +52,27 @@
 
         $scope.$watch('vm.importedDataXls', function(newVal, oldVal){
           if(newVal != oldVal && angular.isArray(newVal)){
+
+            if( !checkIfAllItemsAreProducts(newVal) ){
+              dialogService.showDialog('Formato incorrecto');
+              return;
+            }
+
+            vm.itemCodes = [];
             vm.itemCodes = newVal.map(function(item){
               return item.itemcode;
             });
+
           }
-        });        
+        });
+
+        function checkIfAllItemsAreProducts(arr){
+          return _.every(arr, function(item){
+            return item.itemcode;
+          })
+        }
+
+
     }
 
 })();
