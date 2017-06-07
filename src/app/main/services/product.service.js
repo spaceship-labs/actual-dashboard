@@ -71,7 +71,14 @@
         searchGroups: searchGroups,
         removeGroupIcon: removeGroupIcon,
 
-        syncProduct: syncProduct
+        syncProduct: syncProduct,
+
+        getSpotlightProducts: getSpotlightProducts,
+        setSpotlightProducts: setSpotlightProducts,
+
+        getSlowMovementProducts: getSlowMovementProducts,
+        setSlowMovementProducts: setSlowMovementProducts
+
 
       };
 
@@ -313,6 +320,28 @@
       function getProductsbySuppCatNum(id){
         var url = '/product/getproductsbysuppcatnum/' + id;
         return api.$http.post(url);
+      }
+
+      function getSpotlightProducts(){
+        var url = '/spotlightproducts';
+        return api.$http.get(url);        
+      }
+
+      function setSpotlightProducts(itemCodes){
+        var url = '/spotlightproducts';
+        var params = {itemCodes: itemCodes};
+        return api.$http.post(url, params);        
+      }
+
+      function getSlowMovementProducts(){
+        var url = '/slowmovementproducts';
+        return api.$http.get(url);        
+      }
+
+      function setSlowMovementProducts(itemCodes){
+        var url = '/slowmovementproducts';
+        var params = {itemCodes: itemCodes};
+        return api.$http.post(url, params);        
       }
 
     }

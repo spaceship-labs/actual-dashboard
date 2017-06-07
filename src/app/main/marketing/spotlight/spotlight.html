@@ -1,0 +1,83 @@
+<div id="simple-table" 
+  class="page-layout simple fullwidth doc-page element-doc-page mkt-view">
+
+    <div class="content">
+
+
+      <div class="page-layout simple fullwidth">
+
+        <section class="md-whiteframe-z1">
+          <md-toolbar class="demo-toolbar md-primary">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+              <h3>ASIGNAR PRODUCTOS DESTACADOS</h3>
+
+              <md-button 
+                type="submit" 
+                class="md-raised md-accent action-button" 
+                aria-label="Guardar"
+                ng-click="vm.setSpotlightProducts(spotlightForm)"
+              >
+                  Guardar
+              </md-button>
+
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+
+
+            <div 
+              ng-show="vm.isLoading" 
+              layout="row" 
+              layout-align="space-around">
+              <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+            </div>
+
+            <form 
+              name="spotlightForm" 
+              ng-show="!vm.isLoading" 
+              ng-submit="vm.setSpotlightProducts(spotlightForm)" 
+              class="md-inline-form" 
+              novalidate>
+
+                <h2>Importar desde excel (la columna de código de producto debera nombrarse "itemcode")</h2>
+                <input 
+                  type="file" 
+                  accept=".xls,.xlsx,.ods" 
+                  excel-reader 
+                  output="vm.importedDataXls" 
+                  data-buttonText="Seleccionar archivo xlsx"
+                />
+
+
+                <div ng-show="vm.itemCodes" class="spotlight-itemcodes">
+                  <h2><strong>ItemCodes:</strong></h2>
+                  <ul class="spotlight-itemcodes-list">
+                    <li ng-repeat="itemcode in vm.itemCodes">
+                      {{itemcode}}
+                    </li>
+                  </ul>
+                </div>
+
+              <div class="spotlight-save-btn">
+                <md-button
+                  type="submit"
+                  class="md-raised md-accent action-button"
+                  aria-label="Guardar"
+                >
+                    Guardar
+                </md-button>
+              </div>
+
+            </form>
+
+          </md-content>
+
+          <!--<div form-helper flex="80"></div>-->
+        </section>
+
+
+    </div>
+    <!-- / CONTENT -->
+  </div>
+
+</div>
