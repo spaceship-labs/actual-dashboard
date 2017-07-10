@@ -1,0 +1,30 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+
+        <div layout="column" layout-align="center start">
+            <div class="title">Usuarios</div>
+        </div>
+
+        <div layout="row" layout-align="start center">
+            <md-button class="md-raised reference-button action-button"
+                       ui-sref="app.usersweb_create">
+                <md-icon md-font-icon="icon-account-plus"></md-icon>
+                <span>Registrar usuario web</span>
+            </md-button>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <div class="white-bg md-whiteframe-4dp">
+            <div table-list columns="vm.columns" api-resource="vm.apiResource"></div>
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

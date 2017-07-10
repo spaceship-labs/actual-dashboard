@@ -1,0 +1,149 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <!-- HEADER -->
+    <!--
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="title">Usuarios</div>
+        </div>
+    </div>
+    -->
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <div class="page-layout simple fullwidth">
+
+        <section class="md-whiteframe-z1">
+          <md-toolbar class="demo-toolbar md-primary">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+              <h3>EDITAR USUARIO</h3>
+              <md-button type="submit" class="md-raised md-accent action-button" aria-label="Guardar"
+                 ng-click="vm.sendForm(basicForm)">
+                  Guardar
+              </md-button>
+            </div>
+          </md-toolbar>
+          <md-content class="md-padding">
+
+            <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+            </div>
+
+            <form ng-show="!vm.isLoading" name="basicForm" flex="80" class="md-inline-form" novalidate>
+
+              <section  layout="row" layout-wrap layout-align="space-between start">
+                <div class="input-element" flex="30" flex-sm="100" flex-xs="100">
+                  <label>Nombre*</label>
+                  <div class="input-element-inner">
+                    <input type="text" ng-model="vm.user.firstName" name="firstname" required placeholder="Nombre*">
+                  </div>
+                  <div ng-messages="basicForm.firstname.$error" ng-show="basicForm.firstname.$touched"
+                       role="alert">
+                      <div ng-message="required">
+                          <span>Este campo es requerido.</span>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="input-element" flex="30" flex-sm="100" flex-xs="100">
+                  <label>Apellidos*</label>
+                  <div class="input-element-inner">
+                    <input type="text" name="lastname" ng-model="vm.user.lastName" placeholder="Apellidos"
+                                 required>
+                  </div>
+                  <div ng-messages="basicForm.lastname.$error" ng-show="basicForm.lastname.$touched"
+                       role="alert">
+                      <div ng-message="required">
+                          <span>Este campo es requerido.</span>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="input-element" flex="30" flex-sm="100" flex-xs="100">
+                  <label>Email*</label>
+                  <div class="input-element-inner">
+                    <input type="email" name="email" ng-model="vm.user.email" placeholder="Email"
+                               translate
+                               ng-pattern="/^.+@.+\..+$/" required>
+                  </div>
+                  <div ng-messages="basicForm.email.$error" ng-show="basicForm.email.$touched" role="alert" multiple>
+                      <div ng-message="required">
+                          <span>Este campo es requerido</span>
+                      </div>
+                      <div ng-message="pattern">
+                          <span>E-mail invalido</span>
+                      </div>
+                  </div>
+                </div>
+              </section>
+
+              <section  layout="row" layout-wrap layout-align="space-between start">
+
+                <div flex="40" class="input-element">
+                  <label><strong>Teléfono fijo</strong></label>
+                  <div layout="row" layout-align="space-between center">
+                      <div flex="30" class="input-element-inner">
+                        <input
+                          type="text"
+                          ng-model="vm.user.dialCode"
+                          ng-pattern="'[0-9]{3}'"
+                          placeholder="Lada"
+                          >
+                      </div>
+                      <div flex="65" class="input-element-inner">
+                        <input type="text" placeholder="Número" ng-model="vm.user.phone" >
+                      </div>
+                  </div>
+                </div>
+
+
+                <div flex="40" class="input-element">
+                  <label><strong>Teléfono celular</strong></label>
+                  <div layout="row" layout-align="space-between center">
+                      <div flex="30" class="input-element-inner">
+                        <input type="text" ng-model="vm.user.mobileDialCode" placeholder="Lada" >
+                      </div>
+                      <div flex="65" class="input-element-inner">
+                        <input type="text" placeholder="Número" ng-model="vm.user.mobilePhone" >
+                      </div>
+                  </div>
+                </div>
+
+              </section>
+
+              <!--ACTIVE-->
+              <div>
+                <div>
+                  <md-checkbox 
+                    class="block-checkbox" 
+                    ng-model="vm.user.active"><strong>Activo</strong></md-checkbox>
+                </div>
+              </div>
+              <!--END ACTIVE-->              
+
+              <div>
+                <md-button type="submit"
+                  class="md-raised md-accent action-button"
+                  aria-label="Guardar"
+                  ng-click="vm.sendForm(basicForm)"
+                >
+                    Guardar
+                </md-button>
+              </div>
+
+
+            </form>
+
+          </md-content>
+
+          <!--<div form-helper flex="80"></div>-->
+        </section>
+
+
+    </div>
+    <!-- / CONTENT -->
+  </div>
+
+</div>
