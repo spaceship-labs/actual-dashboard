@@ -41,6 +41,9 @@
             // Users
             'app.users',
 
+            // UsersWeb
+            'app.usersweb',
+
             // leads
             //'app.leads',
 

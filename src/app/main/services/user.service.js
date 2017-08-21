@@ -90,6 +90,11 @@
           {key:'create-paymentmethods', label:'Crear vigencias de metodos de pago', section:'paymentmethods'},
           {key:'edit-paymentmethods', label:'Editar vigencias de metodos de pago', section:'paymentmethods'},
           {key:'list-paymentmethods', label:'Ver vigencias de metodos de pago', section:'paymentmethods'},
+
+          {key:'create-users-web', label:'Crear usuarios web', section:'usersweb'},
+          {key:'edit-users-web', label:'Editar usuarios web', section:'usersweb'},
+          {key:'list-users-web', label: 'Ver usuarios web', section:'usersweb'},
+
         ];
         return modules;
       }
