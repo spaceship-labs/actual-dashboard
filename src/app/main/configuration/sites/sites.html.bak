@@ -1,0 +1,113 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="title">Configuración</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <div class="white-bg md-whiteframe-4dp">
+
+
+          <section class="md-whiteframe-z1">
+            <md-toolbar class="demo-toolbar md-primary">
+              <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <h3>Configuración de sitio</h3>
+              </div>
+            </md-toolbar>
+            <md-content class="md-padding">
+
+              <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+                <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+              </div>
+
+              <section ng-show="!vm.isLoading">
+                
+                <div 
+                  ng-repeat="site in vm.sites track by $index"                 
+                  class="site-settings">
+
+                  <h2>{{site.name}}</h2>
+
+                  <div 
+                    ng-show="site.isLoading" 
+                    layout="row" 
+                    layout-sm="column" 
+                    layout-align="space-around">
+                    <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+                  </div>
+
+                  <form  
+                    ng-show="!site.isLoading"
+                    name="updateForm" 
+                    ng-submit="vm.update(updateForm, site)"
+                  >
+
+                    <div class="input-element textarea-element">
+                      <label>Texto detalles de la entrega*</label>
+                      <div class="input-element-inner">
+                        <textarea ui-tinymce="tinymceOptions" required  ng-model="site.deliveryText"></textarea>
+                      </div>
+                    </div>
+
+
+                    <md-button class="md-raised md-primary action-button" type="submit">
+                      Actualizar
+                    </md-button>
+
+
+                    <!--IMAGENES EXTRA-->
+                    <h2><strong>IMAGENES EXTRA</strong></h2>
+                    <div ng-show="vm.isLoadingFiles" layout="row" layout-sm="column" layout-align="space-around">
+                      <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+                    </div>
+                    <ul ng-show="!vm.isLoadingFiles" class="draggable-list draggable-list-row" dnd-list="vm.product.files" layout="row" layout-wrap>
+                      <li
+                        ng-repeat="file in vm.product.files"
+                        class="noright"
+                        flex="20"
+                        dnd-draggable="file"
+                        dnd-moved="vm.product.files.splice($index, 1)"
+                        dnd-selected="vm.selectedFile = file"
+                        ng-click='file.selected = !file.selected'
+                        ng-class="vm.fileClass(file)"
+                        dnd-effect-allowed="move">
+                          <img ngf-thumbnail="vm.api.baseUrl+'/uploads/'+vm.dir+'/600x600'+file.filename || 'assets/images/product.png'">
+                      </li>
+                    </ul>
+
+                    <md-button 
+                      class="file-manager-btn md-raised md-primary" 
+                      ngf-select="vm.uploadFiles($files)" 
+                      ng-disabled="vm.isLoadingFiles"
+                      multiple="multiple">Subir imagenes</md-button>
+
+                    <md-button 
+                      ng-if="vm.product.files.length > 0" 
+                      class="md-raised md-warn" 
+                      ng-click="vm.removeFiles()"
+                      ng-disabled="vm.isLoadingFiles">Eliminar archivos seleccionados</md-button>
+                    <!--END IMAGENES EXTRA-->
+
+                  </form>
+                </div>
+
+              </section>
+
+            </md-content>
+          </section>
+
+
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+
+

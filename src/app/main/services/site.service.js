@@ -11,7 +11,8 @@
       var service = {
         update: update,
         findByHandle: findByHandle,
-        getAll: getAll
+        getAll: getAll,
+        find: find
       };
 
       return service;
@@ -28,7 +29,13 @@
 
       function getAll(){
         var url = '/sites';
-        return api.$http.post(url);
+        return api.$http.get(url);
+      }
+
+      function find(page, params){
+        var p = page || 1;
+        var url = '/sites/find/' + p;
+        return api.$http.post(url, params);
       }
 
     }

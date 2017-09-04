@@ -3,30 +3,26 @@
     'use strict';
 
     angular
-        .module('app.configuration.sites')
-        .controller('ConfigSitesController', ConfigSitesController);
+        .module('app.configuration.sites_edit')
+        .controller('ConfigSitesEditController', ConfigSitesEditController);
 
     /** @ngInject */
-    function ConfigSitesController($http, api, localStorageService, dialogService, siteService)
+    function ConfigSitesEditController($http, api, localStorageService, dialogService, siteService, $stateParams)
     {
         var vm = this;
-        vm.columns = [
-            {key:'Edit', label:'Editar', editUrl:'/configuration/sites/edit/', propId: 'handle'},
-            {key:'name', label:'Nombre',actionUrl:'/configuration/sites/edit/', propId: 'handle'}
-        ];
-        vm.apiResource = siteService.find;
-
-        var vm = this;
+        vm.isLoading = true;
+        
         angular.extend(vm,{
           update:update
         });
 
         function init(){
           vm.isLoading = true;
-          siteService.getAll()
+          siteService.findByHandle($stateParams.handle)
             .then(function(res){
               vm.isLoading = false;
-              vm.sites = res.data;
+              vm.site = res.data;
+              console.log('vm.site', vm.site);
             })
             .catch(function(err){
               console.log(err);

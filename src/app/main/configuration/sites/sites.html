@@ -3,77 +3,22 @@
     <!-- HEADER -->
     <div class="header md-accent-bg" layout="row" layout-align="space-between">
         <div layout="column" layout-align="center start">
-            <div class="title">Configuración</div>
+            <div class="title">Sitios</div>
         </div>
     </div>
     <!-- / HEADER -->
 
     <!-- CONTENT -->
     <div class="content">
+        <div ng-show="vm.isLoadingDelete" layout="row" layout-sm="column" layout-align="space-around">
+          <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+        </div>
 
-        <div class="white-bg md-whiteframe-4dp">
-
-
-          <section class="md-whiteframe-z1">
-            <md-toolbar class="demo-toolbar md-primary">
-              <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
-                <h3>Configuración de sitio</h3>
-              </div>
-            </md-toolbar>
-            <md-content class="md-padding">
-
-              <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
-                <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
-              </div>
-
-              <section ng-show="!vm.isLoading">
-                
-                <div 
-                  ng-repeat="site in vm.sites track by $index"                 
-                  class="site-settings">
-
-                  <h2>{{site.name}}</h2>
-
-                  <div 
-                    ng-show="site.isLoading" 
-                    layout="row" 
-                    layout-sm="column" 
-                    layout-align="space-around">
-                    <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
-                  </div>
-
-                  <form  
-                    ng-show="!site.isLoading"
-                    name="updateForm" 
-                    ng-submit="vm.update(updateForm, site)"
-                  >
-
-                    <div class="input-element textarea-element">
-                      <label>Texto detalles de la entrega*</label>
-                      <div class="input-element-inner">
-                        <textarea ui-tinymce="tinymceOptions" required  ng-model="site.deliveryText"></textarea>
-                      </div>
-                    </div>
-
-
-                    <md-button class="md-raised md-primary action-button" type="submit">
-                      Actualizar
-                    </md-button>
-
-                  </form>
-                </div>
-
-              </section>
-
-            </md-content>
-          </section>
-
-
+        <div ng-show="!vm.isLoadingDelete" class="white-bg md-whiteframe-4dp">
+            <div table-list columns="vm.columns" api-resource="vm.apiResource"></div>
         </div>
 
     </div>
     <!-- / CONTENT -->
 
 </div>
-
-

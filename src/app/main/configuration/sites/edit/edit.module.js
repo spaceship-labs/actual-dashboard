@@ -3,20 +3,18 @@
     'use strict';
 
     angular
-        .module('app.configuration.sites', [
-            'app.configuration.sites_edit'
-        ])
+        .module('app.configuration.sites_edit', [])
         .config(config);
 
     /** @ngInject */
     function config($stateProvider)
     {
-        $stateProvider.state('app.configuration_sites', {
-            url  : '/configuration/sites',
+        $stateProvider.state('app.configuration_sites_edit', {
+            url  : '/configuration/sites/edit/:handle',
             views: {
                 'content@app': {
-                    templateUrl: 'app/main/configuration/sites/sites.html',
-                    controller : 'ConfigSitesController as vm'
+                    templateUrl: 'app/main/configuration/sites/edit/edit.html',
+                    controller : 'ConfigSitesEditController as vm'
                 }
             },
             resolve: {
@@ -26,7 +24,7 @@
                     return apiResolver.resolve('product.find@get');
                 }*/
             },
-            moduleName: 'config-sites',
+            moduleName: 'config-sites-edit',
         });
     }
 
