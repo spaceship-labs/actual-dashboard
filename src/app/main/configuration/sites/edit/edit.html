@@ -43,6 +43,7 @@
                   <form  
                     ng-show="!vm.site.isLoading"
                     name="updateForm" 
+                    novalidate
                     ng-submit="vm.update(updateForm, vm.site)"
                   >
 
@@ -53,24 +54,18 @@
                       </div>
                     </div>
 
-
-                    <md-button class="md-raised md-primary action-button" type="submit">
-                      Actualizar
-                    </md-button>
-
-
                     <!--IMAGENES EXTRA-->
                     <h2><strong>IMAGENES EXTRA</strong></h2>
                     <div ng-show="vm.isLoadingFiles" layout="row" layout-sm="column" layout-align="space-around">
                       <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
                     </div>
-                    <ul ng-show="!vm.isLoadingFiles" class="draggable-list draggable-list-row" dnd-list="vm.product.files" layout="row" layout-wrap>
+                    <ul ng-show="!vm.isLoadingFiles" class="draggable-list draggable-list-row" dnd-list="vm.site.Banners" layout="row" layout-wrap>
                       <li
-                        ng-repeat="file in vm.product.files"
+                        ng-repeat="file in vm.site.Banners"
                         class="noright"
                         flex="20"
                         dnd-draggable="file"
-                        dnd-moved="vm.product.files.splice($index, 1)"
+                        dnd-moved="vm.site.Banners.splice($index, 1)"
                         dnd-selected="vm.selectedFile = file"
                         ng-click='file.selected = !file.selected'
                         ng-class="vm.fileClass(file)"
@@ -91,6 +86,13 @@
                       ng-click="vm.removeFiles()"
                       ng-disabled="vm.isLoadingFiles">Eliminar archivos seleccionados</md-button>
                     <!--END IMAGENES EXTRA-->
+
+
+                    <div>
+                      <md-button class="md-raised md-primary action-button" type="submit">
+                        Actualizar
+                      </md-button>
+                    </div>
 
                   </form>
                 </div>
