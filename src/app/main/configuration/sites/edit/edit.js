@@ -22,7 +22,9 @@
         angular.extend(vm,{
           update:update,
           uploadFiles: uploadFiles,
+          removeFiles: removeFiles,
           api: api,
+          fileClass: fileClass,
           dir: 'sites/banners'
         });
 
@@ -152,7 +154,7 @@
         }
 
         function removeFiles(){
-          var removeMethod = '/site/removebanner';
+          var removeMethod = '/site/removefiles';
           var files = [];
 
           vm.site.Banners.forEach(function(file){
@@ -168,7 +170,7 @@
           var params = {
             method: 'POST', 
             url: api.baseUrl + removeMethod,
-            data:vm.product
+            data:vm.site
           };
 
           $http(params).then(function (resp){
