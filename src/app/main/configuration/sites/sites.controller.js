@@ -10,6 +10,13 @@
     function ConfigSitesController($http, api, localStorageService, dialogService, siteService)
     {
         var vm = this;
+        vm.columns = [
+            {key:'Edit', label:'Editar', editUrl:'/configuration/sites/edit/', propId: 'handle'},
+            {key:'name', label:'Nombre',actionUrl:'/configuration/sites/edit/', propId: 'handle'}
+        ];
+        vm.apiResource = siteService.find;
+
+        var vm = this;
         angular.extend(vm,{
           update:update
         });
