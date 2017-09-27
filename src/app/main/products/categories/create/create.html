@@ -74,6 +74,7 @@
                   >
                     <md-optgroup label="Categorias">
                       <md-option ng-value="category.id" ng-repeat="category in categoriesGroups[0] |
+                       orderBy:'Name' |
                         filter:searchTerm">{{category.Name}}</md-option>
                     </md-optgroup>
                   </md-select>
@@ -95,6 +96,7 @@
                   >
                     <md-optgroup label="Categorias">
                       <md-option ng-value="category.id" ng-repeat="category in categoriesGroups[1] |
+                       orderBy:'Name' |
                         filter:searchTerm">{{category.Name}}</md-option>
                     </md-optgroup>
                   </md-select>
