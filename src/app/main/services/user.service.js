@@ -62,6 +62,7 @@
           {key:'import-images', label:'Importar imagenes', section:'config'},
           {key:'config-sites', label:'Lista de configuración de sitios', section:'config'},
           {key:'config-sites-edit', label:'Configuración de sitio', section:'config'},
+          {key:'config-delivery', label:'Configuración de envios', section:'config'},
 
           //{key:'config-sync', label:'Sinconizacion de productos', section:'config'},
           {key:'config-contability', label:'Configuración de contabilidad', section:'config'},

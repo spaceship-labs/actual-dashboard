@@ -7,7 +7,8 @@
             'app.configuration.import',
             'app.configuration.sync',
             'app.configuration.sites',
-            'app.configuration.contability'
+            'app.configuration.contability',
+            'app.configuration.delivery'
         ])
         .config(config);
 
@@ -35,6 +36,11 @@
         msNavigationServiceProvider.saveItem('configuration.contability', {
             title: 'Configuración de contabilidad',
             state: 'app.configuration_contability'
+        });
+
+        msNavigationServiceProvider.saveItem('configuration.delivery', {
+            title: 'Configuración de envios',
+            state: 'app.configuration_delivery'
         });
 
         msNavigationServiceProvider.saveItem('configuration', {
