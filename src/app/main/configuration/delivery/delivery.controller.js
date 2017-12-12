@@ -37,16 +37,39 @@
             });
         }
 
+        function allStatesHaveTheSameValues(states){
+            var size = states.length;
+            var hash = false;
+            for(var i=0;i<size; i++){
+                if(hash){
+                    if(hash !== states[i].deliveryPriceMode + '#' + states[i].deliveryPriceValue){
+                        return false;
+                    }
+                }
+                else{
+                    hash = states[i].deliveryPriceMode + '#' + states[i].deliveryPriceValue;
+                }
+            }
+
+            return true;
+        }
+
         function buildZones(states){
             var groupsAux =  _.groupBy(states, 'zone');
             var zones = [];
             for(var key in groupsAux){
-                zones.push({
-                    deliveryPriceValue: 0,
-                    deliveryPriceMode: 0,
+                var zone = {
+                    deliveryPriceValue: null,
+                    deliveryPriceMode: null,
                     name: key,
                     states: groupsAux[key]
-                });
+                };
+
+                if(zone.states.length > 0 && allStatesHaveTheSameValues(zone.states)){
+                    zone.deliveryPriceValue = zone.states[0].deliveryPriceValue;
+                    zone.deliveryPriceMode = zone.states[0].deliveryPriceMode;
+                }
+                zones.push(zone);
             }
             return zones;
         }
