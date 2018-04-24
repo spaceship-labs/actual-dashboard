@@ -27,22 +27,22 @@
               </div>
 
               <section ng-if="!vm.isLoading">
-                
+
                 <div class="site-settings">
 
                   <h2>{{vm.site.name}}</h2>
 
-                  <div 
-                    ng-show="vm.site.isLoading" 
-                    layout="row" 
-                    layout-sm="column" 
+                  <div
+                    ng-show="vm.site.isLoading"
+                    layout="row"
+                    layout-sm="column"
                     layout-align="space-around">
                     <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
                   </div>
 
-                  <form  
+                  <form
                     ng-show="!vm.site.isLoading"
-                    name="updateForm" 
+                    name="updateForm"
                     novalidate
                     ng-submit="vm.update(updateForm, vm.site)"
                   >
@@ -56,6 +56,7 @@
 
                     <!--IMAGENES EXTRA-->
                     <h2><strong>BANNERS</strong></h2>
+
                     <div ng-show="vm.isLoadingFiles" layout="row" layout-sm="column" layout-align="space-around">
                       <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
                     </div>
@@ -70,34 +71,41 @@
                         ng-click='file.selected = !file.selected'
                         ng-class="vm.fileClass(file)"
                         dnd-effect-allowed="move">
+
                           <img ngf-thumbnail="vm.api.baseUrl+'/uploads/'+vm.dir+'/600x600'+file.filename || 'assets/images/product.png'">
-                      
+
                           <div class="input-element">
                             <label>Texto</label>
                             <div class="input-element-inner">
                               <input type="text" ng-model="file.displayText" name="displayText" placeholder="Texto" >
                             </div>
                           </div>
-      
+
                           <div class="input-element">
                             <label>URL</label>
                             <div class="input-element-inner">
                               <input type="text" ng-model="file.displayUrl" name="displayUrl" placeholder="Texto" >
                             </div>
                           </div>
-      
+
+                          <div class="input-element">
+                            <md-checkbox name="newTab" ng-model="file.newTab">
+                              <label>Abrir en otra pestaña</label>
+                            </md-checkbox>
+                          </div>
+
                       </li>
                     </ul>
 
-                    <md-button 
-                      class="file-manager-btn md-raised md-primary" 
-                      ngf-select="vm.uploadFiles($files)" 
+                    <md-button
+                      class="file-manager-btn md-raised md-primary"
+                      ngf-select="vm.uploadFiles($files)"
                       ng-disabled="vm.isLoadingFiles"
                       multiple="multiple">Subir imagenes</md-button>
 
-                    <md-button 
-                      ng-if="vm.site.Banners.length > 0" 
-                      class="md-raised md-warn" 
+                    <md-button
+                      ng-if="vm.site.Banners.length > 0"
+                      class="md-raised md-warn"
                       ng-click="vm.removeFiles()"
                       ng-disabled="vm.isLoadingFiles">Eliminar archivos seleccionados</md-button>
                     <!--END IMAGENES EXTRA-->
@@ -124,5 +132,3 @@
     <!-- / CONTENT -->
 
 </div>
-
-

@@ -8,17 +8,17 @@
 
     /** @ngInject */
     function ConfigSitesEditController(
-      $http, 
-      api, 
-      localStorageService, 
-      dialogService, 
-      siteService, 
+      $http,
+      api,
+      localStorageService,
+      dialogService,
+      siteService,
       $stateParams,
       Upload
     ){
         var vm = this;
         vm.isLoading = true;
-        
+
         angular.extend(vm,{
           update:update,
           uploadFiles: uploadFiles,
@@ -34,7 +34,7 @@
             .then(function(res){
               vm.isLoading = false;
               vm.site = res.data;
-              vm.site.Banners = sortSiteBanners(vm.site);              
+              vm.site.Banners = sortSiteBanners(vm.site);
               console.log('vm.site', vm.site);
             })
             .catch(function(err){
@@ -68,7 +68,7 @@
             }
           });
           return auxImages;
-        }      
+        }
 
       function sortSiteBanners(site){
         console.log('sortSiteBanners site', site);
@@ -86,7 +86,7 @@
             for(var j=0; j<files.length;j++){
               if(files[j].id === idsList[i]){
                 orderedList.push(files[j]);
-              }          
+              }
             }
           }
           //Checking if a file was not in the orderedList
@@ -103,7 +103,7 @@
         }
 
         return orderedList;
-      }          
+      }
 
         function uploadFiles($files){
           vm.loading = [];
@@ -168,7 +168,7 @@
           vm.isLoadingFiles = true;
 
           var params = {
-            method: 'POST', 
+            method: 'POST',
             url: api.baseUrl + removeMethod,
             data:vm.site
           };
@@ -186,7 +186,7 @@
                 if(file.selected) file.deleting = false;
               });
             });
-        }        
+        }
 
         function fileClass(file){
           var c = '';
