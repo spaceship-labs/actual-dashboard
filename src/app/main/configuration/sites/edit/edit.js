@@ -30,6 +30,7 @@
           fileClass: fileClass,
           queryProducts: queryProducts,
           selectedItemChange: selectedItemChange,
+          removeProductFromGroup: removeProductFromGroup,
           dir: 'sites/banners'
         });
 
@@ -221,7 +222,6 @@
             return [];
           }
         }
-        // TODO: cambiar
         function selectedItemChange(item, categoryHandle, productCategory){
           if(item && item.ItemCode){
             vm.selectedSalaProduct = null;
@@ -232,8 +232,8 @@
             var params = {
               product: item.id,
               site: vm.site.id,
-              categoryHandle,
-              productCategory
+              categoryHandle: categoryHandle,
+              productCategory: productCategory
             };
             featuredProductService.create(params).then(function(res){
               vm.isLoadingProducts = false;
@@ -244,6 +244,19 @@
               console.log('vm.featuredproducts', vm.featuredproducts.length);
             })
           }
+        }
+
+        function removeProductFromGroup(id, index){
+          vm.isLoadingProducts = true;
+          featuredProductService.removeProduct(id).then(function(res){
+            console.log(res);
+            return featuredProductService.find(vm.site.id)
+          }).then(function(result) {
+            vm.isLoadingProducts = false;
+            vm.featuredproducts = result.data;
+            console.log('vm.featuredproducts', vm.featuredproducts);
+            console.log('vm.featuredproducts', vm.featuredproducts.length);
+          })
         }
 
         init();

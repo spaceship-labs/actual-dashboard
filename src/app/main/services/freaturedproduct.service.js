@@ -10,7 +10,8 @@
 
       var service = {
         find: find,
-        create: create
+        create: create,
+        removeProduct: removeProduct
       };
 
       return service;
@@ -23,6 +24,11 @@
       function create(params){
         var url = '/featuredproduct';
         return api.$http.post(url,params);
+      }
+
+      function removeProduct(id) {
+        var url = '/featuredproduct/' + id;
+        return api.$http.post(url);
       }
 
     }
