@@ -145,15 +145,15 @@
                 </span>
 
               </div>
-              <md-button 
-                class="file-manager-btn md-raised md-primary" 
+              <md-button
+                class="file-manager-btn md-raised md-primary"
                 ng-show="!vm.isLoadingAvatar"
                 ngf-select="vm.updateIcon($file)">
                 Subir imagen
               </md-button>
-              <md-button 
-                ng-if="vm.group.icon_filename && !vm.isLoadingAvatar" 
-                class="file-manager-btn md-raised md-primary md-warn" 
+              <md-button
+                ng-if="vm.group.icon_filename && !vm.isLoadingAvatar"
+                class="file-manager-btn md-raised md-primary md-warn"
                 ng-click="vm.removeIcon()">
                 Remover imagen
               </md-button>
@@ -228,7 +228,3 @@
     <!-- / CONTENT -->
 
 </div>
-
-
-
-

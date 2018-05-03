@@ -13,7 +13,10 @@
       localStorageService,
       dialogService,
       siteService,
+      productService,
+      featuredProductService,
       $stateParams,
+      $q,
       Upload
     ){
         var vm = this;
@@ -25,6 +28,8 @@
           removeFiles: removeFiles,
           api: api,
           fileClass: fileClass,
+          queryProducts: queryProducts,
+          selectedItemChange: selectedItemChange,
           dir: 'sites/banners'
         });
 
@@ -36,6 +41,11 @@
               vm.site = res.data;
               vm.site.Banners = sortSiteBanners(vm.site);
               console.log('vm.site', vm.site);
+              return featuredProductService.find(vm.site.id)
+            }).then(function(result) {
+              vm.featuredproducts = result.data;
+              console.log('vm.featuredproducts', vm.featuredproducts);
+              console.log('vm.featuredproducts', vm.featuredproducts.length);
             })
             .catch(function(err){
               console.log(err);
@@ -196,6 +206,45 @@
           return c;
         }
 
+        function queryProducts(term){
+          console.log(term);
+          if(term != '' && term){
+            var deferred = $q.defer();
+            var params = {term: term, autocomplete: true};
+            productService.search(params).then(function(res){
+              console.log(res);
+              deferred.resolve(res.data.data);
+            });
+            return deferred.promise;
+          }
+          else{
+            return [];
+          }
+        }
+        // TODO: cambiar
+        function selectedItemChange(item, categoryHandle, productCategory){
+          if(item && item.ItemCode){
+            vm.selectedSalaProduct = null;
+            vm.selectedComedorProduct = null;
+            vm.selectedRecamaraProduct = null;
+            vm.searchText = null;
+            vm.isLoadingProducts = true;
+            var params = {
+              product: item.id,
+              site: vm.site.id,
+              categoryHandle,
+              productCategory
+            };
+            featuredProductService.create(params).then(function(res){
+              vm.isLoadingProducts = false;
+              return featuredProductService.find(vm.site.id)
+            }).then(function(result) {
+              vm.featuredproducts = result.data;
+              console.log('vm.featuredproducts', vm.featuredproducts);
+              console.log('vm.featuredproducts', vm.featuredproducts.length);
+            })
+          }
+        }
 
         init();
     }
