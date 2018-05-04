@@ -120,7 +120,7 @@
                   </form>
                 </div>
                 <!--TOP PRODUCTS-->
-                <div>
+                <div ng-if="vm.site.handle !== 'actual-kids'">
                   <h2><strong>TOP SALAS</strong></h2>
 
                   <md-autocomplete
@@ -168,8 +168,56 @@
 
 
                 </div>
+                <div ng-if="vm.site.handle === 'actual-kids'">
+                  <h2><strong>TOP CAMAS INFANTILES</strong></h2>
 
-                <div>
+                  <md-autocomplete
+                      md-no-cache="false"
+                      md-selected-item="vm.selectedCamasProduct"
+                      md-search-text="vm.searchCamasInfantiles"
+                      md-items="item in vm.queryProducts(vm.searchCamasInfantiles)"
+                      md-selected-item-change="vm.selectedItemChange(item, 'camas-infantiles', '57436fb9ef7d5e62e508e1d8')"
+                      md-item-text="item.ItemCode + ' ' + item.ItemName"
+                      md-min-length="0"
+                      placeholder="Buscar producto">
+                    <md-item-template>
+                      <span md-highlight-text="vm.searchCamasInfantiles" md-highlight-flags="^i">{{item.ItemCode}} | {{item.ItemName}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                      No se encontro "{{vm.searchCamasInfantiles}}".
+                    </md-not-found>
+                  </md-autocomplete>
+
+
+
+                  <div ng-show="vm.isLoadingProducts" layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+                  </div>
+
+                  <ul ng-if="!vm.isLoadingProducts" class="draggable-list" dnd-list="vm.group.featuredproducts">
+                    <li
+                      ng-repeat="featuredCamasInfantiles in vm.featuredproducts | filter:{ categoryHandle: 'camas-infantiles' }"
+                      class="noright"
+                      layout="row"
+                      layout-align="space-between center"
+                      dnd-draggable="featuredCamasInfantiles"
+                      dnd-moved="vm.featuredproducts.splice($index, 1)"
+                      dnd-selected="vm.selectedproduct = featuredCamasInfantiles"
+                      ng-class="{'selected-item': vm.selectedproduct === featuredCamasInfantiles}"
+                      dnd-effect-allowed="move">
+                      <p>{{featuredCamasInfantiles.product.ItemCode}} | {{ featuredCamasInfantiles.product.ItemName }}</p>
+                      <div class="md-secondary">
+                        <md-button ng-click="vm.removeProductFromGroup(featuredCamasInfantiles.product.id, $index)" class="md-raised md-warn">
+                          Remover
+                        </md-button>
+                      </div>
+                    </li>
+                  </ul>
+
+
+                </div>
+
+                <div ng-if="vm.site.handle !== 'actual-kids'">
                   <h2><strong>TOP COMEDORES</strong></h2>
 
                   <md-autocomplete
@@ -214,8 +262,56 @@
                   </ul>
 
                 </div>
+                <div ng-if="vm.site.handle === 'actual-kids'">
+                  <h2><strong>TOP CÓMODAS Y BURÓS INFANTILES</strong></h2>
 
-                <div>
+                  <md-autocomplete
+                      md-no-cache="false"
+                      md-selected-item="vm.selectedComodaProduct"
+                      md-search-text="vm.searchComodas"
+                      md-items="item in vm.queryProducts(vm.searchComodas)"
+                      md-selected-item-change="vm.selectedItemChange(item, 'comoda-infantil', '58c7146e1152650510096f1a')"
+                      md-item-text="item.ItemCode + ' ' + item.ItemName"
+                      md-min-length="0"
+                      placeholder="Buscar producto">
+                    <md-item-template>
+                      <span md-highlight-text="vm.searchComodas" md-highlight-flags="^i">{{item.ItemCode}} | {{item.ItemName}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                      No se encontro "{{vm.searchComodas}}".
+                    </md-not-found>
+                  </md-autocomplete>
+
+
+
+                  <div ng-show="vm.isLoadingProducts" layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+                  </div>
+
+                  <ul ng-if="!vm.isLoadingProducts" class="draggable-list" dnd-list="vm.group.featuredproducts">
+                    <li
+                      ng-repeat="featuredComodas in vm.featuredproducts | filter:{ categoryHandle: 'comoda-infantil' }"
+                      class="noright"
+                      layout="row"
+                      layout-align="space-between center"
+                      dnd-draggable="featuredComodas"
+                      dnd-moved="vm.featuredproducts.splice($index, 1)"
+                      dnd-selected="vm.selectedproduct = featuredComodas"
+                      ng-class="{'selected-item': vm.selectedproduct === featuredComodas}"
+                      dnd-effect-allowed="move">
+                      <p>{{featuredComodas.product.ItemCode}} | {{ featuredComodas.product.ItemName }}</p>
+                      <div class="md-secondary">
+                        <md-button ng-click="vm.removeProductFromGroup(featuredComodas.product.id, $index)" class="md-raised md-warn">
+                          Remover
+                        </md-button>
+                      </div>
+                    </li>
+                  </ul>
+
+
+                </div>
+
+                <div ng-if="vm.site.handle !== 'actual-kids'">
                   <h2><strong>TOP RECÁMARAS</strong></h2>
 
                   <md-autocomplete
@@ -258,6 +354,54 @@
                       </div>
                     </li>
                   </ul>
+
+                </div>
+                <div ng-if="vm.site.handle === 'actual-kids'">
+                  <h2><strong>MUEBLES PARA NIÑOS</strong></h2>
+
+                  <md-autocomplete
+                      md-no-cache="false"
+                      md-selected-item="vm.selectedMueblesProduct"
+                      md-search-text="vm.searchMuebles"
+                      md-items="item in vm.queryProducts(vm.searchMuebles)"
+                      md-selected-item-change="vm.selectedItemChange(item, 'ninos', '57436fb9ef7d5e62e508e1c6')"
+                      md-item-text="item.ItemCode + ' ' + item.ItemName"
+                      md-min-length="0"
+                      placeholder="Buscar producto">
+                    <md-item-template>
+                      <span md-highlight-text="vm.searchMuebles" md-highlight-flags="^i">{{item.ItemCode}} | {{item.ItemName}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                      No se encontro "{{vm.searchMuebles}}".
+                    </md-not-found>
+                  </md-autocomplete>
+
+
+
+                  <div ng-show="vm.isLoadingProducts" layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+                  </div>
+
+                  <ul ng-if="!vm.isLoadingProducts" class="draggable-list" dnd-list="vm.group.featuredproducts">
+                    <li
+                      ng-repeat="featuredMuebles in vm.featuredproducts | filter:{ categoryHandle: 'ninos' }"
+                      class="noright"
+                      layout="row"
+                      layout-align="space-between center"
+                      dnd-draggable="featuredMuebles"
+                      dnd-moved="vm.featuredproducts.splice($index, 1)"
+                      dnd-selected="vm.selectedproduct = featuredMuebles"
+                      ng-class="{'selected-item': vm.selectedproduct === featuredMuebles}"
+                      dnd-effect-allowed="move">
+                      <p>{{featuredMuebles.product.ItemCode}} | {{ featuredMuebles.product.ItemName }}</p>
+                      <div class="md-secondary">
+                        <md-button ng-click="vm.removeProductFromGroup(featuredMuebles.product.id, $index)" class="md-raised md-warn">
+                          Remover
+                        </md-button>
+                      </div>
+                    </li>
+                  </ul>
+
 
                 </div>
                 <!--TOP PRODUCTS-->
