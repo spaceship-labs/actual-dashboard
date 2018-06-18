@@ -42,10 +42,7 @@
           return req;
         };
 
-
-
         return api;
-
     }
 
 })();
