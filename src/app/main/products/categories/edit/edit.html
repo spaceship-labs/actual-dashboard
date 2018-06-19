@@ -43,12 +43,21 @@
         </div>
 
         <!--CATEGORY PARENTS EDITOR-->
-        <div class="category-form-editor">
+        <p ng-show="!categoriesGroups || categoriesGroups.length > 0">Cargando categorias...</p>
+        <div ng-show="categoriesGroups" class="category-form-editor">
           <p>Nivel de categoria: <strong>{{category.CategoryLevel}}</strong></p>
+          <md-input-container style="margin: 0;">
+            <md-select style="margin: 0;" class="select-element" ng-model="category.CategoryLevel">
+              <md-option ng-value="1">Nivel 1</md-option>
+              <md-option ng-value="2">Nivel 2</md-option>
+              <md-option ng-value="3">Nivel 3</md-option>
+            </md-select>
+          </md-input-container>
+            
           <h2 ng-if="!category.IsMain"><label><strong>Categorias padre</strong></label></h2>
 
           <div layout="row" layout-wrap>
-            <div ng-if="!category.IsMain && category.CategoryLevel > 1">
+            <div ng-if="category.CategoryLevel > 1">
               <p>
                 <label><strong>Categorias Nivel 1</strong></label>
               </p>
@@ -72,7 +81,7 @@
             </div>
 
 
-            <div ng-if="!category.IsMain && category.CategoryLevel > 2 ">
+            <div ng-if="category.CategoryLevel > 2 ">
               <p>
                 <label><strong>Categorias Nivel 2</strong></label>
               </p>

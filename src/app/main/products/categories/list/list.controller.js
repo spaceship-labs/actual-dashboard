@@ -12,7 +12,7 @@
         var vm = this;
         vm.columns = [
             {key:'Edit', label:'Editar', editUrl:'/products/categories/edit/', propId: 'id'},
-            {key: 'id', label:'ID'},
+          /*{key: 'id', label:'ID'},*/
             {key:'Name', label:'Nombre',actionUrl:'/products/categories/edit/', propId: 'id'},
             {key:'CategoryLevel', label:'Nivel'},
             {key:'Handle', label:'URL'},
