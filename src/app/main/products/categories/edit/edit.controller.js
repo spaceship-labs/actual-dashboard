@@ -76,10 +76,15 @@ function ProductCategoriesEditController($scope, $rootScope ,$stateParams, $mdDi
         $scope.category.Parents = [];
         $scope.isLoading = true;
 
+        if($scope.category.CategoryLevel == 1){
+          $scope.category.IsMain = true;
+        }
+        /*
         if($scope.category.IsMain){
           $scope.category.CategoryLevel = 1;
           $scope.category.Parents = [];
         }
+        */
 
         for(var i=0;i<$scope.selectedCategories.length;i++){
           for(var j=0;j<$scope.selectedCategories[i].length;j++){
