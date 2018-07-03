@@ -1,4 +1,4 @@
-<md-dialog class="form-dialog" aria-label="Editar categoria"  ng-cloak>
+<md-dialog class="form-dialog" aria-label="Editar categoria" ng-cloak>
 
   <form name="updateForm" ng-submit="update(updateForm)" class="md-inline-form" novalidate>
     <md-toolbar>
@@ -46,10 +46,24 @@
           <a href="" ng-click="editRelations()">Editar relevancia de categorias</a>
         </p>
         
+        <div class="input-element">
+          <md-checkbox name="complement" ng-model="category.complement">
+            <label>Complemento</label>
+          </md-checkbox>
+        </div>
+
+        <div class="input-element">
+          <md-checkbox name="complement" ng-model="category.onKidsMenu">
+            <label>Actual Kids</label>
+          </md-checkbox>
+        </div>
+
         <!--CATEGORY PARENTS EDITOR-->
         <p ng-show="!categoriesGroups || categoriesGroups.length > 0">Cargando categorias...</p>
         <div ng-show="categoriesGroups" class="category-form-editor">
-          <p>Nivel de categoria: <strong>{{category.CategoryLevel}}</strong></p>
+          <p>Nivel de categoria:
+            <strong>{{category.CategoryLevel}}</strong>
+          </p>
           <md-input-container style="margin: 0;">
             <md-select style="margin: 0;" class="select-element" ng-model="category.CategoryLevel">
               <md-option ng-value="1">Nivel 1</md-option>
@@ -57,23 +71,27 @@
               <md-option ng-value="3">Nivel 3</md-option>
             </md-select>
           </md-input-container>
-            
-          <h2 ng-if="!category.IsMain"><label><strong>Categorias padre</strong></label></h2>
+
+          <h2 ng-if="!category.IsMain">
+            <label>
+              <strong>Categorias padre</strong>
+            </label>
+          </h2>
 
           <div layout="row" layout-wrap>
             <div ng-if="category.CategoryLevel > 1">
               <p>
-                <label><strong>Categorias Nivel 1</strong></label>
+                <label>
+                  <strong>Categorias Nivel 1</strong>
+                </label>
               </p>
-              <div >
+              <div>
                 <!--
                 <md-checkbox class="spaced-checkbox" ng-repeat="category in categoriesGroups[0]" ng-model="category.selected">{{category.Name}}</md-checkbox>-->
 
                 <md-input-container class="checkboxes-dropdown-wrap">
-                  <md-select class="checkboxes-dropdown select-element" ng-model="selectedCategories[0]"
-                     data-md-container-class="selectdemoSelectHeader"
-                     multiple
-                  >
+                  <md-select class="checkboxes-dropdown select-element" ng-model="selectedCategories[0]" data-md-container-class="selectdemoSelectHeader"
+                    multiple>
                     <md-optgroup label="Categorias">
                       <md-option ng-value="category.id" ng-repeat="category in categoriesGroups[0] |
                        orderBy:'Name' | filter:searchTerm">{{category.Name}}</md-option>
@@ -87,14 +105,14 @@
 
             <div ng-if="category.CategoryLevel > 2 ">
               <p>
-                <label><strong>Categorias Nivel 2</strong></label>
+                <label>
+                  <strong>Categorias Nivel 2</strong>
+                </label>
               </p>
-              <div >
+              <div>
                 <md-input-container class="checkboxes-dropdown-wrap">
-                  <md-select class="checkboxes-dropdown select-element" ng-model="selectedCategories[1]"
-                     data-md-container-class="selectdemoSelectHeader"
-                     multiple
-                  >
+                  <md-select class="checkboxes-dropdown select-element" ng-model="selectedCategories[1]" data-md-container-class="selectdemoSelectHeader"
+                    multiple>
                     <md-optgroup label="Categorias">
                       <md-option ng-value="category.id" ng-repeat="category in categoriesGroups[1] |
                        orderBy:'Name' | filter:searchTerm">{{category.Name}}</md-option>
@@ -113,7 +131,7 @@
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="cancel()">
-       Cancelar
+        Cancelar
       </md-button>
       <md-button ng-click="update(updateForm)" class="md-raised md-primary action-button">
         Guardar
