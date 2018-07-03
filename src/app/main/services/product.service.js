@@ -27,7 +27,8 @@
         getAllCategories: getAllCategories,
         getCategoryById: getCategoryById,
         getCategoriesGroups: getCategoriesGroups,
-
+        getCategoryChildsRelations: getCategoryChildsRelations,
+        setCategoryChildsRelations: setCategoryChildsRelations,
 
         //Filters
         getFilters: getFilters,
@@ -152,6 +153,16 @@
       function getCategoriesGroups(){
         var url = '/productcategory/getcategoriesgroups';
         return api.$http.post(url);
+      }
+
+      function getCategoryChildsRelations(handle){
+        var url = '/productcategory/childsrelations/' + handle;
+        return api.$http.get(url);
+      }
+
+      function setCategoryChildsRelations(handle, relations){
+        var url = '/productcategory/setchildsrelations/' + handle;
+        return api.$http.post(url, {relations: relations});
       }
 
       function getCategoryById(id){

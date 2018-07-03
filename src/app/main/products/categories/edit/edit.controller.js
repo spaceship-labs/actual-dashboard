@@ -1,5 +1,5 @@
 /** @ngInject */
-function ProductCategoriesEditController($scope, $rootScope ,$stateParams, $mdDialog, dialogService,productService, commonService, params){
+function ProductCategoriesEditController($scope, $location, $rootScope ,$stateParams, $mdDialog, dialogService,productService, commonService, params){
     $scope.update = update;
     $scope.toggleCategory = toggleCategory;
     $scope.loadCategories = loadCategories;
@@ -8,11 +8,17 @@ function ProductCategoriesEditController($scope, $rootScope ,$stateParams, $mdDi
     $scope.cancel = cancel;
     $scope.isLoading = false;
     $scope.destroyFn = productService.destroyCategorybyId;
+    $scope.editRelations = editRelations;
     init();
 
     //Methods
     function cancel(){
       $mdDialog.cancel();
+    }
+
+    function editRelations(){
+      $mdDialog.cancel();
+      $location.path('products/categories/edit-relations/' + $scope.category.Handle);
     }
 
 

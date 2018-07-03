@@ -42,6 +42,10 @@
           </div>
         </div>
 
+        <p ng-if="category.CategoryLevel === 1">
+          <a href="" ng-click="editRelations()">Editar relevancia de categorias</a>
+        </p>
+        
         <!--CATEGORY PARENTS EDITOR-->
         <p ng-show="!categoriesGroups || categoriesGroups.length > 0">Cargando categorias...</p>
         <div ng-show="categoriesGroups" class="category-form-editor">

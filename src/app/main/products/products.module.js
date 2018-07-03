@@ -12,6 +12,7 @@
             'app.products.categories.list',
             'app.products.categories.create',
             'app.products.categories.edit',
+            'app.products.categories.edit-relations',
 
             'app.products.filters.list',
             'app.products.filters.create',

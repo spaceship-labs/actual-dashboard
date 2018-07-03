@@ -1,0 +1,65 @@
+<div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
+
+  <!-- HEADER -->
+  <div class="header md-accent-bg" layout="row" layout-align="space-between">
+    <div layout="column" layout-align="center start">
+      <div class="title">Configuración</div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <div class="white-bg md-whiteframe-4dp">
+
+
+      <section class="md-whiteframe-z1">
+        <md-toolbar class="demo-toolbar md-primary">
+          <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h3>Configuración de relaciones</h3>
+          </div>
+        </md-toolbar>
+        <md-content class="md-padding">
+
+          <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+            <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+          </div>
+
+          <section ng-if="!vm.isLoading">
+
+            <div class="site-settings">
+
+              <h2>Configurar relevancias {{vm.categoryName}}</h2>
+
+              <div ng-show="vm.site.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+                <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+              </div>
+
+              <form ng-show="!vm.site.isLoading" name="updateForm" novalidate ng-submit="vm.update(updateForm)">
+                
+                <div layout="row" layout-wrap>
+                  <div flex="20" ng-repeat="relation in vm.relations" class="input-element">
+                    <label>{{relation.child.Name}}</label>
+                    <div class="input-element-inner">
+                      <input type="number" ng-model="relation.position" />
+                    </div>
+                  </div>
+                </div>
+                      <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">
+        Guardar
+      </md-button>
+              </form>
+                </section>
+        </md-content>
+      </section>
+
+
+    </div>
+
+  </div>
+  <!-- / CONTENT -->
+
+</div>
+
+
