@@ -16,6 +16,8 @@
     var vm = this;
 
     angular.extend(vm, {
+      myPickerEndDate: {},
+      onSelectEndDate: onSelectEndDate,
       init: init,
     });
 
@@ -24,5 +26,6 @@
     function init() {
       console.log('Controller Init');
     }
+    function onSelectEndDate() {}
   }
 })();

@@ -26,7 +26,36 @@
             <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
           </div>
 
+          <form name="updateForm" ng-submit="vm.update(updateForm)">
 
+            <div class="input-element">
+              <label>Tipo de cambio (puntos a pesos mxn)</label>
+              <div class="input-element-inner">
+                <input type="text" ng-model="vm.site.exchangeRate" name="Tipo de cambio" required placeholder="Tipo de cambio*">
+              </div>
+            </div>
+
+            <div class="input-element">
+              <label>Porcentaje mínimo para generar puntos en el monedero</label>
+              <div class="input-element-inner">
+                <input type="text" ng-model="vm.site.exchangeRate" name="Tipo de cambio" required placeholder="Porcentaje mínimo*">
+              </div>
+            </div>
+
+            <!-- <div class="input-element" flex="25" flex-sm="100" flex-xs="100">
+                <label>Fecha de vencimiento*</label>
+                <div layout="row">
+                  <div flex="60" class="input-element-inner">
+                    <input  type="text" pikaday="vm.myPickerEndDate" set-default-date="true" default-date="{{vm.promotion.endDate}}" on-select="vm.onSelectEndDate(pikaday)" readonly required>
+                  </div>
+                  <div flex="40" class="input-element-inner">
+                    <input type="text" ui-timepicker ui-timepicker="vm.timePickerOptions"  ng-model="vm.endTime" placeholder="Hora" required>
+                  </div>
+                </div>
+              </div> -->
+
+
+          </form>
 
         </md-content>
       </section>
