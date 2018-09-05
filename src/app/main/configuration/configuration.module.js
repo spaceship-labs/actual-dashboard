@@ -8,6 +8,7 @@
       'app.configuration.sites',
       'app.configuration.contability',
       'app.configuration.delivery',
+      'app.configuration.ewallet'
     ])
     .config(config);
 

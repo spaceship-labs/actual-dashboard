@@ -66,6 +66,7 @@
 
           //{key:'config-sync', label:'Sinconizacion de productos', section:'config'},
           {key:'config-contability', label:'Configuración de contabilidad', section:'config'},
+          {key:'config-ewallet', label:'Configuración de monedero', section:'config'},
           {key:'list-leads', label:'Ver oportunidades', section:'leads'},
           {key:'create-brands', label:'Crear marcas', section:'brands'},
           {key:'edit-brands', label:'Editar marcas', section:'brands'},
@@ -79,8 +80,8 @@
           {key:'create-groups', label:'Crear agrupadores', section:'groups'},
           {key:'edit-groups', label:'Editar agrupadores', section:'groups'},
           {key:'list-groups', label:'Ver agrupadores', section:'groups'},
-          {key:'spotlight-marketing', label:'Productos destacados', section:'marketing'},          
-          {key:'slowmovement-marketing', label:'Productos de lento movimiento', section:'marketing'},          
+          {key:'spotlight-marketing', label:'Productos destacados', section:'marketing'},
+          {key:'slowmovement-marketing', label:'Productos de lento movimiento', section:'marketing'},
           {key:'create-marketing', label:'Crear promociones', section:'marketing'},
           {key:'edit-marketing', label:'Editar promociones', section:'marketing'},
           {key:'list-marketing', label:'Ver promociones', section:'marketing'},

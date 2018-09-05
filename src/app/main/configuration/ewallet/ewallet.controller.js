@@ -11,14 +11,12 @@
     api,
     $scope,
     zipcodeService,
-    dialogService,
+    dialogService
   ) {
     var vm = this;
 
     angular.extend(vm, {
       init: init,
-      updateZipcodeStates: updateZipcodeStates,
-      onZoneChange: onZoneChange,
     });
 
     init();
