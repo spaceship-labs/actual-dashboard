@@ -3,7 +3,7 @@
   <!-- HEADER -->
   <div class="header md-accent-bg" layout="row" layout-align="space-between">
     <div layout="column" layout-align="center start">
-      <div class="title">Configuración de Monedero</div>
+      <div class="title">Configuración de Puntos del Monedero</div>
     </div>
   </div>
   <!-- / HEADER -->
@@ -29,7 +29,7 @@
           <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)">
 
             <div class="input-element">
-              <label>Tipo de cambio (puntos a pesos mxn)</label>
+              <label>Valor de los puntos en pesos MXN</label>
               <div class="input-element-inner">
                 <input type="text" ng-model="vm.ewallet.exchangeRate" name="exchangeRate" required placeholder="Tipo de cambio*">
               </div>
