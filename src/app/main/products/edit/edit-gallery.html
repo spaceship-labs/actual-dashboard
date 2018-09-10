@@ -12,21 +12,20 @@
 
         <!--IMAGEN PRINCIPAL-->
         <div>
-          <h2><strong>IMAGEN PRINCIPAL</strong></h2>
+          <h2>
+            <strong>IMAGEN PRINCIPAL</strong>
+          </h2>
 
           <section class="feature-image-container" layout="row" layout-wrap layout-align="start start">
 
             <!--IMAGEN PRINCIPAL INPUT-->
             <div flex="25" flex-sm="100" flex-xs="100">
-              <div class="file-manager-thumbs" layout="row"   layout-align="space-between start" layout-wrap>
-                <span
-                  ng-if="vm.product.icon_filename && !vm.isLoadingAvatar"
-                  class="file-manager-thumb"
-                  >
-                  <img ngf-thumbnail="vm.api.baseUrl+'/uploads/products/300x300'+vm.product.icon_filename || 'assets/images/product.png'">
+              <div class="file-manager-thumbs" layout="row" layout-align="space-between start" layout-wrap>
+                <span ng-if="vm.product.icon_filename && !vm.isLoadingAvatar" class="file-manager-thumb">
+                  <img ngf-thumbnail="vm.api.cdnUrl+'/uploads/products/'+vm.product.icon_filename+'?d=300x300' || 'assets/images/product.png'">
                 </span>
 
-                <span ng-if='vm.isLoadingAvatar' class='loader' >
+                <span ng-if='vm.isLoadingAvatar' class='loader'>
                   <div layout="row" layout-sm="column" layout-align="space-around">
                     <md-progress-circular md-mode="indeterminate"></md-progress-circular>
                   </div>
@@ -35,17 +34,12 @@
 
               </div>
 
-              <md-button 
-                ng-if="!vm.isLoadingAvatar" 
-                class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Subir</md-button>
+              <md-button ng-if="!vm.isLoadingAvatar" class="file-manager-btn md-raised md-primary" ngf-select="vm.updateIcon($file)">Subir</md-button>
 
-              <md-button 
-                ng-if="vm.product.icon_filename && !vm.isLoadingAvatar" 
-                class="file-manager-btn md-raised md-warn" 
-                ng-click="vm.removeIcon()">Remover imagen</md-button>
+              <md-button ng-if="vm.product.icon_filename && !vm.isLoadingAvatar" class="file-manager-btn md-raised md-warn" ng-click="vm.removeIcon()">Remover imagen</md-button>
 
-              <md-button ng-if="vm.product.icon_filename && !vm.isLoadingAvatar" class="file-manager-btn md-raised md-primary action-button" >
-                <a class="download-btn" ng-href="{{vm.api.baseUrl+'/uploads/products/'+vm.product.icon_filename}}" download>
+              <md-button ng-if="vm.product.icon_filename && !vm.isLoadingAvatar" class="file-manager-btn md-raised md-primary action-button">
+                <a class="download-btn" ng-href="{{vm.api.cdnUrl+'/uploads/products/'+vm.product.icon_filename}}" download>
                   Descargar
                 </a>
 
@@ -76,40 +70,29 @@
         <!--END IMAGEN PRINCIPAL-->
 
         <!--IMAGENES EXTRA-->
-        <h2><strong>IMAGENES EXTRA</strong></h2>
+        <h2>
+          <strong>IMAGENES EXTRA</strong>
+        </h2>
         <div ng-show="vm.isLoadingFiles" layout="row" layout-sm="column" layout-align="space-around">
           <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
         </div>
         <ul ng-show="!vm.isLoadingFiles" class="draggable-list draggable-list-row" dnd-list="vm.product.files" layout="row" layout-wrap>
-          <li
-            ng-repeat="file in vm.product.files"
-            class="noright"
-            flex="20"
-            dnd-draggable="file"
-            dnd-moved="vm.product.files.splice($index, 1)"
-            dnd-selected="vm.selectedFile = file"
-            ng-click='file.selected = !file.selected'
-            ng-class="vm.fileClass(file)"
-            dnd-effect-allowed="move">
-              <img ngf-thumbnail="vm.api.baseUrl+'/uploads/'+vm.dir+'/600x600'+file.filename || 'assets/images/product.png'">
+          <li ng-repeat="file in vm.product.files" class="noright" flex="20" dnd-draggable="file" dnd-moved="vm.product.files.splice($index, 1)"
+            dnd-selected="vm.selectedFile = file" ng-click='file.selected = !file.selected' ng-class="vm.fileClass(file)" dnd-effect-allowed="move">
+            <img ngf-thumbnail="vm.api.cdnUrl+'/uploads/'+vm.dir+'/'+file.filename+'?d=600x600' || 'assets/images/product.png'">
           </li>
         </ul>
 
-        <md-button 
-          class="file-manager-btn md-raised md-primary" 
-          ngf-select="vm.uploadFiles($files)" 
-          ng-disabled="vm.isLoadingFiles"
+        <md-button class="file-manager-btn md-raised md-primary" ngf-select="vm.uploadFiles($files)" ng-disabled="vm.isLoadingFiles"
           multiple="multiple">Subir imagenes</md-button>
 
-        <md-button 
-          ng-if="vm.product.files.length > 0" 
-          class="md-raised md-warn" 
-          ng-click="vm.removeFiles()"
-          ng-disabled="vm.isLoadingFiles">Eliminar archivos seleccionados</md-button>
+        <md-button ng-if="vm.product.files.length > 0" class="md-raised md-warn" ng-click="vm.removeFiles()" ng-disabled="vm.isLoadingFiles">Eliminar archivos seleccionados</md-button>
         <!--END IMAGENES EXTRA-->
 
         <!--VIDEO-->
-        <h2><strong>VIDEO</strong></h2>
+        <h2>
+          <strong>VIDEO</strong>
+        </h2>
         <div class="input-element textarea-element">
           <label>Video(iframe)</label>
           <div class="input-element-inner">
@@ -120,7 +103,9 @@
 
         <!--CHECKED-->
         <div>
-          <h2><strong>Revisión</strong></h2>
+          <h2>
+            <strong>Revisión</strong>
+          </h2>
           <div>
             <md-checkbox class="spaced-checkbox block-checkbox" ng-model="vm.product.CheckedPhotos">Fotos revisadas</md-checkbox>
           </div>
@@ -130,11 +115,11 @@
 
 
 
-      <div layout="row" layout-align="end center">
-        <md-button ng-click="vm.updateMedia(mediaForm)" class="md-raised md-primary action-button">Guardar</md-button>
-      </div>
+        <div layout="row" layout-align="end center">
+          <md-button ng-click="vm.updateMedia(mediaForm)" class="md-raised md-primary action-button">Guardar</md-button>
+        </div>
 
-    </form>
+      </form>
 
     </md-content>
   </section>

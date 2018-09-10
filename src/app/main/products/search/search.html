@@ -1,94 +1,96 @@
 <div id="price-tables" class="page-layout simple fullwidth doc-page">
 
-    <!-- HEADER -->
-    <div class="header md-accent-bg" layout="row" layout-align="space-between">
-        <div layout="column" layout-align="center start">
-            <div class="breadcrumb" layout="row" layout-align="start center">
-                <md-icon md-font-icon="icon-home" class="s16"></md-icon>
-                <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
-                <span class="parent">Products search</span>
-            </div>
-            <div class="title">Search</div>
-        </div>
+  <!-- HEADER -->
+  <div class="header md-accent-bg" layout="row" layout-align="space-between">
+    <div layout="column" layout-align="center start">
+      <div class="breadcrumb" layout="row" layout-align="start center">
+        <md-icon md-font-icon="icon-home" class="s16"></md-icon>
+        <md-icon md-font-icon="icon-chevron-right" class="s16 separator"></md-icon>
+        <span class="parent">Products search</span>
+      </div>
+      <div class="title">Search</div>
     </div>
-    <!-- / HEADER -->
+  </div>
+  <!-- / HEADER -->
 
-    <!-- CONTENT -->
-    <div class="content">
+  <!-- CONTENT -->
+  <div class="content">
 
-        <!-- STYLE 1 -->
-        <!--<div class="md-title">Style 1</div>-->
-        <section class="products-filter"  layout="row" layout-align="start center" layout-wrap>
-          <md-input-container>
-            <label>Search by name</label>
-            <input type="text" ng-model="vm.search.term">
-          </md-input-container>
-          <md-input-container>
-            <label>Linea</label>
-            <md-select ng-model="vm.search.line">
-              <md-option ng-repeat="line in vm.lines track by $index" value="{{line.Code}}">
-                {{line.Name}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <md-input-container>
-            <label>Color</label>
-            <md-select ng-model="vm.search.color">
-              <md-option ng-repeat="color in vm.colors track by $index" value="{{color.Code}}">
-                {{color.Name}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-        </section>
-        <section>
-          <md-button class="md-raised md-primary" ng-click="vm.doSearch()">Buscar</md-button>
-        </section>
+    <!-- STYLE 1 -->
+    <!--<div class="md-title">Style 1</div>-->
+    <section class="products-filter" layout="row" layout-align="start center" layout-wrap>
+      <md-input-container>
+        <label>Search by name</label>
+        <input type="text" ng-model="vm.search.term">
+      </md-input-container>
+      <md-input-container>
+        <label>Linea</label>
+        <md-select ng-model="vm.search.line">
+          <md-option ng-repeat="line in vm.lines track by $index" value="{{line.Code}}">
+            {{line.Name}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container>
+        <label>Color</label>
+        <md-select ng-model="vm.search.color">
+          <md-option ng-repeat="color in vm.colors track by $index" value="{{color.Code}}">
+            {{color.Name}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </section>
+    <section>
+      <md-button class="md-raised md-primary" ng-click="vm.doSearch()">Buscar</md-button>
+    </section>
 
-        <div ng-if="vm.products.length <= 0 && !vm.isLoading" class="md-title">No hay resultados que cumplan con los parametros de busqueda</div>
+    <div ng-if="vm.products.length <= 0 && !vm.isLoading" class="md-title">No hay resultados que cumplan con los parametros de busqueda</div>
 
-        <div ng-show="!vm.isLoading" layout-row layout-align="end center">
-          <div paging
-            class="custom-pagination"
-            page="vm.page"
-            page-size="vm.length"
-            total="vm.total"
-            paging-action="vm.doSearch(page)">
-          </div>
-          <p>{{vm.total}} resultados</p>
-          <div class="clear"></div>
-        </div>
-
-        <div ng-show="!vm.isLoading" class="price-tables" flex layout="row" layout-wrap>
-            <div class="price-table style-1 md-whiteframe-1dp" ng-repeat="product in vm.products" layout="column">
-                <div class="package-type product-name md-primary-bg">
-                    <span><a ng-href="/products/view/{{product.ItemCode}}">{{product.ItemName}}</a></span>
-                </div>
-
-                <div class="price" layout="row" layout-align="center start">
-                  <img ng-if="product.icon_filename" ng-src="{{vm.api.baseUrl}}/uploads/products/593x331{{product.icon_filename}}" alt="">
-                  <img ng-if="!product.icon_filename" src="assets/images/product.png" alt="">
-                </div>
-
-                <md-divider></md-divider>
-
-                <div class="terms" layout="column">
-                    <div class="term"><span class="text-bold">Código</span> {{product.ItemCode}}</div>
-                    <div class="term"><span class="text-bold">Linea</span> {{product.U_LINEA}}</div>
-                    <div class="term"><span class="text-bold">Color</span> {{product.U_COLOR}}</div>
-                    <div class="term"><span class="text-bold">On hand</span> {{product.OnHand}}</div>
-                    <div class="term"><span class="text-bold">Garantia</span> {{product.U_garantia}}</div>
-                </div>
-                <md-button ng-click="vm.goTo(product.ItemCode)" class="cta-button md-raised md-accent">Cotizar</md-button>
-            </div>
-        </div>
-
-
-        <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
-          <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
-        </div>
-        <!-- / STYLE 1 -->
-
+    <div ng-show="!vm.isLoading" layout-row layout-align="end center">
+      <div paging class="custom-pagination" page="vm.page" page-size="vm.length" total="vm.total" paging-action="vm.doSearch(page)">
+      </div>
+      <p>{{vm.total}} resultados</p>
+      <div class="clear"></div>
     </div>
-    <!-- / CONTENT -->
+
+    <div ng-show="!vm.isLoading" class="price-tables" flex layout="row" layout-wrap>
+      <div class="price-table style-1 md-whiteframe-1dp" ng-repeat="product in vm.products" layout="column">
+        <div class="package-type product-name md-primary-bg">
+          <span>
+            <a ng-href="/products/view/{{product.ItemCode}}">{{product.ItemName}}</a>
+          </span>
+        </div>
+
+        <div class="price" layout="row" layout-align="center start">
+          <img ng-if="product.icon_filename" ng-src="{{vm.api.cdnUrl}}/uploads/products/{{product.icon_filename}}?d=600x600" alt="">
+          <img ng-if="!product.icon_filename" src="assets/images/product.png" alt="">
+        </div>
+
+        <md-divider></md-divider>
+
+        <div class="terms" layout="column">
+          <div class="term">
+            <span class="text-bold">Código</span> {{product.ItemCode}}</div>
+          <div class="term">
+            <span class="text-bold">Linea</span> {{product.U_LINEA}}</div>
+          <div class="term">
+            <span class="text-bold">Color</span> {{product.U_COLOR}}</div>
+          <div class="term">
+            <span class="text-bold">On hand</span> {{product.OnHand}}</div>
+          <div class="term">
+            <span class="text-bold">Garantia</span> {{product.U_garantia}}</div>
+        </div>
+        <md-button ng-click="vm.goTo(product.ItemCode)" class="cta-button md-raised md-accent">Cotizar</md-button>
+      </div>
+    </div>
+
+
+    <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+      <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <!-- / STYLE 1 -->
+
+  </div>
+  <!-- / CONTENT -->
 
 </div>

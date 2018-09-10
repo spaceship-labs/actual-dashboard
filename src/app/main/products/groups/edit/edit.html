@@ -1,230 +1,187 @@
 <div id="simple-table" class="page-layout simple fullwidth doc-page element-doc-page">
 
-    <!-- CONTENT -->
-    <div class="content">
+  <!-- CONTENT -->
+  <div class="content">
 
 
-      <div class="page-layout simple fullwidth">
+    <div class="page-layout simple fullwidth">
 
-        <section class="md-whiteframe-z1">
-          <md-toolbar class="demo-toolbar md-primary">
-            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
-              <h3>EDITAR AGRUPADOR</h3>
-              <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Editar</md-button>
-            </div>
-          </md-toolbar>
-          <md-content class="md-padding">
+      <section class="md-whiteframe-z1">
+        <md-toolbar class="demo-toolbar md-primary">
+          <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+            <h3>EDITAR AGRUPADOR</h3>
+            <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Editar</md-button>
+          </div>
+        </md-toolbar>
+        <md-content class="md-padding">
 
-            <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
-              <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
-            </div>
+          <div ng-show="vm.isLoading" layout="row" layout-sm="column" layout-align="space-around">
+            <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+          </div>
 
-            <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
+          <form name="updateForm" ng-show="!vm.isLoading" ng-submit="vm.update(updateForm)" class="md-inline-form" novalidate>
 
-              <section layout="row" layout-align="space-between end" layout-wrap>
-                <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
-                  <label>Nombre*</label>
-                  <div class="input-element-inner">
-                    <input type="text" ng-model="vm.group.Name" name="Nombre" required placeholder="Nombre*">
-                  </div>
-                </div>
-
-                <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
-                  <label>URL*</label>
-                  <div class="input-element-inner">
-                    <input type="text" ng-model="vm.group.Handle" name="URL" required placeholder="URL*">
-                  </div>
-                </div>
-              </section>
-
-              <div class="input-element textarea-element">
-                <label>Descripción</label>
+            <section layout="row" layout-align="space-between end" layout-wrap>
+              <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
+                <label>Nombre*</label>
                 <div class="input-element-inner">
-                  <textarea ng-model="vm.group.Description" placeholder="Descripción" rows="5"></textarea>
+                  <input type="text" ng-model="vm.group.Name" name="Nombre" required placeholder="Nombre*">
                 </div>
               </div>
 
-
-              <section layout="row" layout-align="space-between end" layout-wrap>
-                <div flex="30" flex-sm="100" flex-xs="100">
-                  <p>
-                    <md-checkbox ng-model="vm.group.HasExpiration" aria-label="¿Tiene vigencia?">
-                      ¿Tiene vigencia?
-                    </md-checkbox>
-                  </p>
+              <div class="input-element" flex="45" flex-sm="100" flex-xs="100">
+                <label>URL*</label>
+                <div class="input-element-inner">
+                  <input type="text" ng-model="vm.group.Handle" name="URL" required placeholder="URL*">
                 </div>
+              </div>
+            </section>
 
-                <div ng-if="vm.group.HasExpiration" class="input-element" flex="25" flex-sm="100" flex-xs="100">
-                  <label>Fecha de inicio*</label>
-                  <div layout="row">
-                    <div flex="60" class="input-element-inner">
-                      <input
-                        ng-if="vm.group"
-                        type="text"
-                        pikaday="vm.myPickerStartDate"
-                        set-default-date="true"
-                        default-date="{{vm.group.startDate}}"
-                        on-select="vm.onSelectStartDate(pikaday)"
-                        readonly
-                        required
-                      >
-                    </div>
-                    <div flex="40" class="input-element-inner">
-                      <input
-                        type="text"
-                        ui-timepicker
-                        ui-timepicker="vm.timePickerOptions"
-                        ng-model="vm.startTime"
-                        placeholder="Hora"
-                        required
-                      >
-                    </div>
+            <div class="input-element textarea-element">
+              <label>Descripción</label>
+              <div class="input-element-inner">
+                <textarea ng-model="vm.group.Description" placeholder="Descripción" rows="5"></textarea>
+              </div>
+            </div>
+
+
+            <section layout="row" layout-align="space-between end" layout-wrap>
+              <div flex="30" flex-sm="100" flex-xs="100">
+                <p>
+                  <md-checkbox ng-model="vm.group.HasExpiration" aria-label="¿Tiene vigencia?">
+                    ¿Tiene vigencia?
+                  </md-checkbox>
+                </p>
+              </div>
+
+              <div ng-if="vm.group.HasExpiration" class="input-element" flex="25" flex-sm="100" flex-xs="100">
+                <label>Fecha de inicio*</label>
+                <div layout="row">
+                  <div flex="60" class="input-element-inner">
+                    <input ng-if="vm.group" type="text" pikaday="vm.myPickerStartDate" set-default-date="true" default-date="{{vm.group.startDate}}"
+                      on-select="vm.onSelectStartDate(pikaday)" readonly required>
+                  </div>
+                  <div flex="40" class="input-element-inner">
+                    <input type="text" ui-timepicker ui-timepicker="vm.timePickerOptions" ng-model="vm.startTime" placeholder="Hora" required>
                   </div>
                 </div>
+              </div>
 
-                <div ng-if="vm.group.HasExpiration" class="input-element" flex="25" flex-sm="100" flex-xs="100">
-                  <label>Fecha de vencimiento*</label>
-                  <div layout="row">
-                    <div flex="60" class="input-element-inner">
-                      <input
-                        ng-if="vm.group"
-                        type="text"
-                        pikaday="vm.myPickerEndDate"
-                        set-default-date="true"
-                        default-date="{{vm.group.endDate}}"
-                        on-select="vm.onSelectEndDate(pikaday)"
-                        readonly
-                        required
-                      >
-                    </div>
-                    <div flex="40" class="input-element-inner">
-                      <input
-                        type="text"
-                        ui-timepicker
-                        ui-timepicker="vm.timePickerOptions"
-                        ng-model="vm.endTime"
-                        placeholder="Hora"
-                        required
-                      >
-                    </div>
+              <div ng-if="vm.group.HasExpiration" class="input-element" flex="25" flex-sm="100" flex-xs="100">
+                <label>Fecha de vencimiento*</label>
+                <div layout="row">
+                  <div flex="60" class="input-element-inner">
+                    <input ng-if="vm.group" type="text" pikaday="vm.myPickerEndDate" set-default-date="true" default-date="{{vm.group.endDate}}"
+                      on-select="vm.onSelectEndDate(pikaday)" readonly required>
+                  </div>
+                  <div flex="40" class="input-element-inner">
+                    <input type="text" ui-timepicker ui-timepicker="vm.timePickerOptions" ng-model="vm.endTime" placeholder="Hora" required>
                   </div>
                 </div>
-
-              </section>
-
-
-              <div>
-                <p class="select-element-label"><label><strong>Tipo de agrupador*</strong></label></p>
-                <md-input-container>
-                  <md-select class="select-element" placeholder="Tipo" required name="Tipo_agrupador" ng-model="vm.group.Type">
-                    <md-option ng-repeat="type in vm.types track by $index" value="{{type.handle}}">
-                      {{type.label}}
-                    </md-option>
-                  </md-select>
-                </md-input-container>
               </div>
 
-
-              <!--IMAGEN-->
-              <p><strong>Imagen</strong></p>
-              <div class="file-manager-thumbs" layout="row"   layout-align="space-between start" layout-wrap>
-                <a
-                  ng-if="vm.group.icon_filename && !vm.isLoadingAvatar"
-                  ng-href="{{vm.api.baseUrl}}/uploads/groups/{{vm.group.icon_filename}}"
-                  target="_blank"
-                  class="file-manager-thumb"
-                  >
-                  <img ngf-thumbnail="vm.api.baseUrl+'/uploads/groups/'+vm.group.icon_filename">
-                </a>
-
-                <span ng-if='vm.isLoadingAvatar' class='loader' >
-                  <div layout="row" layout-sm="column" layout-align="space-around">
-                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-                  </div>
-                  <span>Cargando</span>
-                </span>
-
-              </div>
-              <md-button
-                class="file-manager-btn md-raised md-primary"
-                ng-show="!vm.isLoadingAvatar"
-                ngf-select="vm.updateIcon($file)">
-                Subir imagen
-              </md-button>
-              <md-button
-                ng-if="vm.group.icon_filename && !vm.isLoadingAvatar"
-                class="file-manager-btn md-raised md-primary md-warn"
-                ng-click="vm.removeIcon()">
-                Remover imagen
-              </md-button>
-              <!--END IMAGEN-->
+            </section>
 
 
-              <!--GROUP PRODUCTS-->
-              <div>
-                <p><label><strong>Productos*</strong></label></p>
-
-                <md-autocomplete
-                    md-no-cache="false"
-                    md-selected-item="vm.selectedProduct"
-                    md-search-text="vm.searchText"
-                    md-items="item in vm.queryProducts(vm.searchText)"
-                    md-selected-item-change="vm.selectedItemChange(item)"
-                    md-item-text="item.ItemCode + ' ' + item.ItemName"
-                    md-min-length="0"
-                    placeholder="Buscar producto">
-                  <md-item-template>
-                    <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.ItemCode}} | {{item.ItemName}}</span>
-                  </md-item-template>
-                  <md-not-found>
-                    No se encontro "{{vm.searchText}}".
-                  </md-not-found>
-                </md-autocomplete>
+            <div>
+              <p class="select-element-label">
+                <label>
+                  <strong>Tipo de agrupador*</strong>
+                </label>
+              </p>
+              <md-input-container>
+                <md-select class="select-element" placeholder="Tipo" required name="Tipo_agrupador" ng-model="vm.group.Type">
+                  <md-option ng-repeat="type in vm.types track by $index" value="{{type.handle}}">
+                    {{type.label}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
 
 
-                <p ng-if="vm.group.Products.length <= 0">No hay productos agregados a este grupo</p>
+            <!--IMAGEN-->
+            <p>
+              <strong>Imagen</strong>
+            </p>
+            <div class="file-manager-thumbs" layout="row" layout-align="space-between start" layout-wrap>
+              <a ng-if="vm.group.icon_filename && !vm.isLoadingAvatar" ng-href="{{vm.api.cdnUrl}}/uploads/groups/{{vm.group.icon_filename}}"
+                target="_blank" class="file-manager-thumb">
+                <img ngf-thumbnail="vm.api.cdnUrl+'/uploads/groups/'+vm.group.icon_filename">
+              </a>
 
-
-                <div ng-show="vm.isLoadingProducts" layout="row" layout-sm="column" layout-align="space-around">
-                  <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+              <span ng-if='vm.isLoadingAvatar' class='loader'>
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
                 </div>
+                <span>Cargando</span>
+              </span>
 
-                <ul ng-if="!vm.isLoadingProducts" class="draggable-list" dnd-list="vm.group.Products">
-                  <li
-                    ng-repeat="product in vm.group.Products"
-                    class="noright"
-                    layout="row"
-                    layout-align="space-between center"
-                    dnd-draggable="product"
-                    dnd-moved="vm.group.Products.splice($index, 1)"
-                    dnd-selected="vm.selectedproduct = product"
-                    ng-class="{'selected-item': vm.selectedproduct === product}"
-                    dnd-effect-allowed="move">
-                    <p>{{product.ItemCode}} | {{ product.ItemName }}</p>
-                    <div class="md-secondary">
-                      <md-button ng-click="vm.removeProductFromGroup(product.id, $index)" class="md-raised md-warn">
-                        Remover
-                      </md-button>
-                    </div>
-                  </li>
-                </ul>
+            </div>
+            <md-button class="file-manager-btn md-raised md-primary" ng-show="!vm.isLoadingAvatar" ngf-select="vm.updateIcon($file)">
+              Subir imagen
+            </md-button>
+            <md-button ng-if="vm.group.icon_filename && !vm.isLoadingAvatar" class="file-manager-btn md-raised md-primary md-warn" ng-click="vm.removeIcon()">
+              Remover imagen
+            </md-button>
+            <!--END IMAGEN-->
 
+
+            <!--GROUP PRODUCTS-->
+            <div>
+              <p>
+                <label>
+                  <strong>Productos*</strong>
+                </label>
+              </p>
+
+              <md-autocomplete md-no-cache="false" md-selected-item="vm.selectedProduct" md-search-text="vm.searchText" md-items="item in vm.queryProducts(vm.searchText)"
+                md-selected-item-change="vm.selectedItemChange(item)" md-item-text="item.ItemCode + ' ' + item.ItemName" md-min-length="0"
+                placeholder="Buscar producto">
+                <md-item-template>
+                  <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.ItemCode}} | {{item.ItemName}}</span>
+                </md-item-template>
+                <md-not-found>
+                  No se encontro "{{vm.searchText}}".
+                </md-not-found>
+              </md-autocomplete>
+
+
+              <p ng-if="vm.group.Products.length <= 0">No hay productos agregados a este grupo</p>
+
+
+              <div ng-show="vm.isLoadingProducts" layout="row" layout-sm="column" layout-align="space-around">
+                <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
               </div>
-              <!--GROUP PRODUCTS-->
+
+              <ul ng-if="!vm.isLoadingProducts" class="draggable-list" dnd-list="vm.group.Products">
+                <li ng-repeat="product in vm.group.Products" class="noright" layout="row" layout-align="space-between center" dnd-draggable="product"
+                  dnd-moved="vm.group.Products.splice($index, 1)" dnd-selected="vm.selectedproduct = product" ng-class="{'selected-item': vm.selectedproduct === product}"
+                  dnd-effect-allowed="move">
+                  <p>{{product.ItemCode}} | {{ product.ItemName }}</p>
+                  <div class="md-secondary">
+                    <md-button ng-click="vm.removeProductFromGroup(product.id, $index)" class="md-raised md-warn">
+                      Remover
+                    </md-button>
+                  </div>
+                </li>
+              </ul>
+
+            </div>
+            <!--GROUP PRODUCTS-->
 
 
-              <div layout="row" layout-align="end center">
-                <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
-              </div>
+            <div layout="row" layout-align="end center">
+              <md-button ng-click="vm.update(updateForm)" class="md-raised md-primary action-button">Guardar</md-button>
+            </div>
 
-            </form>
-          </md-content>
-        </section>
-
-      </div>
-
+          </form>
+        </md-content>
+      </section>
 
     </div>
-    <!-- / CONTENT -->
+
+
+  </div>
+  <!-- / CONTENT -->
 
 </div>

@@ -1,18 +1,22 @@
 {
   "dev": {
     "baseUrl": "http://localhost:1337",
+    "cdnUrl": "https://d116li125og699.cloudfront.net",
     "tokenPrefix": "dev"
   },
   "sandbox": {
     "baseUrl": "http://166.78.47.146:8080",
-    "tokenPrefix": "sandbox"    
+    "cdnUrl": "https://d116li125og699.cloudfront.net",
+    "tokenPrefix": "sandbox"
   },
   "demo": {
     "baseUrl": "http://demo-actual-api.herokuapp.com",
-    "tokenPrefix": "demo"    
+    "cdnUrl": "https://d116li125og699.cloudfront.net",
+    "tokenPrefix": "demo"
   },
   "production": {
     "baseUrl": "http://166.78.47.146",
-    "tokenPrefix": "production"    
+    "cdnUrl": "https://d116li125og699.cloudfront.net",
+    "tokenPrefix": "production"
   }
 }
