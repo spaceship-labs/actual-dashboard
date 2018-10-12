@@ -1,81 +1,81 @@
-(function ()
-{
-    'use strict';
+(function() {
+  'use strict';
 
-    /**
-     * Main module of the Fuse
-     */
-    angular
-        .module('fuse', [
+  /**
+   * Main module of the Fuse
+   */
+  angular.module('fuse', [
+    // Core
+    'app.core',
 
-            // Core
-            'app.core',
+    // Navigation
+    'app.navigation',
 
-            // Navigation
-            'app.navigation',
+    // Toolbar
+    'app.toolbar',
 
-            // Toolbar
-            'app.toolbar',
+    // Quick panel
+    'app.quick-panel',
 
-            // Quick panel
-            'app.quick-panel',
+    //DIRECTIVES
+    'app.directives',
 
-            //DIRECTIVES
-            'app.directives',
+    //Services
+    'app.services',
 
-            //Services
-            'app.services',
+    // Sample
+    //'app.sample',
 
-            // Sample
-            //'app.sample',
+    // Pages
+    'app.pages',
 
-            // Pages
-            'app.pages',
+    // Auth
+    'app.auth',
 
-            // Auth
-            'app.auth',
+    // Products
+    'app.products',
 
-            // Products
-            'app.products',
+    // Users
+    'app.users',
 
-            // Users
-            'app.users',
+    // UsersWeb
+    'app.usersweb',
 
-            // UsersWeb
-            'app.usersweb',
+    // leads
+    //'app.leads',
 
-            // leads
-            //'app.leads',
+    //Commissions
+    'app.commissions',
 
-            //Commissions
-            'app.commissions',
+    //Invoices
+    //'app.invoices',
 
-            //Invoices
-            //'app.invoices',
+    //Ventas
+    //'app.sales',
 
-            //Ventas
-            //'app.sales',
+    //Configuracion
+    'app.configuration',
 
-            //Configuracion
-            'app.configuration',
+    //Marketing
+    'app.marketing',
 
-            //Marketing
-            'app.marketing',
+    //Pagina de accceso denegado
+    'app.accesdenied',
 
-            //Pagina de accceso denegado
-            'app.accesdenied',
+    // Reportes
+    'app.reports',
 
-            //CUSTOM EXTERNAL MODULES
-            'LocalStorageModule',
-            'angular-jwt',
-            'bw.paging',
-            'dndLists',
-            'ngMaterialDatePicker',
-            'ui.tinymce',
-            'pikaday',
-            'ui.timepicker',
-            'bcherny/formatAsCurrency',
-            'ngCsv',
-            'envconfig',
-        ]);
+    //CUSTOM EXTERNAL MODULES
+    'LocalStorageModule',
+    'angular-jwt',
+    'bw.paging',
+    'dndLists',
+    'ngMaterialDatePicker',
+    'ui.tinymce',
+    'pikaday',
+    'ui.timepicker',
+    'bcherny/formatAsCurrency',
+    'ngCsv',
+    'envconfig',
+  ]);
 })();
