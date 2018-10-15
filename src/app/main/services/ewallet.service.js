@@ -9,6 +9,7 @@
       update: update,
       find: find,
       create: create,
+      getList: getList,
     };
 
     return service;
@@ -26,6 +27,12 @@
     function find() {
       var url = '/ewalletconfiguration/';
       return api.$http.get(url);
+    }
+
+    function getList(page, params) {
+      var p = page || 1;
+      var url = '/ewallet/' + p;
+      return api.$http.post(url, params);
     }
   }
 })();

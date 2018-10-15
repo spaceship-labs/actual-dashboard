@@ -9,13 +9,14 @@
   function EwalletListController(api, ewalletService) {
     var vm = this;
     vm.columns = [
-      { key: 'Date', label: 'Fecha', propId: 'id' },
-      { key: 'client', label: 'Cliente' },
-      { key: 'store', label: 'Tienda' },
-      { key: 'email', label: 'Email' },
-      { key: 'phone', label: 'Teléfono' },
-      { key: 'points', label: 'Total de puntos' },
+      { key: 'createdAt', label: 'Fecha', propId: 'id', date: true },
+      { key: 'cardNumber', label: 'Número de Monedero' },
+      { key: 'Client.CardName', label: 'Cliente' },
+      { key: 'Store.name', label: 'Tienda' },
+      { key: 'Client.E_Mail', label: 'Email' },
+      { key: 'Client.Phone1', label: 'Teléfono' },
+      { key: 'amount', label: 'Total de puntos' },
     ];
-    vm.apiResource = EwalletService.getList;
+    vm.apiResource = ewalletService.getList;
   }
 })();
