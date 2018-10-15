@@ -88,6 +88,11 @@
           label: 'Reportes de Monedero Electrónicos ',
           section: 'config',
         },
+        {
+          key: 'ewallet-records-reports',
+          label: 'Reportes de Movimientos de Monedero Electrónicos ',
+          section: 'config',
+        },
 
         //{key:'config-sync', label:'Sinconizacion de productos', section:'config'},
         {

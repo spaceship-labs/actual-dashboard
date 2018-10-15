@@ -1,7 +1,12 @@
 (function() {
   'use strict';
 
-  angular.module('app.reports', ['app.reports.ewallet']).config(config);
+  angular
+    .module('app.reports', [
+      'app.reports.ewallet',
+      'app.reports.ewalletRecords',
+    ])
+    .config(config);
 
   /** @ngInject */
   function config(msNavigationServiceProvider) {
@@ -15,6 +20,10 @@
     msNavigationServiceProvider.saveItem('reports.ewallet', {
       title: 'Monedero Electrónico',
       state: 'app.reports_ewallet',
+    });
+    msNavigationServiceProvider.saveItem('reports.ewalletRecords', {
+      title: 'Movimientos de Monedero Electrónico',
+      state: 'app.reports_ewallet_records',
     });
   }
 })();

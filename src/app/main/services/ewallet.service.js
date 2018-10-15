@@ -4,12 +4,13 @@
   angular.module('app.services').factory('ewalletService', ewalletService);
 
   /** @ngInject */
-  function ewalletService($http, localStorageService, api) {
+  function ewalletService($http, api) {
     var service = {
       update: update,
       find: find,
       create: create,
       getList: getList,
+      getRecordsList: getRecordsList,
     };
 
     return service;
@@ -32,6 +33,12 @@
     function getList(page, params) {
       var p = page || 1;
       var url = '/ewallet/' + p;
+      return api.$http.post(url, params);
+    }
+
+    function getRecordsList(page, params) {
+      var p = page || 1;
+      var url = '/ewalletrecord/' + p;
       return api.$http.post(url, params);
     }
   }
