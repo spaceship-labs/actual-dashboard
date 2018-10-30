@@ -8,7 +8,8 @@
       'app.configuration.sites',
       'app.configuration.contability',
       'app.configuration.delivery',
-      'app.configuration.ewallet'
+      'app.configuration.ewallet',
+      'app.configuration.ewalletreplacement',
     ])
     .config(config);
 
@@ -44,6 +45,11 @@
     msNavigationServiceProvider.saveItem('configuration.ewallet', {
       title: 'Configuración de monedero',
       state: 'app.configuration_ewallet',
+    });
+
+    msNavigationServiceProvider.saveItem('configuration.ewalletreplacement', {
+      title: 'Reposición de monedero',
+      state: 'app.configuration_ewallet_replacement',
     });
 
     msNavigationServiceProvider.saveItem('configuration', {
