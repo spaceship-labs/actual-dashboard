@@ -4,15 +4,15 @@
     "tokenPrefix": "dev"
   },
   "sandbox": {
-    "baseUrl": "http://166.78.47.146:8080",
-    "tokenPrefix": "sandbox"    
+    "baseUrl": "https://sandboxapi.miactual.com",
+    "tokenPrefix": "sandbox"
   },
   "demo": {
     "baseUrl": "http://demo-actual-api.herokuapp.com",
-    "tokenPrefix": "demo"    
+    "tokenPrefix": "demo"
   },
   "production": {
     "baseUrl": "http://166.78.47.146",
-    "tokenPrefix": "production"    
+    "tokenPrefix": "production"
   }
 }

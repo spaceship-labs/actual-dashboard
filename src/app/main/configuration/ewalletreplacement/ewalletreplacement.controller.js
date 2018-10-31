@@ -9,26 +9,21 @@
     );
 
   /** @ngInject */
-  function ConifgEwalletReplacementController(
-    $http,
-    api,
-    $scope,
-    $timeout,
-    commonService,
-    dialogService,
-    ewalletService
-  ) {
+  function ConifgEwalletReplacementController(api, ewalletService) {
     var vm = this;
-
-    angular.extend(vm, {
-      init: init,
-      update: update,
-    });
-
-    init();
-
-    function init() {}
-
-    function update() {}
+    vm.columns = [
+      { key: 'createdAt', label: 'Fecha', propId: 'id', date: true },
+      { key: 'Client.CardName', label: 'Cliente' },
+      { key: 'Store.name', label: 'Tienda' },
+      { key: 'note', label: 'Notas' },
+      { key: 'status', label: 'Estatus' },
+      {
+        key: 'Edit',
+        label: 'Aceptar Reposición',
+        onClickCell: function(id) {
+          console.log('FUNCA', id);
+        },
+      },
+    ];
   }
 })();

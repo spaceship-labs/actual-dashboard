@@ -105,6 +105,11 @@
           label: 'Configuración de monedero',
           section: 'config',
         },
+        {
+          key: 'config-ewallet-replacement',
+          label: 'Reposición de monedero',
+          section: 'config',
+        },
         { key: 'list-leads', label: 'Ver oportunidades', section: 'leads' },
         { key: 'create-brands', label: 'Crear marcas', section: 'brands' },
         { key: 'edit-brands', label: 'Editar marcas', section: 'brands' },
