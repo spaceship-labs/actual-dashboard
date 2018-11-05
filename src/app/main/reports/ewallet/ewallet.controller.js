@@ -19,5 +19,13 @@
       { key: 'amount', label: 'Total de puntos' },
     ];
     vm.apiResource = ewalletService.getList;
+    vm.exportQuery = 'SELECT cardNumber AS Numero_de_Monedero, ';
+    vm.exportQuery += 'Client->CardName AS Cliente, ';
+    vm.exportQuery += 'Client->E_Mail AS Email, ';
+    vm.exportQuery += 'Client->Phone1 AS Telefono, ';
+    vm.exportQuery += '[Store]->name AS Tienda, ';
+    vm.exportQuery += 'amount AS Total_de_puntos ';
+    vm.exportQuery +=
+      'INTO XLS("monederos-electrónicos.xls",{headers:true}) FROM ?';
   }
 })();
