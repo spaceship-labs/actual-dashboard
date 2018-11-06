@@ -11,6 +11,9 @@
   /** @ngInject */
   function ConifgEwalletReplacementController(api, ewalletService) {
     var vm = this;
+    vm.onClickCell = function(id) {
+      ewalletService.updateReplacement(id);
+    };
     vm.columns = [
       { key: 'createdAt', label: 'Fecha', propId: 'id', date: true },
       { key: 'Client.CardName', label: 'Cliente' },
@@ -20,10 +23,9 @@
       {
         key: 'Edit',
         label: 'Aceptar Reposición',
-        onClickCell: function(id) {
-          console.log('FUNCA', id);
-        },
+        onClickCell: true,
       },
     ];
+    vm.apiResource = ewalletService.getReplacementList;
   }
 })();

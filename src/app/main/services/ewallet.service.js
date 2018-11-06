@@ -11,6 +11,8 @@
       create: create,
       getList: getList,
       getRecordsList: getRecordsList,
+      getReplacementList: getReplacementList,
+      updateReplacement: updateReplacement,
     };
 
     return service;
@@ -35,11 +37,19 @@
       var url = '/ewallet/' + p;
       return api.$http.post(url, params);
     }
-
+    function getReplacementList(page) {
+      var p = page || 1;
+      var url = '/ewalletreplacement/' + p;
+      return api.$http.post(url);
+    }
     function getRecordsList(page, params) {
       var p = page || 1;
       var url = '/ewalletrecord/' + p;
       return api.$http.post(url, params);
+    }
+    function updateReplacement(id) {
+      var url = '/replacementupdate/' + id;
+      return api.$http.post(url);
     }
   }
 })();

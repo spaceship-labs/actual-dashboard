@@ -204,22 +204,21 @@
               data = $filter('number')(data) + '%';
             }
 
-            if (column.onClickCell) {
-              var id = column.propId ? column.propId : 'id';
-              html =
-                '<a href="#" ng-click="onClickCell( ' +
-                full[id] +
-                ')">' +
-                column.label +
-                '</a>';
-            }
-
             if (column.destroy) {
               var id = column.propId ? column.propId : 'id';
               html =
                 '<a href="#" ng-click="showDestroyDialog($event, \'' +
                 full[id] +
                 '\')">Eliminar</a>';
+            } else if (column.onClickCell) {
+              var id = column.propId ? column.propId : 'id';
+              html =
+                '<a href="#" ng-click="onClickCell(\'' +
+                full[id] +
+                '\')">' +
+                column.label +
+                '</a>';
+              console.log('Onclickcell', html);
             } else if (column.editUrl) {
               var id = column.propId ? column.propId : 'id';
               var icon =
@@ -351,6 +350,7 @@
         filters: '=',
         exportQuery: '=',
         exportColumns: '=',
+        onClickCell: '=',
       },
       templateUrl: 'app/main/directives/table-list/table-list.html',
     };

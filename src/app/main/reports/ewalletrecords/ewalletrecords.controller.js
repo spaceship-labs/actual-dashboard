@@ -17,9 +17,9 @@
     ];
     vm.apiResource = ewalletService.getRecordsList;
     vm.exportQuery = 'SELECT Ewallet->cardNumber AS Numero_de_Monedero, ';
-    vm.exportQuery += 'Store->name AS Tienda, ';
+    vm.exportQuery += '[Store]->name AS Tienda, ';
     vm.exportQuery += 'movement AS Movimiento, ';
-    vm.exportQuery += 'amount AS Cantidad, ';
+    vm.exportQuery += 'amount AS Cantidad ';
     vm.exportQuery +=
       'INTO XLS("movimientos-de-monederos.xls",{headers:true}) FROM ?';
   }
