@@ -32,5 +32,14 @@
       },
     ];
     vm.apiResource = ewalletService.getReplacementList;
+    vm.exportQuery = 'SELECT createdAt AS Fecha, ';
+    vm.exportQuery += 'Client->CardName AS Cliente, ';
+    vm.exportQuery += 'Client->E_Mail AS Email, ';
+    vm.exportQuery += 'Client->Phone1 AS Telefono, ';
+    vm.exportQuery += 'requestedBy->firstName AS Vendedor, ';
+    vm.exportQuery += '[Store]->name AS Tienda, ';
+    vm.exportQuery += 'status AS Estatus ';
+    vm.exportQuery +=
+      'INTO XLS("reposicion-de-monedero.xls",{headers:true}) FROM ?';
   }
 })();
