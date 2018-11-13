@@ -48,7 +48,8 @@
       return api.$http.post(url, params);
     }
     function updateReplacement(id) {
-      var url = '/replacementupdate/' + id;
+      console.log('LLEGA');
+      var url = '/replacementaccepted/' + id;
       return api.$http.post(url);
     }
   }

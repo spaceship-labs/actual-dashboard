@@ -15,9 +15,9 @@
     <div class="white-bg md-whiteframe-4dp">
       <div
         table-list
+        on-click-cell="vm.onClickCell"
         columns="vm.columns"
         api-resource="vm.apiResource"
-        on-click-cell="(vm.onClickCell)"
         export-query="vm.exportQuery"
       ></div>
     </div>

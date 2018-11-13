@@ -12,6 +12,7 @@
   function ConifgEwalletReplacementController(api, ewalletService) {
     var vm = this;
     vm.onClickCell = function(id) {
+      console.log('CONTROLLER LLEGA');
       ewalletService.updateReplacement(id);
     };
     vm.columns = [
@@ -25,7 +26,7 @@
       },
       { key: 'Store.name', label: 'Tienda' },
       { key: 'status', label: 'Estatus' },
-      { key: 'Files', label: 'Archivos', filesList: true },
+      // { key: 'Files', label: 'Archivos', filesList: true },
       {
         key: 'Edit',
         label: 'Aceptar Reposición',

@@ -216,12 +216,6 @@
                     '</a>'
                 );
               });
-              // data =
-              //   '<a href="https://image-resize-021214010611-us-east-1.s3.amazonaws.com/' +
-              //   data[0].filepath +
-              //   '" >' +
-              //   data[0].filename +
-              //   '</a>';
             }
             if (column.destroy) {
               var id = column.propId ? column.propId : 'id';
@@ -237,7 +231,7 @@
                 '\')">' +
                 column.label +
                 '</a>';
-              console.log('Onclickcell', html);
+              console.log('Onclickcell', $scope.onClickCell);
             } else if (column.editUrl) {
               var id = column.propId ? column.propId : 'id';
               var icon =
@@ -303,7 +297,7 @@
                 html = data || '';
               }
             }
-
+            console.log('HTML: ', html);
             return html;
           })
       );
