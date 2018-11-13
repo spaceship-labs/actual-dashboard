@@ -25,6 +25,7 @@
       },
       { key: 'Store.name', label: 'Tienda' },
       { key: 'status', label: 'Estatus' },
+      { key: 'Files', label: 'Archivos', filesList: true },
       {
         key: 'Edit',
         label: 'Aceptar Reposición',

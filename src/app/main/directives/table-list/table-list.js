@@ -203,7 +203,26 @@
             if (column.rate) {
               data = $filter('number')(data) + '%';
             }
-
+            if (column.filesList) {
+              var files = data;
+              data = [];
+              files.forEach(function(file) {
+                console.log('FILE: ', file);
+                data.push(
+                  '<a href="https://image-resize-021214010611-us-east-1.s3.amazonaws.com/' +
+                    file.filepath +
+                    '" >' +
+                    file.filename +
+                    '</a>'
+                );
+              });
+              // data =
+              //   '<a href="https://image-resize-021214010611-us-east-1.s3.amazonaws.com/' +
+              //   data[0].filepath +
+              //   '" >' +
+              //   data[0].filename +
+              //   '</a>';
+            }
             if (column.destroy) {
               var id = column.propId ? column.propId : 'id';
               html =
