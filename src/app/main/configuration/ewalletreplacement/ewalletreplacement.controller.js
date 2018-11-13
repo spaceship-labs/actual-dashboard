@@ -22,16 +22,16 @@
       { key: 'Client.Phone1', label: 'Telefono' },
       {
         key: 'requestedBy.firstName',
-        label: 'Vendedor',
+        label: 'Vendedor'
       },
       { key: 'Store.name', label: 'Tienda' },
       { key: 'status', label: 'Estatus' },
-      // { key: 'Files', label: 'Archivos', filesList: true },
+      { key: 'Files', label: 'Archivos', filesList: true },
       {
         key: 'Edit',
         label: 'Aceptar Reposición',
-        onClickCell: true,
-      },
+        onClickCell: true
+      }
     ];
     vm.apiResource = ewalletService.getReplacementList;
     vm.exportQuery = 'SELECT createdAt AS Fecha, ';

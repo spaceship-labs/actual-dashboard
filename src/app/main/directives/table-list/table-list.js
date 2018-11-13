@@ -140,7 +140,7 @@
             draw: draw,
             recordsTotal: res.total,
             recordsFiltered: res.total,
-            data: res.data,
+            data: res.data
           };
           fnCallback(records);
         },
@@ -187,7 +187,7 @@
                 'Septiembre',
                 'Octubre',
                 'Noviembre',
-                'Diciembre',
+                'Diciembre'
               ];
               var date = new Date(data);
               var month = date.getMonth();
@@ -203,28 +203,24 @@
             if (column.rate) {
               data = $filter('number')(data) + '%';
             }
-            if (column.filesList) {
-              var files = data;
-              data = [];
-              files.forEach(function(file) {
-                console.log('FILE: ', file);
-                data.push(
-                  '<a href="https://image-resize-021214010611-us-east-1.s3.amazonaws.com/' +
-                    file.filepath +
-                    '" >' +
-                    file.filename +
-                    '</a>'
-                );
-              });
-            }
             if (column.destroy) {
               var id = column.propId ? column.propId : 'id';
               html =
                 '<a href="#" ng-click="showDestroyDialog($event, \'' +
                 full[id] +
                 '\')">Eliminar</a>';
+            } else if (column.filesList) {
+              html = '<ul style="padding-left: 0">';
+              data.forEach(function(file) {
+                html +=
+                  '<li><a target="_blank" href="https://image-resize-021214010611-us-east-1.s3.amazonaws.com/' +
+                  file.filepath +
+                  '" >' +
+                  file.filename +
+                  '</a></li>';
+              });
+              html += '</ul>';
             } else if (column.onClickCell) {
-              var id = column.propId ? column.propId : 'id';
               html =
                 '<a href="#" ng-click="onClickCell(\'' +
                 full[id] +
@@ -344,7 +340,7 @@
     'DTColumnBuilder',
     'dialogService',
     '$compile',
-    '$filter',
+    '$filter'
   ];
 
   /** @ngInject */
@@ -363,9 +359,9 @@
         filters: '=',
         exportQuery: '=',
         exportColumns: '=',
-        onClickCell: '=',
+        onClickCell: '='
       },
-      templateUrl: 'app/main/directives/table-list/table-list.html',
+      templateUrl: 'app/main/directives/table-list/table-list.html'
     };
   }
 })();
