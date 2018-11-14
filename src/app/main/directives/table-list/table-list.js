@@ -140,7 +140,7 @@
             draw: draw,
             recordsTotal: res.total,
             recordsFiltered: res.total,
-            data: res.data
+            data: res.data,
           };
           fnCallback(records);
         },
@@ -187,7 +187,7 @@
                 'Septiembre',
                 'Octubre',
                 'Noviembre',
-                'Diciembre'
+                'Diciembre',
               ];
               var date = new Date(data);
               var month = date.getMonth();
@@ -221,13 +221,14 @@
               });
               html += '</ul>';
             } else if (column.onClickCell) {
+              var id = column.propId ? column.propId : 'id';
               html =
                 '<a href="#" ng-click="onClickCell(\'' +
                 full[id] +
                 '\')">' +
                 column.label +
                 '</a>';
-              console.log('Onclickcell', $scope.onClickCell);
+              console.log('Onclickcell', html);
             } else if (column.editUrl) {
               var id = column.propId ? column.propId : 'id';
               var icon =
@@ -340,7 +341,7 @@
     'DTColumnBuilder',
     'dialogService',
     '$compile',
-    '$filter'
+    '$filter',
   ];
 
   /** @ngInject */
@@ -359,9 +360,9 @@
         filters: '=',
         exportQuery: '=',
         exportColumns: '=',
-        onClickCell: '='
+        onClickCell: '=',
       },
-      templateUrl: 'app/main/directives/table-list/table-list.html'
+      templateUrl: 'app/main/directives/table-list/table-list.html',
     };
   }
 })();
