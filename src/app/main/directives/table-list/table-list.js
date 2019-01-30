@@ -174,7 +174,7 @@
             if (column.date) {
               data = $filter('date')(data, 'dd/MMM/yyyy');
             }
-            if (column.key === 'status') {
+            if (column.key === 'status' && !column.onClickCell) {
               data = data === 'pending' ? 'Pendiente' : 'Aprobado';
             }
             if (column.dateMonth) {
@@ -223,15 +223,19 @@
                   '</a></li>';
               });
               html += '</ul>';
-            } else if (column.onClickCell) {
-              var id = column.propId ? column.propId : 'id';
-              html =
-                '<a href="#" ng-click="onClickCell(\'' +
-                full[id] +
-                '\')">' +
-                column.label +
-                '</a>';
-              console.log('Onclickcell', html);
+            } else if (column.key === 'status' && column.onClickCell) {
+              console.log('DATA: ', data);
+              if (data === 'approved') {
+                column.label = '';
+              } else {
+                var id = column.propId ? column.propId : 'id';
+                html =
+                  '<a href="#" ng-click="onClickCell(\'' +
+                  full[id] +
+                  '\')">' +
+                  column.label +
+                  '</a>';
+              }
             } else if (column.editUrl) {
               var id = column.propId ? column.propId : 'id';
               var icon =
