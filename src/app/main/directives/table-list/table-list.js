@@ -174,6 +174,9 @@
             if (column.date) {
               data = $filter('date')(data, 'dd/MMM/yyyy');
             }
+            if (column.key === 'status') {
+              data = data === 'pending' ? 'Pendiente' : 'Aprobado';
+            }
             if (column.dateMonth) {
               var months = [
                 'Enero',

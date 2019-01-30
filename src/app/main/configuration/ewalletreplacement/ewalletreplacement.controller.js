@@ -9,12 +9,24 @@
     );
 
   /** @ngInject */
-  function ConifgEwalletReplacementController(api, ewalletService) {
+  function ConifgEwalletReplacementController(api, ewalletService, $mdDialog) {
     var vm = this;
     vm.onClickCell = function(id) {
       console.log('CONTROLLER LLEGA');
-      ewalletService.updateReplacement(id);
+      ewalletService.updateReplacement(id).then(function(res) {
+        vm.showConfirm();
+      });
     };
+
+    vm.showConfirm = function() {
+      var alert = $mdDialog.alert({
+        title: 'Reemplazo',
+        textContent: 'Datos guardados exitosamente',
+        ok: 'Close',
+      });
+      $mdDialog.show(alert);
+    };
+
     vm.columns = [
       { key: 'createdAt', label: 'Fecha', propId: 'id', date: true },
       { key: 'Client.CardName', label: 'Cliente' },
@@ -22,7 +34,7 @@
       { key: 'Client.Phone1', label: 'Telefono' },
       {
         key: 'requestedBy.firstName',
-        label: 'Vendedor'
+        label: 'Vendedor',
       },
       { key: 'Store.name', label: 'Tienda' },
       { key: 'status', label: 'Estatus' },
@@ -30,8 +42,8 @@
       {
         key: 'Edit',
         label: 'Aceptar Reposición',
-        onClickCell: true
-      }
+        onClickCell: true,
+      },
     ];
     vm.apiResource = ewalletService.getReplacementList;
     vm.exportQuery = 'SELECT createdAt AS Fecha, ';
