@@ -9,13 +9,24 @@
     </div>
   </div>
   <!-- / HEADER -->
-
+  <div
+    ng-show="vm.isLoading"
+    layout="row"
+    layout-sm="column"
+    layout-align="space-around"
+  >
+    <md-progress-circular
+      class="md-accent"
+      md-diameter="96"
+      md-mode="indeterminate"
+    ></md-progress-circular>
+  </div>
   <!-- CONTENT -->
-  <div class="content">
+  <div class="content" ng-show="!vm.isLoading">
     <div class="white-bg md-whiteframe-4dp">
       <div
         table-list
-        on-click-cell="vm.onClickCell"
+        on-click-cell="(vm.onClickCell)"
         columns="vm.columns"
         api-resource="vm.apiResource"
         export-query="vm.exportQuery"

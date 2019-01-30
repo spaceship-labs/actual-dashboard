@@ -11,9 +11,12 @@
   /** @ngInject */
   function ConifgEwalletReplacementController(api, ewalletService, $mdDialog) {
     var vm = this;
+    vm.isLoading = false;
     vm.onClickCell = function(id) {
+      vm.isLoading = true;
       console.log('CONTROLLER LLEGA');
       ewalletService.updateReplacement(id).then(function(res) {
+        vm.isLoading = false;
         vm.showConfirm();
       });
     };
