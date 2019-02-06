@@ -224,10 +224,7 @@
               });
               html += '</ul>';
             } else if (column.key === 'status' && column.onClickCell) {
-              console.log('DATA: ', data);
-              if (data === 'approved') {
-                column.label = '';
-              } else {
+              if (data === 'pending') {
                 var id = column.propId ? column.propId : 'id';
                 html =
                   '<a href="#" ng-click="onClickCell(\'' +
