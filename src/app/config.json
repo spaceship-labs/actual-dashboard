@@ -7,6 +7,10 @@
     "baseUrl": "https://sandboxapi.miactual.com",
     "tokenPrefix": "sandbox"
   },
+  "staged": {
+    "baseUrl": "https://stagedapi.miactual.com",
+    "tokenPrefix": "sandbox"
+  },
   "demo": {
     "baseUrl": "http://demo-actual-api.herokuapp.com",
     "tokenPrefix": "demo"
