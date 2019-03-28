@@ -1,9 +1,9 @@
 (function() {
-  'use strict';
+  "use strict";
 
   angular
-    .module('app.configuration.ewallet')
-    .controller('ConfigEwalletController', ConifgEwalletController);
+    .module("app.configuration.ewallet")
+    .controller("ConfigEwalletController", ConifgEwalletController);
 
   /** @ngInject */
   function ConifgEwalletController(
@@ -21,7 +21,7 @@
       myPickerEndDate: {},
       onSelectEndDate: onSelectEndDate,
       init: init,
-      update: update,
+      update: update
     });
 
     init();
@@ -31,7 +31,7 @@
       ewalletService
         .find()
         .then(function(res) {
-          console.log('response: ', res.data);
+          console.log("response: ", res.data);
           vm.ewallet = res.data[0] || {};
           vm.ewallet.exchangeRate = vm.ewallet.exchangeRate || 0;
           vm.ewallet.maximumPercentageToGeneratePoints =
@@ -39,7 +39,7 @@
           vm.endTime = new Date(angular.copy(vm.ewallet.expirationDate));
           vm.isLoading = false;
           $timeout(function() {
-            vm.myPickerEndDate.setMaxDate(new Date(vm.ewallet.expirationDate));
+            vm.myPickerEndDate(new Date(vm.ewallet.expirationDate));
           }, 1000);
         })
         .catch(function(err) {
@@ -48,7 +48,7 @@
     }
     function onSelectEndDate(pikaday) {
       vm.ewallet.expirationDate = pikaday._d;
-      vm.myPickerEndDate.setMaxDate(vm.ewallet.expirationDate);
+      vm.myPickerEndDate(vm.ewallet.expirationDate);
     }
     function update(form) {
       if (form.$valid) {
@@ -64,13 +64,13 @@
             .then(function(res) {
               console.log(res.data);
               dialogService.showDialog(
-                'Configuración del monedero actualizada'
+                "Configuración del monedero actualizada"
               );
               vm.isLoading = false;
             })
             .catch(function(err) {
               console.log(err);
-              dialogService.showDialog('Error, revisa los datos');
+              dialogService.showDialog("Error, revisa los datos");
               vm.isLoading = false;
             });
         } else if (!vm.ewallet.id) {
@@ -79,19 +79,19 @@
             .then(function(res) {
               console.log(res.data);
               dialogService.showDialog(
-                'Configuración del monedero actualizada'
+                "Configuración del monedero actualizada"
               );
               vm.isLoading = false;
             })
             .catch(function(err) {
               console.log(err);
-              dialogService.showDialog('Error, revisa los datos');
+              dialogService.showDialog("Error, revisa los datos");
               vm.isLoading = false;
             });
         }
       } else {
         console.log(form);
-        dialogService.showDialog('Datos incompletos');
+        dialogService.showDialog("Datos incompletos");
       }
     }
   }
