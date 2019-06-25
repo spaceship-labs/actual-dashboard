@@ -216,12 +216,10 @@
                 full[id] +
                 "')\">Eliminar</a>";
             } else if (column.filesList) {
-              html = '<ul style="padding-left: 0">';
-              if (data === "No asignado") {
-                console.log("data", data);
-
+              if (data === "No asignado" || data.length === 0) {
                 html = "<p>No asignado</p>";
               } else {
+                html = '<ul style="padding-left: 0">';
                 data.forEach(function(file) {
                   html +=
                     '<li><a target="_blank" href="https://image-resize-021214010611-us-east-1.s3.amazonaws.com/' +

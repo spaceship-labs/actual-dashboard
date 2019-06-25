@@ -17,7 +17,7 @@
       { key: "Client.E_Mail", label: "Email" },
       { key: "Client.Phone1", label: "Teléfono" },
       { key: "amount", label: "Total de puntos", amount: true },
-      { key: "Files", label: "Archivos", filesList: true }
+      { key: "Contract", label: "Archivos", filesList: true }
     ];
     vm.apiResource = ewalletService.getList;
     vm.exportQuery = "SELECT cardNumber AS Numero_de_Monedero, ";
@@ -28,7 +28,5 @@
     vm.exportQuery += "amount AS Total_de_puntos ";
     vm.exportQuery +=
       'INTO XLS("monederos-electrónicos.xls",{headers:true}) FROM ?';
-    vm.exportQuery +=
-      'INTO XLS("reposicion-de-monedero.xls",{headers:true}) FROM ?';
   }
 })();
