@@ -1,52 +1,61 @@
-(function ()
-{
-    'use strict';
+(function() {
+  'use strict';
 
-    angular
-        .module('app.configuration', [
-            'app.configuration.import',
-            'app.configuration.sync',
-            'app.configuration.sites',
-            'app.configuration.contability',
-            'app.configuration.delivery'
-        ])
-        .config(config);
+  angular
+    .module('app.configuration', [
+      'app.configuration.import',
+      'app.configuration.sync',
+      'app.configuration.sites',
+      'app.configuration.contability',
+      'app.configuration.delivery',
+      'app.configuration.ewallet',
+      'app.configuration.ewalletreplacement',
+    ])
+    .config(config);
 
-    /** @ngInject */
-    function config(msNavigationServiceProvider)
-    {
-        // Navigation
-        
-        msNavigationServiceProvider.saveItem('configuration.import', {
-            title: 'Importar imagenes SAP',
-            state: 'app.configuration_import'
-        });
-        
+  /** @ngInject */
+  function config(msNavigationServiceProvider) {
+    // Navigation
 
-        msNavigationServiceProvider.saveItem('configuration.sync', {
-            title: 'Sincronizar productos',
-            state: 'app.configuration_sync'
-        });
+    msNavigationServiceProvider.saveItem('configuration.import', {
+      title: 'Importar imagenes SAP',
+      state: 'app.configuration_import',
+    });
 
-        msNavigationServiceProvider.saveItem('configuration.sites', {
-            title: 'Configuración de sitio',
-            state: 'app.configuration_sites'
-        });
+    msNavigationServiceProvider.saveItem('configuration.sync', {
+      title: 'Sincronizar productos',
+      state: 'app.configuration_sync',
+    });
 
-        msNavigationServiceProvider.saveItem('configuration.contability', {
-            title: 'Configuración de contabilidad',
-            state: 'app.configuration_contability'
-        });
+    msNavigationServiceProvider.saveItem('configuration.sites', {
+      title: 'Configuración de sitio',
+      state: 'app.configuration_sites',
+    });
 
-        msNavigationServiceProvider.saveItem('configuration.delivery', {
-            title: 'Configuración de envios',
-            state: 'app.configuration_delivery'
-        });
+    msNavigationServiceProvider.saveItem('configuration.contability', {
+      title: 'Configuración de contabilidad',
+      state: 'app.configuration_contability',
+    });
 
-        msNavigationServiceProvider.saveItem('configuration', {
-            title : 'Configuracion',
-            group : false,
-            weight: 2
-        });
-    }
+    msNavigationServiceProvider.saveItem('configuration.delivery', {
+      title: 'Configuración de envios',
+      state: 'app.configuration_delivery',
+    });
+
+    msNavigationServiceProvider.saveItem('configuration.ewallet', {
+      title: 'Configuración de monedero',
+      state: 'app.configuration_ewallet',
+    });
+
+    msNavigationServiceProvider.saveItem('configuration.ewalletreplacement', {
+      title: 'Reposición de monedero',
+      state: 'app.configuration_ewallet_replacement',
+    });
+
+    msNavigationServiceProvider.saveItem('configuration', {
+      title: 'Configuracion',
+      group: false,
+      weight: 2,
+    });
+  }
 })();
