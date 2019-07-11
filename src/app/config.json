@@ -1,22 +1,22 @@
 {
   "dev": {
     "baseUrl": "http://localhost:1337",
+    "cdnUrl": "https://d116li125og699.cloudfront.net",
     "tokenPrefix": "dev"
   },
   "sandbox": {
-    "baseUrl": "https://sandboxapi.miactual.com",
-    "tokenPrefix": "sandbox"
-  },
-  "staged": {
-    "baseUrl": "https://stagedapi.miactual.com",
+    "baseUrl": "http://166.78.47.146:8080",
+    "cdnUrl": "https://d116li125og699.cloudfront.net",
     "tokenPrefix": "sandbox"
   },
   "demo": {
     "baseUrl": "http://demo-actual-api.herokuapp.com",
+    "cdnUrl": "https://d116li125og699.cloudfront.net",
     "tokenPrefix": "demo"
   },
   "production": {
-    "baseUrl": "http://166.78.47.146",
+    "baseUrl": "http://api.miactual.com",
+    "cdnUrl": "https://d116li125og699.cloudfront.net",
     "tokenPrefix": "production"
   }
 }
