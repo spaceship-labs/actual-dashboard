@@ -22,6 +22,7 @@ function ProductCategoriesEditController(
   $scope.editRelations = editRelations;
   $scope.queryProducts = queryProducts;
   $scope.selectedItemChange = selectedItemChange;
+  $scope.removeFeaturedProduct = removeFeaturedProduct;
   init();
 
   //Methods
@@ -158,16 +159,34 @@ function ProductCategoriesEditController(
       productService
         .addFeaturedProduct(categoryId, item.id)
         .then(function(res) {
-          return productService.getCategoryById(params.id).then(function(res) {
-            $scope.category = res.data;
-            $scope.isLoading = false;
-            $scope.loadCategories();
-          });
+          return productService.getCategoryById(params.id);
+        })
+        .then(function(res) {
+          $scope.category = res.data;
+          $scope.isLoading = false;
+          $scope.loadCategories();
         })
         .catch(function(err) {
           console.log('err', err);
         });
     }
+  }
+
+  function removeFeaturedProduct(itemId, categoryId) {
+    $scope.isLoading = true;
+    productService
+      .removeFeaturedProduct(categoryId, itemId)
+      .then(function(res) {
+        return productService.getCategoryById(params.id);
+      })
+      .then(function(res) {
+        $scope.category = res.data;
+        $scope.isLoading = false;
+        $scope.loadCategories();
+      })
+      .catch(function(err) {
+        console.log('err', err);
+      });
   }
 
   function toggleCategory(item, list) {

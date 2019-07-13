@@ -220,7 +220,7 @@
                 <li ng-repeat="featuredProduct in category.FeaturedProducts" class="noright" layout="row" layout-align="space-between center">
                   <p>{{featuredProduct.ItemCode}} | {{ featuredProduct.ItemName }}</p>
                   <div class="md-secondary">
-                    <md-button ng-click="vm.removeFeaturedProduct(featuredProduct.id, category.id)" class="md-raised md-warn">
+                    <md-button ng-click="removeFeaturedProduct(featuredProduct.id, category.id)" class="md-raised md-warn">
                       Remover
                     </md-button>
                   </div>

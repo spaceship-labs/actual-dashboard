@@ -27,6 +27,7 @@
       getCategoryChildsRelations: getCategoryChildsRelations,
       setCategoryChildsRelations: setCategoryChildsRelations,
       addFeaturedProduct: addFeaturedProduct,
+      removeFeaturedProduct: removeFeaturedProduct,
 
       //Filters
       getFilters: getFilters,
@@ -166,6 +167,12 @@
 
     function addFeaturedProduct(id, productId) {
       var url = '/productcategory/' + id + '/featuredproduct/' + productId;
+      return api.$http.post(url);
+    }
+
+    function removeFeaturedProduct(id, productId) {
+      var url =
+        '/delete/productcategory/' + id + '/featuredproduct/' + productId;
       return api.$http.post(url);
     }
 
