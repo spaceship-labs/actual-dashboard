@@ -135,14 +135,12 @@ function ProductCategoriesEditController(
     }
   }
 
-  function queryProducts(term, categoryId) {
+  function queryProducts(term) {
     console.log(term);
     if (term != '' && term) {
       var deferred = $q.defer();
-      var params = { term: term, autocomplete: true };
-      console.log('categoryID: ', categoryId);
-
-      productService.search(params).then(function(res) {
+      var queryParams = { term: term, autocomplete: true };
+      productService.search(queryParams).then(function(res) {
         console.log(res);
         deferred.resolve(res.data.data);
       });
@@ -152,28 +150,22 @@ function ProductCategoriesEditController(
     }
   }
 
-  function selectedItemChange(item, categoryHandle) {
+  function selectedItemChange(item, categoryId) {
     if (item && item.ItemCode) {
-      vm.selectedSalaProduct = null;
-      vm.selectedComedorProduct = null;
-      vm.selectedRecamaraProduct = null;
-      vm.searchText = null;
-      vm.loadingStore[categoryHandle] = true;
-      var params = {
-        product: item.id,
-        site: vm.site.id,
-        categoryHandle: categoryHandle,
-      };
-      featuredProductService
-        .create(params)
+      $scope.selectedFeaturedProduct = null;
+      $scope.searchText = null;
+      $scope.isLoading = true;
+      productService
+        .addFeaturedProduct(categoryId, item.id)
         .then(function(res) {
-          return featuredProductService.find(vm.site.id);
+          return productService.getCategoryById(params.id).then(function(res) {
+            $scope.category = res.data;
+            $scope.isLoading = false;
+            $scope.loadCategories();
+          });
         })
-        .then(function(result) {
-          vm.loadingStore[categoryHandle] = false;
-          vm.featuredproducts = result.data;
-          console.log('vm.featuredproducts', vm.featuredproducts);
-          console.log('vm.featuredproducts', vm.featuredproducts.length);
+        .catch(function(err) {
+          console.log('err', err);
         });
     }
   }

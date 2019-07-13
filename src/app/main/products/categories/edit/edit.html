@@ -187,7 +187,7 @@
                 md-selected-item="selectedFeaturedProduct"
                 md-search-text="searchProduct"
                 md-items="item in queryProducts(searchProduct, category.id)"
-                md-selected-item-change="selectedItemChange(item, 'salas')"
+                md-selected-item-change="selectedItemChange(item, category.id)"
                 md-item-text="item.ItemCode + ' ' + item.ItemName"
                 md-min-length="0"
                 placeholder="Buscar producto"
@@ -203,7 +203,29 @@
                   No se encontro "{{ searchProduct }}".
                 </md-not-found>
               </md-autocomplete>
-
+              <div
+              ng-show="isLoading"
+              class="loading-wrapper"
+              layout="row"
+              layout-sm="column"
+              layout-align="space-around"
+            >
+              <md-progress-circular
+                class="md-accent"
+                md-diameter="96"
+                md-mode="indeterminate"
+              ></md-progress-circular>
+            </div>
+            <ul ng-if="!isLoading" class="draggable-list" dnd-list="category.FeaturedProducts">
+                <li ng-repeat="featuredProduct in category.FeaturedProducts" class="noright" layout="row" layout-align="space-between center">
+                  <p>{{featuredProduct.ItemCode}} | {{ featuredProduct.ItemName }}</p>
+                  <div class="md-secondary">
+                    <md-button ng-click="vm.removeFeaturedProduct(featuredProduct.id, category.id)" class="md-raised md-warn">
+                      Remover
+                    </md-button>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
