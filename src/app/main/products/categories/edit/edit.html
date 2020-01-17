@@ -229,20 +229,20 @@
             </div>
           </div>
         </div>
+        <md-dialog-actions >
+          <span flex></span>
+          <md-button ng-click="cancel()">
+            Cancelar
+          </md-button>
+          <md-button
+            ng-click="update(updateForm)"
+            class="md-raised md-primary action-button"
+          >
+            Guardar
+          </md-button>
+        </md-dialog-actions>
         <!--END CATEGORY PARENTS EDITOR-->
       </div>
     </md-dialog-content>
-    <md-dialog-actions layout="row">
-      <span flex></span>
-      <md-button ng-click="cancel()">
-        Cancelar
-      </md-button>
-      <md-button
-        ng-click="update(updateForm)"
-        class="md-raised md-primary action-button"
-      >
-        Guardar
-      </md-button>
-    </md-dialog-actions>
   </form>
 </md-dialog>
