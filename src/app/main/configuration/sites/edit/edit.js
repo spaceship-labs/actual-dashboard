@@ -1,9 +1,9 @@
 (function() {
-  "use strict";
+  'use strict';
 
   angular
-    .module("app.configuration.sites_edit")
-    .controller("ConfigSitesEditController", ConfigSitesEditController);
+    .module('app.configuration.sites_edit')
+    .controller('ConfigSitesEditController', ConfigSitesEditController);
 
   /** @ngInject */
   function ConfigSitesEditController(
@@ -31,7 +31,7 @@
       queryProducts: queryProducts,
       selectedItemChange: selectedItemChange,
       removeFeaturedProduct: removeFeaturedProduct,
-      dir: "sites/banners"
+      dir: 'sites/banners',
     });
 
     function init() {
@@ -42,13 +42,13 @@
           vm.isLoading = false;
           vm.site = res.data;
           vm.site.Banners = sortSiteBanners(vm.site);
-          console.log("vm.site", vm.site);
+          console.log('vm.site', vm.site);
           return featuredProductService.find(vm.site.id);
         })
         .then(function(result) {
           vm.featuredproducts = result.data;
-          console.log("vm.featuredproducts", vm.featuredproducts);
-          console.log("vm.featuredproducts", vm.featuredproducts.length);
+          console.log('vm.featuredproducts', vm.featuredproducts);
+          console.log('vm.featuredproducts', vm.featuredproducts.length);
         })
         .catch(function(err) {
           console.log(err);
@@ -65,12 +65,12 @@
           .then(function(res) {
             console.log(res);
             site.isLoading = false;
-            dialogService.showDialog("Datos actualizados");
+            dialogService.showDialog('Datos actualizados');
           })
           .catch(function(err) {
             site.isLoading = false;
             dialogService.showDialog(
-              "Hubo un error, revisa la información e intenta de nuevo"
+              'Hubo un error, revisa la información e intenta de nuevo'
             );
           });
       }
@@ -87,8 +87,8 @@
     }
 
     function sortSiteBanners(site) {
-      console.log("sortSiteBanners site", site);
-      var idsList = site.bannersOrder ? site.bannersOrder.split(",") : [];
+      console.log('sortSiteBanners site', site);
+      var idsList = site.bannersOrder ? site.bannersOrder.split(',') : [];
       var unSortedImages = [];
       var orderedList = [];
 
@@ -127,7 +127,7 @@
       var uid = Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
         .substring(1);
-      var addFilesMethod = "/site/addbanner";
+      var addFilesMethod = '/site/addbanner';
 
       if ($files && $files.length > 0) {
         for (var i = 0; i < $files.length; i++) {
@@ -135,11 +135,11 @@
             id: vm.site.id,
             uid: uid,
             index: 0,
-            file: $files[i]
+            file: $files[i],
           };
           var uploadParams = {
             url: api.baseUrl + addFilesMethod,
-            data: dataParams
+            data: dataParams,
           };
           vm.upload = Upload.upload(uploadParams)
             .then(function(resp) {
@@ -156,7 +156,7 @@
             .catch(function(err) {
               console.log(err);
               dialogService.showDialog(
-                "Hubo un error al subir las imagenes " + (err || err.data)
+                'Hubo un error al subir las imagenes ' + (err || err.data)
               );
               vm.isLoadingFiles = false;
             })
@@ -164,12 +164,12 @@
               function() {},
               function(evt) {
                 var progressPercentage = parseInt(
-                  100.0 * evt.loaded / evt.total
+                  (100.0 * evt.loaded) / evt.total
                 );
                 console.log(
-                  "progress: " +
+                  'progress: ' +
                     progressPercentage +
-                    "% " +
+                    '% ' +
                     evt.config.data.file.name
                 );
               }
@@ -181,7 +181,7 @@
     }
 
     function removeFiles() {
-      var removeMethod = "/site/removefiles";
+      var removeMethod = '/site/removefiles';
       var files = [];
 
       vm.site.Banners.forEach(function(file) {
@@ -195,9 +195,9 @@
       vm.isLoadingFiles = true;
 
       var params = {
-        method: "POST",
+        method: 'POST',
         url: api.baseUrl + removeMethod,
-        data: vm.site
+        data: vm.site,
       };
 
       $http(params)
@@ -207,9 +207,9 @@
           vm.isLoadingFiles = false;
         })
         .catch(function(err) {
-          console.log("err", err);
+          console.log('err', err);
           dialogService.showDialog(
-            "Hubo un error al eliminar los archivos " + (err.data || err)
+            'Hubo un error al eliminar los archivos ' + (err.data || err)
           );
           vm.isLoadingFiles = false;
           vm.product.files.forEach(function(file) {
@@ -219,16 +219,16 @@
     }
 
     function fileClass(file) {
-      var c = "";
-      if (file.selected) c += "selected ";
-      if (file.deleting) c += "deleting ";
-      if (file == vm.selectedFile) c += "selected-item ";
+      var c = '';
+      if (file.selected) c += 'selected ';
+      if (file.deleting) c += 'deleting ';
+      if (file == vm.selectedFile) c += 'selected-item ';
       return c;
     }
 
     function queryProducts(term) {
       console.log(term);
-      if (term != "" && term) {
+      if (term != '' && term) {
         var deferred = $q.defer();
         var params = { term: term, autocomplete: true };
         productService.search(params).then(function(res) {
@@ -250,7 +250,7 @@
         var params = {
           product: item.id,
           site: vm.site.id,
-          categoryHandle: categoryHandle
+          categoryHandle: categoryHandle,
         };
         featuredProductService
           .create(params)
@@ -260,8 +260,8 @@
           .then(function(result) {
             vm.loadingStore[categoryHandle] = false;
             vm.featuredproducts = result.data;
-            console.log("vm.featuredproducts", vm.featuredproducts);
-            console.log("vm.featuredproducts", vm.featuredproducts.length);
+            console.log('vm.featuredproducts', vm.featuredproducts);
+            console.log('vm.featuredproducts', vm.featuredproducts.length);
           });
       }
     }
@@ -277,8 +277,8 @@
         .then(function(result) {
           vm.loadingStore[categoryHandle] = false;
           vm.featuredproducts = result.data;
-          console.log("vm.featuredproducts", vm.featuredproducts);
-          console.log("vm.featuredproducts", vm.featuredproducts.length);
+          console.log('vm.featuredproducts', vm.featuredproducts);
+          console.log('vm.featuredproducts', vm.featuredproducts.length);
         });
     }
 

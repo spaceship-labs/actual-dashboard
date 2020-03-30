@@ -1,51 +1,83 @@
 <md-dialog class="form-dialog" aria-label="Editar categoria" ng-cloak>
-
-  <form name="updateForm" ng-submit="update(updateForm)" class="md-inline-form" novalidate>
+  <form
+    name="updateForm"
+    ng-submit="update(updateForm)"
+    class="md-inline-form"
+    novalidate
+  >
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Editar categoria</h2>
       </div>
     </md-toolbar>
     <md-dialog-content>
-
-      <div ng-show="isLoading" class="loading-wrapper" layout="row" layout-sm="column" layout-align="space-around">
-        <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
+      <div
+        ng-show="isLoading"
+        class="loading-wrapper"
+        layout="row"
+        layout-sm="column"
+        layout-align="space-around"
+      >
+        <md-progress-circular
+          class="md-accent"
+          md-diameter="96"
+          md-mode="indeterminate"
+        ></md-progress-circular>
       </div>
 
       <div ng-show="!isLoading" class="md-dialog-content">
         <div class="input-element">
           <label>Nombre*</label>
           <div class="input-element-inner">
-            <input type="text" ng-model="category.Name" required placeholder="Nombre*">
+            <input
+              type="text"
+              ng-model="category.Name"
+              required
+              placeholder="Nombre*"
+            />
           </div>
         </div>
 
         <div class="input-element">
           <label>Keywords</label>
           <div class="input-element-inner">
-            <input type="text" ng-model="category.Keywords" placeholder="Keywords">
+            <input
+              type="text"
+              ng-model="category.Keywords"
+              placeholder="Keywords"
+            />
           </div>
         </div>
 
         <div class="input-element">
           <label>URL*</label>
           <div class="input-element-inner">
-            <input type="text" ng-model="category.Handle" required placeholder="URL*">
+            <input
+              type="text"
+              ng-model="category.Handle"
+              required
+              placeholder="URL*"
+            />
           </div>
         </div>
-
 
         <div class="input-element textarea-element">
           <label>Descripción</label>
           <div class="input-element-inner">
-            <textarea ng-model="category.Description" rows="5" placeholder="Descripción"></textarea>
+            <textarea
+              ng-model="category.Description"
+              rows="5"
+              placeholder="Descripción"
+            ></textarea>
           </div>
         </div>
 
         <p ng-if="category.CategoryLevel === 1">
-          <a href="" ng-click="editRelations()">Editar relevancia de categorias</a>
+          <a href="" ng-click="editRelations()"
+            >Editar relevancia de categorias</a
+          >
         </p>
-        
+
         <div class="input-element">
           <md-checkbox name="complement" ng-model="category.complement">
             <label>Complemento</label>
@@ -59,13 +91,20 @@
         </div>
 
         <!--CATEGORY PARENTS EDITOR-->
-        <p ng-show="!categoriesGroups || categoriesGroups.length > 0">Cargando categorias...</p>
+        <p ng-show="!categoriesGroups || categoriesGroups.length > 0">
+          Cargando categorias...
+        </p>
         <div ng-show="categoriesGroups" class="category-form-editor">
-          <p>Nivel de categoria:
-            <strong>{{category.CategoryLevel}}</strong>
+          <p>
+            Nivel de categoria:
+            <strong>{{ category.CategoryLevel }}</strong>
           </p>
           <md-input-container style="margin: 0;">
-            <md-select style="margin: 0;" class="select-element" ng-model="category.CategoryLevel">
+            <md-select
+              style="margin: 0;"
+              class="select-element"
+              ng-model="category.CategoryLevel"
+            >
               <md-option ng-value="1">Nivel 1</md-option>
               <md-option ng-value="2">Nivel 2</md-option>
               <md-option ng-value="3">Nivel 3</md-option>
@@ -90,18 +129,24 @@
                 <md-checkbox class="spaced-checkbox" ng-repeat="category in categoriesGroups[0]" ng-model="category.selected">{{category.Name}}</md-checkbox>-->
 
                 <md-input-container class="checkboxes-dropdown-wrap">
-                  <md-select class="checkboxes-dropdown select-element" ng-model="selectedCategories[0]" data-md-container-class="selectdemoSelectHeader"
-                    multiple>
+                  <md-select
+                    class="checkboxes-dropdown select-element"
+                    ng-model="selectedCategories[0]"
+                    data-md-container-class="selectdemoSelectHeader"
+                    multiple
+                  >
                     <md-optgroup label="Categorias">
-                      <md-option ng-value="category.id" ng-repeat="category in categoriesGroups[0] |
-                       orderBy:'Name' | filter:searchTerm">{{category.Name}}</md-option>
+                      <md-option
+                        ng-value="category.id"
+                        ng-repeat="category in categoriesGroups[0] |
+                       orderBy:'Name' | filter:searchTerm"
+                        >{{ category.Name }}</md-option
+                      >
                     </md-optgroup>
                   </md-select>
                 </md-input-container>
-
               </div>
             </div>
-
 
             <div ng-if="category.CategoryLevel > 2 ">
               <p>
@@ -111,31 +156,93 @@
               </p>
               <div>
                 <md-input-container class="checkboxes-dropdown-wrap">
-                  <md-select class="checkboxes-dropdown select-element" ng-model="selectedCategories[1]" data-md-container-class="selectdemoSelectHeader"
-                    multiple>
+                  <md-select
+                    class="checkboxes-dropdown select-element"
+                    ng-model="selectedCategories[1]"
+                    data-md-container-class="selectdemoSelectHeader"
+                    multiple
+                  >
                     <md-optgroup label="Categorias">
-                      <md-option ng-value="category.id" ng-repeat="category in categoriesGroups[1] |
-                       orderBy:'Name' | filter:searchTerm">{{category.Name}}</md-option>
+                      <md-option
+                        ng-value="category.id"
+                        ng-repeat="category in categoriesGroups[1] |
+                       orderBy:'Name' | filter:searchTerm"
+                        >{{ category.Name }}</md-option
+                      >
                     </md-optgroup>
                   </md-select>
                 </md-input-container>
               </div>
+            </div>
+          </div>
 
+            <h2>
+              <label>
+                <strong>Artículos Destacados</strong>
+              </label>
+            </h2>
+            <div>
+              <md-autocomplete
+                md-no-cache="false"
+                md-selected-item="selectedFeaturedProduct"
+                md-search-text="searchProduct"
+                md-items="item in queryProducts(searchProduct, category.id)"
+                md-selected-item-change="selectedItemChange(item, category.id)"
+                md-item-text="item.ItemCode + ' ' + item.ItemName"
+                md-min-length="0"
+                placeholder="Buscar producto"
+              >
+                <md-item-template>
+                  <span
+                    md-highlight-text="searchProduct"
+                    md-highlight-flags="^i"
+                    >{{ item.ItemCode }} | {{ item.ItemName }}</span
+                  >
+                </md-item-template>
+                <md-not-found>
+                  No se encontro "{{ searchProduct }}".
+                </md-not-found>
+              </md-autocomplete>
+              <div
+              ng-show="isLoading"
+              class="loading-wrapper"
+              layout="row"
+              layout-sm="column"
+              layout-align="space-around"
+            >
+              <md-progress-circular
+                class="md-accent"
+                md-diameter="96"
+                md-mode="indeterminate"
+              ></md-progress-circular>
+            </div>
+            <ul ng-if="!isLoading" class="draggable-list" dnd-list="category.FeaturedProducts">
+                <li ng-repeat="featuredProduct in category.FeaturedProducts" class="noright" layout="row" layout-align="space-between center">
+                  <p>{{featuredProduct.ItemCode}} | {{ featuredProduct.ItemName }}</p>
+                  <div class="md-secondary">
+                    <md-button ng-click="removeFeaturedProduct(featuredProduct.id, category.id)" class="md-raised md-warn">
+                      Remover
+                    </md-button>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
+        <md-dialog-actions >
+          <span flex></span>
+          <md-button ng-click="cancel()">
+            Cancelar
+          </md-button>
+          <md-button
+            ng-click="update(updateForm)"
+            class="md-raised md-primary action-button"
+          >
+            Guardar
+          </md-button>
+        </md-dialog-actions>
         <!--END CATEGORY PARENTS EDITOR-->
-
       </div>
     </md-dialog-content>
-    <md-dialog-actions layout="row">
-      <span flex></span>
-      <md-button ng-click="cancel()">
-        Cancelar
-      </md-button>
-      <md-button ng-click="update(updateForm)" class="md-raised md-primary action-button">
-        Guardar
-      </md-button>
-    </md-dialog-actions>
   </form>
 </md-dialog>
