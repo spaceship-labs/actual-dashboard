@@ -5,7 +5,7 @@ var conf = require('./conf');
 
 gulp.task('config', function () {
   var config = require('../src/app/config.json');
-  var env = process.env.NODE_ENV || 'production';
+  var env = process.env.NODE_ENV || 'dev';
   var envConfig = config[env];
   envConfig.name = env;
   gulp.src(path.join(conf.paths.src, '/app/config.json'))
