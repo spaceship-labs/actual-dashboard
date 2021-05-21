@@ -60,7 +60,8 @@
     "d3": "3.5.12",
     "angular-sanitize": "1.4.8",
     "angular-material": "1.0.1",
-    "moment": "^2.14.1"
+    "moment": "^2.14.1",
+    "jquery": "3.6.0"
   },
   "overrides": {
     "angular-material": {
