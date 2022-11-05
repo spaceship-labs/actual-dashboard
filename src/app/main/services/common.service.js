@@ -95,7 +95,8 @@
           {label:'Actual Studio', value:'001'},
           {label:'Actual Home', value:'002'},
           {label:'Ambas', value:'003'},
-          {label:'Actual Kids', value:'004'}
+          {label:'Actual Kids', value:'004'},
+          {label:'Actual Atelier', value:'005'}
         ];
         return sas;        
       }
@@ -105,7 +106,8 @@
           {label:'STUDIO', value:'001'},
           {label:'HOME', value:'002'},
           //{label:'AMBAS', value:'003'},
-          {label:'KIDS', value:'004'}
+          {label:'KIDS', value:'004'},
+          {label:'ATELIER', value:'005'}
         ];
         return sasPromos;
       }
@@ -115,7 +117,8 @@
           '001': 'Studio',
           '002': 'Home',
           '003': 'Ambas',
-          '004': 'Kids'
+          '004': 'Kids',
+          '005': 'Atelier'
         };
         return sasHash;        
       }
