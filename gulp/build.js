@@ -3,6 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
+var plumber = require('gulp-plumber');
 
 var $ = require('gulp-load-plugins')({
     pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
@@ -41,13 +42,15 @@ gulp.task('html', ['inject', 'partials'], function ()
     var assets;
 
     return gulp.src(path.join(conf.paths.tmp, '/serve/*.html'))
+        .pipe(plumber())
         .pipe($.inject(partialsInjectFile, partialsInjectOptions))
         .pipe(assets = $.useref.assets())
         .pipe($.rev())
         .pipe(jsFilter)
         .pipe($.sourcemaps.init())
         .pipe($.ngAnnotate())
-        .pipe($.uglify({preserveComments: $.uglifySaveLicense})).on('error', conf.errorHandler('Uglify'))
+        /* .pipe(gulp.dest("./")) */
+        .pipe($.uglify({preserveComments: $.uglifySaveLicense}))
         .pipe($.sourcemaps.write('maps'))
         .pipe(jsFilter.restore)
         .pipe(cssFilter)
