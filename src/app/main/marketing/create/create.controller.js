@@ -6,15 +6,15 @@
 
     /** @ngInject */
     function MarketingCreateController(
-      $scope, 
+      $scope,
       $q,
       $location,
-      commonService, 
-      productService, 
-      promoService, 
-      api, 
-      dialogService, 
-      categoriesService, 
+      commonService,
+      productService,
+      promoService,
+      api,
+      dialogService,
+      categoriesService,
       fvService
     ){
         var vm = this;
@@ -27,6 +27,7 @@
           products: [],
           displays: commonService.getDisplays(),
           paymentGroups: commonService.getPaymentGroups(),
+          predefinedDiscounts: chunk(commonService.getPredefinedDiscounts()),
           sasPromos: commonService.getSocietiesPromos(),
           create                   : create,
           onSelectEndDate          : onSelectEndDate,
@@ -35,6 +36,8 @@
         });
 
         function init(){
+          console.log("paymentGroups",vm.paymentGroups);
+          console.log("predefinedDiscounts",vm.predefinedDiscounts);
         }
 
         $scope.$watch('vm.paymentGroups[0].discount', function(newVal,oldVal){
@@ -55,7 +58,7 @@
             sa:vm.promotion.sa,
             discount: vm.paymentGroups[0].discount
           };
-          
+
           promoService.searchPromotionProducts(params)
             .then(function(res){
               vm.isLoadingProducts = false;
@@ -116,6 +119,28 @@
               ewalletTypePg4 : vm.paymentGroups[3].ewalletType,
               ewalletTypePg5 : vm.paymentGroups[4].ewalletType,
 
+              discountRange1 : vm.paymentGroups[0].discount,
+              discountRange2 : vm.paymentGroups[1].discount,
+              discountRange3 : vm.paymentGroups[2].discount,
+              discountRange4 : vm.paymentGroups[3].discount,
+              discountRange5 : vm.paymentGroups[4].discount,
+              discountRange6 : vm.paymentGroups[5].discount,
+              discountRange7 : vm.paymentGroups[6].discount,
+              discountRange8 : vm.paymentGroups[7].discount,
+              discountRange9 : vm.paymentGroups[8].discount,
+              discountRange10 : vm.paymentGroups[9].discount,
+
+              discountRangePercent1 : vm.paymentGroups[0].discountPercent,
+              discountRangePercent2 : vm.paymentGroups[1].discountPercent,
+              discountRangePercent3 : vm.paymentGroups[2].discountPercent,
+              discountRangePercent4 : vm.paymentGroups[3].discountPercent,
+              discountRangePercent5 : vm.paymentGroups[4].discountPercent,
+              discountRangePercent6 : vm.paymentGroups[5].discountPercent,
+              discountRangePercent7 : vm.paymentGroups[6].discountPercent,
+              discountRangePercent8 : vm.paymentGroups[7].discountPercent,
+              discountRangePercent9 : vm.paymentGroups[8].discountPercent,
+              discountRangePercent10 : vm.paymentGroups[9].discountPercent,
+
             };
             angular.extend(vm.promotion, params);
 
@@ -141,6 +166,20 @@
             vm.promotion.code = commonService.formatHandle(newVal);
           }
         });
+
+        function chunk(array) {
+          var result = [];
+
+          array.forEach(function(element, index) {
+            var newPosition = index % 5;
+            if (!result[newPosition]) {
+              result[newPosition] = [];
+            }
+            result[newPosition].push(element);
+          });
+
+          return result;
+        }
 
         init();
     }

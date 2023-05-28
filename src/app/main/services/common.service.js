@@ -19,7 +19,8 @@
         getGroupTypes   : getGroupTypes,
         getPopulatedPaymentGroups: getPopulatedPaymentGroups,
         getSocietiesPromos: getSocietiesPromos,
-        getDeliveryTypes: getDeliveryTypes
+        getDeliveryTypes: getDeliveryTypes,
+        getPredefinedDiscounts : getPredefinedDiscounts,
       };
       return service;
 
@@ -53,7 +54,7 @@
             ewalletKey:'ewalletGroup4',
             methods:[
               '6 MSI con Banamex',
-              '9 MSI con Banamex',              
+              '9 MSI con Banamex',
               '12 MSI con AMEX, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, Invex Banco, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA'
             ]
           },
@@ -68,7 +69,7 @@
             ]
           },
         ];
-        return populatedPaymentGroups;      
+        return populatedPaymentGroups;
       }
 
       function getDeliveryTypes(){
@@ -97,7 +98,7 @@
           {label:'Ambas', value:'003'},
           {label:'Actual Kids', value:'004'}
         ];
-        return sas;        
+        return sas;
       }
 
       function getSocietiesPromos(){
@@ -117,7 +118,7 @@
           '003': 'Ambas',
           '004': 'Kids'
         };
-        return sasHash;        
+        return sasHash;
       }
 
       function getPaymentGroups(){
@@ -126,10 +127,26 @@
           {label:'Descuento grupo pago 2', discount:0, text:'3 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
           {label:'Descuento grupo pago 3', discount:0, text:'3,6,9 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
           {label:'Descuento grupo pago 4', discount:0, text:'6,9,12 meses sin intereses', ewallet:0,ewalletType:'percentage'},
-          {label:'Descuento grupo pago 5', discount:0, text:'12 meses sin intereses', ewallet:0,ewalletType:'percentage'},          
+          {label:'Descuento grupo pago 5', discount:0, text:'12 meses sin intereses', ewallet:0,ewalletType:'percentage'},
           //{label:'Descuento grupo pago 5', discount:0, text:'12, 13 meses sin intereses', ewallet:0,ewalletType:'percentage'},
         ];
         return paymentGroups;
+      }
+
+      function getPredefinedDiscounts(){
+        var predefinedGroups = [
+          { label:'Descuento predefrinido 1', discount:0, discountPercent:0 },
+          { label:'Descuento predefrinido 2', discount:0, discountPercent:0 },
+          { label:'Descuento predefrinido 3', discount:0, discountPercent:0 },
+          { label:'Descuento predefrinido 4', discount:0, discountPercent:0 },
+          { label:'Descuento predefrinido 5', discount:0, discountPercent:0 },
+          { label:'Descuento predefrinido 6', discount:0, discountPercent:0 },
+          { label:'Descuento predefrinido 7', discount:0, discountPercent:0 },
+          { label:'Descuento predefrinido 8', discount:0, discountPercent:0 },
+          { label:'Descuento predefrinido 9', discount:0, discountPercent:0 },
+          { label:'Descuento predefrinido 10', discount:0, discountPercent:0 },
+        ];
+        return predefinedGroups;
       }
 
       function getDisplays(){
@@ -140,7 +157,7 @@
           {label:'Actual Kids (actualkids.com)', handle:'OnKids'},
           {label:'Amueble.com', handle:'OnAmueble'},
         ];
-        return displays;        
+        return displays;
       }
 
       function combineDateTime(date, time, seconds){

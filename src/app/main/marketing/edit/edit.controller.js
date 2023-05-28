@@ -8,16 +8,16 @@
 
     /** @ngInject */
     function MarketingEditController(
-      $scope, 
-      $q, 
-      $stateParams, 
+      $scope,
+      $q,
+      $stateParams,
       $timeout,
-      commonService, 
-      productService, 
-      promoService, 
-      api, 
-      dialogService, 
-      categoriesService, 
+      commonService,
+      productService,
+      promoService,
+      api,
+      dialogService,
+      categoriesService,
       fvService
     ){
         var vm = this;
@@ -50,7 +50,7 @@
             sa:vm.promotion.sa,
             discount: vm.paymentGroups[0].discount
           };
-          
+
           promoService.searchPromotionProducts(params)
             .then(function(res){
               vm.isLoadingProducts = false;
@@ -89,7 +89,7 @@
             vm.promotion.pushMoneyUnit     = vm.promotion.pushMoneyUnit || 0;
             vm.startTime = new Date(angular.copy(vm.promotion.startDate));
             vm.endTime = new Date(angular.copy(vm.promotion.endDate));
-            
+
 
             setPromoDiscounts(vm.promotion);
             vm.isLoading = false;

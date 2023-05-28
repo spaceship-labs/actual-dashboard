@@ -53,14 +53,14 @@
                   <p class="select-element-label"><label><strong>Sociedad</strong></label></p>
                   <md-input-container class="checkboxes-dropdown-wrap">
                     <md-select class="select-element" ng-model="vm.promotion.sa">
-                      <md-option 
-                        ng-value="sa.value" 
+                      <md-option
+                        ng-value="sa.value"
                         ng-repeat="sa in vm.sasPromos">
                           {{sa.label}}
                       </md-option>
                     </md-select>
                   </md-input-container>
-                </div>   
+                </div>
 
                 <div class="input-element" flex="25" flex-sm="100" flex-xs="100">
                   <label>Fecha de inicio*</label>
@@ -150,6 +150,34 @@
               </section>
               <!--END EWALLET BY GROUP-->
 
+              <!--PREDEFINED DISCOUNTS-->
+              <section class="spaced-row" layout="row" layout-align="space-between center">
+                <div
+                  ng-repeat="pg in vm.paymentGroups track by $index"
+                  flex
+                  flex-xs="100"
+                  flex-sm="100"
+                >
+                  <label><strong>Monedero grupo de pago {{$index+1}}</strong></label>
+                  <div layout="row" layout-wrap layout-align="start end">
+                    <div class="input-element" flex="35" >
+                      <div class="input-element-inner">
+                        <input type="text" placeholder="Monedero" ng-model="pg.ewallet">
+                      </div>
+                    </div>
+                    <div class="select-element-wrapper select-element-wrapper-nomargin" flex>
+                      <md-input-container>
+                        <md-select class="select-element" placeholder="Tipo" ng-model="pg.ewalletType">
+                          <md-option value="ammount">Cantidad</md-option>
+                          <md-option value="percentage">Porcentaje</md-option>
+                        </md-select>
+                      </md-input-container>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <!--END PREDEFINED DISCOUNTS-->
+
               <!--LENTO MOVIMIENTO  AND PUSH MONEY-->
               <section layout="row" layout-align="start center">
 
@@ -177,7 +205,7 @@
                   <strong ng-if="vm.products && !vm.isLoadingProducts"> | Productos con esta promocion
                     <span>({{vm.products.length}})</span>:
                   </strong>
-                
+
                 </h2>
                 <div ng-show="vm.isLoadingProducts" layout="row" layout-sm="column" layout-align="space-around">
                   <md-progress-circular class="md-accent" md-diameter="96" md-mode="indeterminate"></md-progress-circular>
