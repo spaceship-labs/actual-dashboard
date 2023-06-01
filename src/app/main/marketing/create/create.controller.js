@@ -25,19 +25,26 @@
             pushMoneyUnitType: 'ammount'
           },
           products: [],
+          inputs: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           displays: commonService.getDisplays(),
           paymentGroups: commonService.getPaymentGroups(),
-          predefinedDiscounts: chunk(commonService.getPredefinedDiscounts()),
+          predefinedDiscounts: commonService.getPredefinedDiscounts(),
           sasPromos: commonService.getSocietiesPromos(),
+          productTypeInputs: [],
+          newInput: {
+            value: '',
+            option: ''
+          },
+          productTypeOptions: commonService.getProductTypes(),
           create                   : create,
           onSelectEndDate          : onSelectEndDate,
           onSelectStartDate        : onSelectStartDate,
-          loadProducts: loadProducts
+          loadProducts: loadProducts,
+          updateInputs : updateInputs,
+          addInput : addInput,
         });
 
         function init(){
-          console.log("paymentGroups",vm.paymentGroups);
-          console.log("predefinedDiscounts",vm.predefinedDiscounts);
         }
 
         $scope.$watch('vm.paymentGroups[0].discount', function(newVal,oldVal){
@@ -119,27 +126,27 @@
               ewalletTypePg4 : vm.paymentGroups[3].ewalletType,
               ewalletTypePg5 : vm.paymentGroups[4].ewalletType,
 
-              discountRange1 : vm.paymentGroups[0].discount,
-              discountRange2 : vm.paymentGroups[1].discount,
-              discountRange3 : vm.paymentGroups[2].discount,
-              discountRange4 : vm.paymentGroups[3].discount,
-              discountRange5 : vm.paymentGroups[4].discount,
-              discountRange6 : vm.paymentGroups[5].discount,
-              discountRange7 : vm.paymentGroups[6].discount,
-              discountRange8 : vm.paymentGroups[7].discount,
-              discountRange9 : vm.paymentGroups[8].discount,
-              discountRange10 : vm.paymentGroups[9].discount,
+              discountRange1 : vm.inputs[0],
+              discountRange2 : vm.inputs[1],
+              discountRange3 : vm.inputs[2],
+              discountRange4 : vm.inputs[3],
+              discountRange5 : vm.inputs[4],
+              discountRange6 : vm.inputs[5],
+              discountRange7 : vm.inputs[6],
+              discountRange8 : vm.inputs[7],
+              discountRange9 : vm.inputs[8],
+              discountRange10 : vm.inputs[9],
 
-              discountRangePercent1 : vm.paymentGroups[0].discountPercent,
-              discountRangePercent2 : vm.paymentGroups[1].discountPercent,
-              discountRangePercent3 : vm.paymentGroups[2].discountPercent,
-              discountRangePercent4 : vm.paymentGroups[3].discountPercent,
-              discountRangePercent5 : vm.paymentGroups[4].discountPercent,
-              discountRangePercent6 : vm.paymentGroups[5].discountPercent,
-              discountRangePercent7 : vm.paymentGroups[6].discountPercent,
-              discountRangePercent8 : vm.paymentGroups[7].discountPercent,
-              discountRangePercent9 : vm.paymentGroups[8].discountPercent,
-              discountRangePercent10 : vm.paymentGroups[9].discountPercent,
+              discountRangePercent1 : vm.predefinedDiscounts[0].discountPercent,
+              discountRangePercent2 : vm.predefinedDiscounts[1].discountPercent,
+              discountRangePercent3 : vm.predefinedDiscounts[2].discountPercent,
+              discountRangePercent4 : vm.predefinedDiscounts[3].discountPercent,
+              discountRangePercent5 : vm.predefinedDiscounts[4].discountPercent,
+              discountRangePercent6 : vm.predefinedDiscounts[5].discountPercent,
+              discountRangePercent7 : vm.predefinedDiscounts[6].discountPercent,
+              discountRangePercent8 : vm.predefinedDiscounts[7].discountPercent,
+              discountRangePercent9 : vm.predefinedDiscounts[8].discountPercent,
+              discountRangePercent10 : vm.predefinedDiscounts[9].discountPercent,
 
             };
             angular.extend(vm.promotion, params);
@@ -180,6 +187,21 @@
 
           return result;
         }
+
+        function updateInputs (index) {
+          if (vm.inputs[index] && index < vm.inputs.length - 1) {
+            vm.inputs[index + 1] = vm.inputs[index] + 1;
+          }
+          console.log("vm.inputs",vm.inputs);
+          console.log("vm.predefinedDiscounts",vm.predefinedDiscounts);
+        };
+
+        function addInput () {
+          if (vm.newInput) {
+            vm.productTypeInputs.push({ value: vm.newInput });
+            vm.newInput = '';
+          }
+        };
 
         init();
     }

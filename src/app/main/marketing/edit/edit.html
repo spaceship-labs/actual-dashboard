@@ -151,27 +151,70 @@
               <!--END EWALLET BY GROUP-->
 
               <!--PREDEFINED DISCOUNTS-->
-              <section class="spaced-row" layout="row" layout-align="space-between center">
+              <section class="spaced-row" layout="row" layout-align="space-between center" flex>
                 <div
-                  ng-repeat="pg in vm.paymentGroups track by $index"
+                  ng-repeat="pg in vm.predefinedDiscounts | limitTo:5"
                   flex
                   flex-xs="100"
                   flex-sm="100"
                 >
-                  <label><strong>Monedero grupo de pago {{$index+1}}</strong></label>
+                  <label><strong>{{pg.label}}</strong></label>
                   <div layout="row" layout-wrap layout-align="start end">
-                    <div class="input-element" flex="35" >
+                    <div class="input-element" flex="40" >
                       <div class="input-element-inner">
-                        <input type="text" placeholder="Monedero" ng-model="pg.ewallet">
+                        <input
+                          type="number"
+                          placeholder="Cantidad"
+                          ng-model="vm.inputs[$index]"
+                          ng-change="vm.updateInputs($index)"
+                        >
                       </div>
                     </div>
-                    <div class="select-element-wrapper select-element-wrapper-nomargin" flex>
-                      <md-input-container>
-                        <md-select class="select-element" placeholder="Tipo" ng-model="pg.ewalletType">
-                          <md-option value="ammount">Cantidad</md-option>
-                          <md-option value="percentage">Porcentaje</md-option>
-                        </md-select>
-                      </md-input-container>
+                    <div class="input-element" flex="40" >
+                      <div class="input-element-inner percentage-input">
+                        <input
+                          class="percentage-input"
+                          type="number"
+                          placeholder="Porcentaje"
+                          ng-model="pg.discountPercent"
+                          min="0"
+                          max="100"
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="spaced-row" layout="row" layout-align="space-between center" flex>
+                <div
+                  ng-repeat="pg in vm.predefinedDiscounts | limitTo:-5"
+                  flex
+                  flex-xs="100"
+                  flex-sm="100"
+                >
+                  <label><strong>{{pg.label}}</strong></label>
+                  <div layout="row" layout-wrap layout-align="start end">
+                    <div class="input-element" flex="40" >
+                      <div class="input-element-inner">
+                        <input
+                          type="number"
+                          placeholder="Cantidad"
+                          ng-model="vm.inputs[$index+5]"
+                          ng-change="vm.updateInputs($index+5)"
+                        >
+                      </div>
+                    </div>
+                    <div class="input-element" flex="40" >
+                      <div class="input-element-inner percentage-input">
+                        <input
+                          class="percentage-input"
+                          type="number"
+                          placeholder="Porcentaje"
+                          ng-model="pg.discountPercent"
+                          min="0"
+                          max="100"
+                        >
+                      </div>
                     </div>
                   </div>
                 </div>

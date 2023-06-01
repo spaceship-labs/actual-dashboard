@@ -167,29 +167,101 @@
               <!--PREDEFINED DISCOUNTS-->
               <section class="spaced-row" layout="row" layout-align="space-between center" flex>
                 <div
-                  ng-repeat="dc in vm.predefinedDiscounts track by $index"
+                  ng-repeat="dcc in vm.predefinedDiscounts | limitTo:5"
                   flex
                   flex-xs="100"
                   flex-sm="100"
                 >
-                <div ng-repeat="dcc in dc track by $index">
                   <label><strong>{{dcc.label}}</strong></label>
                   <div layout="row" layout-wrap layout-align="start end">
                     <div class="input-element" flex="40" >
                       <div class="input-element-inner">
-                        <input type="number" placeholder="Cantidad" ng-model="dcc.discount">
+                        <input
+                          type="number"
+                          placeholder="Cantidad"
+                          ng-model="vm.inputs[$index]"
+                          ng-change="vm.updateInputs($index)"
+                        >
                       </div>
                     </div>
                     <div class="input-element" flex="40" >
                       <div class="input-element-inner percentage-input">
-                        <input class="percentage-input" type="number" placeholder="Porcentaje" ng-model="dcc.discountPercent" min="1" max="100">
+                        <input
+                          class="percentage-input"
+                          type="number"
+                          placeholder="Porcentaje"
+                          ng-model="dcc.discountPercent"
+                          min="0"
+                          max="100"
+                        >
                       </div>
                     </div>
                   </div>
                 </div>
+              </section>
+              <section class="spaced-row" layout="row" layout-align="space-between center" flex>
+                <div
+                  ng-repeat="dcc in vm.predefinedDiscounts | limitTo:-5"
+                  flex
+                  flex-xs="100"
+                  flex-sm="100"
+                >
+                  <label><strong>{{dcc.label}}</strong></label>
+                  <div layout="row" layout-wrap layout-align="start end">
+                    <div class="input-element" flex="40" >
+                      <div class="input-element-inner">
+                        <input
+                          type="number"
+                          placeholder="Cantidad"
+                          ng-model="vm.inputs[$index+6]"
+                          ng-change="vm.updateInputs($index)"
+                        >
+                      </div>
+                    </div>
+                    <div class="input-element" flex="40" >
+                      <div class="input-element-inner percentage-input">
+                        <input
+                          class="percentage-input"
+                          type="number"
+                          placeholder="Porcentaje"
+                          ng-model="dcc.discountPercent"
+                          min="0"
+                          max="100"
+                        >
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </section>
               <!--END PREDEFINED DISCOUNTS-->
+
+              <!--PRODUCT TYPES DISCOUNT-->
+              <label><strong>Descuento por tipo de producto</strong></label>
+              <section class="spaced-row" layout="row" layout-align="space-between center">
+                <div 
+                  flex
+                  flex-xs="100"
+                  flex-sm="100"
+                >
+                  <input flex="50" type="text" ng-model="vm.newInput" ng-change="vm.addInput()" />
+                </div>
+              </section>
+              <div ng-repeat="input in vm.productTypeInputs">
+                <section class="spaced-row" layout="row" layout-align="space-between center">
+                  <div 
+                    flex
+                    flex-xs="100"
+                    flex-sm="100"
+                  >
+                    <input flex="50" type="text" ng-model="input.value" />
+                    <select ng-model="input.option" ng-options="option for option in options">
+                      <option value="">Seleccionar</option>
+                    </select>
+                  </div>
+                  <button ng-click="addInput()">Agregar</button>
+                </section>
+              </div>
+              <!--END PRODUCT TYPES DISCOUNT-->
 
               <!--LENTO MOVIMIENTO  AND PUSH MONEY-->
               <section layout="row" layout-align="start center">
