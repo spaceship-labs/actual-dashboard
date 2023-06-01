@@ -148,6 +148,8 @@
               discountRangePercent9 : vm.predefinedDiscounts[8].discountPercent,
               discountRangePercent10 : vm.predefinedDiscounts[9].discountPercent,
 
+              productTypeDiscounts : vm.productTypeInputs,
+
             };
             angular.extend(vm.promotion, params);
 
@@ -197,9 +199,15 @@
         };
 
         function addInput () {
-          if (vm.newInput) {
-            vm.productTypeInputs.push({ value: vm.newInput });
-            vm.newInput = '';
+          if (vm.newInput.value && vm.newInput.option) {
+            vm.productTypeInputs.push({
+              value: vm.newInput.value,
+              option: vm.newInput.option 
+            });
+            vm.newInput = {
+              value: '',
+              option: '',
+            };
           }
         };
 

@@ -221,6 +221,58 @@
               </section>
               <!--END PREDEFINED DISCOUNTS-->
 
+              <!--PRODUCT TYPES DISCOUNT-->
+              <label><strong>Descuento por tipo de producto</strong></label>
+              <section class="spaced-row" layout="row" layout-wrap layout-align="start end" flex>
+                <div flex="80" flex-sm="100" flex-xs="100" layout="row">
+                  <div class="input-element" flex="40" flex-sm="100" flex-xs="100">
+                    <div class="input-element-inner percentage-input" flex="95">  
+                      <input
+                        type="number"
+                        placeholder="Porcentaje"
+                        ng-model="vm.newInput.value" 
+                        min="0"
+                        max="100"
+                      >
+                    </div>
+                  </div>
+                  <div flex="40" flex-sm="100" flex-xs="100">
+                    <md-select class="select-element" placeholder="Tipo de producto" ng-model="vm.newInput.option" ng-style="{'margin-top':'10px'}" flex="95">
+                      <md-option ng-repeat="(code, productType) in vm.productTypeOptions track by $index" value="{{code}}">
+                        {{productType}}
+                      </md-option>
+                    </md-select>
+                  </div>
+                  <div flex="20" flex-sm="100" flex-xs="100">
+                    <md-button class="md-raised reference-button action-button" ng-click="vm.addInput()">Agregar</md-button>
+                  </div>
+                </div>
+              </section>
+              
+              <section ng-repeat="input in vm.productTypeInputs" class="spaced-row" layout="row" layout-wrap layout-align="start end" flex>
+                <div flex="80" flex-sm="100" flex-xs="100" layout="row">
+                  <div class="input-element" flex="40" flex-sm="100" flex-xs="100">
+                    <div class="input-element-inner percentage-input" flex="95">
+                      <input
+                        type="number"
+                        placeholder="Porcentaje"
+                        ng-model="input.value" 
+                        min="0"
+                        max="100"
+                      />
+                    </div>
+                  </div>
+                  <div flex="40" flex-sm="100" flex-xs="100">
+                    <md-select class="select-element" placeholder="Tipo de producto" ng-model="input.option" ng-style="{'margin-top':'10px'}" flex="95">
+                      <md-option ng-repeat="(code, productType) in vm.productTypeOptions track by $index" value="{{code}}">
+                        {{productType}}
+                      </md-option>
+                    </md-select>
+                  </div>
+                </div>
+              </section>
+              <!--END PRODUCT TYPES DISCOUNT-->
+
               <!--LENTO MOVIMIENTO  AND PUSH MONEY-->
               <section layout="row" layout-align="start center">
 

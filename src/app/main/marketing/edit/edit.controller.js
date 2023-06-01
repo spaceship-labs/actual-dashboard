@@ -29,6 +29,8 @@
           inputs: [],
           paymentGroups: commonService.getPaymentGroups(),          
           predefinedDiscounts: commonService.getPredefinedDiscounts(),
+          productTypeOptions: commonService.getProductTypes(),
+          productTypeInputs: [],
           //SA's from SAP
           sasPromos: commonService.getSocietiesPromos(),
           objIndexOf            : objIndexOf,
@@ -69,9 +71,8 @@
         function objIndexOf(arr, query){
           return _.findWhere(arr, query);
         }
-
+        // TODO: refactor all setPromo functions into a single one
         function setPromoDiscounts(promo){
-          console.log("promo",promo);
 
           var keysD = ['discountPg1','discountPg2','discountPg3','discountPg4','discountPg5'];
           var keysT = ['discountTextPg1','discountTextPg2','discountTextPg3','discountTextPg4','discountTextPg5'];
@@ -84,7 +85,6 @@
             pg.ewalletType = promo[keysEWType[index]];
             return pg;
           });
-          console.log("vm.paymentGroups",vm.paymentGroups);
         }
 
         function setPromoPredefinedDiscounts(promo){
@@ -95,7 +95,6 @@
             pg.discountPercent = promo[keysPDDiscountPercentage[index]];
             return pg;
           });
-          console.log("vm.predefinedDiscounts",vm.predefinedDiscounts);
 
           for (var i = 0; i <= vm.predefinedDiscounts.length; i++) {
             if (vm.predefinedDiscounts[i] != null) {
@@ -103,7 +102,10 @@
               
             }
           }
-          console.log("inputs",vm.inputs)
+        }
+
+        function setPromoProductTypeDiscount(promo){
+          vm.productTypeInputs = _.extend(promo.productTypeDiscounts);
         }
 
         function init(){
@@ -118,6 +120,7 @@
 
             setPromoDiscounts(vm.promotion);
             setPromoPredefinedDiscounts(vm.promotion);
+            setPromoProductTypeDiscount(vm.promotion);
             vm.isLoading = false;
 
             $timeout(function(){
@@ -193,6 +196,9 @@
               discountRangePercent8 : vm.predefinedDiscounts[7].discountPercent,
               discountRangePercent9 : vm.predefinedDiscounts[8].discountPercent,
               discountRangePercent10 : vm.predefinedDiscounts[9].discountPercent,
+
+              productTypeDiscounts : vm.productTypeInputs,
+
             };
 
             if(vm.promotion.hasLM){
