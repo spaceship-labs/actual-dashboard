@@ -39,6 +39,7 @@
           loadProducts: loadProducts,
           update: update,
           updateInputs : updateInputs,
+          addInput : addInput,
         });
 
         $scope.$watch('vm.importDataXls', function(newVal, oldVal){
@@ -231,6 +232,19 @@
           }
           console.log("vm.inputs",vm.inputs);
           console.log("vm.predefinedDiscounts",vm.predefinedDiscounts);
+        };
+
+        function addInput () {
+          if (vm.newInput.value && vm.newInput.option) {
+            vm.productTypeInputs.push({
+              value: vm.newInput.value,
+              option: vm.newInput.option 
+            });
+            vm.newInput = {
+              value: '',
+              option: '',
+            };
+          }
         };
 
         init();
