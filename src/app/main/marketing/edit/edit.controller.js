@@ -208,7 +208,7 @@
             }
 
             angular.extend(vm.promotion, params);
-
+            console.log(vm.promotion);
             promoService.update(vm.promotion.id, vm.promotion)
               .then(function(res){
                 console.log(res.data);

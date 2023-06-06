@@ -213,7 +213,7 @@
                         <input
                           type="number"
                           placeholder="Cantidad"
-                          ng-model="vm.inputs[$index+6]"
+                          ng-model="vm.inputs[$index+5]"
                           ng-change="vm.updateInputs($index)"
                         >
                       </div>
@@ -252,7 +252,7 @@
                   </div>
                   <div flex="40" flex-sm="100" flex-xs="100">
                     <md-select class="select-element" placeholder="Tipo de producto" ng-model="vm.newInput.option" ng-style="{'margin-top':'10px'}" flex="95">
-                      <md-option ng-repeat="(code, productType) in vm.productTypeOptions track by $index" value="{{code}}">
+                      <md-option ng-repeat="(code, productType) in vm.productTypeOptions track by $index" value="{{productType}}">
                         {{productType}}
                       </md-option>
                     </md-select>
@@ -278,7 +278,7 @@
                   </div>
                   <div flex="40" flex-sm="100" flex-xs="100">
                     <md-select class="select-element" placeholder="Tipo de producto" ng-model="input.option" ng-style="{'margin-top':'10px'}" flex="95">
-                      <md-option ng-repeat="(code, productType) in vm.productTypeOptions track by $index" value="{{code}}">
+                      <md-option ng-repeat="(code, productType) in vm.productTypeOptions track by $index" value="{{productType}}">
                         {{productType}}
                       </md-option>
                     </md-select>

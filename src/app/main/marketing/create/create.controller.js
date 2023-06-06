@@ -209,6 +209,7 @@
               option: '',
             };
           }
+          console.log(vm.productTypeInputs);
         };
 
         init();
