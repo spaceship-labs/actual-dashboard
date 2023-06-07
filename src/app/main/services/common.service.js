@@ -19,7 +19,9 @@
         getGroupTypes   : getGroupTypes,
         getPopulatedPaymentGroups: getPopulatedPaymentGroups,
         getSocietiesPromos: getSocietiesPromos,
-        getDeliveryTypes: getDeliveryTypes
+        getDeliveryTypes: getDeliveryTypes,
+        getPredefinedDiscounts : getPredefinedDiscounts,
+        getProductTypes : getProductTypes,
       };
       return service;
 
@@ -53,7 +55,7 @@
             ewalletKey:'ewalletGroup4',
             methods:[
               '6 MSI con Banamex',
-              '9 MSI con Banamex',              
+              '9 MSI con Banamex',
               '12 MSI con AMEX, Santander, Bancomer, Banorte, IXE, SCOTIABANK, INBURSA, Invex Banco, AFIRME, BANBAJIO, BANJERCITO, BANCAMIFEL, ITAUCARD, PREMIUMCARD, BANREGIO, BANCOAHORRO, FAMSA'
             ]
           },
@@ -68,7 +70,7 @@
             ]
           },
         ];
-        return populatedPaymentGroups;      
+        return populatedPaymentGroups;
       }
 
       function getDeliveryTypes(){
@@ -97,7 +99,7 @@
           {label:'Ambas', value:'003'},
           {label:'Actual Kids', value:'004'}
         ];
-        return sas;        
+        return sas;
       }
 
       function getSocietiesPromos(){
@@ -117,7 +119,7 @@
           '003': 'Ambas',
           '004': 'Kids'
         };
-        return sasHash;        
+        return sasHash;
       }
 
       function getPaymentGroups(){
@@ -126,10 +128,26 @@
           {label:'Descuento grupo pago 2', discount:0, text:'3 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
           {label:'Descuento grupo pago 3', discount:0, text:'3,6,9 Meses sin intereses', ewallet:0,ewalletType:'percentage'},
           {label:'Descuento grupo pago 4', discount:0, text:'6,9,12 meses sin intereses', ewallet:0,ewalletType:'percentage'},
-          {label:'Descuento grupo pago 5', discount:0, text:'12 meses sin intereses', ewallet:0,ewalletType:'percentage'},          
+          {label:'Descuento grupo pago 5', discount:0, text:'12 meses sin intereses', ewallet:0,ewalletType:'percentage'},
           //{label:'Descuento grupo pago 5', discount:0, text:'12, 13 meses sin intereses', ewallet:0,ewalletType:'percentage'},
         ];
         return paymentGroups;
+      }
+
+      function getPredefinedDiscounts(){
+        var predefinedGroups = [
+          { label:'Descuento predefinido 1', discount:0, discountPercent:0 },
+          { label:'Descuento predefinido 2', discount:0, discountPercent:0 },
+          { label:'Descuento predefinido 3', discount:0, discountPercent:0 },
+          { label:'Descuento predefinido 4', discount:0, discountPercent:0 },
+          { label:'Descuento predefinido 5', discount:0, discountPercent:0 },
+          { label:'Descuento predefinido 6', discount:0, discountPercent:0 },
+          { label:'Descuento predefinido 7', discount:0, discountPercent:0 },
+          { label:'Descuento predefinido 8', discount:0, discountPercent:0 },
+          { label:'Descuento predefinido 9', discount:0, discountPercent:0 },
+          { label:'Descuento predefinido 10', discount:0, discountPercent:0 },
+        ];
+        return predefinedGroups;
       }
 
       function getDisplays(){
@@ -140,7 +158,7 @@
           {label:'Actual Kids (actualkids.com)', handle:'OnKids'},
           {label:'Amueble.com', handle:'OnAmueble'},
         ];
-        return displays;        
+        return displays;
       }
 
       function combineDateTime(date, time, seconds){
@@ -501,6 +519,165 @@
         ZW: "Zimbabwe"
       };
       return countries;
+    }
+
+    function getProductTypes(){
+      var productTypes = 
+      {
+        ACCE: "Accesorio",
+        EXACC: "Accesorio Exterior",
+        CORACC: "Accesorios Cortinas",
+        ALMO: "Almohada",
+        ARCHIV: "Archivero",
+        ARFLO: "Arreglo Floral",
+        ARTOBJ: "Arte Objeto",
+        BAB: "Babero",
+        EXBANC: "Banca de Exterior",
+        BNCA: "Bancas",
+        EXBAN: "Banco-Bar Exterior",
+        BNCO: "Bancos-Bar",
+        BAÑERA: "Bañera",
+        BAR: "Bar",
+        BARANDAL: "barandal",
+        BACA: "Base Cama",
+        BACO: "Base Comedor",
+        BATA: "Bata",
+        BLANCOS: "Blancos",
+        BOWL: "Bowl",
+        BOX: "Box",
+        COLBOX: "Box Para Colchones",
+        BUFE: "Bufetero",
+        BURO: "Buro",
+        CABEMADE: "Cabecera De Madera",
+        CEBETELA: "Cabecera De Tela",
+        CAMAM: "Cama De Madera",
+        CAMAP: "Cama De Piel",
+        CAMAT: "Cama De Tela",
+        CMST: "Camastro",
+        CAMI: "Camino para cama",
+        CANA: "Canastas",
+        CANDELERO: "Candelero",
+        CADl: "Candiles",
+        CELU: "Celular",
+        Ceramica: "Ceramica",
+        CHAI: "Chaise Longe",
+        CHAR: "Charola",
+        CLST: "Closet",
+        CODE: "Cojines Decorativos",
+        COLC: "Colcha",
+        CLCH: "Colchones",
+        COMO: "Comoda",
+        COMC: "Comoda Cambiador",
+        COMPSAL: "Complemento para sala",
+        CORALU: "Cortina De Aluminio",
+        CORMA: "Cortina De Madera",
+        CORTI: "Cortinas De Tela",
+        COR1: "Cortineros",
+        CREDENZA: "CREDENZA",
+        CRIS: "Cristal",
+        CUAD: "Cuadro",
+        CUADCHI: "Cuadro Chico",
+        CUADGDE: "Cuadro Grande",
+        CUBI: "Cubierta De Cristal",
+        CUBIMAR: "Cubierta de Marmol",
+        CUCA: "Cubrecama",
+        CUCO: "Cubrecolchon",
+        CUNA: "Cuna",
+        DAYBED: "Daybed",
+        DUVE: "Duvet",
+        EDRE: "Edredon",
+        ENRR: "Enrollable",
+        EQUIPA: "Equipamento",
+        ESCR: "Escritorio",
+        ESCU: "Esculturas",
+        ESPE: "Espejo",
+        REESP: "Espejo De Recamara",
+        ESTANTE: "Estantes",
+        EURO: "Euro",
+        FALDON: "Faldon Cama",
+        FLOR: "Florero",
+        FRAZ: "Frazada",
+        FUND: "Funda",
+        Funda: "Funda para bañera",
+        GRAPA: "Grapas, Cubos Y Repisas",
+        INSTAL: "Instalacion",
+        INSUMO: "Insumo",
+        JARR: "Jarron",
+        LAMP: "Lampara",
+        LAMPMESA: "Lampara de Mesa",
+        LAMPPISO: "Lampara de Piso",
+        LAMPTECHO: "Lampara de Techo",
+        LETRA: "Letra",
+        LIBR: "Librero",
+        LITIND: "Litera",
+        MACE: "Maceteros",
+        MECEDORA: "Mecedora",
+        MECE: "Mesa Centro",
+        MECO: "Mesa Comedor",
+        EXTMCO: "Mesa Comedor Exterior",
+        MESINF: "Mesa Infantil",
+        MELA: "Mesa Lateral",
+        EXTMOC: "Mesas Ocacionales Exterior",
+        MTRS: "Motores",
+        ACENTO: "Mueble de acento",
+        MUEESP: "Mueble Especial",
+        MUTV: "Mueble Tv",
+        OTTO: "Ottoman",
+        PANE: "Panel Track",
+        PAN: "Pantalla",
+        PAPEL: "Papel Tapiz",
+        Perchero: "Perchero",
+        PERVER: "Persiana Vertical",
+        PIEL: "Piel",
+        PLAN: "Planta",
+        LIGHT: "Plisada",
+        Portavela: "Porta vela",
+        PORTA: "Porta-Retrato",
+        PROALM: "Protector Almohada",
+        PROCU: "Protector de Cuna",
+        RELL: "Relleno",
+        RELJ: "Reloj",
+        REPI: "Repisa",
+        RODA: "Rodapie",
+        ROM: "Romana",
+        ROPERO: "Ropero",
+        SABA: "Sabana",
+        SACO: "Saco/Colcha",
+        SAPI: "Sala De Piel",
+        SAT: "Sala Tela",
+        SART: "Sartenes",
+        SHAG: "Shaggy",
+        SILLA: "Silla",
+        SILLONES: "Sillones",
+        SOMB: "Sombrilla",
+        TAB: "Taburete",
+        TBAS: "Tapa De Base",
+        TAPA: "Tapa De Cristal",
+        TCOC: "Tapa De Comedor",
+        TELA: "Tela",
+        TELBE: "Telas Black-Out",
+        TELES: "Telas Especiales",
+        TELEX: "Telas Exteriores",
+        TELPLI: "Telas Plisadas",
+        TENCI: "Tendedero",
+        TOAL: "Toalla",
+        TOP: "Top",
+        TUB: "Tubo",
+        TUBCUR: "Tubos Curvos",
+        TUBREC: "Tubos Rectos",
+        TUN: "Tunnel",
+        TUNCA: "Tunnel Cama",
+        TUNTO: "Tunnel Toalla",
+        TELE: "TV",
+        UTILI: "Utileria",
+        VASO: "Vaso",
+        VENT: "Ventilador",
+        VIGNA: "Vinil",
+        VIST: "Vista",
+        ZAP: "Zapatera",
+      }
+
+      return productTypes;
     }
 
 

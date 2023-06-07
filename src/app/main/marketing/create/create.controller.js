@@ -6,15 +6,15 @@
 
     /** @ngInject */
     function MarketingCreateController(
-      $scope, 
+      $scope,
       $q,
       $location,
-      commonService, 
-      productService, 
-      promoService, 
-      api, 
-      dialogService, 
-      categoriesService, 
+      commonService,
+      productService,
+      promoService,
+      api,
+      dialogService,
+      categoriesService,
       fvService
     ){
         var vm = this;
@@ -25,13 +25,23 @@
             pushMoneyUnitType: 'ammount'
           },
           products: [],
+          inputs: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           displays: commonService.getDisplays(),
           paymentGroups: commonService.getPaymentGroups(),
+          predefinedDiscounts: commonService.getPredefinedDiscounts(),
           sasPromos: commonService.getSocietiesPromos(),
+          productTypeInputs: [],
+          newInput: {
+            value: '',
+            option: ''
+          },
+          productTypeOptions: commonService.getProductTypes(),
           create                   : create,
           onSelectEndDate          : onSelectEndDate,
           onSelectStartDate        : onSelectStartDate,
-          loadProducts: loadProducts
+          loadProducts: loadProducts,
+          updateInputs : updateInputs,
+          addInput : addInput,
         });
 
         function init(){
@@ -55,7 +65,7 @@
             sa:vm.promotion.sa,
             discount: vm.paymentGroups[0].discount
           };
-          
+
           promoService.searchPromotionProducts(params)
             .then(function(res){
               vm.isLoadingProducts = false;
@@ -116,6 +126,30 @@
               ewalletTypePg4 : vm.paymentGroups[3].ewalletType,
               ewalletTypePg5 : vm.paymentGroups[4].ewalletType,
 
+              discountRange1 : vm.inputs[0],
+              discountRange2 : vm.inputs[1],
+              discountRange3 : vm.inputs[2],
+              discountRange4 : vm.inputs[3],
+              discountRange5 : vm.inputs[4],
+              discountRange6 : vm.inputs[5],
+              discountRange7 : vm.inputs[6],
+              discountRange8 : vm.inputs[7],
+              discountRange9 : vm.inputs[8],
+              discountRange10 : vm.inputs[9],
+
+              discountRangePercent1 : vm.predefinedDiscounts[0].discountPercent,
+              discountRangePercent2 : vm.predefinedDiscounts[1].discountPercent,
+              discountRangePercent3 : vm.predefinedDiscounts[2].discountPercent,
+              discountRangePercent4 : vm.predefinedDiscounts[3].discountPercent,
+              discountRangePercent5 : vm.predefinedDiscounts[4].discountPercent,
+              discountRangePercent6 : vm.predefinedDiscounts[5].discountPercent,
+              discountRangePercent7 : vm.predefinedDiscounts[6].discountPercent,
+              discountRangePercent8 : vm.predefinedDiscounts[7].discountPercent,
+              discountRangePercent9 : vm.predefinedDiscounts[8].discountPercent,
+              discountRangePercent10 : vm.predefinedDiscounts[9].discountPercent,
+
+              productTypeDiscounts : vm.productTypeInputs,
+
             };
             angular.extend(vm.promotion, params);
 
@@ -141,6 +175,42 @@
             vm.promotion.code = commonService.formatHandle(newVal);
           }
         });
+
+        function chunk(array) {
+          var result = [];
+
+          array.forEach(function(element, index) {
+            var newPosition = index % 5;
+            if (!result[newPosition]) {
+              result[newPosition] = [];
+            }
+            result[newPosition].push(element);
+          });
+
+          return result;
+        }
+
+        function updateInputs (index) {
+          if (vm.inputs[index] && index < vm.inputs.length - 1) {
+            vm.inputs[index + 1] = vm.inputs[index] + 1;
+          }
+          console.log("vm.inputs",vm.inputs);
+          console.log("vm.predefinedDiscounts",vm.predefinedDiscounts);
+        };
+
+        function addInput () {
+          if (vm.newInput.value && vm.newInput.option) {
+            vm.productTypeInputs.push({
+              value: vm.newInput.value,
+              option: vm.newInput.option 
+            });
+            vm.newInput = {
+              value: '',
+              option: '',
+            };
+          }
+          console.log(vm.productTypeInputs);
+        };
 
         init();
     }
