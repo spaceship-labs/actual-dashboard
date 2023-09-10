@@ -41,6 +41,7 @@
             vm.isLoading = false;
             console.log(res);
             vm.group = res.data;
+            delete vm.group.password;
             vm.startTime = vm.group.startDate ? new Date(angular.copy(vm.group.startDate)) : new Date();
             vm.endTime = vm.group.endDate ? new Date(angular.copy(vm.group.endDate)) : new Date();
             $timeout(function(){
@@ -54,16 +55,20 @@
         function update(form){
           console.log('update');
           if(form.$valid && vm.group.Products.length > 0){
-            vm.isLoading = true;
-            if(vm.group.HasExpiration){
-              vm.group.startDate = commonService.combineDateTime(vm.group.startDate,vm.startTime);
-              vm.group.endDate = commonService.combineDateTime(vm.group.endDate,vm.endTime,59);
+            if(vm.group.Password && vm.group.Password === vm.group.confirmPassword || !vm.group.Password){
+              vm.isLoading = true;
+              if(vm.group.HasExpiration){
+                vm.group.startDate = commonService.combineDateTime(vm.group.startDate,vm.startTime);
+                vm.group.endDate = commonService.combineDateTime(vm.group.endDate,vm.endTime,59);
+              }
+              productService.updateGroup(vm.group.id, vm.group).then(function(res){
+                console.log(res);
+                vm.isLoading = false;
+                dialogService.showDialog('Agrupador actualizado');
+              });
+            }else{
+              dialogService.showErrorMessage('Contraseñas no coinciden');
             }
-            productService.updateGroup(vm.group.id, vm.group).then(function(res){
-              console.log(res);
-              vm.isLoading = false;
-              dialogService.showDialog('Agrupador actualizado');
-            });
           }
           else{
             var errors = [];
