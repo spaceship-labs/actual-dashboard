@@ -18,5 +18,10 @@
     "baseUrl": "http://api.miactual.com",
     "cdnUrl": "https://d116li125og699.cloudfront.net",
     "tokenPrefix": "production"
+  },
+  "staged": {
+    "baseUrl": "http://stagingapi.miactual.com",
+    "cdnUrl": "https://d116li125og699.cloudfront.net",
+    "tokenPrefix": "staged"
   }
 }
