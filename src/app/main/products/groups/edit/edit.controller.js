@@ -62,7 +62,7 @@
                 vm.group.endDate = commonService.combineDateTime(vm.group.endDate,vm.endTime,59);
               }
               productService.updateGroup(vm.group.id, vm.group).then(function(res){
-                delete reduce.password;
+                delete res.password;
                 console.log(res);
                 vm.isLoading = false;
                 dialogService.showDialog('Agrupador actualizado');
