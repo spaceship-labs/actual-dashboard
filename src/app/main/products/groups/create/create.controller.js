@@ -51,24 +51,27 @@
         function create(form){
           //if(form.$valid && vm.group.Products.length > 0){
           if(form.$valid){
-            vm.isLoading = true;
+            if(vm.group.Password === vm.group.confirmPassword){
+              vm.isLoading = true;
 
-            vm.group.Products = vm.group.Products.map(function(prod){
-              return prod.id;
-            });
+              vm.group.Products = vm.group.Products.map(function(prod){
+                return prod.id;
+              });
 
-            if(vm.group.HasExpiration){
-              vm.group.startDate = commonService.combineDateTime(vm.group.startDate,vm.startTime);
-              vm.group.endDate = commonService.combineDateTime(vm.group.endDate,vm.endTime,59);
+              if(vm.group.HasExpiration){
+                vm.group.startDate = commonService.combineDateTime(vm.group.startDate,vm.startTime);
+                vm.group.endDate = commonService.combineDateTime(vm.group.endDate,vm.endTime,59);
+              }
+
+              console.log(vm.group);
+              productService.createGroup(vm.group).then(function(res){
+                vm.isLoading = false;
+                dialogService.showDialog('Agrupador creado');
+                $location.path('/products/groups');
+              });
+            }else{
+              dialogService.showErrorMessage('Contraseñas no coinciden');
             }
-
-            console.log(vm.group);
-            productService.createGroup(vm.group).then(function(res){
-              vm.isLoading = false;
-              dialogService.showDialog('Agrupador creado');
-              $location.path('/products/groups');
-            });
-
           }
           else{
             var errors = [];
