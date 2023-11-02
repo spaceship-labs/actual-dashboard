@@ -110,7 +110,14 @@
               </section>
 
               <section  layout="row" layout-align="left start" layout-wrap>
-                <div style="margin-right:2em;">
+                <div flex="15" flex-sm="25" flex-xs="25" style="width: 2em;">
+                  <p>
+                    <md-checkbox ng-model="vm.group.IsPublic" aria-label="¿Es público?">
+                      ¿Es público?*
+                    </md-checkbox>
+                  </p>
+                </div>
+                <div class="input-element" flex="25" flex-sm="50" flex-xs="50" style="margin-right:0em;">
                   <p class="select-element-label"><label ><strong>Tipo de agrupador*</strong></label></p>
                   <md-input-container>
                     <md-select class="select-element" placeholder="Tipo" name="Tipo_agrupador" required ng-model="vm.group.Type">
