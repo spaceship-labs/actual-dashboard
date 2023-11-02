@@ -127,13 +127,13 @@
                     </md-select>
                   </md-input-container>
                 </div>
-                <div class="input-element" flex="25" flex-sm="100" flex-xs="100" style="margin-right:2em;">
+                <div ng-if="!vm.group.IsPublic" class="input-element" flex="25" flex-sm="100" flex-xs="100" style="margin-right:2em;">
                   <label>Contraseña*</label>
                   <div class="input-element-inner">
                     <input type="password" name="Contraseña" ng-model="vm.group.Password" required placeholder="Contraseña*">
                   </div>
                 </div>
-                <div class="input-element" flex="25" flex-sm="100" flex-xs="100" style="margin-right:2em;">
+                <div ng-if="!vm.group.IsPublic" class="input-element" flex="25" flex-sm="100" flex-xs="100" style="margin-right:2em;">
                   <label>Confirmar contraseña*</label>
                   <div class="input-element-inner">
                     <input type="password" name="Confirmar Contraseña" ng-model="vm.group.confirmPassword" required placeholder="Confirmar contraseña*">

@@ -101,13 +101,13 @@
                   </md-select>
                 </md-input-container>
               </div>
-              <div class="input-element" flex="25" flex-sm="100" flex-xs="100" style="margin-right:2em;">
+              <div ng-if="!vm.group.IsPublic" class="input-element" flex="25" flex-sm="100" flex-xs="100" style="margin-right:2em;">
                 <label>Actualizar contraseña*</label>
                 <div class="input-element-inner">
                   <input type="password" name="Actualizar Contraseña" ng-model="vm.group.Password" placeholder="Contraseña*">
                 </div>
               </div>
-              <div class="input-element" flex="25" flex-sm="100" flex-xs="100" style="margin-right:2em;" ng-if="vm.group.Password" >
+              <div ng-if="!vm.group.IsPublic" class="input-element" flex="25" flex-sm="100" flex-xs="100" style="margin-right:2em;" ng-if="vm.group.Password" >
                 <label>Confirmar contraseña actualizada*</label>
                 <div class="input-element-inner">
                   <input type="password" name="Confirmar Contraseña" ng-model="vm.group.confirmPassword" placeholder="Confirmar contraseña*" required>
